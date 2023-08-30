@@ -23,7 +23,7 @@ Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/
 [Technical Information](#technical-information)
 
 ## UX - Strategy 
-([back to top](#smoking-buns))
+[back to top](#the-lost-king-of-crapland,-part-1---amnesia)
 
 ### 1) Project Goals
 
@@ -36,10 +36,6 @@ These decisions will lead to different story paths, encounters and ultimate game
 degree by random chance, it is anticipated that the way player actions influence these odds could have a decisive effect on their 
 journey through the game.  As the first game (and indeed the series) develops it is envisaged that additional layers of interactivity 
 can be added for deeper player engagement and replayability; ultimately there is the potential for social sharing and perhaps even monetisation.
-
-it is envisaged that the game will be played by either gamers, particularly those with an interest in the RPG genre, 
-or office workers with too much time on their hands. As such the majority will likely be accessing it via laptop or desktop, 
-and sharing it via social channels like Discord and Slack or, in the office environment, via e-mail.
 
 ### 2) Developer Goals
 
