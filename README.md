@@ -81,7 +81,7 @@ or office workers with too much time on their hands. As such the majority will l
 and sharing it via social channels like Discord and Slack or, in the office environment, via e-mail.
 
 - Instant Access:  Office users in particular want to be able to click a button and get stuck in during their lunchbreak, without lots of interim steps
-- Character Creation:  Conversely, those with an interest in RPG games generally might like to have some input in this side of things
+- Character Creation:  Conversely, those with an interest in RPG games generally might like to have some input in this side of things - at the very least featuring their own choice of name.
 - Attractive/retro visuals: People want a visual and user engagement experience that adds value from the off. There is a huge appetite for retro gaming these days. 
 - Low attention span:  It's unlikely the majority of users will have time for a wall of text. Things will have to be to the point. There are so many other things they could be wasting their time on!
 - Make a difference:  users will want plenty of opportunities to influence gameplay, without having to micromanage.  They are lazy, but they like to be in control.
@@ -102,11 +102,10 @@ and sharing it via social channels like Discord and Slack or, in the office envi
 
 #### Structure
 
-- Landing Page state:  On landing clear information about the game, clear branding and theming, and obvious game start process.
-- Explore game state:  Where the story invites you to make choices (eg directions, actions, objects)
+- Landing page state:  On landing clear information about the game, clear branding and theming, and obvious game start processes.
+- Exploration game state:  Where the story invites you to make choices (eg directions, actions, objects)
 - Combat game state: Where the player does turn-based battle with fearsome enemies, which will be depicted on screen.
 - Game ending state: Where the game outcome is provided, along with the option to restart or create another character.
-- Storyline: The MVP version of the storyline is limited to a single story loop, which may be expanded upon depending on time constraints.
 
 #### Features
 
@@ -116,14 +115,9 @@ and sharing it via social channels like Discord and Slack or, in the office envi
 - Story:  There will be a section of the page where the story unfolds, or where combat is played out (including images of enemies)
 - Player Info: there will be a section of the page where the player's information is listed.
 - Player objects: There will be a section of the page where items a player has accrued will appear.
+- Storyline: The MVP version of the storyline is limited to a single story loop, which may be expanded upon depending on time constraints.
 
-### Additional Elements
-
-#### Structure
-
- - Storyline: An extended storyline with escalating difficulty and more varied choices with multiple end points (leading into the secont part of the story, which would be beyond the scope of this project)
-
-#### Features
+### Optional Features
 
 - Highest Score / fastest time list:  Post-game screen could write/retrieve high score data from file
 - Post to Social API:  Provide players with the option to post their high score / best time to social, and thus promote the game.
@@ -131,9 +125,94 @@ and sharing it via social channels like Discord and Slack or, in the office envi
 - Extended Inventory: with drag and drop mechanics.  Problematic on mobile.
 - Tutorial Hints: For first time players.  Likely to be sarcastic.
 - Multiple Difficulty Levels: Affecting player/emnemy stats and success odds.
+- Different character classes: these would influence gameplay options and play-style creating more variety.
 - Reactive text: When you visit locations multiple times (whether on first or subsequent playthroughs) different text may be served.
 - Time-based interventions:  Providing the player feedback based on how long it is taking them to complete the game or a game section
 - Tool-tips:  Players will be able to mouse-over items/click on item menus to find out more information.
+- Storyline: An extended storyline with escalating difficulty and more varied choices with multiple end points (leading into the second part of the story, which would be beyond the scope of this project)
+
+## UX - Structure
+
+### Navigation
+
+This game will be built on a single page so there will be no traditional site navigation. However the user will still need to navigate between the game states:
+
+- quickstart / create character navigation
+- restart/reset game navigation (both on end game and throughout to eliminate need to use browser controls)
+- provide player input (ideally somewhere clearly visible, following any story text, near to the centre of the screen.)
+
+### Landing Page State
+
+The landing page should get across the look and feel of the site straight away.  
+
+#### Essential elements:
+
+- imagery and theming consistent with the gaming experience
+- Immediate and obvious access to a start game trigger (including character name entry)
+
+#### Optional elements:
+
+- character creation feature
+- high scores/best times
+
+### Universal game page elements:
+
+Once the game has begun it will revert straight away to the exploration game state.
+The page will contain these common page elements throughout, which will be consistently sited:
+
+- character information (eg base stats, health points, modifiers)
+- Item information (consisting predominantly of a list of icons with a name and their effects)
+- Central game state dependent element (what is displayed in this area of the page will vary depending on game state.)
+
+### Exploration game state
+
+Once the game has begun it will revert straight away to the exploration game state, which will be clearly flagged to the user. The central element of the page will relay the following:
+
+- Story information:  A narrative of where their choices have taken them (or at the start, and introductory narrative)
+- Player options:  A list of options for actions the player can take (or a simple confirmation button if options are limited...)
+- background element: each location will have a different page background depending on where the player has wound up.
+- image element:  It's possible a player will be presented with other information (eg items, or potential foes) as they come across them, to help inform their decisions.
+
+### Combat game state
+
+Once a player enters combat with a hostile creature (or creatures) this will be clearly flagged to them.  The central element of the page will then contain the following:
 
 
+- This will feature an image of the player's combat opponent plus their stats
+- the player will be presented with decisions they can take during combat, which will take place in rounds.
+- Once the combat is resolved the player will be shown the outcome.
 
+### End game state
+
+Once the game has ended - more than likely this will resemble the landing page, but with different key information:
+
+#### Essential elements:
+
+-  the player will be treated to a summary of what has just happened, 
+-  the player will receive their score
+-  The player will be informed of the time they have spent in game.
+-  The player will be given the option to re-start (with their same base character) or reset with a new character.
+
+#### Optional elements:
+
+- High scores / hall of fame.
+- More in-depth stats and analysis of character play-style.
+- Options to share / receive game data via APIs
+
+## UX - Skeleton
+
+### Design Choices
+
+Because this application is a game, it needs to be designed around an intended medium so that it is fit for purpose.  
+There are far too many examples of games built for console ending up on PC platforms and feeling lightweight (compare Phoenix Point to the original UFO: Enemy Unknown for example), 
+Equally games built for PC can feel cumbersome and counter-intuitive on a console. Can you imagine playing Football Manager on a console?
+
+Likewise, mobile functionality is very different to desktop functionality; people interact with mobile differently and play different types of game on mobile.  
+Even games like Minecraft which have notably bridged the gap have a completely different version with a different UI for mobile, which is far beyond the scope of this project. 
+
+I have kept all this in mind when thinking about my design choices:
+
+- Whilst the game will configured to display responsively, it will be designed to display optimally on full size screens, between 1200px and 1980px wide, and played with a keyboard and mouse.
+- To enable instant user engagement and stickiness, there is intented to be zero learning curve to play (although there will be nuances to be found).
+- Although it is a dynamic site, key elements of the page will be sited consistently.
+- The dynamic content will display consistently and logically, and the locations where user input is required will not vary.
