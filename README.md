@@ -132,6 +132,7 @@ and sharing it via social channels like Discord and Slack or, in the office envi
 - Storyline: An extended storyline with escalating difficulty and more varied choices with multiple end points (leading into the second part of the story, which would be beyond the scope of this project)
 
 ## UX - Structure
+([back to top](#the-lost-king-of-crapland,-part-1---amnesia))
 
 ### Navigation
 
@@ -200,6 +201,7 @@ Once the game has ended - more than likely this will resemble the landing page, 
 - Options to share / receive game data via APIs
 
 ## UX - Skeleton
+([back to top](#the-lost-king-of-crapland,-part-1---amnesia))
 
 ### Design Choices
 
@@ -216,3 +218,8 @@ I have kept all this in mind when thinking about my design choices:
 - To enable instant user engagement and stickiness, there is intented to be zero learning curve to play (although there will be nuances to be found).
 - Although it is a dynamic site, key elements of the page will be sited consistently.
 - The dynamic content will display consistently and logically, and the locations where user input is required will not vary.
+
+### Wireframes
+
+
+Please find the wireframes [HERE](WIREFRAMES.md).
