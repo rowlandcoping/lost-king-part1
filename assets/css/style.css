@@ -1,0 +1,23 @@
+body {
+    background-color: #000;
+    
+}
+
+#landing-page {
+    display: flex;
+    flex-flow: column;
+    align-items:center;
+    justify-content: center;
+    height:98vh;
+}
+
+#landing-image-container {
+    text-align: center;
+    display: block;
+    background-image: url("../images/backgrounds/corridor2.jpeg");
+    background-repeat: no-repeat;
+    background-size: auto 100%;
+    color: #fff;
+    width: 100vh;
+    height: 85vh;
+}
