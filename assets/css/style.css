@@ -1,5 +1,6 @@
 body {
     background-color: #000;
+    color: #fff;
     
 }
 
@@ -12,12 +13,28 @@ body {
 }
 
 #landing-image-container {
+    position: relative;
     text-align: center;
     display: block;
+    flex-flow: column;
     background-image: url("../images/backgrounds/corridor2.jpeg");
     background-repeat: no-repeat;
     background-size: auto 100%;
-    color: #fff;
+    
     width: 100vh;
     height: 85vh;
+    justify-content: center;
+    align-items: center;
+}
+
+#bottom-section-container {
+    position: absolute;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#bottom-section {
+    display:flex;
+    flex-flow: row;
 }
