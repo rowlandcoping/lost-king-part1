@@ -223,3 +223,10 @@ I have kept all this in mind when thinking about my design choices:
 
 
 Please find the wireframes [HERE](WIREFRAMES.md).
+
+
+Credits:
+
+https://stackoverflow.com/questions/66349868/jest-unit-testing-module-export-error-in-browser-console
+
+way of preventing module not defined error in dev tools.

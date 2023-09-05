@@ -16,8 +16,12 @@ function startGame(event) {
     document.getElementById('game-page').style.display = "flex";
 }
 
-let startButton =  document.getElementById('start-game-button');
-startButton.addEventListener('click', startGame);
+document.addEventListener('DOMContentLoaded', function () {  
+    let startButton =  document.getElementById('start-game-button');
+    startButton.addEventListener('click', startGame);
+});
 
-module.exports = { mainCharacter, startGame };
+var module = module || {};
+module.exports = { mainCharacter };
+
 

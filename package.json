@@ -1,0 +1,17 @@
+{
+  "name": "lost-king-part1",
+  "version": "1.0.0",
+  "description": "Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/RPG story built in HTML, CSS, and JavaScript.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.6.4"
+  },
+  "dependencies": {
+    "jest-environment-jsdom": "^29.6.4"
+  }
+}
