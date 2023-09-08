@@ -8,7 +8,9 @@ const mainCharacter = {
 };
 
 function startGame(event) {
+    if (!mainCharacter.name) {
     mainCharacter.name = document.getElementById('character-name').value;
+    }
     document.getElementById('landing-page').style.display = "none";
     document.getElementById('game-page').style.display = "flex";
 }

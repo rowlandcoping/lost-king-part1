@@ -38,6 +38,7 @@ describe("start game button callback function works as intended", ()=>{
    document.getElementById('character-name').value = "Randy Tangent";
    startGame();
    })
+   
    test("name field in mainCharacter correctly populated", () =>{
       expect(mainCharacter.name).toBe("Randy Tangent");
    }),
