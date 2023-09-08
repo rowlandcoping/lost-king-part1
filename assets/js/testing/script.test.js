@@ -35,17 +35,47 @@ describe("mainCharacter object contains correct properties", ()=>{
 
 describe("start game button callback function works as intended", ()=>{
    beforeAll(() => {
-   document.getElementById('character-name').value = "Randy Tangent";
-   startGame();
-   })
-   
+      document.getElementById('character-name').value = "Randy Tangent";
+      startGame();
+   }),
    test("name field in mainCharacter correctly populated", () =>{
       expect(mainCharacter.name).toBe("Randy Tangent");
+   }),
+   test("name is added to initial gameplay section", () =>{
+      expect(document.getElementById('initial-name').innerHTML).toBe("Randy Tangent");
    }),
    test("landing-page div is hidden", () =>{
       expect(document.getElementById('landing-page').style.display).toBe("none");
    }),
    test("game-page div is set to flex", () =>{
       expect(document.getElementById('game-page').style.display).toBe("flex");
+   }),
+   test("strength property written to character sheet on page", () =>{
+      expect(document.getElementById('main-strength').innerHTML).toBe("15");
+   }),
+   test("speed property written to character sheet on page", () =>{
+      expect(document.getElementById('main-speed').innerHTML).toBe("15");
+   }),
+   test("stamina property written to character sheet on page", () =>{
+      expect(document.getElementById('main-stamina').innerHTML).toBe("15");
+   }),
+   test("luck property written to character sheet on page", () =>{
+       expect(document.getElementById('main-luck').innerHTML).toBe("15");
    })
+
 });
+
+/*
+describe("Intro page works as intended", ()=>{
+   beforeAll(() => {
+      document.getElementById('character-name').value = "Randy Tangent";
+      startGame();
+   }),
+   test("name field in mainCharacter correctly populated", () =>{
+      expect(mainCharacter.name).toBe("Randy Tangent");
+   }),
+   test("name is added to initial gameplay section", () =>{
+      expect(document.getElementById('initial-name').innerHTML).toBe("Randy Tangent");
+   }),
+});
+*/

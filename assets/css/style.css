@@ -1,8 +1,16 @@
 body {
     background-color: #000;
-    color: #fff;
-    
+    color: #fff;  
 }
+
+ul {
+    text-decoration: none;
+    list-style: none;
+    margin:0;
+    padding:0;
+}
+
+/*landing page*/
 
 #landing-page {
     display: flex;
@@ -15,35 +23,170 @@ body {
 #landing-image-container {
     position: relative;
     text-align: center;
-    display: block;
+    display: flex;
     flex-flow: column;
     background-image: url("../images/backgrounds/corridor2.jpeg");
     background-repeat: no-repeat;
-    background-size: auto 100%;
-    
+    background-size: auto 100%; 
     width: 100vh;
     height: 85vh;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
 }
 
-#bottom-section-container {
-    position: absolute;
-    bottom: 100px;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#bottom-section {
+#bottom-landing-section {
     display:flex;
-    flex-flow: row;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    margin-bottom: 50px;
 }
 
+#landing-image-right, #landing-image-left {
+    flex:1;
+}
 
+#landing-image-right img, #landing-image-left img {
+    padding:0 20px;
+    width: 175px;
+}
+
+#start-game-section {
+    flex:1;
+}
+
+#start-game-section form input, #start-game-section button {
+    width: 75%;
+    margin: 5px;
+    text-align:center;
+}
+
+#start-game-section form input placeholder {
+    color:lightslategray;
+}
+
+/*Game Page*/
 
 #game-page {
     display:none;
+    flex-flow: column;
+    width: 100%;
 }
+
+/* Title section */
+
+#title-section {
+    display:flex;
+    justify-content: space-between;
+    margin:0px 200px;
+}
+
+/*main body of page*/
+#centre-section {
+    display:flex;
+    margin:0px 200px;
+    text-align: center;
+}
+
+/*character image element and stats*/
+#character-section {
+    display:flex;
+    flex-flow: column;
+    border: 2px solid green;
+    padding:5px;
+    flex:1;
+}
+
+#character-image {
+    padding: 10px;
+}
+/* Main game-play area */
+#game-section {
+    display: flex;
+    flex-direction: column;
+    flex:3;
+    margin-left:50px;
+    background: url("../images/backgrounds/corridor2.jpeg") no-repeat left center;
+    background-size: 100%;
+    height:60vh;
+    justify-content: center;
+}
+
+#image-section {
+    display: none;
+    flex-flow: row-reverse;
+    justify-content: space-around;
+    padding:5px;
+    border: 2px solid red;
+    width:100%; 
+}
+
+#battle-text {
+    display:none;
+}
+
+#image {
+    padding: 10px;
+}
+
+.choice-button {
+    margin: 3px 0;
+    width:75%;
+}
+
+/* bottom items and game restart section */
+
+#bottom-game-section {
+    display:flex;
+    margin: 10px 200px;
+}
+
+#game-navigation {
+    flex:1;
+    text-align:center;
+    justify-content:center;
+}
+
+#game-navigation button {
+    width:75%;
+    margin-bottom:10px;
+}
+
+#player-items {
+    flex:3;
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.item-display {
+    display:flex;
+    align-items: center;
+    border: 2px solid blue;
+    margin: 10px;
+    padding: 3px;
+}
+
+.item-image img {
+    width: 70px;
+    margin: 0 15px;
+}
+
+.item-text {
+    width: 70px;
+    text-align:center;
+}
+.item-text h4 {
+    margin:0;
+    padding:0;
+}
+
+.item-text hr {
+    width:75%;
+}
+
+
+/*End Page*/
 
 #gameover-page {
     display:none;

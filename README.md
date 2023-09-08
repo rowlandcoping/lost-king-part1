@@ -1,4 +1,4 @@
-# The Lost King of CrapLand, Part 1 - Amnesia
+# The Lost King of Catland
 
 Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/RPG story built in HTML, CSS, and JavaScript.
 
@@ -23,7 +23,7 @@ Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/
 [Technical Information](#technical-information)
 
 ## UX - Strategy 
-([back to top](#the-lost-king-of-crapland,-part-1---amnesia))
+([back to top](#the-lost-king-of-catland))
 
 ### 1) Research
 
@@ -90,7 +90,7 @@ and sharing it via social channels like Discord and Slack or, in the office envi
 - Brief but glorious:  This is a lunchbreak/codebreak thing, and there will be no save game function, so it needs to be over relatively quickly.
 
 ## UX - Scope
-([back to top](#the-lost-king-of-crapland,-part-1---amnesia))
+([back to top](#the-lost-king-of-catland))
 
 ### Technology
 
@@ -132,7 +132,7 @@ and sharing it via social channels like Discord and Slack or, in the office envi
 - Storyline: An extended storyline with escalating difficulty and more varied choices with multiple end points (leading into the second part of the story, which would be beyond the scope of this project)
 
 ## UX - Structure
-([back to top](#the-lost-king-of-crapland,-part-1---amnesia))
+([back to top](#the-lost-king-of-catland))
 
 ### Navigation
 
@@ -201,7 +201,7 @@ Once the game has ended - more than likely this will resemble the landing page, 
 - Options to share / receive game data via APIs
 
 ## UX - Skeleton
-([back to top](#the-lost-king-of-crapland,-part-1---amnesia))
+([back to top](#the-lost-king-of-catland))
 
 ### Design Choices
 

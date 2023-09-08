@@ -17,59 +17,151 @@
                     <h1>The Lost King of Catland
                     <br>Part 1: Amnesia</h1>
                 </div>
-                <div id="bottom-section-container">
-                    <div id="bottom-section">
-                        <div id="landing-image-right">
-                            <img src="assets/images/">
-                        </div>
-                        <div id="start-game-section">
-                            <form id="enter-name-form" action="" method="GET">
-                                <input type="text" id="character-name" name="character-name" value="Random">
-                            </form>
-                            <button id="start-game-button">Start Game!</button>
-                        </div>
-                        <div id="landing-image-left">
-                            <img src="assets/images/">
-                        </div>              
+                <div id="bottom-landing-section">
+                    <div id="landing-image-right">
+                        <img src="assets/images/character-profiles/warrior-face.png">
                     </div>
-                </div>
-            </div>
-            
+                    <div id="start-game-section">
+                        <form id="enter-name-form" action="" method="POST">
+                            <input type="text" id="character-name" name="character-name" placeholder="Enter Character's Name">
+                        </form>
+                        <button id="start-game-button">Start Game!</button>
+                    </div>
+                    <div id="landing-image-left">
+                        <img src="assets/images/character-profiles/warrior-face.png">
+                    </div>              
+                </div>               
+            </div>            
         </div>
 
 <!-- Game Page (in-game state)-->
 
         <div id="game-page">
             <div id="title-section">
-                <p>TITS</p>
+                <div id="title-left"><h1>The Lost King of Catland</h1></div>
+                <div id="title-right"><h2>Part 1 - Amnesia</h2></div>
             </div>
             <div id="centre-section">
                 <div id="character-section">
                     <div id="character-image">
+                        <img src="assets/images/character-profiles/warrior-face.png" width="150px">
                     </div>
                     <div id="character-stats">
+                        <h3>Identity Unknown</h3>
+                        <ul>
+                            <li>Strength: <span id="main-strength"></span></li>
+                            <li>Speed: <span id="main-speed"></span></li>
+                            <li>Stamina: <span id="main-stamina"></span></li>
+                            <li>Luck: <span id="main-luck"></span></li>
+                        </ul>
                     </div>
                 </div>
                 <div id="game-section">
                     <!-- Optional image and text/stats-->
                     <div id="image-section">
+                        <div id="image">
+                            <img src="assets/images/character-profiles/warrior-face.png" width="200px">
+                        </div>
+                        <div id="image-text">
+                            <h4>Ragnar the horrible</h4>
+                            <ul>
+                                <li>Eats Mud</li>
+                                <li>Drinks Tea</li>
+                                <li>Sleeps with your sister</li>
+                            </ul>
+                        </div>
                     </div>
-                    <div id="image">    
-                    </div>
-                    <div id="image-text">
+                    <!--Text to describe battles and outcome-->
+                    <div id="battle-text">
+                        <p>Ragnar thumps you hard in the nose, causing a contusion and a lot of confusion</p>
                     </div>
                     <!-- Text for main description of what's going on -->
-                    <div id="game-text">            
+                    <div id="game-text">
+                        <p>You awaken.  You become aware of something.  It is pain.  Although it doesn't seem like a great idea, you try to open your eyes...</p> 
+                        <br>It feels like they are welded together.  You reach for them, find a thin crust of blood.  With great effort you prise the lids open.</p>
+
+                        <p>It makes no discernable difference.  Either you are blind, or it is deep, pitch dark.</p>
+                        
+                        <p>But who are you?</p>
+                        <p>"Who am I???"</p>
+                        <p>Somebody spoke the words.  You think that it was you.</p>
                     </div>
                     <!-- Options for the player to select from -->
                     <div id="choices-section">
+                        <ul>
+                            <!-- may be better to create these buttons dynamically -->
+                            <li><button class="choice-button" id="choice1">That's easy.  I am called... <span id="initial-name"></span></button></li>
+                            <li><button class="choice-button" id="choice2">I am The Soul Of DARKNESSSSS.</button></li>
+                            <li><button class="choice-button" id="choice3">It's...... too early to say.</button></li>
+                        </ul>
                     </div>                    
                 </div>
             </div>
-            <div id="bottom-section">
+            <div id="bottom-game-section">
                 <div id="game-navigation">
+                    <ul>
+                        <li><button class="restart-game">Restart Game</button></li>
+                        <li><button class="reset-game">Reset Character</button></li>
+                    </ul>
                 </div>
                 <div id="player-items">
+                    <div class="item-display" id="weapon-item">
+                        <div class="item-image" id="weapon-item-image">
+                            <img src="assets/images/items/placeholder-sword.jpeg">
+                        </div>
+                        <div class="item-text" id="weapon-item-stats">
+                            <h4>Dagger of Doom</h4>
+                            <hr>
+                            <ul>
+                                <li>stat 1</li>
+                                <li>stat 2</li>
+                                <li>stat 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item-display" id="defence-item">
+                        <div class="item-image" id="defence-item-image">
+                            <img src="assets/images/items/placeholder-sword.jpeg">
+                        </div>
+                        <div class="item-text" id="defence-item-stats">
+                            <h4>Shield of Harmony</h4>
+                            <hr>
+                            <ul>
+                                <li>stat 1</li>
+                                <li>stat 2</li>
+                                <li>stat 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item-display" id="potion-item">
+                        <div class="item-image" id="potion-item-image">
+                            <img src="assets/images/items/placeholder-sword.jpeg">
+                        </div>
+                        <div class="item-text" id="potion-item-stats">
+                            <h4>Potion of Catnip</h4>
+                            <hr>
+                            <ul>
+                                <li>stat 1</li>
+                                <li>stat 2</li>
+                                <li>stat 3</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="item-display" id="random-item">
+                        <div class="item-image" id="random-item-image">
+                
+                            <img src="assets/images/items/placeholder-sword.jpeg">
+                        </div>
+                        <div class="item-text" id="random-item-stats">
+                            <h4>Bag of cables</h4>
+                            <hr>
+                            <ul>
+                                <li>stat 1</li>
+                                <li>stat 2</li>
+                                <li>stat 3</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
