@@ -38,3 +38,13 @@ body {
     display:flex;
     flex-flow: row;
 }
+
+
+
+#game-page {
+    display:none;
+}
+
+#gameover-page {
+    display:none;
+}

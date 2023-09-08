@@ -7,21 +7,19 @@ const mainCharacter = {
     luck: ""
 };
 
-
-
 function startGame(event) {
-    let characterName = document.getElementById('character-name');
-    mainCharacter.name = characterName.value;
+    mainCharacter.name = document.getElementById('character-name').value;
     document.getElementById('landing-page').style.display = "none";
     document.getElementById('game-page').style.display = "flex";
 }
 
 document.addEventListener('DOMContentLoaded', function () {  
-    let startButton =  document.getElementById('start-game-button');
-    startButton.addEventListener('click', startGame);
+    document.getElementById('start-game-button').addEventListener('click', startGame);
 });
 
+
+
 var module = module || {};
-module.exports = { mainCharacter };
+module.exports = { mainCharacter, startGame };
 
 
