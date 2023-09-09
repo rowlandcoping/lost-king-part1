@@ -184,21 +184,24 @@ function generateStats(character, min, max, hMin, hMax) {
 }
 
 function resetGame() {
+    localStorage.clear();
     mainCharacter.name = "";
     mainCharacter.strength = "";
     mainCharacter.speed = "";
     mainCharacter.stamina = "";
     mainCharacter.luck = "";
     mainCharacter.health = "";
+    mainCharacter.score = "";
     document.getElementById('landing-page').style.display = "flex";
     document.getElementById('game-page').style.display = "none";
-    localStorage.clear();
+    document.getElementById('gameover-page').style.display = "none";
+    document.getElementById('final-score').innerHTML = "";    
 }
 
 
 function startGame(event) {
-    if (!mainCharacter.name) {
-        localStorage.clear();
+    localStorage.clear();
+    if (!mainCharacter.name) {        
         if (document.getElementById('character-name').value) {
         mainCharacter.name = document.getElementById('character-name').value;
         generateStats (mainCharacter, 12, 20, 50, 100);
@@ -207,13 +210,15 @@ function startGame(event) {
             generateStats (mainCharacter, 12, 20, 50, 100);
            }
     }
-    mainCharacter.score = "0";
+    mainCharacter.score = 0;
     writeInitialToDom();
 }
 
 function writeInitialToDom() {
     document.getElementById('landing-page').style.display = "none";
     document.getElementById('game-page').style.display = "flex";
+    document.getElementById('gameover-page').style.display = "none";
+    document.getElementById('final-score').innerHTML = "";  
     document.getElementById('main-strength').innerHTML = mainCharacter.strength;
     document.getElementById('main-speed').innerHTML = mainCharacter.speed;
     document.getElementById('main-stamina').innerHTML = mainCharacter.stamina;
@@ -223,6 +228,12 @@ function writeInitialToDom() {
     document.getElementById('choices-section').innerHTML = optionsOne;    
 }
 
+function gameOverGiveUp() {
+    document.getElementById('final-score').innerHTML = mainCharacter.score;
+    document.getElementById('gameover-page').style.display="flex";
+    document.getElementById('game-page').style.display="none";
+    document.getElementById('game-outcome').innerHTML = giveUp;
+};
 function openEyes(){    
     document.getElementById('game-text').innerHTML = pageTwo;
     document.getElementById('choices-section').innerHTML = optionsTwoFirst + mainCharacter.name + optionsTwoSecond;   
@@ -232,24 +243,39 @@ function openEyes(){
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('start-game-button').addEventListener('click', startGame);
 });
-/*restart character button event handler*/
+/*restart character button event handlers*/
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('restart-game-button').addEventListener('click', startGame);
 });
-/*reset character button event handler*/
+document.addEventListener('DOMContentLoaded', function () {  
+    document.getElementById('restart-game-button-end').addEventListener('click', startGame);
+});
+/*reset character button event handlers*/
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('reset-game-button').addEventListener('click', resetGame);
+});
+document.addEventListener('DOMContentLoaded', function () {  
+    document.getElementById('reset-game-button-end').addEventListener('click', resetGame);
 });
 
 /*GAME EVENT HANDLERS*/
 
 /*page one event handlers*/
 
-    document.addEventListener("click", function(e){
-        const target = e.target.closest("#choice-one"); // Or any other selector.
-        if(target){
-            openEyes();
-        }
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-one"); // Or any other selector.
+    if(target){
+        mainCharacter.score +=1;
+        openEyes();
+    }
+ });
+
+ document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-two"); // Or any other selector.
+    if(target){
+        mainCharacter.score -=5;
+        gameOverGiveUp();     
+    }
  });
 
 
@@ -264,11 +290,11 @@ const pageOne = `
     
     <p>You reach for them, find a thin crust of blood. You try to prise them open.  The pain grows.</p>    
 `;
-
 const optionsOne = `
     <li><button class="choice-button" id="choice-one">Open your eyes.</button></li>
     <li><button class="choice-button" id="choice-two">Give up.</button></li>
 `;
+
 /* page two */
 const pageTwo = `
     <p>It makes no discernable difference.  Either you are blind, or it is deep, pitch dark.</p>
@@ -277,6 +303,13 @@ const pageTwo = `
     <p>"Who am I???"</p>
     <p>Somebody spoke the words.  You think that it was you.</p>
 `;
+const giveUp = `
+        <p>You force the pain and the cruel world that accompanies it to the back of your mind.</p>
+        <p>Your head sinks slowly back to the rough, cool, rocky floor.</p>
+        <p>Your eyes relax, and you breathe the darkness in.</p>
+        <p>They never open again</p>
+        <p>YOU ARE DEAD</p>
+        `   
 
 const optionsTwoFirst = `
     <li><button class="choice-button" id="choice-three">That's easy.  I am called... `   
@@ -286,8 +319,11 @@ const optionsTwoSecond = `
     <li><button class="choice-button" id="choice-five">It's...... too early to say.</button></li>
 `;
 
+/* page three */
+
 
 var module = module || {};
-module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, pageOne, optionsOne };
+module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
+    pageOne, optionsOne, gameOverGiveUp, giveUp };
 
 

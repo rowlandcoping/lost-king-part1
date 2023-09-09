@@ -75,7 +75,7 @@ ul {
 
 /* Title section */
 
-#title-section {
+.title-section {
     display:flex;
     justify-content: space-between;
     margin:0px 200px;
@@ -191,4 +191,36 @@ ul {
 
 #gameover-page {
     display:none;
+    flex-flow: column;
+    width: 100%;
+    text-align:center;
+    margin: auto;
+    
+}
+
+#gameover-image-container {
+    display: flex;
+    flex-flow: column;
+    margin-left:50px;
+    background: url("../images/backgrounds/corridor2.jpeg") no-repeat left center;
+    background-size: 100% 100%;
+    margin: auto;
+    width: 80vw;
+    height:80vh;
+    justify-content: space-between; 
+    align-items: center;
+}
+
+#stats-container {
+    margin-top: 75px;
+}
+
+#end-game-navigation {
+    width: 50%;
+    margin-bottom: 75px; 
+}
+
+#end-game-navigation button {
+    width:75%;
+    margin-top:10px;
 }

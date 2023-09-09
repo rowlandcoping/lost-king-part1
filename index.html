@@ -37,7 +37,7 @@
 <!-- Game Page (in-game state)-->
 
         <div id="game-page">
-            <div id="title-section">
+            <div class="title-section">
                 <div id="title-left"><h1>The Lost King of Catland</h1></div>
                 <div id="title-right"><h2>Part 1 - Amnesia</h2></div>
             </div>
@@ -157,19 +157,28 @@
 
 <!-- Game-over page (end game state) -->
         <div id="gameover-page">
-            <div id="title-section">
+            <div class="title-section">
+                <div id="title-left"><h1>The Lost King of Catland</h1></div>
+                <div id="title-right"><h2>Part 1 - Amnesia</h2></div>
             </div>
             <div id="gameover-image-container">
                 <div id="stats-container">
-                    <div id="time-played">
+                    <div>
+                        <h2>Time In Game: <span id="time-played"></span></h2>
                     </div>
-                    <div id="final-score">
+                    <div>
+                        <h2>Score: <span id="final-score"></span></h2>
                     </div>
                 </div>
                 <div id="game-outcome">
                 </div>
-            </div>
-            <div id="end-game-navigation">
+            
+                <div id="end-game-navigation">
+                    <ul>
+                        <li><button id="restart-game-button-end">Restart Game</button></li>
+                        <li><button id="reset-game-button-end">Reset Character</button></li>
+                    </ul>
+                </div>
             </div>
         </div>
 

@@ -2,7 +2,8 @@
  * @jest-environment jsdom
  */
 
-const { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, pageOne, optionsOne } = require("../script.js");
+const { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
+   pageOne, optionsOne, gameOverGiveUp, giveUp } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -171,3 +172,18 @@ describe("reset character button works as intended", ()=>{
 });
 
 
+
+describe("ensure gameOverGiveUp function works as intended", ()=>{
+   beforeAll(() => {
+      gameOverGiveUp();      
+   }),
+   test("game over page is displayed", () =>{
+      expect(document.getElementById('gameover-page').style.display).toBe("flex");
+   }),
+   test("game page is hidden", () =>{
+      expect(document.getElementById('game-page').style.display).toBe("none");
+   }),
+   test("game over text is displayed", () =>{
+      expect(document.getElementById('game-outcome').innerHTML).toBe(giveUp);
+   })
+});
