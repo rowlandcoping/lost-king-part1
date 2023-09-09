@@ -53,6 +53,7 @@
                             <li>Speed: <span id="main-speed"></span></li>
                             <li>Stamina: <span id="main-stamina"></span></li>
                             <li>Luck: <span id="main-luck"></span></li>
+                            <li>Health: <span id="main-health"></span></li>
                         </ul>
                     </div>
                 </div>
@@ -77,22 +78,11 @@
                     </div>
                     <!-- Text for main description of what's going on -->
                     <div id="game-text">
-                        <p>You awaken.  You become aware of something.  It is pain.  Although it doesn't seem like a great idea, you try to open your eyes...</p> 
-                        <br>It feels like they are welded together.  You reach for them, find a thin crust of blood.  With great effort you prise the lids open.</p>
-
-                        <p>It makes no discernable difference.  Either you are blind, or it is deep, pitch dark.</p>
                         
-                        <p>But who are you?</p>
-                        <p>"Who am I???"</p>
-                        <p>Somebody spoke the words.  You think that it was you.</p>
                     </div>
                     <!-- Options for the player to select from -->
-                    <div id="choices-section">
-                        <ul>
-                            <!-- may be better to create these buttons dynamically -->
-                            <li><button class="choice-button" id="choice1">That's easy.  I am called... <span id="initial-name"></span></button></li>
-                            <li><button class="choice-button" id="choice2">I am The Soul Of DARKNESSSSS.</button></li>
-                            <li><button class="choice-button" id="choice3">It's...... too early to say.</button></li>
+                    <div>
+                        <ul id="choices-section">                
                         </ul>
                     </div>                    
                 </div>
@@ -100,8 +90,8 @@
             <div id="bottom-game-section">
                 <div id="game-navigation">
                     <ul>
-                        <li><button class="restart-game">Restart Game</button></li>
-                        <li><button class="reset-game">Reset Character</button></li>
+                        <li><button id="restart-game-button">Restart Game</button></li>
+                        <li><button id="reset-game-button">Reset Character</button></li>
                     </ul>
                 </div>
                 <div id="player-items">

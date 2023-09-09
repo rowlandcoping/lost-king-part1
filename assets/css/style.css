@@ -156,7 +156,8 @@ ul {
     flex:3;
     display:flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-around;
+    margin-left:50px;
 }
 
 .item-display {
@@ -168,7 +169,7 @@ ul {
 }
 
 .item-image img {
-    width: 70px;
+    width: 80px;
     margin: 0 15px;
 }
 
