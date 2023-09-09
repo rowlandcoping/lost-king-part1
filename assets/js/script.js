@@ -8,10 +8,172 @@ const mainCharacter = {
     health: ""
 };
 
+const characterWeapons = [
+    {
+        name: "Oathbringer",
+        attack: "15",
+        speed: "-5",
+        magic: "",
+        type: "sharp",
+        image: ""
+    },
+    {
+        name: "Cat Sword",
+        attack: "10",
+        speed: "5",
+        magic: "",
+        type: "sharp",
+        image: ""
+    },
+    {
+        name: "Rusty Dagger",
+        attack: "0",
+        speed: "5",
+        magic: "",
+        type: "sharp",
+        image: ""
+    },
+    {
+        name: "Gnarled Club",
+        attack: "3",
+        speed: "0",
+        magic: "",
+        type: "blunt",
+        image: ""
+    },
+    {
+        name: "Gleaming Mace",
+        attack: "5",
+        speed: "5",
+        magic: "",
+        type: "blunt",
+        image: ""
+    },
+    {
+        name: "Wand of Fire",
+        attack: "10",
+        speed: "0",
+        magic: "fire",
+        type: "magical",
+        image: ""
+    },
+    {
+        name: "Frozen Staff",
+        attack: "10",
+        speed: "0",
+        magic: "ice",
+        type: "magical",
+        image: ""
+    }
+];
+
+const characterDefence = [
+    {
+        name: "Furry Gilet and Shorts",
+        defence: "2",
+        magic: "",
+        image: ""
+    },
+    {
+        name: "Golden Loin Cloth",
+        defence: "2",
+        magic: "fire",
+        image: ""
+    },
+    {
+        name: "Filthy Jerkin",
+        defence: "4",
+        magic: "",
+        image: ""
+    },
+    {
+        name: "Chain Mail",
+        defence: "6",
+        magic: "",
+        image: ""
+    },
+    {
+        name: "Purple Helmet",
+        defence: "6",
+        magic: "ice",
+        image: ""
+    },
+    {
+        name: "large shield",
+        defence: "10",
+        magic: "",
+        image: ""
+    },
+];
+
+const characterPotions = [
+    {
+        name: "Potion of Catnip",
+        effect: "Cats likely to be more friendly",
+        image: ""
+    },
+    {
+        name: "Potion of Healing",
+        effect:"Restores 50 Health",
+        image: ""
+    },
+    {
+        name: "Potion of Fire",
+        effect:"Causes Fire Damage",
+        image: ""
+    },
+    {
+        name: "Potion of Ice",
+        effect:"Causes Ice Damage",
+        image: ""
+    },
+    {
+        name: "Potion of Defence",
+        effect:"Increases Defence for next fight",
+        image: ""
+    },
+    {
+        name: "Potion of Power",
+        effect:"Increases Attack for next fight",
+        image: ""
+    },
+];
+
+const characterRandom = [
+    {
+        name: "Bag of Cables",
+        effect: "May help plugging something in",
+        image: ""
+    },
+    {
+        name: "Cat Biscuits",
+        effect:"Restores 20 Health",
+        image: ""
+    },
+    {
+        name: "Insect Repellent",
+        effect:"Scares off bugs",
+        image: ""
+    },
+    {
+        name: "Four Leaf Clover",
+        effect:"Said to bring good fortune",
+        image: ""
+    },
+    {
+        name: "Stress Balls",
+        effect:"You may need this",
+        image: ""
+    },
+    {
+        name: "Frayed Rope",
+        effect:"A rope in name only",
+        image: ""
+    },
+];
 
 
 const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
 
 function generateStats(character, min, max, hMin, hMax) {
     character.strength = getRandomNumber(min, max);
