@@ -10,63 +10,70 @@ const mainCharacter = {
 
 const characterWeapons = [
     {
+        category: "Weapon",
         name: "Oathbringer",
-        attack: "15",
-        speed: "-5",
+        attack: 15,
+        speed: -5,
         magic: "",
         type: "sharp",
         image: "",
         chance: 5
     },
     {
+        category: "Weapon",
         name: "Cat Sword",
-        attack: "10",
-        speed: "5",
+        attack: 10,
+        speed: 5,
         magic: "",
         type: "sharp",
         image: "",
         chance: 20
     },
     {
+        category: "Weapon",
         name: "Rusty Dagger",
-        attack: "0",
-        speed: "5",
+        attack: 0,
+        speed: 5,
         magic: "",
         type: "sharp",
         image: "",
         chance: 50
     },
     {
+        category: "Weapon",
         name: "Gnarled Club",
-        attack: "3",
-        speed: "0",
+        attack: 3,
+        speed: 0,
         magic: "",
         type: "blunt",
         image: "",
         chance: 80
     },
     {
+        category: "Weapon",
         name: "Gleaming Mace",
-        attack: "5",
-        speed: "5",
+        attack: 5,
+        speed: 5,
         magic: "",
         type: "blunt",
         image: "",
         chance: 90
     },
     {
+        category: "Weapon",
         name: "Wand of Fire",
-        attack: "10",
-        speed: "0",
+        attack: 10,
+        speed: 0,
         magic: "fire",
         type: "magical",
         image: "",
         chance: 95
     },
     {
+        category: "Weapon",
         name: "Frozen Staff",
-        attack: "10",
-        speed: "0",
+        attack: 10,
+        speed: 0,
         magic: "ice",
         type: "magical",
         image: "",
@@ -76,43 +83,49 @@ const characterWeapons = [
 
 const characterDefence = [
     {
+        category: "Defence",
         name: "Furry Gilet and Shorts",
-        defence: "2",
+        defence: 2,
         magic: "",
         image: "",
         chance: 15
     },
     {
+        category: "Defence",
         name: "Golden Loin Cloth",
-        defence: "2",
+        defence: 2,
         magic: "fire",
         image: "",
         chance: 30
     },
     {
+        category: "Defence",
         name: "Filthy Jerkin",
-        defence: "4",
+        defence: 4,
         magic: "",
         image: "",
         chance: 75
     },
     {
+        category: "Defence",
         name: "Chain Mail",
-        defence: "6",
+        defence: 6,
         magic: "",
         image: "",
         chance: 85
     },
     {
+        category: "Defence",
         name: "Purple Helmet",
-        defence: "6",
+        defence: 6,
         magic: "ice",
         image: "",
         chance: 95
     },
     {
+        category: "Defence",
         name: "large shield",
-        defence: "10",
+        defence: 10,
         magic: "",
         image: "",
         chance: 100
@@ -121,36 +134,42 @@ const characterDefence = [
 
 const characterPotions = [
     {
+        category: "Potion",
         name: "Potion of Catnip",
         effect: "Cats likely to be more friendly",
         image: "",
         chance: 15
     },
     {
+        category: "Potion",
         name: "Potion of Healing",
         effect:"Restores 50 Health",
         image: "",
         chance: 30
     },
     {
+        category: "Potion",
         name: "Potion of Fire",
         effect:"Causes Fire Damage",
         image: "",
         chance: 50
     },
     {
+        category: "Potion",
         name: "Potion of Ice",
         effect:"Causes Ice Damage",
         image: "",
         chance: 70
     },
     {
+        category: "Potion",
         name: "Potion of Defence",
         effect:"Increases Defence for next fight",
         image: "",
         chance: 85
     },
     {
+        category: "Potion",
         name: "Potion of Power",
         effect:"Increases Attack for next fight",
         image: "",
@@ -158,38 +177,44 @@ const characterPotions = [
     },
 ];
 
-const characterRandom = [
+const characterObjects = [
     {
+        category: "Object",
         name: "Bag of Cables",
         effect: "May help plugging something in",
         image: "",
         chance: 20
     },
     {
+        category: "Object",
         name: "Cat Biscuits",
         effect:"Restores 20 Health",
         image: "",
         chance: 35
     },
     {
+        category: "Object",
         name: "Insect Repellent",
         effect:"Scares off bugs",
         image: "",
         chance: 50
     },
     {
+        category: "Object",
         name: "Four Leaf Clover",
         effect:"Said to bring good fortune",
         image: "",
         chance: 65
     },
     {
+        category: "Object",
         name: "Stress Balls",
         effect:"You may need this",
         image: "",
         chance: 80
     },
     {
+        category: "Object",
         name: "Frayed Rope",
         effect:"A rope in name only",
         image: "",
@@ -197,7 +222,16 @@ const characterRandom = [
     },
 ];
 
-
+const foundItemInfo = {
+    category: "",
+    name: "",
+    speed: "",
+    magic: "",
+    type: "",
+    image: "",
+    effect: "",
+    defence: ""
+}
 
 
 
@@ -205,39 +239,49 @@ const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + m
 
 function findItemType (chanceOne, chanceTwo, chanceThree, chanceFour) {
     let randomChance = getRandomNumber(1, 100);
-    if (randomChance <= chanceOne) {
-        return characterWeapons;
-    } else if (randomChance > chanceOne && randomChance <= chanceTwo) {
-        return characterDefence;
-    } else if (randomChance > chanceTwo && randomChance <= chanceThree) {
-        return characterPotions;
-    } else if (randomChance > chanceThree && randomChance <= chanceFour) {
-        return characterRandom;
+    let objectSelection;
+    if (randomChance > chanceFour) {
+        objectSelection = "";
     } else {
-        return "";
+        if (randomChance <= chanceOne){
+            objectSelection = characterWeapons;
+        } else if (randomChance <= chanceFour && randomChance > chanceThree){
+            objectSelection = characterObjects;
+        } else if (randomChance <= chanceThree && randomChance > chanceTwo) {
+            objectSelection = characterPotions;
+        } else if (randomChance <= chanceTwo && randomChance > chanceOne){
+            objectSelection = characterDefence;
+        }
     }
+    return objectSelection;
 }
 
-
-
-function searchForItem() {
-    let itemType = findItemType(25,40,55,90);
-    if (itemType == "") {
-        return "";
-    } else {
+function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) {
+    let itemType = findItemType(chanceWeapon, chanceDefence, chancePotion, chanceObject);
+    if (itemType) {
         let likelihoods = itemType.map(i => i.chance);
         let itemSelection = getRandomNumber(1, 100);
-        let foundItem = "";
-        for (const likelihood of likelihoods) {
-            if (likelihood <= itemSelection) {
-                foundItem = likelihood;
-            } else {
-                break;
-            } 
+        console.log(itemSelection);
+        let valueSelector = [];
+        const filterItems = likelihoods.filter((value) => {  
+            if (itemSelection <= value) {
+               valueSelector.push(value);
+            }
+        });
+        foundItem = valueSelector[0];
+        for (let i of itemType) {
+            if (i.chance === foundItem) {
+                foundItemInfo.category = i.category;
+                foundItemInfo.name = i.name;
+                foundItemInfo.speed = i.speed;
+                foundItemInfo.magic = i.magic,
+                foundItemInfo.type = i.type,
+                foundItemInfo.image = i.image,
+                foundItemInfo.effect = i.effect,
+                foundItemInfo.defence = i.defence
+            }
         }
-        if (itemType === characterWeapons) {console.log("you have found a weapon");}
-        return foundItem;
-    }
+    }   
 }
 
 function generateStats(character, min, max, hMin, hMax) {
@@ -391,6 +435,7 @@ const optionsTwoSecond = `
 
 var module = module || {};
 module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
-    pageOne, optionsOne, gameOverGiveUp, giveUp };
+    pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
+    characterObjects, searchForItem, foundItemInfo };
 
 
