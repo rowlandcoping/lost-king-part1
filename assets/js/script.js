@@ -15,7 +15,8 @@ const characterWeapons = [
         speed: "-5",
         magic: "",
         type: "sharp",
-        image: ""
+        image: "",
+        chance: 5
     },
     {
         name: "Cat Sword",
@@ -23,7 +24,8 @@ const characterWeapons = [
         speed: "5",
         magic: "",
         type: "sharp",
-        image: ""
+        image: "",
+        chance: 20
     },
     {
         name: "Rusty Dagger",
@@ -31,7 +33,8 @@ const characterWeapons = [
         speed: "5",
         magic: "",
         type: "sharp",
-        image: ""
+        image: "",
+        chance: 50
     },
     {
         name: "Gnarled Club",
@@ -39,7 +42,8 @@ const characterWeapons = [
         speed: "0",
         magic: "",
         type: "blunt",
-        image: ""
+        image: "",
+        chance: 80
     },
     {
         name: "Gleaming Mace",
@@ -47,7 +51,8 @@ const characterWeapons = [
         speed: "5",
         magic: "",
         type: "blunt",
-        image: ""
+        image: "",
+        chance: 90
     },
     {
         name: "Wand of Fire",
@@ -55,7 +60,8 @@ const characterWeapons = [
         speed: "0",
         magic: "fire",
         type: "magical",
-        image: ""
+        image: "",
+        chance: 95
     },
     {
         name: "Frozen Staff",
@@ -63,7 +69,8 @@ const characterWeapons = [
         speed: "0",
         magic: "ice",
         type: "magical",
-        image: ""
+        image: "",
+        chance: 100
     }
 ];
 
@@ -72,37 +79,43 @@ const characterDefence = [
         name: "Furry Gilet and Shorts",
         defence: "2",
         magic: "",
-        image: ""
+        image: "",
+        chance: 15
     },
     {
         name: "Golden Loin Cloth",
         defence: "2",
         magic: "fire",
-        image: ""
+        image: "",
+        chance: 30
     },
     {
         name: "Filthy Jerkin",
         defence: "4",
         magic: "",
-        image: ""
+        image: "",
+        chance: 75
     },
     {
         name: "Chain Mail",
         defence: "6",
         magic: "",
-        image: ""
+        image: "",
+        chance: 85
     },
     {
         name: "Purple Helmet",
         defence: "6",
         magic: "ice",
-        image: ""
+        image: "",
+        chance: 95
     },
     {
         name: "large shield",
         defence: "10",
         magic: "",
-        image: ""
+        image: "",
+        chance: 100
     },
 ];
 
@@ -110,32 +123,38 @@ const characterPotions = [
     {
         name: "Potion of Catnip",
         effect: "Cats likely to be more friendly",
-        image: ""
+        image: "",
+        chance: 15
     },
     {
         name: "Potion of Healing",
         effect:"Restores 50 Health",
-        image: ""
+        image: "",
+        chance: 30
     },
     {
         name: "Potion of Fire",
         effect:"Causes Fire Damage",
-        image: ""
+        image: "",
+        chance: 50
     },
     {
         name: "Potion of Ice",
         effect:"Causes Ice Damage",
-        image: ""
+        image: "",
+        chance: 70
     },
     {
         name: "Potion of Defence",
         effect:"Increases Defence for next fight",
-        image: ""
+        image: "",
+        chance: 85
     },
     {
         name: "Potion of Power",
         effect:"Increases Attack for next fight",
-        image: ""
+        image: "",
+        chance: 100
     },
 ];
 
@@ -143,37 +162,83 @@ const characterRandom = [
     {
         name: "Bag of Cables",
         effect: "May help plugging something in",
-        image: ""
+        image: "",
+        chance: 20
     },
     {
         name: "Cat Biscuits",
         effect:"Restores 20 Health",
-        image: ""
+        image: "",
+        chance: 35
     },
     {
         name: "Insect Repellent",
         effect:"Scares off bugs",
-        image: ""
+        image: "",
+        chance: 50
     },
     {
         name: "Four Leaf Clover",
         effect:"Said to bring good fortune",
-        image: ""
+        image: "",
+        chance: 65
     },
     {
         name: "Stress Balls",
         effect:"You may need this",
-        image: ""
+        image: "",
+        chance: 80
     },
     {
         name: "Frayed Rope",
         effect:"A rope in name only",
-        image: ""
+        image: "",
+        chance: 100
     },
 ];
 
 
+
+
+
 const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + min;
+
+function findItemType (chanceOne, chanceTwo, chanceThree, chanceFour) {
+    let randomChance = getRandomNumber(1, 100);
+    if (randomChance <= chanceOne) {
+        return characterWeapons;
+    } else if (randomChance > chanceOne && randomChance <= chanceTwo) {
+        return characterDefence;
+    } else if (randomChance > chanceTwo && randomChance <= chanceThree) {
+        return characterPotions;
+    } else if (randomChance > chanceThree && randomChance <= chanceFour) {
+        return characterRandom;
+    } else {
+        return "";
+    }
+}
+
+
+
+function searchForItem() {
+    let itemType = findItemType(25,40,55,90);
+    if (itemType == "") {
+        return "";
+    } else {
+        let likelihoods = itemType.map(i => i.chance);
+        let itemSelection = getRandomNumber(1, 100);
+        let foundItem = "";
+        for (const likelihood of likelihoods) {
+            if (likelihood <= itemSelection) {
+                foundItem = likelihood;
+            } else {
+                break;
+            } 
+        }
+        if (itemType === characterWeapons) {console.log("you have found a weapon");}
+        return foundItem;
+    }
+}
 
 function generateStats(character, min, max, hMin, hMax) {
     character.strength = getRandomNumber(min, max);
@@ -320,6 +385,8 @@ const optionsTwoSecond = `
 `;
 
 /* page three */
+
+
 
 
 var module = module || {};
