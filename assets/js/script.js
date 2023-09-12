@@ -13,6 +13,8 @@ const mainCharacter = {
 const mainCharacterCurrent = {
     luck: 0,
     health: 0,
+    strength: 0,
+    defence: 0,
     magic:"",
     resist:"",
     vulnerability:"",
@@ -31,7 +33,7 @@ const characterWeapons = [
         category: "weapon",
         adjective: "a mighty",
         name: "Oathbringer",
-        attack: 15,
+        attack: 10,
         skill: -5,
         magic: "",
         type: "sharp",
@@ -44,7 +46,7 @@ const characterWeapons = [
         category: "weapon",
         adjective: "a nifty",
         name: "Cat Sword",
-        attack: 10,
+        attack: 5,
         skill: 5,
         magic: "",
         type: "sharp",
@@ -96,7 +98,7 @@ const characterWeapons = [
         category: "weapon",
         adjective: "a wizardy",
         name: "Wand of Fire",
-        attack: 10,
+        attack: 5,
         skill: 0,
         magic: "fire",
         type: "magical",
@@ -109,7 +111,7 @@ const characterWeapons = [
         category: "weapon",
         adjective: "an Ice Queen's",
         name: "Frozen Staff",
-        attack: 10,
+        attack: 5,
         skill: 0,
         magic: "ice",
         type: "magical",
@@ -130,7 +132,7 @@ const characterDefence = [
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 15,
         score: 3,
-        description: "This natty combination looks like something Jane Fonda might have worn on the set of Barbarella.  It's unlikely her outfit would have smelt quite so much of excrement."
+        description: "This natty combination looks like something Jane Fonda might have worn on the set of Barbarella.  It's unlikely her outfit would have smelt quite so much of excrement, or have been quite so vulnerable to naked flames."
     },
     {
         category: "clothing",
@@ -147,7 +149,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some disgusting",
         name: "Filthy Jerkin",
-        defence: 4,
+        defence: 3,
         resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 75,
@@ -158,7 +160,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some shiny",
         name: "Chain Mail",
-        defence: 6,
+        defence: 4,
         resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 85,
@@ -169,7 +171,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some bizarre",
         name: "Purple Helmet",
-        defence: 6,
+        defence: 3,
         resist: "ice",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 95,
@@ -180,7 +182,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some uncomfortable",
         name: "Plate Armor",
-        defence: 10,
+        defence: 5,
         resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 100,
@@ -234,7 +236,7 @@ const characterPotions = [
         category: "potion",
         adjective: "a combat",
         name: "Potion of Defence",
-        effect:"Increases Defence for next fight",
+        effect:"Increases Defence for rest of the fight",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 85,
         score: 10,
@@ -244,11 +246,11 @@ const characterPotions = [
         category: "potion",
         adjective: "a combat",
         name: "Potion of Power",
-        effect:"Increases attack for next fight",
+        effect:"Increases attack for rest of the fight",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 100,
         score: 10,
-        description:"One swig of this, and nothing and no-one will be able to stand before you!  But only briefly, because it will have run out - there's not that much left in the bottle."
+        description:"One swig of this, nothing and no-one will be able to stand before you!  But only briefly, because it will have run out - there's not that much left in the bottle."
     },
 ];
 //random objects
@@ -335,7 +337,15 @@ const ragnarTheHorrible = {
     sklItem:0,
     hlthItem:0,
     score:30,
-    initialText: "<p>The near-corpse circles warily around you.  It seems to be your move.</p>"
+    initialText: "<p>The near-corpse circles warily around you.  It seems to be your move.</p>",
+    successTextOne: "<p>You smash Ragnar with your",
+    successTextTwo: "<br>He dances away, and then forces you to defend again.</p>",
+    deathText: "<p>The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists.<br>Perhaps this time he'll stay dead.</p>",
+    failText: "<p>The wily little fellow ducks away from your blow, grumbling to himself, before striking back at you.</p>",
+    hitText: "<p>Squealing with delight, Ragnar lands a solid blow, sending you reeling,",
+    killedYouText: "<p>You stumble and, in that instant, the little felon lands the killing blow, cleaving your aching skull.<br>YOU ARE DEAD</p>",
+    missedText: "<p>Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.</p>",
+    choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
 }
 
 // CHARACTER INFO STORAGE
@@ -402,21 +412,21 @@ function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem,
     character.defence = getRandomNumber(min, max);
     character.luck = getRandomNumber(min, max);
     character.health = getRandomNumber(hMin, hMax);
-    character.vulnerability = vuln;
-    character.resist = resist;
-    character.magic = magic;
-    character.dItem = dItem;
-    character.strItem = strItem;
-    character.sklItem = sklItem;
-    character.hlthItem = hlthItem;
-    character.lkItem = lkItem;
+    if(vuln) {character.vulnerability = vuln;}
+    if(resist) {character.resist = resist;}
+    if(magic) {character.magic = magic;}
+    if(dItem) {character.dItem = dItem;}
+    if(strItem) {character.strItem = strItem;}
+    if(sklItem) {character.sklItem = sklItem;}
+    if(hlthItem) {character.hlthItem = hlthItem;}
+    if(lkItem) {character.lkItem = lkItem;}
 }
 function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
     generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic);
     if (strItem) {enemy.strength = enemy.strength + strItem};
     if (sklItem) {enemy.skill = enemy.strength + sklItem};
     if (dItem) {enemy.defence = enemy.defence + sklItem};
-    if (lkItem) {enemy.defence = enemy.defence + lklItem};
+    if (lkItem) {enemy.defence = enemy.defence + lkItem};
     if (hlthItem) {enemy.defence = enemy.defence + hlthItem};
     document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
     document.getElementById('image-title').innerHTML = enemy.name;
@@ -528,6 +538,9 @@ function itemStorage() {
         mainCharacterCurrent.luck = mainCharacter.luck + mainCharacterCurrent.lkItem;
         document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
     }
+    if (foundItemInfo.name === "Furry Gilet and Shorts") {
+        mainCharacterCurrent.vulnerability = "fire";
+    }
 }
 //write info to DOM
 function storeItem() {
@@ -563,63 +576,63 @@ function storeItem() {
 function testResistances(enemy) {
     //enemy resists/etc
         if (enemy.resist ==="fire") {
-            if (roundMagic === "fire") {
+            if (currentWeapon.magic === "fire") {
                 roundDamage = roundDamage * 0.5;
             }
         }
         if (enemy.vulnerability ==="fire") {
-            if (roundMagic === "fire") {
+            if (currentWeapon.magic === "fire") {
                 roundDamage = roundDamage * 2;
             }
         }
         if (enemy.resist ==="ice") {
-            if (roundMagic === "ice") {
+            if (currentWeapon.magic === "ice") {
                 roundDamage = roundDamage * 0.5;
             }
         }
         if (enemy.vulnerability ==="ice") {
-            if (roundMagic === "ice") {
+            if (currentWeapon.magic === "ice") {
                 roundDamage = roundDamage * 2;
             }
         }
         if (enemy.resist ==="sharp") {
-            if (roundType === "sharp") {
+            if (currentWeapon.type === "sharp") {
                 roundDamage = roundDamage * 0.5;
             }
         }
         if (enemy.vulnerability ==="sharp") {
-            if (roundType === "sharp") {
+            if (currentWeapon.type === "sharp") {
                 roundDamage = roundDamage * 2;
             }
         }
         if (enemy.resist ==="blunt") {
-            if (roundType === "blunt") {
+            if (currentWeapon.type === "blunt") {
                 roundDamage = roundDamage * 0.5;
             }
         }
         if (enemy.vulnerability ==="blunt") {
-            if (roundType === "blunt") {
+            if (currentWeapon.type === "blunt") {
                 roundDamage = roundDamage * 2;
             }
         }
     //enemy magic
         if (enemy.magic ==="fire") {
-            if (mainCharacterCurrent.vulnerbility === "fire") {
+            if (mainCharacterCurrent.vulnerability === "fire") {
                 enemyDamage = enemyDamage * 2;
             }
         }
         if (enemy.magic ==="fire") {
-            if (mainCharacterCurrent.resist === "fire") {
+            if (currentDefence.resist === "fire") {
                 roundDamage = roundDamage * 0.5;
             }
         }
         if (enemy.magic ==="ice") {
-            if (mainCharacterCurrent.vulnerbility === "ice") {
+            if (mainCharacterCurrent.vulnerability === "ice") {
                 enemyDamage = enemyDamage * 2;
             }
         }
         if (enemy.magic ==="ice") {
-            if (mainCharacterCurrent.resist === "ice") {
+            if (currentDefence.resist === "ice") {
                 roundDamage = roundDamage * 0.5;
             }
         }
@@ -636,24 +649,8 @@ function continueFight(enemy) {
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     battleChoices();
 }
-function nextRound(enemy) {
+function fistsRound(enemy) {
     let hitSuccess;
-    let roundType;
-    let roundMagic;
-    let minStrength;
-    //your go
-    /*if (roundSkip) {
-        usePotion(usedWeapon);
-    } else */
-    if (usedWeapon = currentWeapon.name) {
-        roundType = currentWeapon.type;
-        roundMagic = currentWeapon.magic;
-        minStrength = currentWeapon.attack;
-    } else {
-        roundType = "blunt";
-        roundMagic = "";
-        minStrength = 1;
-    }
     let chanceToHit = getRandomNumber(1,20);
     console.log("Chance to Hit: " + chanceToHit);
     if (chanceToHit <= mainCharacter.skill) {
@@ -663,7 +660,7 @@ function nextRound(enemy) {
     }
     console.log("Hit Success: " + hitSuccess);
     if (hitSuccess) {
-        let roundDamage = getRandomNumber(minStrength, mainCharacter.strength);
+        let roundDamage = getRandomNumber(0, mainCharacterCurrent.strength);
         console.log("Round Damage: " + roundDamage);
         let enemyResist = getRandomNumber(1,15);
         console.log("enemyResist: " + enemyResist);
@@ -674,17 +671,165 @@ function nextRound(enemy) {
             testResistances(enemy);
             console.log("Round damage modified: " + roundDamage);
         }
-        enemy.health -= roundDamage;
+        if (roundDamage > 0) {enemy.health -= roundDamage;}
         console.log("enemy health: " + enemy.health);
         if (enemy.health > 0) {
-            document.getElementById('battle-text-player').innerHTML = enemy.successText;
+            if (roundDamage>0){
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + ` bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+            } else {
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + ` bare hands, but the blow glances off them.` + enemy.successTextTwo;
+            }
+            enemyTurn(enemy);
         } else {
-            document.getElementById('battle-text-player').innerHTML = enemy.deathText;
+            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
+            document.getElementById('battle-text-enemy').innerHTML ="";
+            mainCharacterCurrent.strength = mainCharacter.strength;
+            mainCharacterCurrent.defence = mainCharacter.defence;
+            document.getElementById('choices-section').innerHTML = enemy.choices;
         } 
     } else {
-        document.getElementById('battle-text-player').innerHTML = enemy.failText; 
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
+        enemyTurn(enemy);
     }
-    // Their turn
+}
+
+function weaponRound(enemy) {
+    let hitSuccess;
+    let chanceToHit = getRandomNumber(1,20);
+    console.log("Chance to Hit: " + chanceToHit);
+    if (chanceToHit <= mainCharacter.skill + currentWeapon.skill) {
+        hitSuccess = true;
+    } else {
+        hitSuccess = false;
+    }
+    console.log("Hit Success: " + hitSuccess);
+    if (hitSuccess) {
+        let roundDamage = getRandomNumber(currentWeapon.attack, mainCharacterCurrent.strength + currentWeapon.attack);
+        console.log("Round Damage: " + roundDamage);
+        let enemyResist = getRandomNumber(1,15);
+        console.log("enemyResist: " + enemyResist);
+        if (enemyResist<enemy.defence) {
+            let hitsDefended = enemy.defence - enemyResist;
+            console.log("hits defended: " + hitsDefended);
+            roundDamage -= hitsDefended;
+            testResistances(enemy);
+            console.log("Round damage modified: " + roundDamage);
+        }
+        if (roundDamage > 0) {enemy.health -= roundDamage;}
+        console.log("enemy health: " + enemy.health);
+        if (enemy.health > 0) {
+            if (roundDamage > 0){
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="red">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+            } else {
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
+            }
+            enemyTurn(enemy);
+        } else {
+            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
+            document.getElementById('battle-text-enemy').innerHTML ="";
+            mainCharacterCurrent.strength = mainCharacter.strength;
+            mainCharacterCurrent.defence = mainCharacter.defence;
+            document.getElementById('choices-section').innerHTML = enemy.choices;
+        } 
+    } else {
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
+        enemyTurn(enemy);
+    }
+}
+
+function potionRound(enemy) {
+    let roundDamage;
+    let potionName = currentPotion.name;
+    if (potionName === "Potion of Catnip") {
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You rub on some of the catnip potion, but it doesn't seem to do anything right now";
+        enemyTurn(enemy);
+    } else if (potionName === "Potion of Healing") {
+        mainCharacterCurrent.health =+ 50;
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You drink down the restorative balm, and feel instantly re-invigorated";
+        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('potion-item-name').innerHTML = "";
+        document.getElementById('potion-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentPotion)) {
+            CurrentPotion[item] = "";
+        }
+        enemyTurn(enemy);
+    } else if (potionName === "Potion of Fire") {
+        roundDamage = 20;
+        if (enemy.resist ==="fire") {
+            roundDamage = roundDamage * 0.5;
+        }
+        if (enemy.vulnerability ==="fire") {
+            roundDamage = roundDamage * 2;
+        }
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You hurl the vial at your opponent, and watch as they are consumed by flames.";
+        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('potion-item-name').innerHTML = "";
+        document.getElementById('potion-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentPotion)) {
+            currentPotion[item] = "";
+         }
+         if (enemy.health<=0) {
+            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>They slump to the ground, their still smouldering flesh charred and blackened beyond recognition. <br>You almost feel sorry for them... almost.</p>";
+            document.getElementById('battle-text-enemy').innerHTML ="";
+            mainCharacterCurrent.strength = mainCharacter.strength;
+            mainCharacterCurrent.defence = mainCharacter.defence;
+            document.getElementById('choices-section').innerHTML = enemy.choices;
+        } else {
+            enemyTurn(enemy);
+        }
+    } else if (potionName === "Potion of Ice") {
+        roundDamage = 20;
+        if (enemy.resist ==="ice") {
+            roundDamage = roundDamage * 0.5;
+        }
+        if (enemy.vulnerability ==="ice") {
+            roundDamage = roundDamage * 2;
+        }
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.";
+        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('potion-item-name').innerHTML = "";
+        document.getElementById('potion-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentPotion)) {
+            currentPotion[item] = "";
+        }
+        if (enemy.health<=0) {
+            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>They slump to the ground, their skin raked from their flesh by your icy attack. <br>You almost feel sorry for them... almost.</p>";
+            document.getElementById('battle-text-enemy').innerHTML ="";
+            mainCharacterCurrent.strength = mainCharacter.strength;
+            mainCharacterCurrent.defence = mainCharacter.defence;
+            document.getElementById('choices-section').innerHTML = enemy.choices;
+        } else {
+            enemyTurn(enemy);
+        }
+    } else if (potionName === "Potion of Defence") {
+        mainCharacterCurrent.defence += 10;
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "On drinking the potion a cool aura of invincibility gives you a sense of unusual calm.";
+        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('potion-item-name').innerHTML = "";
+        document.getElementById('potion-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentPotion)) {
+            currentPotion[item] = "";
+        }
+        enemyTurn(enemy);
+    } else if (potionName === "Potion of Power") {
+        mainCharacterCurrent.strength += 10;
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You drink the potion and then stare down at your bicep, which is visibly bulging in all the right places.<br>You feel POWERFUL!!!";
+        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('potion-item-name').innerHTML = "";
+        document.getElementById('potion-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentPotion)) {
+            currentPotion[item] = "";
+        }
+        enemyTurn(enemy);
+    }
+}
+
+function enemyTurn(enemy) {
+    let hitSuccess;
     chanceToHit = getRandomNumber(1,20);
     hitSuccess = false;
     console.log("Ragnar chance to Hit: " + chanceToHit);
@@ -701,23 +846,32 @@ function nextRound(enemy) {
         console.log("Ragnar Round Damage: " + roundDamage);
         enemyResist = getRandomNumber(1,15);
         console.log("My Resist: " + enemyResist);
-        if (enemyResist<mainCharacter.defence) {
-            hitsDefended = mainCharacter.defence - enemyResist;
+        if (enemyResist < mainCharacterCurrent.defence + currentDefence.defence) {
+            hitsDefended = mainCharacterCurrent.defence + currentDefence.defence - enemyResist;
             console.log("My hits defended: " + hitsDefended);
             roundDamage -= hitsDefended;
             testResistances(enemy);
             console.log("Ragnar Round damage modified: " + roundDamage);
         }
-        mainCharacterCurrent.health -= roundDamage;
+        if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
-            document.getElementById('battle-text-enemy').innerHTML = enemy.hitText;
+            if (roundDamage>0) {
+                document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.hitText + ` and causing <span class="red"> ` + roundDamage + `</span> health points of damage.`;
+            } else {
+                document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.hitText + ` but fortunately it does you no harm.`;
+            }
+            continueFight(enemy);
         } else {
-            document.getElementById('battle-text-enemy').innerHTML = enemy.killedYouText;
+            mainCharacter.score -= 10;
+            document.getElementById('final-score').innerHTML = mainCharacter.score;
+            document.getElementById('gameover-page').style.display="flex";
+            document.getElementById('game-page').style.display="none";
+            document.getElementById('game-outcome').innerHTML = enemy.killedYouText;
         } 
     } else {
-        document.getElementById('battle-text-enemy').innerHTML = enemy.missedText; 
-    }
-    continueFight(enemy);
+        document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
+        continueFight(enemy);
+    }    
 }
 
 
@@ -750,11 +904,11 @@ function startGame(event) {
         mainCharacter.name = document.getElementById('character-name').value;
         }else{
             mainCharacter.name = "Another Lazy Gamer";
-            
            }
-        generateStats (mainCharacter, 12, 20, 50, 100);  
+        generateStats (mainCharacter, 10, 15, 50, 75);  
     }
     mainCharacterCurrent.health = mainCharacter.health;
+    mainCharacterCurrent.strength = mainCharacter.strength;
     mainCharacter.score = 0;
     for(let item of Object.keys(currentWeapon)) {
         currentWeapon[item] = "";
@@ -886,7 +1040,7 @@ function keepFirstItem() {
     storeItem();
     changeModeToMainWindow();
     let fightChance = getRandomNumber(1,100);
-    if (fightChance <=100) {
+    if (fightChance <=50) {
         document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveFirst;
         document.getElementById('choices-section').innerHTML = optionsFiveFirst;
     } else {
@@ -910,7 +1064,7 @@ function testLuck() {
         document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     }
     document.getElementById('choices-section').innerHTML = optionsSix;
-    setEnemyStats(ragnarTheHorrible, 5,9,10,20);
+    setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
 
 function braceYourself() {
@@ -919,7 +1073,7 @@ function braceYourself() {
     mainCharacterCurrent.health -= 4;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     document.getElementById('choices-section').innerHTML = optionsSix;
-    setEnemyStats(ragnarTheHorrible, 5,9,10,20);
+    setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
 
 
@@ -1062,27 +1216,21 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#battle-one"); 
     if(target){ 
-        let usedWeapon = "fists";
-        let roundSkip = false;
-        nextRound(ragnarTheHorrible);
+        fistsRound(ragnarTheHorrible);
     }
 });
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#battle-two"); 
     if(target){
-        let usedWeapon = currentWeapon.name;
-        let roundSkip = false;
-        nextRound(ragnarTheHorrible);
+        weaponRound(ragnarTheHorrible);
     }
 });
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#battle-three"); 
     if(target){
-        let usedWeapon = currentPotion.name;
-        let roundSkip = true;
-        nextRound(ragnarTheHorrible);
+        potionRound(ragnarTheHorrible);
     }
 });
 
@@ -1210,22 +1358,23 @@ function battleChoices() {
         battleTwoFirst =`
         <li><button class="choice-button" id="battle-two">Attack with the
         `;
-        battleTwoSecond =`
-        .</button></li>
-        `;
+        battleTwoSecond =`.</button></li>`;
     }
 
     if (currentPotion.name) {
         battleThreeFirst =`
         <li><button class="choice-button" id="battle-three">Use your
         `;
-        battleThreeSecond =`
-        .</button></li>
-        `;
+        battleThreeSecond =`.</button></li>`;
     }
     document.getElementById('choices-section').innerHTML = battleOne + battleTwoFirst + currentWeapon.name 
     + battleTwoSecond + battleThreeFirst + currentPotion.name + battleThreeSecond;
 }
+
+//battle text
+
+const battleHeadingYou = `<h3 class="green">Your Turn</h3>`;
+const battleHeadingThem = `<h3 class="red">Enemy Turn</h3>`;
 
 
 
