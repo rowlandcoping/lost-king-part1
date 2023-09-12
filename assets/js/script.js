@@ -1,13 +1,17 @@
 //Player Object
 
 const mainCharacter = {
-    name: "",
-    score: "",
-    strength: "",
-    speed: "",
-    stamina: "",
-    luck: "",
-    health: ""
+    name: 0,
+    score: 0,
+    strength: 0,
+    speed: 0,
+    stamina: 0,
+    luck: 0,
+    health: 0
+};
+
+const mainCharacterCurrent = {
+    health: 0
 };
 
 //ITEM OBJECTS
@@ -302,6 +306,22 @@ const characterObjects = [
     },
 ];
 
+// ADVERSARIES!
+
+//Ragnar the horrible
+
+const ragnarTheHorrible = {
+    name: "Ragnar the Horrible",
+    description: "Ragnar will eat mud.  Ragnar will sleep with your sister.  Ragnar drinks a lot of tea.  Ragnar has seen better days.",
+    strength: 0,
+    speed: 0,
+    health: 0,
+    image: "assets/images/character-profiles/warrior-face.png",
+    score:30
+}
+
+// CHARACTER INFO STORAGE
+
 const currentWeapon = {
     name: "",
     attack: 0,
@@ -418,6 +438,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
     }   
 }
 //Store Item as current
+//place item in current inventory
 function itemStorage() {
     if (foundItemInfo.category === "weapon") {
         if (currentWeapon.name) {
@@ -457,6 +478,34 @@ function itemStorage() {
         }
     }
 }
+//write info to DOM
+function storeItem() {
+    itemStorage();
+    if (foundItemInfo.category === "weapon") {
+        document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `">`;
+        document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
+        document.getElementById('weapon-list-item-one').innerHTML = "ATT: " + currentWeapon.attack;
+        document.getElementById('weapon-list-item-two').innerHTML = "SPD: " + currentWeapon.speed;
+        if (currentWeapon.magic) {document.getElementById('weapon-list-item-three').innerHTML = "MGC: " + currentWeapon.magic;}
+        document.getElementById('weapon-list-item-four').innerHTML = "TYP: " + currentWeapon.type;
+    } else if (foundItemInfo.category === "clothing") {
+        document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `">`;
+        document.getElementById('defence-item-name').innerHTML = currentDefence.name;
+        document.getElementById('clothing-list-item-one').innerHTML = "DEF: " + currentDefence.defence;
+        if (currentDefence.magic) {document.getElementById('clothing-list-item-two').innerHTML = "MGK: " + currentDefence.magic;}
+    } else if (foundItemInfo.category === "potion") {
+        document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `">`;
+        document.getElementById('potion-item-name').innerHTML = currentPotion.name;
+        document.getElementById('potion-list-item-one').innerHTML = "EFF: " + currentPotion.effect;
+    } else if (foundItemInfo.category === "object") {
+        document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
+        document.getElementById('object-item-name').innerHTML = currentObject.name;
+        document.getElementById('object-list-item-one').innerHTML = "EFF: " + currentObject.effect;
+    }
+    for(let item of Object.keys(foundItemInfo)) {
+        foundItemInfo[item] = "";
+    }
+}
 
 //GAMEPLAY FUNCTIONS
 
@@ -482,12 +531,14 @@ function startGame(event) {
     if (!mainCharacter.name) {        
         if (document.getElementById('character-name').value) {
         mainCharacter.name = document.getElementById('character-name').value;
-        generateStats (mainCharacter, 12, 20, 50, 100);
         }else{
             mainCharacter.name = "Another Lazy Gamer";
-            generateStats (mainCharacter, 12, 20, 50, 100);
+            
            }
+        generateStats (mainCharacter, 12, 20, 50, 100);
+        
     }
+    mainCharacterCurrent.health = mainCharacter.health;
     mainCharacter.score = 0;
     for(let item of Object.keys(currentWeapon)) {
         currentWeapon[item] = "";
@@ -531,9 +582,27 @@ function writeInitialToDom() {
     document.getElementById('choices-section').innerHTML = optionsOne;    
 }
 
+function changeModeToMainWindow() {
+    const resetElements = document.getElementsByClassName('change-mode');
+    for (let i = 0; i < resetElements.length; i++) {
+        resetElements[i].innerHTML = "";
+    }
+    document.getElementById('image-section').style.display = "none";
+    document.getElementById('game-text').style.display = "block";
+}
+
+function changeModeToItemWindow() {
+    const resetElements = document.getElementsByClassName('change-mode');
+    for (let i = 0; i < resetElements.length; i++) {
+        resetElements[i].innerHTML = "";
+    }
+    document.getElementById('image-section').style.display = "flex";
+    document.getElementById('game-text').style.display = "none";
+}
+
 // Gameplay functions
 
-//Page One
+//Page Two
 
 //open eyes
 function openEyes(){    
@@ -548,7 +617,7 @@ function gameOverGiveUp() {
     document.getElementById('game-outcome').innerHTML = giveUp;
 };
 
-//Page Two
+//Page Three
 function knowMyName(){    
     document.getElementById('game-text').innerHTML = pageThreeFirst + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
@@ -565,14 +634,9 @@ function nameUnknown(){
     document.getElementById('choices-section').innerHTML = optionsThree;    
 }
 
-//Page Three
+//Page Four
 function firstSearch() {
     searchForItem(15, 35, 55, 100);
-    document.getElementById('list-item-one').innerHTML = "";
-    document.getElementById('list-item-two').innerHTML = "";
-    document.getElementById('list-item-three').innerHTML = "";
-    document.getElementById('list-item-four').innerHTML = "";
-    document.getElementById('list-item-five').innerHTML = "";
     document.getElementById('image-section').style.display = "flex";
     document.getElementById('upper-text').style.display = "block";
     document.getElementById('game-text').style.display = "none";
@@ -600,33 +664,56 @@ function firstSearch() {
     thingsWhatYouveDone.firstRoomSearch = true;
 }
 
-//Page Four
-function storeFirstItem() {
-    itemStorage();
-    if (foundItemInfo.category === "weapon") {
-        document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `">`;
-        document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
-        document.getElementById('weapon-list-item-one').innerHTML = "ATT: " + currentWeapon.attack;
-        document.getElementById('weapon-list-item-two').innerHTML = "SPD: " + currentWeapon.speed;
-        if (currentWeapon.magic) {document.getElementById('weapon-list-item-three').innerHTML = "MGC: " + currentWeapon.magic;}
-        document.getElementById('weapon-list-item-four').innerHTML = "TYP: " + currentWeapon.type;
-    } else if (foundItemInfo.category === "clothing") {
-        document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `">`;
-        document.getElementById('defence-item-name').innerHTML = currentDefence.name;
-        document.getElementById('clothing-list-item-one').innerHTML = "DEF: " + currentDefence.defence;
-        if (currentDefence.magic) {document.getElementById('clothing-list-item-two').innerHTML = "MGK: " + currentDefence.magic;}
-    } else if (foundItemInfo.category === "potion") {
-        document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `">`;
-        document.getElementById('potion-item-name').innerHTML = currentPotion.name;
-        document.getElementById('potion-list-item-one').innerHTML = "EFF: " + currentPotion.effect;
-    } else if (foundItemInfo.category === "object") {
-        document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
-        document.getElementById('object-item-name').innerHTML = currentObject.name;
-        document.getElementById('object-list-item-one').innerHTML = "EFF: " + currentObject.effect;
+//Page Five
+
+function keepFirstItem() {
+    storeItem();
+    changeModeToMainWindow();
+    let fightChance = getRandomNumber(1,100);
+    if (fightChance <=50) {
+        document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveFirst;
+        document.getElementById('choices-section').innerHTML = optionsFiveFirst;
+    } else {
+        document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveSecond;
+        document.getElementById('choices-section').innerHTML = optionsFiveSecond;
     }
-    for(let item of Object.keys(foundItemInfo)) {
-        foundItemInfo[item] = "";
+};
+
+//Page Six
+
+function setEnemyStats(enemy, min, max, hMin, hMax) {
+    generateStats(enemy, min, max, hMin, hMax);
+    document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
+    document.getElementById('image-title').innerHTML = enemy.name;
+    document.getElementById('item-description').innerHTML = enemy.description;
+    document.getElementById('list-item-one').innerHTML = "Strength: " + enemy.strength;
+    document.getElementById('list-item-two').innerHTML = "Speed: " + enemy.speed;
+    document.getElementById('list-item-three').innerHTML = "Health: " + enemy.health;
+}
+
+function testLuck() {
+    changeModeToItemWindow();
+    let getLucky = getRandomNumber(1,20);
+    if (getLucky <= mainCharacter.luck) {
+        document.getElementById('upper-text').innerHTML = pageSixFirst + pageSixCommon;
+        mainCharacter.score += 3;
+    } else {
+        document.getElementById('upper-text').innerHTML = pageSixSecond + pageSixCommon;
+        mainCharacterCurrent.health -= 7;
+        mainCharacter.score -= 3;
+        document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     }
+    document.getElementById('choices-section').innerHTML = optionsSix;
+    setEnemyStats(ragnarTheHorrible, 5,9,10,20);
+}
+
+function braceYourself() {
+    changeModeToItemWindow();
+    document.getElementById('upper-text').innerHTML = pageSixThird + pageSixCommon;
+    mainCharacterCurrent.health -= 4;
+    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+    document.getElementById('choices-section').innerHTML = optionsSix;
+    setEnemyStats(ragnarTheHorrible,5,9,10,20);
 }
 
 //START GAME EVENT HANDLERS
@@ -655,14 +742,14 @@ document.addEventListener('DOMContentLoaded', function () {
 /*page one event handlers*/
 
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-one"); // Or any other selector.
+    const target = e.target.closest("#choice-one");
     if(target){
         mainCharacter.score +=1;
         openEyes();
     }
  });
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-two"); // Or any other selector.
+    const target = e.target.closest("#choice-two");
     if(target){
         mainCharacter.score -=5;
         gameOverGiveUp();     
@@ -699,7 +786,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-six"); 
     if(target){
-        mainCharacter.score += foundItemInfo.score; //add scores to items
+        mainCharacter.score += 3;
         firstSearch();
     }
 });
@@ -707,7 +794,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-seven"); 
     if(target){
-        mainCharacter.score; //add scores to items
+        mainCharacter.score += 1;
         slimeEncounter();
     }
 });
@@ -716,8 +803,8 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-eight"); 
     if(target){
-        mainCharacter.score += foundItemInfo.score ; //add scores to items
-        storeFirstItem();
+        mainCharacter.score += foundItemInfo.score ; 
+        keepFirstItem();
     }
 });
 document.addEventListener("click", function(e){
@@ -728,6 +815,30 @@ document.addEventListener("click", function(e){
     }
 });
 
+//page five event handlers
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-ten"); 
+    if(target){
+        mainCharacter.score += 3; 
+        testLuck();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-eleven"); 
+    if(target){
+        mainCharacter.score += 2 ; 
+        braceYourself();
+    }
+});
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-twelve"); 
+    if(target){
+        mainCharacter.score += 1; 
+        slimeEncounter();
+    }
+});
 
 /* GAME TEXT */
 
@@ -792,16 +903,52 @@ const pageThreeCommon =`
 
 const optionsThree = `
     <li><button class="choice-button" id="choice-six">I am curious.  Let us examine the thing on the floor. </button></li>
-    <li><button class="choice-button" id="choice-seven">Maybe I can find a light. Or safety. Let's get out of here.</button></li>
-    
+    <li><button class="choice-button" id="choice-seven">Maybe I can find a light. Or safety. Let's get out of here.</button></li>  
 `;
 
 //Page Four
 
 const optionsFour = `<li><button class="choice-button" id="choice-eight">Let's keep it!  You never know when it will come in handy.</button></li>
-<li><button class="choice-button" id="choice-nine">I have no use for this rubbish.  Let's move on.</button></li>
+<li><button class="choice-button" id="choice-nine">I have no use for this rubbish. It's time to leave this room.</button></li>
 `;
 
+//Page Five
+const pageFiveCommon = `
+<p>As you walk away from the corpse you give it a healthy punt with your boot</p>
+<p>The flesh is firmer than you expected it to be, and you freeze, awaiting a response... <p>
+`
+const pageFiveFirst = `
+<p>With unreasonable speed for a stinking corpse, a filthy hand grabs you around the ankle.
+<br>From within the bundle of rags, a blade flashes in the darkness...</p>
+`
+const pageFiveSecond = `
+<p>The figure remains still. Whoever this was, they are definitely dead.  You'd have been surprised if not, because they really do smell like it.</p>
+`
+const optionsFiveFirst = `
+<li><button class="choice-button" id="choice-ten">TEST YOUR LUCK! Can you dodge the blade?</button></li>
+<li><button class="choice-button" id="choice-eleven">Superstitious nonsense.  Let's just crush this wretch.</button></li>
+`
+const optionsFiveSecond = `
+<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>
+`
+//Page Six
+
+const pageSixCommon = `
+<p>Snarling, you break free of your foe's grip and turn to face them.</p>
+<p>The pile of rags on the floor has metamorphasised, like a corpse stench ridden butterfly, into a furious looking warrior with a filthy straggly beard. </p>
+`
+const pageSixFirst = `
+<p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh</p>
+`
+const pageSixSecond = `
+<p>You try to dodge but with your ankle caught fast there is no way of avoiding the blade.  <br>It plunges into your thigh for 7 health points of damage.</p>
+`
+const pageSixThird = `
+<p>You stand your ground and angle yourself to best withstand the impact of the blade.  <br>It grazes off your thigh for 4 health points of damage.</p>
+`
+const optionsSix = `
+<li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
+`
 
 // OBJECT EXPORTS FOR AUTOMATED TESTING
 var module = module || {};
