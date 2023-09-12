@@ -47,7 +47,7 @@
                         <img src="assets/images/character-profiles/warrior-face.png" width="150px">
                     </div>
                     <div id="character-stats">
-                        <h3>Identity Unknown</h3>
+                        <h3 id="character-sheet-name"></h3>
                         <ul>
                             <li>Strength: <span id="main-strength"></span></li>
                             <li>Speed: <span id="main-speed"></span></li>
@@ -59,29 +59,34 @@
                 </div>
                 <div id="game-section">
                     <!-- Optional image and text/stats-->
+                    <div class="reset" id="upper-text">
+                    </div>
                     <div id="image-section">
-                        <div id="image">
-                            <img src="assets/images/character-profiles/warrior-face.png" width="200px">
+                        <div id="image-image">
+                            <img src="assets/images/character-profiles/warrior-face.png">
                         </div>
                         <div id="image-text">
-                            <h4>Ragnar the horrible</h4>
+                            <h3 class="reset" id="image-title">Ragnar the horrible</h3>
+                            <p class="reset" id="item-description"></p>
                             <ul>
-                                <li>Eats Mud</li>
-                                <li>Drinks Tea</li>
-                                <li>Sleeps with your sister</li>
+                                <li class="reset" id="list-item-one">Eats Mud</li>
+                                <li class="reset" id="list-item-two">Drinks Tea</li>
+                                <li class="reset" id="list-item-three">Sleeps with your sister</li>
+                                <li class="reset" id="list-item-four"></li>
+                                <li class="reset" id="list-item-five"></li>
                             </ul>
                         </div>
                     </div>
                     <!--Text to describe battles and outcome-->
-                    <div id="battle-text">
+                    <div class="reset" id="battle-text">
                         <p>Ragnar thumps you hard in the nose, causing a contusion and a lot of confusion</p>
                     </div>
                     <!-- Text for main description of what's going on -->
-                    <div id="game-text">                        
+                    <div class="reset" id="game-text">                        
                     </div>
                     <!-- Options for the player to select from -->
                     <div>
-                        <ul id="choices-section">                
+                        <ul class="reset" id="choices-section">                
                         </ul>
                     </div>                    
                 </div>
@@ -96,58 +101,54 @@
                 <div id="player-items">
                     <div class="item-display" id="weapon-item">
                         <div class="item-image" id="weapon-item-image">
-                            <img src="assets/images/items/placeholder-sword.jpeg">
+                            <img src="assets/images/items/box.png">
                         </div>
-                        <div class="item-text" id="weapon-item-stats">
-                            <h4>Dagger of Doom</h4>
+                        <div class="item-text">
+                            <h4 class="reset" id="weapon-item-name">Weapon Slot</h4>
                             <hr>
                             <ul>
-                                <li>stat 1</li>
-                                <li>stat 2</li>
-                                <li>stat 3</li>
+                                <li class="reset" id="weapon-list-item-one"></li>
+                                <li class="reset" id="weapon-list-item-two"></li>
+                                <li class="reset" id="weapon-list-item-three"></li>
+                                <li class="reset" id="weapon-list-item-four"></li>
                             </ul>
                         </div>
                     </div>
                     <div class="item-display" id="defence-item">
                         <div class="item-image" id="defence-item-image">
-                            <img src="assets/images/items/placeholder-sword.jpeg">
+                            <img src="assets/images/items/box.png">
                         </div>
-                        <div class="item-text" id="defence-item-stats">
-                            <h4>Shield of Harmony</h4>
+                        <div class="item-text" >
+                            <h4 class="reset" id="defence-item-name">Clothing Slot</h4>
                             <hr>
                             <ul>
-                                <li>stat 1</li>
-                                <li>stat 2</li>
-                                <li>stat 3</li>
+                                <li class="reset" id="clothing-list-item-one"></li>
+                                <li class="reset" id="clothing-list-item-two"></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="item-display" id="potion-item">
+                    <div class="item-display">
                         <div class="item-image" id="potion-item-image">
-                            <img src="assets/images/items/placeholder-sword.jpeg">
+                            <img src="assets/images/items/box.png">
                         </div>
-                        <div class="item-text" id="potion-item-stats">
-                            <h4>Potion of Catnip</h4>
+                        <div class="item-text">
+                            <h4 class="reset" id="potion-item-name">Potion Slot</h4>
                             <hr>
                             <ul>
-                                <li>stat 1</li>
-                                <li>stat 2</li>
-                                <li>stat 3</li>
+                                <li class="reset" id="potion-list-item-one"></li>
                             </ul>
                         </div>
                     </div>
-                    <div class="item-display" id="random-item">
-                        <div class="item-image" id="random-item-image">
+                    <div class="item-display">
+                        <div class="item-image" id="object-item-image">
                 
-                            <img src="assets/images/items/placeholder-sword.jpeg">
+                            <img src="assets/images/items/box.png">
                         </div>
-                        <div class="item-text" id="random-item-stats">
-                            <h4>Bag of cables</h4>
+                        <div class="item-text" >
+                            <h4 class="reset" id="object-item-name">Object Slot</h4>
                             <hr>
                             <ul>
-                                <li>stat 1</li>
-                                <li>stat 2</li>
-                                <li>stat 3</li>
+                                <li class="reset" id="object-list-item-one"></li>
                             </ul>
                         </div>
                     </div>

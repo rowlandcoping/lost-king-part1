@@ -248,9 +248,9 @@ describe("searchForItem function returns correct values as expected (not exhaust
       searchForItem(0,0,0,100);
       expect(foundItemInfo.image).toEqual("");
    }),
-   test("name value for Frozen Staff written correctly to foundItemInfo object", () =>{
-      jest.spyOn(global.Math, 'random').mockReturnValue(0.96);
-      searchForItem(100,100,100,100);
-      expect(foundItemInfo.name).toEqual("Frozen Staff");
+   test("effect value for Insect Repellent written correctly to foundItemInfo object", () =>{
+      jest.spyOn(global.Math, 'random').mockReturnValue(0.50);
+      searchForItem(0,0,0,100);
+      expect(foundItemInfo.effect).toEqual("Scares off bugs");
    })
 });
