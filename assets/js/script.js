@@ -4,14 +4,23 @@ const mainCharacter = {
     name: 0,
     score: 0,
     strength: 0,
-    speed: 0,
-    stamina: 0,
+    skill: 0,
+    defence: 0,
     luck: 0,
     health: 0
 };
 
 const mainCharacterCurrent = {
-    health: 0
+    luck: 0,
+    health: 0,
+    magic:"",
+    resist:"",
+    vulnerability:"",
+    dItem:0,
+    strItem:0,
+    sklItem:0,
+    hlthItem:0,
+    lkItem:0
 };
 
 //ITEM OBJECTS
@@ -23,7 +32,7 @@ const characterWeapons = [
         adjective: "a mighty",
         name: "Oathbringer",
         attack: 15,
-        speed: -5,
+        skill: -5,
         magic: "",
         type: "sharp",
         image: "assets/images/items/placeholder-sword.jpeg",
@@ -36,7 +45,7 @@ const characterWeapons = [
         adjective: "a nifty",
         name: "Cat Sword",
         attack: 10,
-        speed: 5,
+        skill: 5,
         magic: "",
         type: "sharp",
         image: "assets/images/items/placeholder-sword.jpeg",
@@ -49,20 +58,20 @@ const characterWeapons = [
         adjective: "a pefunctory",
         name: "Rusty Dagger",
         attack: 0,
-        speed: 5,
+        skill: 5,
         magic: "",
         type: "sharp",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 50,
         score: 3,
-        description: "To say this weapon is blunt would be an understatement.  It weighs practically nothing though, and seems somehow to move even faster than your empty fist."
+        description: "To say this weapon is blunt would be an understatement.  It weighs practically nothing though, and you are able to wield it with considerable grace."
     },
     {
         category: "weapon",
         adjective: "a primitive",
         name: "Gnarled Club",
         attack: 3,
-        speed: 0,
+        skill: 0,
         magic: "",
         type: "blunt",
         image: "assets/images/items/placeholder-sword.jpeg",
@@ -75,7 +84,7 @@ const characterWeapons = [
         adjective: "a brutal",
         name: "Gleaming Mace",
         attack: 5,
-        speed: 5,
+        skill: 5,
         magic: "",
         type: "blunt",
         image: "assets/images/items/placeholder-sword.jpeg",
@@ -88,7 +97,7 @@ const characterWeapons = [
         adjective: "a wizardy",
         name: "Wand of Fire",
         attack: 10,
-        speed: 0,
+        skill: 0,
         magic: "fire",
         type: "magical",
         image: "assets/images/items/placeholder-sword.jpeg",
@@ -101,7 +110,7 @@ const characterWeapons = [
         adjective: "an Ice Queen's",
         name: "Frozen Staff",
         attack: 10,
-        speed: 0,
+        skill: 0,
         magic: "ice",
         type: "magical",
         image: "assets/images/items/placeholder-sword.jpeg",
@@ -117,7 +126,7 @@ const characterDefence = [
         adjective: "some furry",
         name: "Furry Gilet and Shorts",
         defence: 2,
-        magic: "",
+        resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 15,
         score: 3,
@@ -128,7 +137,7 @@ const characterDefence = [
         adjective: "some disco",
         name: "Golden Loin Cloth",
         defence: 2,
-        magic: "fire",
+        resist: "fire",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 30,
         score: 5,
@@ -139,7 +148,7 @@ const characterDefence = [
         adjective: "some disgusting",
         name: "Filthy Jerkin",
         defence: 4,
-        magic: "",
+        resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 75,
         score: 1,
@@ -150,7 +159,7 @@ const characterDefence = [
         adjective: "some shiny",
         name: "Chain Mail",
         defence: 6,
-        magic: "",
+        resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 85,
         score: 10,
@@ -161,7 +170,7 @@ const characterDefence = [
         adjective: "some bizarre",
         name: "Purple Helmet",
         defence: 6,
-        magic: "ice",
+        resist: "ice",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 95,
         score: 30,
@@ -172,7 +181,7 @@ const characterDefence = [
         adjective: "some uncomfortable",
         name: "Plate Armor",
         defence: 10,
-        magic: "",
+        resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 100,
         score: 40,
@@ -314,10 +323,19 @@ const ragnarTheHorrible = {
     name: "Ragnar the Horrible",
     description: "Ragnar will eat mud.  Ragnar will sleep with your sister.  Ragnar drinks a lot of tea.  Ragnar has seen better days.",
     strength: 0,
-    speed: 0,
+    skill: 0,
+    defence: 0,
     health: 0,
     image: "assets/images/character-profiles/warrior-face.png",
-    score:30
+    vulnerability:"",
+    resist: "",
+    magic:"",
+    dItem:0,
+    strItem:0,
+    sklItem:0,
+    hlthItem:0,
+    score:30,
+    initialText: "<p>The near-corpse circles warily around you.  It seems to be your move.</p>"
 }
 
 // CHARACTER INFO STORAGE
@@ -325,7 +343,7 @@ const ragnarTheHorrible = {
 const currentWeapon = {
     name: "",
     attack: 0,
-    speed: 0,
+    skill: 0,
     magic: "",
     type: "",
     image: ""
@@ -354,8 +372,9 @@ const currentObject = {
 const foundItemInfo = {
     category: "",
     name: "",
-    speed: 0,
+    skill: 0,
     magic: "",
+    resist: "",
     type: "",
     image: "",
     effect: "",
@@ -377,12 +396,38 @@ const thingsWhatYouveDone = {
 const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 //Character stats generator
-function generateStats(character, min, max, hMin, hMax) {
+function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
     character.strength = getRandomNumber(min, max);
-    character.speed = getRandomNumber(min, max);
-    character.stamina = getRandomNumber(min, max);
+    character.skill = getRandomNumber(min, max);
+    character.defence = getRandomNumber(min, max);
     character.luck = getRandomNumber(min, max);
     character.health = getRandomNumber(hMin, hMax);
+    character.vulnerability = vuln;
+    character.resist = resist;
+    character.magic = magic;
+    character.dItem = dItem;
+    character.strItem = strItem;
+    character.sklItem = sklItem;
+    character.hlthItem = hlthItem;
+    character.lkItem = lkItem;
+}
+function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
+    generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic);
+    if (strItem) {enemy.strength = enemy.strength + strItem};
+    if (sklItem) {enemy.skill = enemy.strength + sklItem};
+    if (dItem) {enemy.defence = enemy.defence + sklItem};
+    if (lkItem) {enemy.defence = enemy.defence + lklItem};
+    if (hlthItem) {enemy.defence = enemy.defence + hlthItem};
+    document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
+    document.getElementById('image-title').innerHTML = enemy.name;
+    document.getElementById('item-description').innerHTML = enemy.description;
+    document.getElementById('list-item-one').innerHTML = "Strength: " + enemy.strength;
+    document.getElementById('list-item-two').innerHTML = "Skill: " + enemy.skill;
+    document.getElementById('list-item-three').innerHTML = "Defence: " + enemy.defence;
+    document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
+    if (strItem) {enemy.strength = enemy.strength + strItem};
+    if (sklItem) {enemy.skill = enemy.strength + sklItem};
+
 }
 
 // Functions to find randomized items
@@ -425,7 +470,8 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                 foundItemInfo.adjective = i.adjective;
                 foundItemInfo.name = i.name;
                 foundItemInfo.attack = i.attack;
-                foundItemInfo.speed = i.speed;
+                foundItemInfo.skill = i.skill;
+                foundItemInfo.resist = i.resist,
                 foundItemInfo.magic = i.magic,
                 foundItemInfo.type = i.type,
                 foundItemInfo.image = i.image,
@@ -446,7 +492,7 @@ function itemStorage() {
         } else {
             currentWeapon.name = foundItemInfo.name;
             currentWeapon.attack = foundItemInfo.attack;
-            currentWeapon.speed = foundItemInfo.speed;
+            currentWeapon.skill = foundItemInfo.skill;
             currentWeapon.magic = foundItemInfo.magic;
             currentWeapon.type = foundItemInfo.type;
             currentWeapon.image = foundItemInfo.image;
@@ -457,7 +503,7 @@ function itemStorage() {
         } else {
             currentDefence.name = foundItemInfo.name;
             currentDefence.defence = foundItemInfo.defence;
-            currentDefence.magic = foundItemInfo.magic;
+            currentDefence.resist = foundItemInfo.resist;
             currentDefence.image = foundItemInfo.image;
         }
     } else if (foundItemInfo.category === "potion") {
@@ -477,6 +523,11 @@ function itemStorage() {
             currentObject.image = foundItemInfo.image;
         }
     }
+    if (foundItemInfo.name === "Four Leaf Clover") {
+        mainCharacterCurrent.lkItem = 3;
+        mainCharacterCurrent.luck = mainCharacter.luck + mainCharacterCurrent.lkItem;
+        document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
+    }
 }
 //write info to DOM
 function storeItem() {
@@ -485,14 +536,14 @@ function storeItem() {
         document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `">`;
         document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
         document.getElementById('weapon-list-item-one').innerHTML = "ATT: " + currentWeapon.attack;
-        document.getElementById('weapon-list-item-two').innerHTML = "SPD: " + currentWeapon.speed;
+        document.getElementById('weapon-list-item-two').innerHTML = "SPD: " + currentWeapon.skill;
         if (currentWeapon.magic) {document.getElementById('weapon-list-item-three').innerHTML = "MGC: " + currentWeapon.magic;}
         document.getElementById('weapon-list-item-four').innerHTML = "TYP: " + currentWeapon.type;
     } else if (foundItemInfo.category === "clothing") {
         document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `">`;
         document.getElementById('defence-item-name').innerHTML = currentDefence.name;
         document.getElementById('clothing-list-item-one').innerHTML = "DEF: " + currentDefence.defence;
-        if (currentDefence.magic) {document.getElementById('clothing-list-item-two').innerHTML = "MGK: " + currentDefence.magic;}
+        if (currentDefence.resist) {document.getElementById('clothing-list-item-two').innerHTML = "RST: " + currentDefence.resist;}
     } else if (foundItemInfo.category === "potion") {
         document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `">`;
         document.getElementById('potion-item-name').innerHTML = currentPotion.name;
@@ -507,6 +558,172 @@ function storeItem() {
     }
 }
 
+//BATTLE FUNCTIONS
+
+function testResistances(enemy) {
+    //enemy resists/etc
+        if (enemy.resist ==="fire") {
+            if (roundMagic === "fire") {
+                roundDamage = roundDamage * 0.5;
+            }
+        }
+        if (enemy.vulnerability ==="fire") {
+            if (roundMagic === "fire") {
+                roundDamage = roundDamage * 2;
+            }
+        }
+        if (enemy.resist ==="ice") {
+            if (roundMagic === "ice") {
+                roundDamage = roundDamage * 0.5;
+            }
+        }
+        if (enemy.vulnerability ==="ice") {
+            if (roundMagic === "ice") {
+                roundDamage = roundDamage * 2;
+            }
+        }
+        if (enemy.resist ==="sharp") {
+            if (roundType === "sharp") {
+                roundDamage = roundDamage * 0.5;
+            }
+        }
+        if (enemy.vulnerability ==="sharp") {
+            if (roundType === "sharp") {
+                roundDamage = roundDamage * 2;
+            }
+        }
+        if (enemy.resist ==="blunt") {
+            if (roundType === "blunt") {
+                roundDamage = roundDamage * 0.5;
+            }
+        }
+        if (enemy.vulnerability ==="blunt") {
+            if (roundType === "blunt") {
+                roundDamage = roundDamage * 2;
+            }
+        }
+    //enemy magic
+        if (enemy.magic ==="fire") {
+            if (mainCharacterCurrent.vulnerbility === "fire") {
+                enemyDamage = enemyDamage * 2;
+            }
+        }
+        if (enemy.magic ==="fire") {
+            if (mainCharacterCurrent.resist === "fire") {
+                roundDamage = roundDamage * 0.5;
+            }
+        }
+        if (enemy.magic ==="ice") {
+            if (mainCharacterCurrent.vulnerbility === "ice") {
+                enemyDamage = enemyDamage * 2;
+            }
+        }
+        if (enemy.magic ==="ice") {
+            if (mainCharacterCurrent.resist === "ice") {
+                roundDamage = roundDamage * 0.5;
+            }
+        }
+ }
+
+function beginFight(enemy) {
+    document.getElementById('upper-text').innerHTML = "";
+    document.getElementById('battle-text-player').innerHTML = enemy.initialText;
+    battleChoices();
+}
+
+function continueFight(enemy) {
+    document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
+    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+    battleChoices();
+}
+function nextRound(enemy) {
+    let hitSuccess;
+    let roundType;
+    let roundMagic;
+    let minStrength;
+    //your go
+    /*if (roundSkip) {
+        usePotion(usedWeapon);
+    } else */
+    if (usedWeapon = currentWeapon.name) {
+        roundType = currentWeapon.type;
+        roundMagic = currentWeapon.magic;
+        minStrength = currentWeapon.attack;
+    } else {
+        roundType = "blunt";
+        roundMagic = "";
+        minStrength = 1;
+    }
+    let chanceToHit = getRandomNumber(1,20);
+    console.log("Chance to Hit: " + chanceToHit);
+    if (chanceToHit <= mainCharacter.skill) {
+        hitSuccess = true;
+    } else {
+        hitSuccess = false;
+    }
+    console.log("Hit Success: " + hitSuccess);
+    if (hitSuccess) {
+        let roundDamage = getRandomNumber(minStrength, mainCharacter.strength);
+        console.log("Round Damage: " + roundDamage);
+        let enemyResist = getRandomNumber(1,15);
+        console.log("enemyResist: " + enemyResist);
+        if (enemyResist<enemy.defence) {
+            let hitsDefended = enemy.defence - enemyResist;
+            console.log("hits defended: " + hitsDefended);
+            roundDamage -= hitsDefended;
+            testResistances(enemy);
+            console.log("Round damage modified: " + roundDamage);
+        }
+        enemy.health -= roundDamage;
+        console.log("enemy health: " + enemy.health);
+        if (enemy.health > 0) {
+            document.getElementById('battle-text-player').innerHTML = enemy.successText;
+        } else {
+            document.getElementById('battle-text-player').innerHTML = enemy.deathText;
+        } 
+    } else {
+        document.getElementById('battle-text-player').innerHTML = enemy.failText; 
+    }
+    // Their turn
+    chanceToHit = getRandomNumber(1,20);
+    hitSuccess = false;
+    console.log("Ragnar chance to Hit: " + chanceToHit);
+
+    if (chanceToHit <= enemy.skill) {
+        hitSuccess = true;
+    }
+    console.log("Ragnar Hit Success: " + hitSuccess);
+    if (hitSuccess) {
+        if (enemy.strItem) {
+            minStrength = enemy.strItem;
+        } else {minStrength = 1;}
+        roundDamage = getRandomNumber(minStrength, enemy.strength);
+        console.log("Ragnar Round Damage: " + roundDamage);
+        enemyResist = getRandomNumber(1,15);
+        console.log("My Resist: " + enemyResist);
+        if (enemyResist<mainCharacter.defence) {
+            hitsDefended = mainCharacter.defence - enemyResist;
+            console.log("My hits defended: " + hitsDefended);
+            roundDamage -= hitsDefended;
+            testResistances(enemy);
+            console.log("Ragnar Round damage modified: " + roundDamage);
+        }
+        mainCharacterCurrent.health -= roundDamage;
+        if (mainCharacterCurrent.health > 0) {
+            document.getElementById('battle-text-enemy').innerHTML = enemy.hitText;
+        } else {
+            document.getElementById('battle-text-enemy').innerHTML = enemy.killedYouText;
+        } 
+    } else {
+        document.getElementById('battle-text-enemy').innerHTML = enemy.missedText; 
+    }
+    continueFight(enemy);
+}
+
+
+
+
+
 //GAMEPLAY FUNCTIONS
 
 // Game restart and reset functions
@@ -515,8 +732,8 @@ function resetGame() {
     localStorage.clear();
     mainCharacter.name = "";
     mainCharacter.strength = "";
-    mainCharacter.speed = "";
-    mainCharacter.stamina = "";
+    mainCharacter.skill = "";
+    mainCharacter.defence = "";
     mainCharacter.luck = "";
     mainCharacter.health = "";
     mainCharacter.score = "";
@@ -535,8 +752,7 @@ function startGame(event) {
             mainCharacter.name = "Another Lazy Gamer";
             
            }
-        generateStats (mainCharacter, 12, 20, 50, 100);
-        
+        generateStats (mainCharacter, 12, 20, 50, 100);  
     }
     mainCharacterCurrent.health = mainCharacter.health;
     mainCharacter.score = 0;
@@ -574,8 +790,8 @@ function writeInitialToDom() {
     document.getElementById('final-score').innerHTML = "";
     document.getElementById('character-sheet-name').innerHTML = "Identity Unknown";
     document.getElementById('main-strength').innerHTML = mainCharacter.strength;
-    document.getElementById('main-speed').innerHTML = mainCharacter.speed;
-    document.getElementById('main-stamina').innerHTML = mainCharacter.stamina;
+    document.getElementById('main-skill').innerHTML = mainCharacter.skill;
+    document.getElementById('main-defence').innerHTML = mainCharacter.defence;
     document.getElementById('main-luck').innerHTML = mainCharacter.luck;
     document.getElementById('main-health').innerHTML = mainCharacter.health;
     document.getElementById('game-text').innerHTML = pageOne;
@@ -600,7 +816,7 @@ function changeModeToItemWindow() {
     document.getElementById('game-text').style.display = "none";
 }
 
-// Gameplay functions
+
 
 //Page Two
 
@@ -649,7 +865,7 @@ function firstSearch() {
     document.getElementById('item-description').innerHTML = foundItemInfo.description;
     if (foundItemInfo.category =="weapon") {
         document.getElementById('list-item-one').innerHTML = "Attack: " + foundItemInfo.attack;
-        document.getElementById('list-item-two').innerHTML = "Speed: " + foundItemInfo.speed;
+        document.getElementById('list-item-two').innerHTML = "skill: " + foundItemInfo.skill;
         document.getElementById('list-item-three').innerHTML = "Type: " + foundItemInfo.type;
     } else if (foundItemInfo.category =="clothing") {
         document.getElementById('list-item-one').innerHTML = "Defence: " + foundItemInfo.defence;
@@ -670,7 +886,7 @@ function keepFirstItem() {
     storeItem();
     changeModeToMainWindow();
     let fightChance = getRandomNumber(1,100);
-    if (fightChance <=50) {
+    if (fightChance <=100) {
         document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveFirst;
         document.getElementById('choices-section').innerHTML = optionsFiveFirst;
     } else {
@@ -680,16 +896,6 @@ function keepFirstItem() {
 };
 
 //Page Six
-
-function setEnemyStats(enemy, min, max, hMin, hMax) {
-    generateStats(enemy, min, max, hMin, hMax);
-    document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
-    document.getElementById('image-title').innerHTML = enemy.name;
-    document.getElementById('item-description').innerHTML = enemy.description;
-    document.getElementById('list-item-one').innerHTML = "Strength: " + enemy.strength;
-    document.getElementById('list-item-two').innerHTML = "Speed: " + enemy.speed;
-    document.getElementById('list-item-three').innerHTML = "Health: " + enemy.health;
-}
 
 function testLuck() {
     changeModeToItemWindow();
@@ -713,8 +919,11 @@ function braceYourself() {
     mainCharacterCurrent.health -= 4;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     document.getElementById('choices-section').innerHTML = optionsSix;
-    setEnemyStats(ragnarTheHorrible,5,9,10,20);
+    setEnemyStats(ragnarTheHorrible, 5,9,10,20);
 }
+
+
+
 
 //START GAME EVENT HANDLERS
 
@@ -840,6 +1049,44 @@ document.addEventListener("click", function(e){
     }
 });
 
+//Page 6 event handler
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-thirteen"); 
+    if(target){        
+        beginFight(ragnarTheHorrible);
+    }
+});
+
+// Battle Event handlers
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#battle-one"); 
+    if(target){ 
+        let usedWeapon = "fists";
+        let roundSkip = false;
+        nextRound(ragnarTheHorrible);
+    }
+});
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#battle-two"); 
+    if(target){
+        let usedWeapon = currentWeapon.name;
+        let roundSkip = false;
+        nextRound(ragnarTheHorrible);
+    }
+});
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#battle-three"); 
+    if(target){
+        let usedWeapon = currentPotion.name;
+        let roundSkip = true;
+        nextRound(ragnarTheHorrible);
+    }
+});
+
+
 /* GAME TEXT */
 
 /*page one (initial page)*/
@@ -935,7 +1182,7 @@ const optionsFiveSecond = `
 
 const pageSixCommon = `
 <p>Snarling, you break free of your foe's grip and turn to face them.</p>
-<p>The pile of rags on the floor has metamorphasised, like a corpse stench ridden butterfly, into a furious looking warrior with a filthy straggly beard. </p>
+<p>The pile of rags on the floor has metamorphasised, like a corpse-stench ridden butterfly, into a furious looking warrior with a filthy straggly beard. </p>
 `
 const pageSixFirst = `
 <p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh</p>
@@ -949,6 +1196,38 @@ const pageSixThird = `
 const optionsSix = `
 <li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
 `
+//battle choices
+
+const battleOne =`
+<li><button class="choice-button" id="battle-one">Attack with your bare, flat-knuckled fists.</button></li>
+`
+function battleChoices() {
+    let battleTwoFirst = "";
+    let battleTwoSecond = "";
+    let battleThreeFirst = "";
+    let battleThreeSecond = "";
+    if (currentWeapon.name) {
+        battleTwoFirst =`
+        <li><button class="choice-button" id="battle-two">Attack with the
+        `;
+        battleTwoSecond =`
+        .</button></li>
+        `;
+    }
+
+    if (currentPotion.name) {
+        battleThreeFirst =`
+        <li><button class="choice-button" id="battle-three">Use your
+        `;
+        battleThreeSecond =`
+        .</button></li>
+        `;
+    }
+    document.getElementById('choices-section').innerHTML = battleOne + battleTwoFirst + currentWeapon.name 
+    + battleTwoSecond + battleThreeFirst + currentPotion.name + battleThreeSecond;
+}
+
+
 
 // OBJECT EXPORTS FOR AUTOMATED TESTING
 var module = module || {};
