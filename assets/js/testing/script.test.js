@@ -76,6 +76,33 @@ describe("enemy character stat creation works as expected for base values", ()=>
    })
 });
 
+describe("enemy character stat creation works as expected extended values", ()=>{
+   beforeEach(() => {
+      setEnemyStats(ragnarTheHorrible, 20,20,25,25, 10, 10, 10, 30, "fire", "ice", "fire");
+   }),
+   test("strength field populates as expected", () =>{
+      expect(ragnarTheHorrible.strength).toEqual(30);
+   }),
+   test("skill field populates as expected", () =>{
+      expect(ragnarTheHorrible.skill).toEqual(30);
+   }),
+   test("defence field populates as expected", () =>{
+      expect(ragnarTheHorrible.defence).toEqual(30);
+   }),
+   test("health field populates as expected", () =>{
+      expect(ragnarTheHorrible.health).toEqual(55);
+   }),
+   test("vulnerability field populates as expected", () =>{
+      expect(ragnarTheHorrible.vulnerability).toEqual("fire");
+   }),
+   test("resist field populates as expected", () =>{
+      expect(ragnarTheHorrible.resist).toEqual("ice");
+   }),
+   test("magic field populates as expected", () =>{
+      expect(ragnarTheHorrible.magic).toEqual("fire");
+   })
+});
+
 
 
 

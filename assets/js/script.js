@@ -396,7 +396,7 @@ const thingsWhatYouveDone = {
 const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
 //CHARACTER GENERATION
-function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
+function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
     character.strength = getRandomNumber(min, max);
     character.skill = getRandomNumber(min, max);
     character.defence = getRandomNumber(min, max);
@@ -405,14 +405,13 @@ function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem,
     if(strItem) {character.strength += strItem;}
     if(sklItem) {character.skill += sklItem;}
     if(dItem) {character.defence += dItem;}
-    if(lkItem) {character.luck += lkItem;}
-    if(hlthItem) {character.health += health;}   
+    if(hlthItem) {character.health += hlthItem;}   
     if(vuln) {character.vulnerability = vuln;}
     if(resist) {character.resist = resist;}
     if(magic) {character.magic = magic;}    
 }
-function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
-    generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic);
+function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
+    generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic);
     document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
     document.getElementById('image-title').innerHTML = enemy.name;
     document.getElementById('item-description').innerHTML = enemy.description;
