@@ -3,7 +3,7 @@
  */
 
 const { mainCharacter, ragnarTheHorrible, mainCharacterCurrent, characterWeapons, characterDefence, characterPotions, 
-    characterObjects, currentWeapon, currentDefence, currentPotion, currentObject, foundItemInfo } = require("../script.js");
+    characterObjects, currentWeapon, currentDefence, currentPotion, currentObject, foundItemInfo,thingsWhatYouveDone } = require("../script.js");
  
  beforeAll(() => {
     let fs = require("fs");
@@ -419,5 +419,19 @@ describe("foundItemInfo contains correct properties", ()=>{
     }),
     test("description property exists", () =>{
         expect("description" in foundItemInfo).toBe(true);
+    })
+});
+
+// dynamic game state object (thingsWhatYouveDone) contains initial properties in correct state
+
+describe("thingsWhatYouveDone object contains properties in correct state", ()=>{
+    test("firstRoomSearch property set to false", () =>{
+        expect(thingsWhatYouveDone.firstRoomSearch).toEqual(false);
+    }),
+    test("slimeKill property set to false", () =>{
+        expect(thingsWhatYouveDone.slimeKill).toEqual(false);
+    }),
+    test("encounterLikelihood property set to 0", () =>{
+        expect(thingsWhatYouveDone.encounterLikelihood).toEqual(0);
     })
 });

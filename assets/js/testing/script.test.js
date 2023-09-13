@@ -5,7 +5,8 @@
 const { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
    pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent, 
-   itemStorage, currentWeapon, currentDefence, currentPotion, currentObject } = require("../script.js");
+   itemStorage, currentWeapon, currentDefence, currentPotion, currentObject, thingsWhatYouveDone, playerTestResistances, 
+   enemyTestResistances } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -24,9 +25,7 @@ describe("random number generator works as expected", ()=>{
    })
 });
 
-
 //CHARACTER CREATION TESTING
-
 
 describe("character stat creation code works as expected", ()=>{
    beforeAll(() =>{
@@ -53,8 +52,6 @@ describe("character stat creation code works as expected", ()=>{
       expect(mainCharacter.health).toBeLessThanOrEqual(25);
    })
 });
-
-
 describe("enemy character stat creation works as expected for base values", ()=>{
    beforeEach(() => {
       setEnemyStats(ragnarTheHorrible, 20,20,25,25);
@@ -75,7 +72,6 @@ describe("enemy character stat creation works as expected for base values", ()=>
       expect(ragnarTheHorrible.health).toEqual(25);
    })
 });
-
 describe("enemy character stat creation works as expected extended values", ()=>{
    beforeEach(() => {
       setEnemyStats(ragnarTheHorrible, 20,20,25,25, 10, 10, 10, 30, "fire", "ice", "fire");
@@ -102,14 +98,37 @@ describe("enemy character stat creation works as expected extended values", ()=>
       expect(ragnarTheHorrible.magic).toEqual("fire");
    })
 });
-
-
-
+describe("enemy character creation populates DOM as intended", ()=>{
+   beforeEach(() => {
+      setEnemyStats(ragnarTheHorrible, 20,20,25,25);
+   }),
+   test("image-image element popluates as expected", () =>{
+      expect(document.getElementById('image-image').innerHTML).toEqual(`<img src="` + ragnarTheHorrible.image + `">`);
+   }),
+   test("image-title element popluates as expected", () =>{
+      expect(document.getElementById('image-title').innerHTML).toEqual(ragnarTheHorrible.name);
+   }),
+   test("item-description element populates as expected", () =>{
+      expect(document.getElementById('item-description').innerHTML).toEqual(ragnarTheHorrible.description);
+   }),
+   test("list-item-one element populates as expected", () =>{
+      expect(document.getElementById('list-item-one').innerHTML).toEqual("Strength: " + ragnarTheHorrible.strength);
+   }),
+   test("list-item-two element populates as expected", () =>{
+      expect(document.getElementById('list-item-two').innerHTML).toEqual("Skill: " + ragnarTheHorrible.skill);
+   }),
+   test("list-item-three element populates as expected", () =>{
+      expect(document.getElementById('list-item-three').innerHTML).toEqual("Defence: " + ragnarTheHorrible.defence);
+   }),
+   test("list-item-four element populates as expected", () =>{
+      expect(document.getElementById('list-item-four').innerHTML).toEqual("Health: " + ragnarTheHorrible.health);
+   })
+});
 
 // ITEM SEARCH FUNCTIONS TESTING
 
 //search functions
-describe("FindItemType function returns correct category as expected", ()=>{
+describe("findItemType function returns correct category as expected", ()=>{
    test("function returns weapon object", () =>{
       expect(findItemType(100,100,100,100)).toBe(characterWeapons);
    }),
@@ -126,7 +145,6 @@ describe("FindItemType function returns correct category as expected", ()=>{
       expect(findItemType(0,0,0,0)).toBe("");
    })
 });
-
 describe("searchForItem function returns correct values as expected (not exhaustive)", ()=>{
    afterEach(() => {
       jest.spyOn(global.Math, 'random').mockRestore();
@@ -285,6 +303,91 @@ describe("itemStorage function correctly processes 'Furry Gilet and Shorts' obje
 
 // BATTLE FUNCTIONS TESTING
 
+//test player turn resistances function
+describe("test player turn resistances function works as intended", ()=>{
+   afterEach(() => {
+      for(let item of Object.keys(ragnarTheHorrible)) {
+         ragnarTheHorrible[item] = "";
+      }
+      for(let item of Object.keys(currentWeapon)) {
+         currentWeapon[item] = "";
+      }
+   }),
+   test("enemy fire resist works correctly", () =>{
+      ragnarTheHorrible.resist = "fire";
+      currentWeapon.magic = "fire";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+   }),
+   test("enemy fire vulnerability works correctly", () =>{
+      ragnarTheHorrible.vulnerability = "fire";
+      currentWeapon.magic = "fire";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+   }),
+   test("enemy ice resist works correctly", () =>{
+      ragnarTheHorrible.resist = "ice";
+      currentWeapon.magic = "ice";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+   }),
+   test("enemy ice vulnerability works correctly", () =>{
+      ragnarTheHorrible.vulnerability = "ice";
+      currentWeapon.magic = "ice";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+   }),
+   test("enemy sharp weapons resist works correctly", () =>{
+      ragnarTheHorrible.resist = "sharp";
+      currentWeapon.type = "sharp";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+   }),
+   test("enemy sharp weapons vulnerability works correctly", () =>{
+      ragnarTheHorrible.vulnerability = "sharp";
+      currentWeapon.type = "sharp";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+   }),
+   test("enemy blunt weapons resist works correctly", () =>{
+      ragnarTheHorrible.resist = "blunt";
+      currentWeapon.type = "blunt";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+   }),
+   test("enemy blunt weapons vulnerability works correctly", () =>{
+      ragnarTheHorrible.vulnerability = "blunt";
+      currentWeapon.type = "blunt";
+      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+   })
+});
+//test enemy turn resistances function
+describe("test enemy turn resistances function works as intended", ()=>{
+   afterEach(() => {
+      for(let item of Object.keys(ragnarTheHorrible)) {
+         ragnarTheHorrible[item] = "";
+      }
+      for(let item of Object.keys(currentDefence)) {
+         currentDefence[item] = "";
+      }
+      for(let item of Object.keys(mainCharacterCurrent)) {
+         mainCharacterCurrent[item] = "";
+      }
+   }),
+   test("player fire vulnerability works correctly", () =>{
+      ragnarTheHorrible.magic = "fire";
+      mainCharacterCurrent.vulnerability = "fire";
+      expect(enemyTestResistances(ragnarTheHorrible)).toBe(2);
+   }),
+   test("player fire resist works correctly", () =>{
+      ragnarTheHorrible.magic = "fire";
+      currentDefence.resist = "fire";
+      expect(enemyTestResistances(ragnarTheHorrible)).toBe(0.5);
+   }),
+   test("player ice vulnerability works correctly", () =>{
+      ragnarTheHorrible.magic = "ice";
+      mainCharacterCurrent.vulnerability = "ice";
+      expect(enemyTestResistances(ragnarTheHorrible)).toBe(2);
+   }),
+   test("player ice resist works correctly", () =>{
+      ragnarTheHorrible.magic = "ice";
+      currentDefence.resist = "ice";
+      expect(enemyTestResistances(ragnarTheHorrible)).toBe(0.5);
+   })
+});
 
 
 // GAMEPLAY FUNCTIONS TESTING

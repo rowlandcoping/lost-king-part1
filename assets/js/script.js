@@ -551,83 +551,49 @@ function storeItem() {
 
 //BATTLE FUNCTIONS
 
-function testResistances(enemy) {
+function playerTestResistances(enemy) {
     //enemy resists/etc
-        if (enemy.resist ==="fire") {
-            if (currentWeapon.magic === "fire") {
-                roundDamage = roundDamage * 0.5;
-            }
-        }
-        if (enemy.vulnerability ==="fire") {
-            if (currentWeapon.magic === "fire") {
-                roundDamage = roundDamage * 2;
-            }
-        }
-        if (enemy.resist ==="ice") {
-            if (currentWeapon.magic === "ice") {
-                roundDamage = roundDamage * 0.5;
-            }
-        }
-        if (enemy.vulnerability ==="ice") {
-            if (currentWeapon.magic === "ice") {
-                roundDamage = roundDamage * 2;
-            }
-        }
-        if (enemy.resist ==="sharp") {
-            if (currentWeapon.type === "sharp") {
-                roundDamage = roundDamage * 0.5;
-            }
-        }
-        if (enemy.vulnerability ==="sharp") {
-            if (currentWeapon.type === "sharp") {
-                roundDamage = roundDamage * 2;
-            }
-        }
-        if (enemy.resist ==="blunt") {
-            if (currentWeapon.type === "blunt") {
-                roundDamage = roundDamage * 0.5;
-            }
-        }
-        if (enemy.vulnerability ==="blunt") {
-            if (currentWeapon.type === "blunt") {
-                roundDamage = roundDamage * 2;
-            }
-        }
-    //enemy magic
-        if (enemy.magic ==="fire") {
-            if (mainCharacterCurrent.vulnerability === "fire") {
-                enemyDamage = enemyDamage * 2;
-            }
-        }
-        if (enemy.magic ==="fire") {
-            if (currentDefence.resist === "fire") {
-                roundDamage = roundDamage * 0.5;
-            }
-        }
-        if (enemy.magic ==="ice") {
-            if (mainCharacterCurrent.vulnerability === "ice") {
-                enemyDamage = enemyDamage * 2;
-            }
-        }
-        if (enemy.magic ==="ice") {
-            if (currentDefence.resist === "ice") {
-                roundDamage = roundDamage * 0.5;
-            }
-        }
- }
-
+    if (enemy.resist ==="fire" && currentWeapon.magic === "fire") {
+        return 0.5;
+    } else if (enemy.vulnerability ==="fire" && currentWeapon.magic === "fire") {
+        return 2;
+    } else if (enemy.resist ==="ice" && currentWeapon.magic === "ice") {
+        return 0.5;
+    } else if (enemy.vulnerability ==="ice" && currentWeapon.magic === "ice") {
+        return 2;
+    } else if (enemy.resist ==="sharp" && currentWeapon.type === "sharp") {
+        return 0.5;
+    } else if (enemy.vulnerability ==="sharp" && currentWeapon.type === "sharp") {
+        return 2;
+    } else if (enemy.resist ==="blunt" && currentWeapon.type === "blunt") {
+        return 0.5;
+    } else if (enemy.vulnerability ==="blunt" && currentWeapon.type === "blunt") {
+        return 2;
+    }
+}
+function enemyTestResistances(enemy) {
+    if (enemy.magic ==="fire" && mainCharacterCurrent.vulnerability === "fire") {
+        return 2;
+    } else if (enemy.magic ==="fire" && currentDefence.resist === "fire") {
+        return 0.5;
+    } else if (enemy.magic ==="ice" && mainCharacterCurrent.vulnerability === "ice") {
+        return 2;
+    } else if (enemy.magic ==="ice" && currentDefence.resist === "ice") {
+        return 0.5;
+    } else { 
+        return 1;
+    }
+} 
 function beginFight(enemy) {
     document.getElementById('upper-text').innerHTML = "";
     document.getElementById('battle-text-player').innerHTML = enemy.initialText;
     battleChoices();
 }
-
 function continueFight(enemy) {
     document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     battleChoices();
 }
-
 function fistsRound(enemy) {
     let hitSuccess;
     let chanceToHit = getRandomNumber(1,20);
@@ -647,8 +613,9 @@ function fistsRound(enemy) {
             let hitsDefended = enemy.defence - enemyResist;
             console.log("hits defended: " + hitsDefended);
             roundDamage -= hitsDefended;
-            testResistances(enemy);
-            console.log("Round damage modified: " + roundDamage);
+            console.log("net damage: " + roundDamage); 
+            roundDamage *= playerTestResistances(enemy);
+            console.log("net damage after resistances: " + roundDamage);  
         }
         if (roundDamage > 0) {enemy.health -= roundDamage;}
         console.log("enemy health: " + enemy.health);
@@ -672,7 +639,6 @@ function fistsRound(enemy) {
         enemyTurn(enemy);
     }
 }
-
 function weaponRound(enemy) {
     let hitSuccess;
     let chanceToHit = getRandomNumber(1,20);
@@ -692,7 +658,7 @@ function weaponRound(enemy) {
             let hitsDefended = enemy.defence - enemyResist;
             console.log("hits defended: " + hitsDefended);
             roundDamage -= hitsDefended;
-            testResistances(enemy);
+            roundDamage *= playerTestResistances(enemy);
             console.log("Round damage modified: " + roundDamage);
         }
         if (roundDamage > 0) {enemy.health -= roundDamage;}
@@ -717,7 +683,6 @@ function weaponRound(enemy) {
         enemyTurn(enemy);
     }
 }
-
 function potionRound(enemy) {
     let roundDamage;
     let potionName = currentPotion.name;
@@ -725,7 +690,11 @@ function potionRound(enemy) {
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You rub on some of the catnip potion, but it doesn't seem to do anything right now";
         enemyTurn(enemy);
     } else if (potionName === "Potion of Healing") {
-        mainCharacterCurrent.health =+ 50;
+        if (mainCharacterCurrent.health + 50 <= mainCharacter.health) {
+            mainCharacterCurrent.health =+ 50;
+        } else {
+            mainCharacterCurrent.health = mainCharacter.health
+        }
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You drink down the restorative balm, and feel instantly re-invigorated";
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('potion-item-name').innerHTML = "";
@@ -737,37 +706,37 @@ function potionRound(enemy) {
     } else if (potionName === "Potion of Fire") {
         roundDamage = 20;
         if (enemy.resist ==="fire") {
-            roundDamage = roundDamage * 0.5;
+            roundDamage = 10;
+        } else if (enemy.vulnerability ==="fire") {
+            roundDamage = 40;
+        } else {
+            roundDamage = 20;
         }
-        if (enemy.vulnerability ==="fire") {
-            roundDamage = roundDamage * 2;
-        }
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You hurl the vial at your opponent, and watch as they are consumed by flames.";
+        enemy.health -= roundDamage;
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('potion-item-name').innerHTML = "";
         document.getElementById('potion-list-item-one').innerHTML = "";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
-         }
-         if (enemy.health<=0) {
+        }
+        
+        if (enemy.health<=0) {
             document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>They slump to the ground, their still smouldering flesh charred and blackened beyond recognition. <br>You almost feel sorry for them... almost.</p>";
             document.getElementById('battle-text-enemy').innerHTML ="";
-            mainCharacterCurrent.strength = mainCharacter.strength;
-            mainCharacterCurrent.defence = mainCharacter.defence;
             document.getElementById('choices-section').innerHTML = enemy.choices;
         } else {
+            document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You hurl the vial at your opponent, and watch as they are consumed by flames.";
             enemyTurn(enemy);
         }
     } else if (potionName === "Potion of Ice") {
         roundDamage = 20;
         if (enemy.resist ==="ice") {
-            roundDamage = roundDamage * 0.5;
+            roundDamage = 10;
+        } else if (enemy.vulnerability ==="ice") {
+            roundDamage = 40;
         }
-        if (enemy.vulnerability ==="ice") {
-            roundDamage = roundDamage * 2;
-        }
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.";
+        enemy.health -= roundDamage;
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('potion-item-name').innerHTML = "";
         document.getElementById('potion-list-item-one').innerHTML = "";
@@ -778,10 +747,9 @@ function potionRound(enemy) {
             document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>They slump to the ground, their skin raked from their flesh by your icy attack. <br>You almost feel sorry for them... almost.</p>";
             document.getElementById('battle-text-enemy').innerHTML ="";
-            mainCharacterCurrent.strength = mainCharacter.strength;
-            mainCharacterCurrent.defence = mainCharacter.defence;
             document.getElementById('choices-section').innerHTML = enemy.choices;
         } else {
+            document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.";
             enemyTurn(enemy);
         }
     } else if (potionName === "Potion of Defence") {
@@ -806,7 +774,6 @@ function potionRound(enemy) {
         enemyTurn(enemy);
     }
 }
-
 function enemyTurn(enemy) {
     let hitSuccess;
     chanceToHit = getRandomNumber(1,20);
@@ -829,7 +796,7 @@ function enemyTurn(enemy) {
             hitsDefended = mainCharacterCurrent.defence + currentDefence.defence - enemyResist;
             console.log("My hits defended: " + hitsDefended);
             roundDamage -= hitsDefended;
-            testResistances(enemy);
+            roundDamage *= enemyTestResistances(enemy);
             console.log("Ragnar Round damage modified: " + roundDamage);
         }
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
@@ -858,7 +825,6 @@ function enemyTurn(enemy) {
 // Game restart and reset functions
 
 function resetGame() {
-    localStorage.clear();
     mainCharacter.name = "";
     mainCharacter.strength = "";
     mainCharacter.skill = "";
@@ -873,7 +839,6 @@ function resetGame() {
 }
 
 function startGame(event) {
-    localStorage.clear();
     if (!mainCharacter.name) {        
         if (document.getElementById('character-name').value) {
         mainCharacter.name = document.getElementById('character-name').value;
@@ -1356,6 +1321,7 @@ var module = module || {};
 module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
     pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
     characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
-    currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats };
+    currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats, thingsWhatYouveDone, playerTestResistances, 
+    enemyTestResistances };
 
 

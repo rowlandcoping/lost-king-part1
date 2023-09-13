@@ -23,3 +23,7 @@ solved by adding the condition attack damage had to be positive.
 
 issue with character ending with minus health - solved my manually setting value in DOM to zero.
 prevented enemy from attacking after they are dead!
+
+on testing resistances function were just a series of if statements which meant values could be overwritten. 
+testing resistances fucntion was over-compoicated and didn't work. revised into 2 seperate functions for each turn cycle using if-else statements with a default else statement to return a single value.
+now works
