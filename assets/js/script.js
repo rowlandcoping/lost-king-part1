@@ -1,5 +1,6 @@
-//Player Object
+//CHARACTER OBJECTS
 
+//player objects
 const mainCharacter = {
     name: 0,
     score: 0,
@@ -18,15 +19,34 @@ const mainCharacterCurrent = {
     magic:"",
     resist:"",
     vulnerability:"",
-    dItem:0,
-    strItem:0,
-    sklItem:0,
-    hlthItem:0,
-    lkItem:0
 };
 
-//ITEM OBJECTS
+//enemy objects
 
+const ragnarTheHorrible = {
+    name: "Ragnar the Horrible",
+    description: "Ragnar will eat mud.  Ragnar will sleep with your sister.  Ragnar drinks a lot of tea.  Ragnar has seen better days.",
+    strength: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    image: "assets/images/character-profiles/warrior-face.png",
+    vulnerability:"",
+    resist: "",
+    magic:"",
+    score:30,
+    initialText: "<p>The near-corpse circles warily around you.  It seems to be your move.</p>",
+    successTextOne: "<p>You smash Ragnar with your ",
+    successTextTwo: "<br>He dances away, and then forces you to defend again.</p>",
+    deathText: "<p>The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists.<br>Perhaps this time he'll stay dead.</p>",
+    failText: "<p>The wily little fellow ducks away from your blow, grumbling to himself, before striking back at you.</p>",
+    hitText: "<p>Squealing with delight, Ragnar lands a solid blow, sending you reeling,",
+    killedYouText: "<p>You stumble and, in that instant, the little felon lands the killing blow, cleaving your aching skull.<br>YOU ARE DEAD</p>",
+    missedText: "<p>Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.</p>",
+    choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
+}
+
+//ITEM OBJECTS
 //weapons
 const characterWeapons = [
     {
@@ -317,37 +337,6 @@ const characterObjects = [
     },
 ];
 
-// ADVERSARIES!
-
-//Ragnar the horrible
-
-const ragnarTheHorrible = {
-    name: "Ragnar the Horrible",
-    description: "Ragnar will eat mud.  Ragnar will sleep with your sister.  Ragnar drinks a lot of tea.  Ragnar has seen better days.",
-    strength: 0,
-    skill: 0,
-    defence: 0,
-    health: 0,
-    image: "assets/images/character-profiles/warrior-face.png",
-    vulnerability:"",
-    resist: "",
-    magic:"",
-    dItem:0,
-    strItem:0,
-    sklItem:0,
-    hlthItem:0,
-    score:30,
-    initialText: "<p>The near-corpse circles warily around you.  It seems to be your move.</p>",
-    successTextOne: "<p>You smash Ragnar with your",
-    successTextTwo: "<br>He dances away, and then forces you to defend again.</p>",
-    deathText: "<p>The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists.<br>Perhaps this time he'll stay dead.</p>",
-    failText: "<p>The wily little fellow ducks away from your blow, grumbling to himself, before striking back at you.</p>",
-    hitText: "<p>Squealing with delight, Ragnar lands a solid blow, sending you reeling,",
-    killedYouText: "<p>You stumble and, in that instant, the little felon lands the killing blow, cleaving your aching skull.<br>YOU ARE DEAD</p>",
-    missedText: "<p>Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.</p>",
-    choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
-}
-
 // CHARACTER INFO STORAGE
 
 const currentWeapon = {
@@ -399,35 +388,31 @@ const foundItemInfo = {
 const thingsWhatYouveDone = {
     firstRoomSearch: false,
     slimeKill: false,
+    encounterLikelihood: 0
 }
 
 // HELPER FUNCTIONS
 // Random number generator
 const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + min;
 
-//Character stats generator
+//CHARACTER GENERATION
 function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
     character.strength = getRandomNumber(min, max);
     character.skill = getRandomNumber(min, max);
     character.defence = getRandomNumber(min, max);
     character.luck = getRandomNumber(min, max);
     character.health = getRandomNumber(hMin, hMax);
+    if(strItem) {character.strength += strItem;}
+    if(sklItem) {character.skill += sklItem;}
+    if(dItem) {character.defence += dItem;}
+    if(lkItem) {character.luck += lkItem;}
+    if(hlthItem) {character.health += health;}   
     if(vuln) {character.vulnerability = vuln;}
     if(resist) {character.resist = resist;}
-    if(magic) {character.magic = magic;}
-    if(dItem) {character.dItem = dItem;}
-    if(strItem) {character.strItem = strItem;}
-    if(sklItem) {character.sklItem = sklItem;}
-    if(hlthItem) {character.hlthItem = hlthItem;}
-    if(lkItem) {character.lkItem = lkItem;}
+    if(magic) {character.magic = magic;}    
 }
 function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic) {
     generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkItem, hlthItem, vuln, resist, magic);
-    if (strItem) {enemy.strength = enemy.strength + strItem};
-    if (sklItem) {enemy.skill = enemy.strength + sklItem};
-    if (dItem) {enemy.defence = enemy.defence + sklItem};
-    if (lkItem) {enemy.defence = enemy.defence + lkItem};
-    if (hlthItem) {enemy.defence = enemy.defence + hlthItem};
     document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
     document.getElementById('image-title').innerHTML = enemy.name;
     document.getElementById('item-description').innerHTML = enemy.description;
@@ -435,12 +420,9 @@ function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, lkI
     document.getElementById('list-item-two').innerHTML = "Skill: " + enemy.skill;
     document.getElementById('list-item-three').innerHTML = "Defence: " + enemy.defence;
     document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
-    if (strItem) {enemy.strength = enemy.strength + strItem};
-    if (sklItem) {enemy.skill = enemy.strength + sklItem};
-
 }
 
-// Functions to find randomized items
+// ITEM SEARCH FUNCTIONS
 //select category
 function findItemType (chanceOne, chanceTwo, chanceThree, chanceFour) {
     let randomChance = getRandomNumber(1, 100);
@@ -493,12 +475,11 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
         }
     }   
 }
-//Store Item as current
-//place item in current inventory
+//Store Item as current, place item in current inventory
 function itemStorage() {
     if (foundItemInfo.category === "weapon") {
         if (currentWeapon.name) {
-            // add a warning popup with options
+            // add a warning with options
         } else {
             currentWeapon.name = foundItemInfo.name;
             currentWeapon.attack = foundItemInfo.attack;
@@ -509,7 +490,7 @@ function itemStorage() {
         }
     } else if (foundItemInfo.category === "clothing") {
         if (currentDefence.name) {
-            // add a warning popup with options
+            // add a warning with options
         } else {
             currentDefence.name = foundItemInfo.name;
             currentDefence.defence = foundItemInfo.defence;
@@ -518,7 +499,7 @@ function itemStorage() {
         }
     } else if (foundItemInfo.category === "potion") {
         if (currentPotion.name) {
-            // add a warning popup with options
+            // add a warning with options
         } else {
             currentPotion.name = foundItemInfo.name;
             currentPotion.effect = foundItemInfo.effect;
@@ -526,7 +507,7 @@ function itemStorage() {
         }
     } else if (foundItemInfo.category === "object") {
         if (currentObject.name) {
-            // add a warning popup with options
+            // add a warning with options
         } else {
             currentObject.name = foundItemInfo.name;
             currentObject.effect = foundItemInfo.effect;
@@ -534,15 +515,13 @@ function itemStorage() {
         }
     }
     if (foundItemInfo.name === "Four Leaf Clover") {
-        mainCharacterCurrent.lkItem = 3;
-        mainCharacterCurrent.luck = mainCharacter.luck + mainCharacterCurrent.lkItem;
-        document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
+        mainCharacterCurrent.luck = mainCharacter.luck + 3;
     }
     if (foundItemInfo.name === "Furry Gilet and Shorts") {
         mainCharacterCurrent.vulnerability = "fire";
     }
 }
-//write info to DOM
+//write info to DOM, clears foundItemInfo
 function storeItem() {
     itemStorage();
     if (foundItemInfo.category === "weapon") {
@@ -649,6 +628,7 @@ function continueFight(enemy) {
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     battleChoices();
 }
+
 function fistsRound(enemy) {
     let hitSuccess;
     let chanceToHit = getRandomNumber(1,20);
@@ -675,9 +655,9 @@ function fistsRound(enemy) {
         console.log("enemy health: " + enemy.health);
         if (enemy.health > 0) {
             if (roundDamage>0){
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + ` bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
             } else {
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + ` bare hands, but the blow glances off them.` + enemy.successTextTwo;
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
             }
             enemyTurn(enemy);
         } else {
@@ -720,7 +700,7 @@ function weaponRound(enemy) {
         console.log("enemy health: " + enemy.health);
         if (enemy.health > 0) {
             if (roundDamage > 0){
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="red">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
             } else {
                 document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
             }
@@ -874,10 +854,6 @@ function enemyTurn(enemy) {
     }    
 }
 
-
-
-
-
 //GAMEPLAY FUNCTIONS
 
 // Game restart and reset functions
@@ -970,8 +946,6 @@ function changeModeToItemWindow() {
     document.getElementById('game-text').style.display = "none";
 }
 
-
-
 //Page Two
 
 //open eyes
@@ -1040,7 +1014,7 @@ function keepFirstItem() {
     storeItem();
     changeModeToMainWindow();
     let fightChance = getRandomNumber(1,100);
-    if (fightChance <=50) {
+    if (fightChance <= 50 + thingsWhatYouveDone.encounterLikelihood) {
         document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveFirst;
         document.getElementById('choices-section').innerHTML = optionsFiveFirst;
     } else {
@@ -1054,7 +1028,7 @@ function keepFirstItem() {
 function testLuck() {
     changeModeToItemWindow();
     let getLucky = getRandomNumber(1,20);
-    if (getLucky <= mainCharacter.luck) {
+    if (getLucky <= mainCharacterCurrent.luck) {
         document.getElementById('upper-text').innerHTML = pageSixFirst + pageSixCommon;
         mainCharacter.score += 3;
     } else {
@@ -1133,6 +1107,7 @@ document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-four");
     if(target){
         mainCharacter.score +=1;
+        thingsWhatYouveDone.encounterLikelihood += 20;
         fightingTalk();
     }
 });
@@ -1144,7 +1119,7 @@ document.addEventListener("click", function(e){
         nameUnknown();
     }
 });
-// page three event handlers
+// page three event handlers (decide whether to search or leave area)
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-six"); 
@@ -1162,7 +1137,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-// page four event handlers
+// page four event handlers (decide whether to keep item)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-eight"); 
     if(target){
@@ -1178,7 +1153,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-//page five event handlers
+//page five event handlers (possible fight / leave area)
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-ten"); 
@@ -1203,7 +1178,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-//Page 6 event handler
+//Page 6 event handler (begin fight with Ragnar)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-thirteen"); 
     if(target){        
@@ -1211,7 +1186,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-// Battle Event handlers
+//Page 7 event handlers (fight with Ragnar)
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#battle-one"); 
@@ -1237,7 +1212,7 @@ document.addEventListener("click", function(e){
 
 /* GAME TEXT */
 
-/*page one (initial page)*/
+/*page one (open eyes)*/
 const pageOne = `
     <p>You awaken.  You become aware of something.  It is pain.</p>  
     
@@ -1250,7 +1225,7 @@ const optionsOne = `
     <li><button class="choice-button" id="choice-two">Give up.</button></li>
 `;
 
-/* page two (give up or carry on!) */
+/* page two (decide on name / give up death text) */
 const pageTwo = `
     <p>It makes no discernable difference.  Either you are blind, or it is deep, pitch dark.</p>
 
@@ -1277,7 +1252,6 @@ const pageThreeFirst = `
     <p>Very good.  You... remember.</p>
     <p>Or at least you think you do...</p>
 `
-//makes enemy encounters more likely.
 const pageThreeSecondOne = `
     <p>Even as you think them, you are screaming out the words - your deep, cracked voice echoes from the walls.</p>
     <p><em><strong>Darkness, destroyer of worlds.</em></strong><p>
@@ -1301,7 +1275,7 @@ const optionsThree = `
     <li><button class="choice-button" id="choice-seven">Maybe I can find a light. Or safety. Let's get out of here.</button></li>  
 `;
 
-//Page Four
+//Page Four (decide whether to keep item or not)
 
 const optionsFour = `<li><button class="choice-button" id="choice-eight">Let's keep it!  You never know when it will come in handy.</button></li>
 <li><button class="choice-button" id="choice-nine">I have no use for this rubbish. It's time to leave this room.</button></li>
@@ -1326,7 +1300,7 @@ const optionsFiveFirst = `
 const optionsFiveSecond = `
 <li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>
 `
-//Page Six
+//Page Six (initial fight with Ragnar)
 
 const pageSixCommon = `
 <p>Snarling, you break free of your foe's grip and turn to face them.</p>
@@ -1344,7 +1318,13 @@ const pageSixThird = `
 const optionsSix = `
 <li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
 `
-//battle choices
+// GENERIC - text for battles
+
+// turn indicators
+const battleHeadingYou = `<h3 class="green">Your Turn</h3>`;
+const battleHeadingThem = `<h3 class="red">Enemy Turn</h3>`;
+
+// next round options
 
 const battleOne =`
 <li><button class="choice-button" id="battle-one">Attack with your bare, flat-knuckled fists.</button></li>
@@ -1371,17 +1351,12 @@ function battleChoices() {
     + battleTwoSecond + battleThreeFirst + currentPotion.name + battleThreeSecond;
 }
 
-//battle text
-
-const battleHeadingYou = `<h3 class="green">Your Turn</h3>`;
-const battleHeadingThem = `<h3 class="red">Enemy Turn</h3>`;
-
-
 
 // OBJECT EXPORTS FOR AUTOMATED TESTING
 var module = module || {};
 module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
     pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
-    characterObjects, searchForItem, foundItemInfo };
+    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
+    currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats };
 
 

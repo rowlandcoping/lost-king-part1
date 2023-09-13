@@ -4,3 +4,22 @@
 
 issue where for loops fif not return value for every iteration, meaning item search was inaccurate.
 detail the millions of options tried, and how landed on a solution. (ie the filter and the if statements)
+
+## refactoring
+
+removed unecessary attributes and processed them on character generation
+
+##
+
+auto testing - as code written, reducing need for manual testing
+
+
+## issue with fight code
+
+numbers not being passed as intregers, passig undefined values.  was issue with trying to pass variables into function from other functions and breing out of scope.
+
+once a character potentially defended more points than their opponent dealt in damage created negative value which meant the attack would gain the opponent health
+solved by adding the condition attack damage had to be positive.
+
+issue with character ending with minus health - solved my manually setting value in DOM to zero.
+prevented enemy from attacking after they are dead!
