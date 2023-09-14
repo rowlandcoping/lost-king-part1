@@ -27,3 +27,12 @@ prevented enemy from attacking after they are dead!
 on testing resistances function were just a series of if statements which meant values could be overwritten. 
 testing resistances fucntion was over-compoicated and didn't work. revised into 2 seperate functions for each turn cycle using if-else statements with a default else statement to return a single value.
 now works
+
+### issue testing main  fight mechanics
+in order to test the main fight mechanics it would be necessary to create mock functions in Jest, since none of the variables exist outside the scope of the function.  This is way beyond the scope of anything taught on the course and would take me far too long to master in the context of this project.
+As a work-around I have taken chunks of code from the functions themselves and tested them line by line to identify any potential issues.
+I understand this is not best practice at all but I consider that it is effectively doing exactly the same thing in a much less sophisticated way.
+
+## manual testing
+
+JS mostly checked with automated unit testing, manually test html and CSS elements, responsiveness and obvious errors.

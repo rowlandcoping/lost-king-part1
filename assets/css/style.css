@@ -176,6 +176,7 @@ ul {
     border: 2px solid blue;
     margin: 10px;
     padding: 3px;
+    height: 140px;
 }
 
 .item-image img {
@@ -184,7 +185,7 @@ ul {
 }
 
 .item-text {
-    width: 80px;
+    width: 100px;
     text-align:center;
 }
 .item-text h4 {

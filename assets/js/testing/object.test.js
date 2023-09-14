@@ -74,6 +74,9 @@ const { mainCharacter, ragnarTheHorrible, mainCharacterCurrent, characterWeapons
    test("strength property exists", () =>{
       expect("strength" in ragnarTheHorrible).toBe(true);
    }),
+   test("strItem property exists", () =>{
+    expect("strItem" in ragnarTheHorrible).toBe(true);
+ }),
    test("skill property exists", () =>{
       expect("skill" in ragnarTheHorrible).toBe(true);
    }),

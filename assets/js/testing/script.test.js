@@ -6,7 +6,7 @@ const { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateSt
    pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent, 
    itemStorage, currentWeapon, currentDefence, currentPotion, currentObject, thingsWhatYouveDone, playerTestResistances, 
-   enemyTestResistances } = require("../script.js");
+   enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -87,6 +87,9 @@ describe("enemy character stat creation works as expected extended values", ()=>
    }),
    test("health field populates as expected", () =>{
       expect(ragnarTheHorrible.health).toEqual(55);
+   }),
+   test("strItem field populates as expected", () =>{
+      expect(ragnarTheHorrible.strItem).toEqual(10);
    }),
    test("vulnerability field populates as expected", () =>{
       expect(ragnarTheHorrible.vulnerability).toEqual("fire");
@@ -300,7 +303,6 @@ describe("itemStorage function correctly processes 'Furry Gilet and Shorts' obje
 });
 
 
-
 // BATTLE FUNCTIONS TESTING
 
 //test player turn resistances function
@@ -316,42 +318,42 @@ describe("test player turn resistances function works as intended", ()=>{
    test("enemy fire resist works correctly", () =>{
       ragnarTheHorrible.resist = "fire";
       currentWeapon.magic = "fire";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(0.5);
    }),
    test("enemy fire vulnerability works correctly", () =>{
       ragnarTheHorrible.vulnerability = "fire";
       currentWeapon.magic = "fire";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(2);
    }),
    test("enemy ice resist works correctly", () =>{
       ragnarTheHorrible.resist = "ice";
       currentWeapon.magic = "ice";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(0.5);
    }),
    test("enemy ice vulnerability works correctly", () =>{
       ragnarTheHorrible.vulnerability = "ice";
       currentWeapon.magic = "ice";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(2);
    }),
    test("enemy sharp weapons resist works correctly", () =>{
       ragnarTheHorrible.resist = "sharp";
       currentWeapon.type = "sharp";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(0.5);
    }),
    test("enemy sharp weapons vulnerability works correctly", () =>{
       ragnarTheHorrible.vulnerability = "sharp";
       currentWeapon.type = "sharp";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(2);
    }),
    test("enemy blunt weapons resist works correctly", () =>{
       ragnarTheHorrible.resist = "blunt";
       currentWeapon.type = "blunt";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(0.5);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(0.5);
    }),
    test("enemy blunt weapons vulnerability works correctly", () =>{
       ragnarTheHorrible.vulnerability = "blunt";
       currentWeapon.type = "blunt";
-      expect(playerTestResistances(ragnarTheHorrible)).toBe(2);
+      expect(playerTestResistances(ragnarTheHorrible)).toEqual(2);
    })
 });
 //test enemy turn resistances function
@@ -370,25 +372,232 @@ describe("test enemy turn resistances function works as intended", ()=>{
    test("player fire vulnerability works correctly", () =>{
       ragnarTheHorrible.magic = "fire";
       mainCharacterCurrent.vulnerability = "fire";
-      expect(enemyTestResistances(ragnarTheHorrible)).toBe(2);
+      expect(enemyTestResistances(ragnarTheHorrible)).toEqual(2);
    }),
    test("player fire resist works correctly", () =>{
       ragnarTheHorrible.magic = "fire";
       currentDefence.resist = "fire";
-      expect(enemyTestResistances(ragnarTheHorrible)).toBe(0.5);
+      expect(enemyTestResistances(ragnarTheHorrible)).toEqual(0.5);
    }),
    test("player ice vulnerability works correctly", () =>{
       ragnarTheHorrible.magic = "ice";
       mainCharacterCurrent.vulnerability = "ice";
-      expect(enemyTestResistances(ragnarTheHorrible)).toBe(2);
+      expect(enemyTestResistances(ragnarTheHorrible)).toEqual(2);
    }),
    test("player ice resist works correctly", () =>{
       ragnarTheHorrible.magic = "ice";
       currentDefence.resist = "ice";
-      expect(enemyTestResistances(ragnarTheHorrible)).toBe(0.5);
+      expect(enemyTestResistances(ragnarTheHorrible)).toEqual(0.5);
    })
 });
-
+//test battle before/between rounds function
+describe("test beginFight function works as intended", ()=>{
+   beforeAll(() => {
+      beginFight(ragnarTheHorrible);
+   }),
+   afterEach(() => {
+      for(let item of Object.keys(ragnarTheHorrible)) {
+         ragnarTheHorrible[item] = "";
+      }
+   }),   
+   test("upper-text element emptied", () =>{ 
+      expect(document.getElementById('upper-text').innerHTML).toEqual("");
+   }),
+   test("battle-text element populated correctly", () =>{
+      expect(document.getElementById('battle-text-player').innerHTML).toEqual(ragnarTheHorrible.initialText);
+   })
+});
+describe("test continueFight function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarTheHorrible.health = "30";
+      mainCharacterCurrent.health = "40";
+      continueFight(ragnarTheHorrible);
+   }),
+   afterEach(() => {
+      for(let item of Object.keys(ragnarTheHorrible)) {
+         ragnarTheHorrible[item] = "";
+      }
+   }),  
+   test("list-item-four populated with updated enemy health", () =>{ 
+      expect(document.getElementById('list-item-four').innerHTML).toEqual("Health: " + ragnarTheHorrible.health);
+   }),
+   test("main-health element populated with updated character health", () =>{
+      expect(document.getElementById('main-health').innerHTML).toEqual(mainCharacterCurrent.health);
+   })
+});
+//test battle mechanics
+describe("attacking with fists function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarTheHorrible.strength = 10;
+      mainCharacterCurrent.strength = 10;
+      ragnarTheHorrible.skill = 10;
+      mainCharacterCurrent.skill = 10;
+      ragnarTheHorrible.defence = 10;
+      mainCharacterCurrent.defence = 10;
+      ragnarTheHorrible.health = 30;
+      mainCharacterCurrent.health = 40;
+   }),
+   afterEach(() => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+   }),  
+   test("hit success mechanic works as intended", () =>{
+      jest.spyOn(global.Math, 'random').mockReturnValue(10/20);
+      let hitSuccess;
+      let chanceToHit = getRandomNumber(1,20);
+      if (chanceToHit <= mainCharacterCurrent.skill) {
+         hitSuccess = true;
+     } else {
+         hitSuccess = false;
+     }
+      expect(hitSuccess).toEqual(true);
+   }),
+   test("initial round damage mechanic works as intended", () =>{
+      let roundDamage = getRandomNumber(10, mainCharacterCurrent.strength);
+      expect(roundDamage).toEqual(10);
+   }),
+   test("hits defended mechanic works as intended", () =>{
+      let enemyResist = getRandomNumber(5,5);
+      let hitsDefended = ragnarTheHorrible.defence - enemyResist;
+      expect(hitsDefended).toEqual(5);
+   }),
+   test("round damage mechanic works as intended", () =>{
+      let roundDamage = getRandomNumber(10, mainCharacterCurrent.strength);
+      let enemyResist = getRandomNumber(5,5);
+      let hitsDefended = ragnarTheHorrible.defence - enemyResist;
+      roundDamage -= hitsDefended;
+      expect(roundDamage).toEqual(5);
+   })
+});
+describe("attacking with weapon function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarTheHorrible.strength = 10;
+      mainCharacterCurrent.strength = 10;
+      currentWeapon.attack = 5;
+      ragnarTheHorrible.skill = 10;
+      mainCharacterCurrent.skill = 10;
+      currentWeapon.skill = 5;
+      ragnarTheHorrible.defence = 10;
+      mainCharacterCurrent.defence = 10;
+      ragnarTheHorrible.health = 30;
+      mainCharacterCurrent.health = 40;
+   }),
+   afterEach(() => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+   }),  
+   test("hit success mechanic works as intended", () =>{
+      jest.spyOn(global.Math, 'random').mockReturnValue(15/20);
+      let hitSuccess;
+      let chanceToHit = getRandomNumber(1,20);
+      if (chanceToHit <= mainCharacterCurrent.skill + currentWeapon.skill) {
+         hitSuccess = true;
+     } else {
+         hitSuccess = false;
+     }
+      expect(hitSuccess).toEqual(true);
+   }),
+   test("initial round damage mechanic works as intended", () =>{
+      let roundDamage = getRandomNumber(currentWeapon.attack, mainCharacterCurrent.strength+currentWeapon.attack);
+      expect(roundDamage).toBeGreaterThanOrEqual(5);
+      expect(roundDamage).toBeLessThanOrEqual(20);
+   })
+});
+describe("attacking with potion function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarTheHorrible.strength = 0;
+      mainCharacterCurrent.strength = 10;
+      mainCharacterCurrent.defence = 10;
+      ragnarTheHorrible.health = 30;
+      mainCharacter.health = 60;
+      mainCharacterCurrent.health = 40;      
+      document.getElementById('potion-item-image').innerHTML = "something";
+      document.getElementById('potion-item-name').innerHTML = "something else";
+      document.getElementById('potion-list-item-one').innerHTML = "still another thing";
+   }),
+   afterEach(() => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+      mainCharacterCurrent.strength = 10;
+      mainCharacterCurrent.defence = 10;
+      ragnarTheHorrible.health = 30;
+      mainCharacter.health = 40;
+      mainCharacterCurrent.health = 40;
+      document.getElementById('potion-item-image').innerHTML = "something";
+      document.getElementById('potion-item-name').innerHTML = "something else";
+      document.getElementById('potion-list-item-one').innerHTML = "still another thing";
+   }),  
+   test("catnip potion mechanic works as intended", () =>{
+      currentPotion.name = "Potion of Catnip";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("catnip");
+   }),  
+   test("potion of healing works as intended", () =>{
+      currentPotion.name = "Potion of Healing";
+      potionRound(ragnarTheHorrible);
+      expect(mainCharacterCurrent.health).toEqual(40);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("restorative");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      
+   }),
+   test("potion of ice works as intended", () =>{
+      currentPotion.name = "Potion of Fire";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("flames");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      expect(ragnarTheHorrible.health).toEqual(10);
+   }),
+   test("potion of defence works as intended", () =>{
+      currentPotion.name = "Potion of Defence";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("invincibility");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      expect(mainCharacterCurrent.defence).toEqual(20);
+   }),
+   test("potion of defence works as intended", () =>{
+      currentPotion.name = "Potion of Power";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("bicep");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      expect(mainCharacterCurrent.strength).toEqual(20);
+   })
+});
+describe("enemy attack function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarTheHorrible.strength = 10;
+      ragnarTheHorrible.strItem = 3;
+      mainCharacterCurrent.strength = 10;
+      ragnarTheHorrible.skill = 10;
+      mainCharacterCurrent.skill = 10;
+      ragnarTheHorrible.defence = 10;
+      mainCharacterCurrent.defence = 10;
+      currentDefence.defence = 3
+      ragnarTheHorrible.health = 30;
+      mainCharacterCurrent.health = 40;
+   }),
+   afterEach(() => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+   }),
+   test("initial round damage mechanic works as intended", () =>{
+      let roundDamage = getRandomNumber(ragnarTheHorrible.strItem, ragnarTheHorrible.strength);
+      expect(roundDamage).toBeGreaterThanOrEqual(3);
+      expect(roundDamage).toBeLessThanOrEqual(13);
+   }),
+   test("hits defended mechanic works as intended", () =>{
+      let enemyResist = getRandomNumber(5,5);
+      let hitsDefended = mainCharacterCurrent.defence + currentDefence.defence - enemyResist;
+      expect(hitsDefended).toEqual(8);
+   })
+});
 
 // GAMEPLAY FUNCTIONS TESTING
 describe("start game function works as intended", ()=>{
