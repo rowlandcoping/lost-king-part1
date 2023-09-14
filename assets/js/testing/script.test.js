@@ -1,13 +1,14 @@
 /**
  * @jest-environment jsdom
  */
-
-const { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
+let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
    pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent, 
    itemStorage, currentWeapon, currentDefence, currentPotion, currentObject, thingsWhatYouveDone, playerTestResistances, 
    enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
-   damageResist } = require("../script.js");
+   damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
+   pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
+   pageThreeThird, fightingTalk, nameUnknown, displayItem } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -24,6 +25,64 @@ describe("random number generator works as expected", ()=>{
       expect(getRandomNumber(1,5)).toBeGreaterThanOrEqual(1);
       expect(getRandomNumber(1,5)).toBeLessThanOrEqual(5);
    })
+});
+describe("switch to main game window works as expected", ()=>{
+   beforeAll(()=>{
+      changeModeToMainWindow();
+   }),
+   test("image-section element is hidden", () =>{
+      expect(document.getElementById('image-section').style.display).toBe("none");
+   }),
+   test("game-text element is displayed", () =>{
+      expect(document.getElementById('game-text').style.display).toBe("block");
+   }),
+   test("upper-text element is removed", () =>{
+      expect(document.getElementById('upper-text').style.display).toBe("none");
+   }),
+   test("lower-text element is removed", () =>{
+      expect(document.getElementById('lower-text').style.display).toBe("none");
+   }),
+   test("battle-text-player element is removed", () =>{
+      expect(document.getElementById('battle-text-player').style.display).toBe("none");
+   }),
+   test("battle-text-enemy element is removed", () =>{
+      expect(document.getElementById('battle-text-enemy').style.display).toBe("none");
+   }),
+   test("elements with class of change-mode emptied", () =>{
+      const resetElements = document.getElementsByClassName('change-mode');
+      for (let i = 0; i < resetElements.length; i++) {
+         expect(resetElements[i].innerHTML).toBe("");
+      }
+   })
+});
+describe("switch to item window works as expected", ()=>{
+   beforeAll(()=>{
+      changeModeToItemWindow();
+   }),
+   test("image-section element is displayed", () =>{
+      expect(document.getElementById('image-section').style.display).toBe("flex");
+   }),
+   test("game-text element is hidden", () =>{
+      expect(document.getElementById('game-text').style.display).toBe("none");
+   }),
+   test("upper-text element is displayed", () =>{
+      expect(document.getElementById('upper-text').style.display).toBe("block");
+   }),
+   test("lower-text element is displayed", () =>{
+      expect(document.getElementById('lower-text').style.display).toBe("block");
+   }),
+   test("battle-text-player displayed is removed", () =>{
+      expect(document.getElementById('battle-text-player').style.display).toBe("block");
+   }),
+   test("battle-text-enemy displayed is removed", () =>{
+      expect(document.getElementById('battle-text-enemy').style.display).toBe("block");
+   }),
+   test("elements with class of change-mode emptied", () =>{
+      const resetElements = document.getElementsByClassName('change-mode');
+      for (let i = 0; i < resetElements.length; i++) {
+         expect(resetElements[i].innerHTML).toBe("");
+      }
+   });
 });
 
 //CHARACTER CREATION TESTING
@@ -196,6 +255,99 @@ describe("searchForItem function returns correct values as expected (not exhaust
       expect(foundItemInfo.effect).toEqual(characterObjects[5].effect);
    })
 });
+// display found item on page function
+describe("display item page shows info in DOM correctly", ()=>{   
+   afterEach(() => {
+      for(let item of Object.keys(foundItemInfo)) {
+         foundItemInfo[item] = "";
+      }
+   }),
+   test("image-section element is displayed", () =>{
+      displayItem();
+      expect(document.getElementById('image-section').style.display).toBe("flex");
+   }),
+   test("game-text element is hidden", () =>{
+      displayItem();
+      expect(document.getElementById('game-text').style.display).toBe("none");
+   }),
+   test("upper-text element is displayed", () =>{
+      displayItem();
+      expect(document.getElementById('upper-text').style.display).toBe("block");
+   }),
+   test("lower-text element is displayed", () =>{
+      displayItem();
+      expect(document.getElementById('lower-text').style.display).toBe("block");
+   }),
+   test("heading correctly displayed in upper-text element", () =>{
+      foundItemInfo.adjective = "grrrrr";
+      foundItemInfo.category = "steve";
+      displayItem();
+      expect(document.getElementById('upper-text').innerHTML).toEqual("<h3>You have found " + foundItemInfo.adjective + " " + foundItemInfo.category + "!!!</h3>");
+   }),
+   test("image correctly displayed in image element", () =>{
+      foundItemInfo.image = "image1";
+      displayItem();
+      expect(document.getElementById('image-image').innerHTML).toEqual(`<img src="` + foundItemInfo.image + `">`);
+   }),
+   test("name correctly displayed in title element", () =>{
+      foundItemInfo.name = "steve";
+      displayItem();
+      expect(document.getElementById('image-title').innerHTML).toEqual(foundItemInfo.name);
+   }),
+   test("description correctly displayed in description element", () =>{
+      foundItemInfo.description = "grrrrr";
+      displayItem();
+      expect(document.getElementById('item-description').innerHTML).toEqual(foundItemInfo.description);
+   }),
+   test("weapon attack stat correctly displayed in list element", () =>{
+      foundItemInfo.category = "weapon";
+      foundItemInfo.attack = 15 ;
+      displayItem();
+      expect(document.getElementById('list-item-one').innerHTML).toEqual("Attack: " + foundItemInfo.attack);
+   }),
+   test("weapon skill stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="weapon";
+      foundItemInfo.skill = 15 ;
+      displayItem();
+      expect(document.getElementById('list-item-two').innerHTML).toEqual("Skill: " + foundItemInfo.skill);
+   }),
+   test("weapon type stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="weapon";
+      foundItemInfo.type = "cheese";
+      displayItem();
+      expect(document.getElementById('list-item-three').innerHTML).toEqual("Type: " + foundItemInfo.type);
+   }),
+   test("weapon magic stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="weapon";
+      foundItemInfo.magic = "fire";
+      displayItem();
+      expect(document.getElementById('list-item-four').innerHTML).toEqual("Magic: " + foundItemInfo.magic);
+   }),
+   test("defence stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="clothing";
+      foundItemInfo.defence = 15 ;
+      displayItem();
+      expect(document.getElementById('list-item-one').innerHTML).toEqual("Defence: " + foundItemInfo.defence);
+   }),
+   test("defence magic stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="clothing";
+      foundItemInfo.magic = "fire";
+      displayItem();
+      expect(document.getElementById('list-item-two').innerHTML).toEqual("Magic: " + foundItemInfo.magic);
+   }),
+   test("potion effect stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="potion";
+      foundItemInfo.effect = "fire";
+      displayItem();
+      expect(document.getElementById('list-item-one').innerHTML).toEqual("Effect: " + foundItemInfo.effect);
+   }),
+   test("object effect stat correctly displayed in list element", () =>{
+      foundItemInfo.category ="object";
+      foundItemInfo.effect = "cows";
+      displayItem();
+      expect(document.getElementById('list-item-one').innerHTML).toEqual("Effect: " + foundItemInfo.effect);
+   })   
+});
 //item storage function
 describe("itemStorage function returns correct values to currentWeapon object", ()=>{
    beforeAll(() =>{
@@ -226,6 +378,7 @@ describe("itemStorage function returns correct values to currentWeapon object", 
    test("image value written correctly to currentWeapon object", () =>{
       expect(currentWeapon.image).toEqual("image1");
    })
+   
 });
 describe("itemStorage function returns correct values to currentDefence object", ()=>{
    beforeAll(() =>{
@@ -302,10 +455,97 @@ describe("itemStorage function correctly processes 'Furry Gilet and Shorts' obje
       expect(mainCharacterCurrent.vulnerability).toEqual("fire");
    })
 });
-
+// store item function (DOM)
+describe("storeItem function correctly writes weapon items to the DOM", ()=>{
+   beforeAll(() =>{      
+      foundItemInfo.category = "weapon";
+      foundItemInfo.name = "steve";
+      foundItemInfo.attack = 15 ;
+      foundItemInfo.skill = 15;
+      foundItemInfo.magic = "fire";
+      foundItemInfo.type = "sword";
+      foundItemInfo.image = "image1";
+      storeItem();
+   }),
+   test("attack values correctly included on the page", () =>{
+      expect(document.getElementById('weapon-list-item-one').innerHTML).toEqual("ATT: " + currentWeapon.attack);
+   }),
+   test("skill values correctly included on the page", () =>{
+      expect(document.getElementById('weapon-list-item-two').innerHTML).toEqual("SKL: " + currentWeapon.skill);
+   }),
+   test("magic  values correctly included on the page", () =>{
+      expect(document.getElementById('weapon-list-item-three').innerHTML).toEqual("MGC: " + currentWeapon.magic);
+   }),
+   test("name values correctly included on the page", () =>{
+      expect(document.getElementById('weapon-item-name').innerHTML).toEqual(currentWeapon.name);
+   }),
+   test("type values correctly included on the page", () =>{
+      expect(document.getElementById('weapon-list-item-four').innerHTML).toEqual("TYP: " + currentWeapon.type);
+   }),
+   test("image value correctly included on the page", () =>{
+      expect(document.getElementById('weapon-item-image').innerHTML).toEqual(`<img src="` + currentWeapon.image + `">`);
+   })
+});
+describe("storeItem function correctly writes defence items to the DOM", ()=>{
+   beforeAll(() =>{
+      foundItemInfo.category = "clothing";
+      foundItemInfo.name = "steve";
+      foundItemInfo.defence = 15 ;
+      foundItemInfo.resist = "fire";
+      foundItemInfo.image = "image1";
+      storeItem();
+   }),
+   test("name values correctly included on the page", () =>{
+      expect(document.getElementById('defence-item-name').innerHTML).toEqual(currentDefence.name);
+   }),
+   test("defence values correctly included on the page", () =>{
+      expect(document.getElementById('clothing-list-item-one').innerHTML).toEqual("DEF: " + currentDefence.defence);
+   }),
+   test("resist values correctly included on the page", () =>{
+      expect(document.getElementById('clothing-list-item-two').innerHTML).toEqual("RST: " + currentDefence.resist);
+   }),
+   test("image values correctly included on the page", () =>{
+      expect(document.getElementById('defence-item-image').innerHTML).toEqual(`<img src="` + currentDefence.image + `">`);
+   })
+});
+describe("storeItem function correctly writes potion items to the DOM", ()=>{
+   beforeAll(() =>{
+      foundItemInfo.category = "potion";
+      foundItemInfo.name = "steve";
+      foundItemInfo.effect = "fire";
+      foundItemInfo.image = "image1";
+      storeItem();
+   }),
+   test("name values correctly included on the page", () =>{
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual(currentPotion.name);
+   }),
+   test("effect values correctly included on the page", () =>{
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("EFFECT:<br>" + currentPotion.effect);
+   }),
+   test("image values correctly included on the page", () =>{
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="` + currentPotion.image + `">`);
+   })
+});
+describe("storeItem function correctly writes object items to the DOM", ()=>{
+   beforeAll(() =>{
+      foundItemInfo.category = "object";
+      foundItemInfo.name = "steve";
+      foundItemInfo.effect = "fire";
+      foundItemInfo.image = "image1";
+      storeItem();
+   }),
+   test("name values correctly included on the page", () =>{
+      expect(document.getElementById('object-item-name').innerHTML).toEqual(currentObject.name);
+   }),
+   test("effect values correctly included on the page", () =>{
+      expect(document.getElementById('object-list-item-one').innerHTML).toEqual("EFFECT:<br>" + currentObject.effect);
+   }),
+   test("image values correctly included on the page", () =>{
+      expect(document.getElementById('object-item-image').innerHTML).toEqual(`<img src="` + currentObject.image + `">`);
+   })
+});
 
 // BATTLE FUNCTIONS TESTING
-
 
 //test battle before/between rounds function
 describe("test beginFight function works as intended", ()=>{
@@ -361,13 +601,15 @@ describe("hitsuccess function works as intended", ()=>{
    })
 });
 describe("initial round damage function works as intended", ()=>{
-   beforeAll(() => {
-      ragnarTheHorrible.strength = 2;
+   beforeEach(() => {
+      ragnarTheHorrible.strength = 11;
       mainCharacterCurrent.strength = 2;
       currentWeapon.attack = 5;
    }),
    afterEach(() => {
-      ragnarTheHorrible.strItem = "";
+      for(let item of Object.keys(ragnarTheHorrible)) {
+         ragnarTheHorrible[item] = "";
+      }
    }),  
    test("round damage works as intended with weapon", () =>{
       expect(initialDamage(ragnarTheHorrible, "weapon")).toBeGreaterThanOrEqual(5);
@@ -379,7 +621,7 @@ describe("initial round damage function works as intended", ()=>{
    }),  
    test("round damage works as intended with enemy (no item)", () =>{
       expect(initialDamage(ragnarTheHorrible, "enemy")).toBeGreaterThanOrEqual(1);
-      expect(initialDamage(ragnarTheHorrible, "enemy")).toBeLessThanOrEqual(2);
+      expect(initialDamage(ragnarTheHorrible, "enemy")).toBeLessThanOrEqual(11);
    }),  
    test("round damage works as intended with enemy (item)", () =>{
       ragnarTheHorrible.strItem = 10;
@@ -400,15 +642,15 @@ describe("damage resist function works as intended", ()=>{
    test("player resists work as intended with defensive item", () =>{
       jest.spyOn(global.Math, 'random').mockReturnValue(5/15);
       currentDefence.defence = 5;
-      expect(damageResist(ragnarTheHorrible, "weapon")).toEqual(10);
+      expect(damageResist(ragnarTheHorrible, "enemy")).toEqual(10);
    }),  
    test("player resists work as intended without defensive item", () =>{  
       jest.spyOn(global.Math, 'random').mockReturnValue(5/15);
-      expect(damageResist(ragnarTheHorrible, "weapon")).toEqual(5);
+      expect(damageResist(ragnarTheHorrible, "enemy")).toEqual(5);
    }),  
    test("enemy resists work as intended", () =>{
       jest.spyOn(global.Math, 'random').mockReturnValue(5/15);
-      expect(damageResist(ragnarTheHorrible, "enemy")).toEqual(2);
+      expect(damageResist(ragnarTheHorrible, "fists")).toEqual(2);
    })
 });
 describe("test player turn resistances function works as intended", ()=>{
@@ -494,79 +736,80 @@ describe("test enemy turn resistances function works as intended", ()=>{
       expect(enemyTestResistances(ragnarTheHorrible)).toEqual(0.5);
    })
 });
-// battle outcomes testing
+describe("attacking with potion function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarTheHorrible.strength = 0;
+      mainCharacterCurrent.strength = 10;
+      mainCharacterCurrent.defence = 10;
+      ragnarTheHorrible.health = 30;
+      mainCharacter.health = 60;
+      mainCharacterCurrent.health = 40;      
+      document.getElementById('potion-item-image').innerHTML = "something";
+      document.getElementById('potion-item-name').innerHTML = "something else";
+      document.getElementById('potion-list-item-one').innerHTML = "still another thing";
+   }),
+   afterEach(() => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+      mainCharacterCurrent.strength = 10;
+      mainCharacterCurrent.defence = 10;
+      ragnarTheHorrible.health = 30;
+      mainCharacter.health = 40;
+      mainCharacterCurrent.health = 40;
+      document.getElementById('potion-item-image').innerHTML = "something";
+      document.getElementById('potion-item-name').innerHTML = "something else";
+      document.getElementById('potion-list-item-one').innerHTML = "still another thing";
+   }),  
+   test("catnip potion mechanic works as intended", () =>{
+      currentPotion.name = "Potion of Catnip";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("catnip");
+   }),  
+   test("potion of healing works as intended", () =>{
+      currentPotion.name = "Potion of Healing";
+      potionRound(ragnarTheHorrible);
+      expect(mainCharacterCurrent.health).toEqual(40);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("restorative");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+
+   }),
+   test("potion of ice works as intended", () =>{
+      currentPotion.name = "Potion of Fire";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("flames");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      expect(ragnarTheHorrible.health).toEqual(10);
+   }),
+   test("potion of defence works as intended", () =>{
+      currentPotion.name = "Potion of Defence";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("invincibility");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      expect(mainCharacterCurrent.defence).toEqual(20);
+   }),
+   test("potion of defence works as intended", () =>{
+      currentPotion.name = "Potion of Power";
+      potionRound(ragnarTheHorrible);
+      expect(document.getElementById('battle-text-player').innerHTML).toContain("bicep");
+      expect(document.getElementById('potion-item-image').innerHTML).toEqual(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-name').innerHTML).toEqual("");
+      expect(document.getElementById('potion-list-item-one').innerHTML).toEqual("");
+      expect(currentPotion.name).toEqual("");
+      expect(mainCharacterCurrent.strength).toEqual(20);
+   })
+});
 
 // GAMEPLAY FUNCTIONS TESTING
-describe("start game function works as intended", ()=>{
-   beforeAll(() => {
-      document.getElementById('character-name').value = "Randy Tangent";
-      mainCharacter.score=150;
-      startGame();
-   }),
-   test("name field in mainCharacter correctly populated", () =>{
-      expect(mainCharacter.name).toBe("Randy Tangent");
-   }),
-   test("Score is reset to zero", () =>{
-      expect(mainCharacter.score).toEqual(0);
-   })
 
-});
-
-describe("write character info works as intended", () => {
-   beforeAll(() => {
-      mainCharacter.strength = 15;
-      mainCharacter.skill = 15;
-      mainCharacter.defence = 15;
-      mainCharacter.luck = 15;
-      mainCharacter.health = 75;
-      writeInitialToDom();
-   })
-   test("strength property written to character sheet on page", () =>{
-      expect(document.getElementById('main-strength').innerHTML).toBe("15");
-   }),
-   test("speed property written to character sheet on page", () =>{
-      expect(document.getElementById('main-skill').innerHTML).toBe("15");
-   }),
-   test("stamina property written to character sheet on page", () =>{
-      expect(document.getElementById('main-defence').innerHTML).toBe("15");
-   }),
-   test("luck property written to character sheet on page", () =>{
-      expect(document.getElementById('main-luck').innerHTML).toBe("15");
-   }),
-   test("health property written to character sheet on page", () =>{
-      expect(document.getElementById('main-health').innerHTML).toBe("75");
-   }),
-   test("landing page is hidden", () =>{
-      expect(document.getElementById('landing-page').style.display).toBe("none");
-   }),
-   test("game page is displayed", () =>{
-      expect(document.getElementById('game-page').style.display).toBe("flex");
-   })
-   
-});
-
-describe("first page text displays as intended", ()=>{
-   beforeAll(() => {
-      writeInitialToDom();
-   }),
-   test("story content appears as intended", () =>{
-      expect(document.getElementById('game-text').innerHTML).toBe(pageOne);
-   }),
-   test("story options appear as intended", () =>{
-      expect(document.getElementById('choices-section').innerHTML).toBe(optionsOne);
-   })
-});
-
-describe("restart game button works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.name = "Randy Tangent";
-      startGame();
-   }),
-   test("name field in mainCharacter correctly retained", () =>{
-      expect(mainCharacter.name).toBe("Randy Tangent");
-   })
-});
-
+//game state initiation
 describe("reset character button works as intended", ()=>{
    beforeAll(() => {
       resetGame();
@@ -588,22 +831,233 @@ describe("reset character button works as intended", ()=>{
    }),
    test("health field in mainCharacter cleared", () =>{
       expect(mainCharacter.name).toBe("");
+   }),
+   test("landing page set to view", () =>{
+      expect(document.getElementById('landing-page').style.display).toBe("flex");
+   }),
+   test("game page display set to none", () =>{
+      expect(document.getElementById('game-page').style.display).toBe("none");
+   }),
+   test("gameover page display set to none", () =>{
+      expect(document.getElementById('gameover-page').style.display).toBe("none");
+   }),
+   test("final score reset in DOM", () =>{
+      expect(document.getElementById('final-score').innerHTML).toBe("");
+   })
+
+});
+describe("restart game button works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.name = "Randy Tangent";
+      startGame();
+   }),
+   test("name field in mainCharacter correctly retained", () =>{
+      expect(mainCharacter.name).toBe("Randy Tangent");
    })
 });
+describe("start game function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score=150;
+      mainCharacter.name = "";
+      mainCharacterCurrent.health = 12;
+      mainCharacterCurrent.strength = 12;
+      mainCharacterCurrent.luck = 12;
+      mainCharacterCurrent.defence = 12;
+      startGame();
+   }),
+   test("name field in mainCharacter correctly if name not entered", () =>{
+      expect(mainCharacter.name).toBe("Another Lazy Gamer");
+   }),
+   test("Score is reset to zero", () =>{
+      expect(mainCharacter.score).toEqual(0);
+   }),
+   test("Score is reset to zero", () =>{
+      expect(mainCharacter.score).toEqual(0);
+   }),
+   test("mainCharacterCurrent non-overwritten values cleared", () =>{
+      expect(mainCharacterCurrent.magic).toEqual("");
+      expect(mainCharacterCurrent.resist).toEqual("");
+      expect(mainCharacterCurrent.vulnerability).toEqual("");
+   }),  
+   test("mainCharacterCurrent object strength property set", () =>{
+      expect(mainCharacterCurrent.strength).toBeGreaterThanOrEqual(10);
+      expect(mainCharacterCurrent.strength).toBeLessThanOrEqual(15);
+   }),  
+   test("mainCharacterCurrent object defence property set", () =>{
+      expect(mainCharacter.defence).toBeGreaterThanOrEqual(10);
+      expect(mainCharacter.defence).toBeLessThanOrEqual(15);
+   }),  
+   test("mainCharacterCurrent object luck property set", () =>{
+      expect(mainCharacter.luck).toBeGreaterThanOrEqual(10);
+      expect(mainCharacter.luck).toBeLessThanOrEqual(15);
+   }),  
+   test("mainCharacterCurrent object health property set", () =>{
+      expect(mainCharacter.health).toBeGreaterThanOrEqual(50);
+      expect(mainCharacter.health).toBeLessThanOrEqual(75);
+   }),
+   test("name field in mainCharacter correct if name is entered", () =>{
+      mainCharacter.name ="";
+      document.getElementById('character-name').value = "Randy Tangent";
+      startGame();
+      expect(mainCharacter.name).toBe("Randy Tangent");
+   })
+});
+describe("writeContentToDOM works as intended", () => {
+   beforeAll(() => {
+      mainCharacter.strength = 15;
+      mainCharacter.skill = 15;
+      mainCharacter.defence = 15;
+      mainCharacter.luck = 15;
+      mainCharacter.health = 75;
+      writeInitialToDom();
+   }),
+   test("initial name text written to page", () =>{
+      expect(document.getElementById('character-sheet-name').innerHTML).toBe("Identity Unknown");
+   }),
+   test("items images set to default", () =>{
+      expect(document.getElementById('weapon-item-image').innerHTML).toBe(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('defence-item-image').innerHTML).toBe(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('potion-item-image').innerHTML).toBe(`<img src="assets/images/items/box.png">`);
+      expect(document.getElementById('object-item-image').innerHTML).toBe(`<img src="assets/images/items/box.png">`);
+   }),
+   test("strength property written to character sheet on page", () =>{
+      expect(document.getElementById('main-strength').innerHTML).toBe("15");
+   }),
+   test("skill property written to character sheet on page", () =>{
+      expect(document.getElementById('main-skill').innerHTML).toBe("15");
+   }),
+   test("defence property written to character sheet on page", () =>{
+      expect(document.getElementById('main-defence').innerHTML).toBe("15");
+   }),
+   test("luck property written to character sheet on page", () =>{
+      expect(document.getElementById('main-luck').innerHTML).toBe("15");
+   }),
+   test("health property written to character sheet on page", () =>{
+      expect(document.getElementById('main-health').innerHTML).toBe("75");
+   }),
+   test("landing page is hidden", () =>{
+      expect(document.getElementById('landing-page').style.display).toBe("none");
+   }),
+   test("gameover page is hidden", () =>{
+      expect(document.getElementById('gameover-page').style.display).toBe("none");
+   }),
+   test("image-section element is hidden", () =>{
+      expect(document.getElementById('image-section').style.display).toBe("none");
+   }),
+   test("upper-text element is hidden", () =>{
+      expect(document.getElementById('upper-text').style.display).toBe("none");
+   }),
+   test("final score reset in DOM", () =>{
+      expect(document.getElementById('final-score').innerHTML).toBe("");
+   }),
+   test("game page is displayed", () =>{
+      expect(document.getElementById('game-page').style.display).toBe("flex");
+   }),
+   test("game-text element is displayed", () =>{
+      expect(document.getElementById('game-text').style.display).toBe("block");
+   }),
+   test("text for first page is displayed", () =>{
+      expect(document.getElementById('game-text').innerHTML).toBe(pageOne);
+   }),
+   test("options for first page are displayed", () =>{
+      expect(document.getElementById('choices-section').innerHTML).toBe(optionsOne);
+   })
+   
+});
 
+//game progression functions
+//page two
 describe("ensure gameOverGiveUp function works as intended", ()=>{
    beforeAll(() => {
+      mainCharacter.score = 0;
       gameOverGiveUp();      
    }),
    test("game over page is displayed", () =>{
-      expect(document.getElementById('gameover-page').style.display).toBe("flex");
+      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
    }),
    test("game page is hidden", () =>{
-      expect(document.getElementById('game-page').style.display).toBe("none");
+      expect(document.getElementById('game-page').style.display).toEqual("none");
    }),
    test("game over text is displayed", () =>{
-      expect(document.getElementById('game-outcome').innerHTML).toBe(giveUp);
+      expect(document.getElementById('game-outcome').innerHTML).toEqual(giveUp);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(-5);
    })
 });
-
+describe("openeyes function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      openEyes();      
+   }),
+   test("text is displayed", () =>{
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageTwo);
+   }),
+   test("choices are displayed", () => {
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsTwoFirst + mainCharacter.name + optionsTwoSecond);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(1);
+   })
+});
+//page three
+describe("knowMyName function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      knowMyName();      
+   }),
+   test("text is displayed", () =>{
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageThreeFirst + pageThreeCommon);
+   }),
+   test("choices are displayed", () => {
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsThree);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(3);
+   }),
+   test("character name is updated in DOM", () =>{
+      expect(document.getElementById('character-sheet-name').innerHTML).toEqual(mainCharacter.name);
+   })
+});
+describe("fightingTalk function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      thingsWhatYouveDone.encounterLikelihood = 0;
+      fightingTalk();      
+   }),
+   test("text is displayed", () =>{
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageThreeSecondOne + mainCharacter.name + pageThreeSecondTwo + pageThreeCommon);
+   }),
+   test("choices are displayed", () => {
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsThree);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(1);
+   }),
+   test("character name is updated in DOM", () =>{
+      expect(document.getElementById('character-sheet-name').innerHTML).toEqual(mainCharacter.name);
+   }),
+   test("event log updated to make encounters more likely", () =>{
+      expect(thingsWhatYouveDone.encounterLikelihood).toEqual(20);
+   })
+});
+describe("nameUnknown function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      nameUnknown();      
+   }),
+   test("text is displayed", () =>{
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageThreeThird + pageThreeCommon);
+   }),
+   test("choices are displayed", () => {
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsThree);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(5);
+   }),
+   test("character name is updated in DOM", () =>{
+      expect(document.getElementById('character-sheet-name').innerHTML).toEqual(mainCharacter.name + "<br><em>(provisional)</em>");
+   })
+});
+//page three
 

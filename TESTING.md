@@ -36,6 +36,14 @@ I understand this is not best practice at all but I consider that it is effectiv
 I resolved this by refactoring the code into several smaller functions which I could re-use no matter what option is clicked in battle.  It not only meant I could test it properly, 
 it also means if I need to change the game mechanic in the future I do not need to amend multiple functions
 
+// in order to test the functionality of the 'playerTurn' and 'enemyTurn' functions automatically, it would require setting up mock functions to return set results.
+I have struggled to do this for several hours to make this work and concluded I can cover this in manual testing without wasting any more time on it.
+Ultimately whilst in this case automated testing is a nice to have, using console.log at various points in the function and extensive playtesting has made it clear to me the code is working as intended
+
 ## manual testing
 
 JS mostly checked with automated unit testing, manually test html and CSS elements, responsiveness and obvious errors.
+
+battle outcomes:
+tested JS when it came to final output was working correctly by inserting contact logs at various stages to log outcomes.
+the rest was tested using Jest.

@@ -148,7 +148,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some furry",
         name: "Furry Gilet and Shorts",
-        defence: 2,
+        defence: 1,
         resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 15,
@@ -159,7 +159,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some disco",
         name: "Golden Loin Cloth",
-        defence: 2,
+        defence: 1,
         resist: "fire",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 30,
@@ -170,7 +170,7 @@ const characterDefence = [
         category: "clothing",
         adjective: "some disgusting",
         name: "Filthy Jerkin",
-        defence: 3,
+        defence: 2,
         resist: "",
         image: "assets/images/items/placeholder-sword.jpeg",
         chance: 75,
@@ -394,8 +394,31 @@ const thingsWhatYouveDone = {
 
 // HELPER FUNCTIONS
 // Random number generator
-const getRandomNumber= (min, max) => Math.floor(Math.random() * (max - min)) + min;
-
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+function changeModeToMainWindow() {
+    const resetElements = document.getElementsByClassName('change-mode');
+    for (let i = 0; i < resetElements.length; i++) {
+        resetElements[i].innerHTML = "";
+    }
+    document.getElementById('image-section').style.display = "none";
+    document.getElementById('upper-text').style.display = "none";
+    document.getElementById('lower-text').style.display = "none";
+    document.getElementById('battle-text-player').style.display = "none";
+    document.getElementById('battle-text-enemy').style.display = "none";
+    document.getElementById('game-text').style.display = "block";
+}
+function changeModeToItemWindow() {
+    const resetElements = document.getElementsByClassName('change-mode');
+    for (let i = 0; i < resetElements.length; i++) {
+        resetElements[i].innerHTML = "";
+    }
+    document.getElementById('upper-text').style.display = "block";
+    document.getElementById('lower-text').style.display = "block";
+    document.getElementById('image-section').style.display = "flex";
+    document.getElementById('game-text').style.display = "none";
+    document.getElementById('battle-text-player').style.display = "block";
+    document.getElementById('battle-text-enemy').style.display = "block";
+}
 //CHARACTER GENERATION
 function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
     character.strength = getRandomNumber(min, max);
@@ -475,7 +498,36 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                 foundItemInfo.description = i.description
             }
         }
-    }   
+    }
+    displayItem();  
+}
+//displays found item on screen
+function displayItem() {    
+    document.getElementById('image-section').style.display = "flex";
+    document.getElementById('upper-text').style.display = "block";
+    document.getElementById('lower-text').style.display = "block";
+    document.getElementById('game-text').style.display = "none";
+    document.getElementById('upper-text').innerHTML = "<h3>You have found " + foundItemInfo.adjective + " " + foundItemInfo.category + "!!!</h3>";
+    document.getElementById('image-image').innerHTML = `<img src="` + foundItemInfo.image + `">`;
+    document.getElementById('image-title').innerHTML = foundItemInfo.name;
+    document.getElementById('item-description').innerHTML = foundItemInfo.description;
+    if (foundItemInfo.category =="weapon") {
+        document.getElementById('list-item-one').innerHTML = "Attack: " + foundItemInfo.attack;
+        document.getElementById('list-item-two').innerHTML = "Skill: " + foundItemInfo.skill;
+        document.getElementById('list-item-three').innerHTML = "Type: " + foundItemInfo.type;
+        if (foundItemInfo.magic){
+            document.getElementById('list-item-four').innerHTML = "Magic: " + foundItemInfo.magic;
+        } else { document.getElementById('list-item-four').innerHTML = "Magic: " + "None";  
+        }
+    } else if (foundItemInfo.category =="clothing") {
+        document.getElementById('list-item-one').innerHTML = "Defence: " + foundItemInfo.defence;
+        if (foundItemInfo.magic){
+            document.getElementById('list-item-two').innerHTML = "Magic: " + foundItemInfo.magic;
+        } else { document.getElementById('list-item-two').innerHTML = "Magic: " + "None";  
+        }
+    } else {
+        document.getElementById('list-item-one').innerHTML = "Effect: " + foundItemInfo.effect;
+    }
 }
 //Store Item as current, place item in current inventory
 function itemStorage() {
@@ -530,7 +582,7 @@ function storeItem() {
         document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `">`;
         document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
         document.getElementById('weapon-list-item-one').innerHTML = "ATT: " + currentWeapon.attack;
-        document.getElementById('weapon-list-item-two').innerHTML = "SPD: " + currentWeapon.skill;
+        document.getElementById('weapon-list-item-two').innerHTML = "SKL: " + currentWeapon.skill;
         if (currentWeapon.magic) {document.getElementById('weapon-list-item-three').innerHTML = "MGC: " + currentWeapon.magic;}
         document.getElementById('weapon-list-item-four').innerHTML = "TYP: " + currentWeapon.type;
     } else if (foundItemInfo.category === "clothing") {
@@ -541,11 +593,11 @@ function storeItem() {
     } else if (foundItemInfo.category === "potion") {
         document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `">`;
         document.getElementById('potion-item-name').innerHTML = currentPotion.name;
-        document.getElementById('potion-list-item-one').innerHTML = "EFF: " + currentPotion.effect;
+        document.getElementById('potion-list-item-one').innerHTML = "EFFECT:<br>" + currentPotion.effect;
     } else if (foundItemInfo.category === "object") {
         document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
         document.getElementById('object-item-name').innerHTML = currentObject.name;
-        document.getElementById('object-list-item-one').innerHTML = "EFF: " + currentObject.effect;
+        document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>" + currentObject.effect;
     }
     for(let item of Object.keys(foundItemInfo)) {
         foundItemInfo[item] = "";
@@ -620,11 +672,11 @@ function initialDamage (enemy, weapon) {
     let maxStrength;
     if (weapon === "enemy") {
         if (enemy.strItem > 0) {
-                minStrength = enemy.strItem;
-                maxStrength = enemy.strength;
-            } else {
-                minStrength = 1;
-                maxStrength = enemy.strength;
+            minStrength = enemy.strItem;
+            maxStrength = enemy.strength;
+        } else {
+            minStrength = 1;
+            maxStrength = enemy.strength;
         }
     } else if (weapon === "weapon") {
         minStrength = currentWeapon.attack;
@@ -633,21 +685,26 @@ function initialDamage (enemy, weapon) {
         minStrength = 1;
         maxStrength = mainCharacterCurrent.strength;
     }
-    return getRandomNumber(minStrength, maxStrength);
+    return getRandomNumber(minStrength, maxStrength); 
 }
 function damageResist (enemy, weapon) {
     let initialResist = getRandomNumber(1,15);
     let overallDefence;
     if (weapon ==="enemy") {
-        overallDefence = enemy.defence;
+        overallDefence = mainCharacterCurrent.defence + currentDefence.defence;
     } else {
-        overallDefence = mainCharacterCurrent.defence + currentDefence.defence; 
+        overallDefence = enemy.defence; 
     }
-    return overallDefence - initialResist;   
+    let netResist = overallDefence - initialResist;
+    if (netResist > 0) {
+        return netResist;
+    } else {
+        return 0;
+    }
 }
 function nextRound(enemy, weapon) {
     if (hitSuccess(enemy, weapon)) {
-        let roundDamage = initialDamage(enemy, weapon);
+        let roundDamage = initialDamage(enemy, weapon);      
         roundDamage -= damageResist (enemy, weapon);
         roundDamage *= playerTestResistances(enemy);
         return roundDamage;
@@ -656,11 +713,12 @@ function nextRound(enemy, weapon) {
     }
 }
 function playerTurn(enemy, weapon) {
-    if (nextRound(enemy, weapon) === "fail") {
+    let roundResult = nextRound(enemy, weapon);
+    if (roundResult === "fail") {
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
         enemyTurn(ragnarTheHorrible, "enemy");
     } else {
-        let roundDamage = nextRound(enemy, weapon);
+        let roundDamage = roundResult;
         if (roundDamage > 0) {enemy.health -= roundDamage;}
         if (enemy.health > 0) {
             if (roundDamage > 0){
@@ -781,11 +839,12 @@ function potionRound(enemy) {
     }
 }
 function enemyTurn(enemy, weapon) {
-    if (nextRound(enemy, weapon) === "fail") {
+    let roundResult = nextRound(enemy, weapon);
+    if (roundResult === "fail") {
         document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
         continueFight(enemy);
     } else {
-        let roundDamage = nextRound(enemy, weapon);
+        let roundDamage = roundResult;
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {
@@ -821,7 +880,6 @@ function resetGame() {
     document.getElementById('gameover-page').style.display = "none";
     document.getElementById('final-score').innerHTML = "";    
 }
-
 function startGame(event) {
     if (!mainCharacter.name) {        
         if (document.getElementById('character-name').value) {
@@ -831,6 +889,9 @@ function startGame(event) {
            }
         generateStats (mainCharacter, 10, 15, 50, 75);  
     }
+    for(let item of Object.keys(mainCharacterCurrent)) {
+        mainCharacterCurrent[item] = "";
+     }
     mainCharacterCurrent.health = mainCharacter.health;
     mainCharacterCurrent.strength = mainCharacter.strength;
     mainCharacterCurrent.luck = mainCharacter.luck;
@@ -838,20 +899,19 @@ function startGame(event) {
     mainCharacter.score = 0;
     for(let item of Object.keys(currentWeapon)) {
         currentWeapon[item] = "";
-     }
-     for(let item of Object.keys(currentDefence)) {
+    }
+    for(let item of Object.keys(currentDefence)) {
         currentDefence[item] = "";
-     }
-     for(let item of Object.keys(currentPotion)) {
+    }
+    for(let item of Object.keys(currentPotion)) {
         currentPotion[item] = "";
-     }
-     for(let item of Object.keys(currentObject)) {
+    }
+    for(let item of Object.keys(currentObject)) {
         currentObject[item] = "";
-     }
-    
+    }
+    changeModeToMainWindow()
     writeInitialToDom();
 }
-
 function writeInitialToDom() {
     const resetElements = document.getElementsByClassName('reset');
     for (let i = 0; i < resetElements.length; i++) {
@@ -878,33 +938,17 @@ function writeInitialToDom() {
     document.getElementById('choices-section').innerHTML = optionsOne;    
 }
 
-function changeModeToMainWindow() {
-    const resetElements = document.getElementsByClassName('change-mode');
-    for (let i = 0; i < resetElements.length; i++) {
-        resetElements[i].innerHTML = "";
-    }
-    document.getElementById('image-section').style.display = "none";
-    document.getElementById('game-text').style.display = "block";
-}
-
-function changeModeToItemWindow() {
-    const resetElements = document.getElementsByClassName('change-mode');
-    for (let i = 0; i < resetElements.length; i++) {
-        resetElements[i].innerHTML = "";
-    }
-    document.getElementById('image-section').style.display = "flex";
-    document.getElementById('game-text').style.display = "none";
-}
-
 //Page Two
 
 //open eyes
-function openEyes(){    
+function openEyes(){
+    mainCharacter.score +=1;   
     document.getElementById('game-text').innerHTML = pageTwo;
     document.getElementById('choices-section').innerHTML = optionsTwoFirst + mainCharacter.name + optionsTwoSecond;   
 }
 //give up (death)
 function gameOverGiveUp() {
+    mainCharacter.score -=5;
     document.getElementById('final-score').innerHTML = mainCharacter.score;
     document.getElementById('gameover-page').style.display="flex";
     document.getElementById('game-page').style.display="none";
@@ -912,17 +956,21 @@ function gameOverGiveUp() {
 };
 
 //Page Three
-function knowMyName(){    
+function knowMyName(){   
+    mainCharacter.score +=3; 
     document.getElementById('game-text').innerHTML = pageThreeFirst + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
     document.getElementById('choices-section').innerHTML = optionsThree;   
 }
-function fightingTalk(){    
+function fightingTalk(){
+    mainCharacter.score +=1;
+    thingsWhatYouveDone.encounterLikelihood += 20;
     document.getElementById('game-text').innerHTML = pageThreeSecondOne + mainCharacter.name + pageThreeSecondTwo + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
     document.getElementById('choices-section').innerHTML = optionsThree;  
 }
-function nameUnknown(){    
+function nameUnknown(){
+    mainCharacter.score +=5;  
     document.getElementById('game-text').innerHTML = pageThreeThird + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>(provisional)</em>";
     document.getElementById('choices-section').innerHTML = optionsThree;    
@@ -931,29 +979,9 @@ function nameUnknown(){
 //Page Four
 function firstSearch() {
     searchForItem(15, 35, 55, 100);
-    document.getElementById('image-section').style.display = "flex";
-    document.getElementById('upper-text').style.display = "block";
-    document.getElementById('game-text').style.display = "none";
-    document.getElementById('upper-text').innerHTML = "<h3>You have found " + foundItemInfo.adjective + " " + foundItemInfo.category + "!!!</h3>" + 
-    `<p>Tentatively approaching the dark form on the ground, you soon see that it is the corpse of a fellow traveller, gently rotting in the gloom.</p>
+    document.getElementById('lower-text').innerHTML = `<p>Tentatively approaching the dark form on the ground, you soon see that it is the corpse of a fellow traveller, gently rotting in the gloom.</p>
     <p>You find yourself strangely unbothered by this, swiftly rummaging around to see what you can find.</p>
     `;
-    document.getElementById('image-image').innerHTML = `<img src="` + foundItemInfo.image + `">`;
-    document.getElementById('image-title').innerHTML = foundItemInfo.name;
-    document.getElementById('item-description').innerHTML = foundItemInfo.description;
-    if (foundItemInfo.category =="weapon") {
-        document.getElementById('list-item-one').innerHTML = "Attack: " + foundItemInfo.attack;
-        document.getElementById('list-item-two').innerHTML = "skill: " + foundItemInfo.skill;
-        document.getElementById('list-item-three').innerHTML = "Type: " + foundItemInfo.type;
-    } else if (foundItemInfo.category =="clothing") {
-        document.getElementById('list-item-one').innerHTML = "Defence: " + foundItemInfo.defence;
-        if (foundItemInfo.magic){
-            document.getElementById('list-item-two').innerHTML = "Magic: " + foundItemInfo.magic;
-        } else { document.getElementById('list-item-two').innerHTML = "Magic: " + "None";  
-        }
-    } else {
-        document.getElementById('list-item-one').innerHTML = "Effect: " + foundItemInfo.effect;
-    }
     document.getElementById('choices-section').innerHTML = optionsFour;
     thingsWhatYouveDone.firstRoomSearch = true;
 }
@@ -990,7 +1018,6 @@ function testLuck() {
     document.getElementById('choices-section').innerHTML = optionsSix;
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
-
 function braceYourself() {
     changeModeToItemWindow();
     document.getElementById('upper-text').innerHTML = pageSixThird + pageSixCommon;
@@ -1031,41 +1058,33 @@ document.addEventListener('DOMContentLoaded', function () {
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-one");
     if(target){
-        mainCharacter.score +=1;
         openEyes();
     }
  });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-two");
     if(target){
-        mainCharacter.score -=5;
         gameOverGiveUp();     
     }
  });
 
  // page two event handlers
 
- document.addEventListener("click", function(e){
+document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-three");
     if(target){
-        mainCharacter.score +=3;
         knowMyName();
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-four");
     if(target){
-        mainCharacter.score +=1;
-        thingsWhatYouveDone.encounterLikelihood += 20;
         fightingTalk();
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-five"); 
     if(target){
-        mainCharacter.score +=5;
         nameUnknown();
     }
 });
@@ -1204,18 +1223,18 @@ const pageThreeFirst = `
 `
 const pageThreeSecondOne = `
     <p>Even as you think them, you are screaming out the words - your deep, cracked voice echoes from the walls.</p>
-    <p><em><strong>Darkness, destroyer of worlds.</em></strong><p>
-    <p>But of course, that is not your real name.  You are  
+    <p><em><strong>Darkness, destroyer of worlds.</strong></em></p>
+    <p>But of course, that is not your real name.  You are
 `
-const pageThreeSecondTwo = `... aren't you???
+const pageThreeSecondTwo = `... aren't you???</p>
 `
 const pageThreeThird = `
     <p>A name comes to mind.  A familiar phrase... but you dare not think it. Perhaps you are mistaken.
     <br>You will try it out for now.  No committing though.</p>
 `
 const pageThreeCommon =`
-    <p>Your head still hurts, but as your eyes adjust a very dim light grows.<p>
-    <p>You appear to be in a small cave. The tiny hint of light comes from a rough hewn exit on the opposite wall.<p>
+    <p>Your head still hurts, but as your eyes adjust a very dim light grows.</p>
+    <p>You appear to be in a small cave. The tiny hint of light comes from a rough-hewn exit on the opposite wall.</p>
     <p>Away to your right, you see the dark bulk of... something...</p>
     <p>It is time to act.</p>
 `;
@@ -1309,6 +1328,8 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
     currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats, thingsWhatYouveDone, playerTestResistances, 
     enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
-    damageResist, nextRound};
+    damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
+    pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
+    pageThreeThird, fightingTalk, nameUnknown, displayItem };
 
 
