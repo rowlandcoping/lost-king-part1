@@ -572,6 +572,8 @@ function playerTestResistances(enemy) {
         return 0.5;
     } else if (enemy.vulnerability ==="blunt" && currentWeapon.type === "blunt") {
         return 2;
+    } else {
+        return 1;
     }
 }
 function enemyTestResistances(enemy) {
@@ -597,30 +599,76 @@ function continueFight(enemy) {
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     battleChoices();
 }
-function fistsRound(enemy) {
-    let hitSuccess;
+function hitSuccess(enemy, weapon) {
+    let overallSkill;
     let chanceToHit = getRandomNumber(1,20);
-    if (chanceToHit <= mainCharacter.skill) {
-        hitSuccess = true;
-    } else {
-        hitSuccess = false;
+    if (weapon === "fists") {
+        overallSkill = mainCharacter.skill;
+    } else if (weapon === "weapon") {
+        overallSkill = mainCharacter.skill + currentWeapon.skill;
+    } else if (weapon === "enemy") {
+        overallSkill = enemy.skill;
     }
-    if (hitSuccess) {
-        let roundDamage = getRandomNumber(0, mainCharacterCurrent.strength);
-        let enemyResist = getRandomNumber(1,15);
-        if (enemyResist<enemy.defence) {
-            let hitsDefended = enemy.defence - enemyResist;
-            roundDamage -= hitsDefended; 
-            roundDamage *= playerTestResistances(enemy); 
+    if (chanceToHit <= overallSkill) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function initialDamage (enemy, weapon) {
+    let minStrength;
+    let maxStrength;
+    if (weapon === "enemy") {
+        if (enemy.strItem > 0) {
+                minStrength = enemy.strItem;
+                maxStrength = enemy.strength;
+            } else {
+                minStrength = 1;
+                maxStrength = enemy.strength;
         }
+    } else if (weapon === "weapon") {
+        minStrength = currentWeapon.attack;
+        maxStrength = mainCharacterCurrent.strength + currentWeapon.attack;
+    } else {
+        minStrength = 1;
+        maxStrength = mainCharacterCurrent.strength;
+    }
+    return getRandomNumber(minStrength, maxStrength);
+}
+function damageResist (enemy, weapon) {
+    let initialResist = getRandomNumber(1,15);
+    let overallDefence;
+    if (weapon ==="enemy") {
+        overallDefence = enemy.defence;
+    } else {
+        overallDefence = mainCharacterCurrent.defence + currentDefence.defence; 
+    }
+    return overallDefence - initialResist;   
+}
+function nextRound(enemy, weapon) {
+    if (hitSuccess(enemy, weapon)) {
+        let roundDamage = initialDamage(enemy, weapon);
+        roundDamage -= damageResist (enemy, weapon);
+        roundDamage *= playerTestResistances(enemy);
+        return roundDamage;
+    } else {
+        return "fail";
+    }
+}
+function playerTurn(enemy, weapon) {
+    if (nextRound(enemy, weapon) === "fail") {
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
+        enemyTurn(ragnarTheHorrible, "enemy");
+    } else {
+        let roundDamage = nextRound(enemy, weapon);
         if (roundDamage > 0) {enemy.health -= roundDamage;}
         if (enemy.health > 0) {
-            if (roundDamage>0){
+            if (roundDamage > 0){
                 document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
             } else {
                 document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
             }
-            enemyTurn(enemy);
+            enemyTurn(ragnarTheHorrible, "enemy");
         } else {
             document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
@@ -631,48 +679,6 @@ function fistsRound(enemy) {
             mainCharacter.score += enemy.score;
             document.getElementById('choices-section').innerHTML = enemy.choices;
         } 
-    } else {
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
-        enemyTurn(enemy);
-    }
-}
-function weaponRound(enemy) {
-    let hitSuccess;
-    let chanceToHit = getRandomNumber(1,20);
-    if (chanceToHit <= mainCharacter.skill + currentWeapon.skill) {
-        hitSuccess = true;
-    } else {
-        hitSuccess = false;
-    }
-    if (hitSuccess) {
-        let roundDamage = getRandomNumber(currentWeapon.attack, mainCharacterCurrent.strength + currentWeapon.attack);
-        let enemyResist = getRandomNumber(1,15);
-        if (enemyResist<enemy.defence) {
-            let hitsDefended = enemy.defence - enemyResist;
-            roundDamage -= hitsDefended;
-            roundDamage *= playerTestResistances(enemy);
-        }
-        if (roundDamage > 0) {enemy.health -= roundDamage;}
-        if (enemy.health > 0) {
-            if (roundDamage > 0){
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
-            } else {
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
-            }
-            enemyTurn(enemy);
-        } else {
-            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
-            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
-            document.getElementById('battle-text-enemy').innerHTML ="";
-            //resets values to remove potion effects
-            mainCharacterCurrent.strength = mainCharacter.strength;
-            mainCharacterCurrent.defence = mainCharacter.defence;
-            mainCharacter.score += enemy.score;
-            document.getElementById('choices-section').innerHTML = enemy.choices;
-        } 
-    } else {
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
-        enemyTurn(enemy);
     }
 }
 function potionRound(enemy) {
@@ -774,24 +780,12 @@ function potionRound(enemy) {
         enemyTurn(enemy);
     }
 }
-function enemyTurn(enemy) {
-    let hitSuccess;
-    chanceToHit = getRandomNumber(1,20);
-    hitSuccess = false;
-    if (chanceToHit <= enemy.skill) {
-        hitSuccess = true;
-    }
-    if (hitSuccess) {
-        if (enemy.strItem) {
-            minStrength = enemy.strItem;
-        } else {minStrength = 1;}
-        roundDamage = getRandomNumber(minStrength, enemy.strength);
-        enemyResist = getRandomNumber(1,15);
-        if (enemyResist < mainCharacterCurrent.defence + currentDefence.defence) {
-            hitsDefended = mainCharacterCurrent.defence + currentDefence.defence - enemyResist;
-            roundDamage -= hitsDefended;
-            roundDamage *= enemyTestResistances(enemy);
-        }
+function enemyTurn(enemy, weapon) {
+    if (nextRound(enemy, weapon) === "fail") {
+        document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
+        continueFight(enemy);
+    } else {
+        let roundDamage = nextRound(enemy, weapon);
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {
@@ -807,10 +801,7 @@ function enemyTurn(enemy) {
             document.getElementById('game-page').style.display="none";
             document.getElementById('game-outcome').innerHTML = enemy.killedYouText;
         } 
-    } else {
-        document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
-        continueFight(enemy);
-    }    
+    }  
 }
 
 //GAMEPLAY FUNCTIONS
@@ -842,6 +833,8 @@ function startGame(event) {
     }
     mainCharacterCurrent.health = mainCharacter.health;
     mainCharacterCurrent.strength = mainCharacter.strength;
+    mainCharacterCurrent.luck = mainCharacter.luck;
+    mainCharacterCurrent.defence = mainCharacter.defence;
     mainCharacter.score = 0;
     for(let item of Object.keys(currentWeapon)) {
         currentWeapon[item] = "";
@@ -1148,14 +1141,14 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#battle-one"); 
     if(target){ 
-        fistsRound(ragnarTheHorrible);
+        playerTurn(ragnarTheHorrible, "fists");
     }
 });
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#battle-two"); 
     if(target){
-        weaponRound(ragnarTheHorrible);
+        playerTurn(ragnarTheHorrible, "weapon");
     }
 });
 
@@ -1315,6 +1308,7 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
     characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
     currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats, thingsWhatYouveDone, playerTestResistances, 
-    enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn };
+    enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
+    damageResist, nextRound};
 
 

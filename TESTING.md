@@ -33,6 +33,9 @@ in order to test the main fight mechanics it would be necessary to create mock f
 As a work-around I have taken chunks of code from the functions themselves and tested them line by line to identify any potential issues.
 I understand this is not best practice at all but I consider that it is effectively doing exactly the same thing in a much less sophisticated way.
 
+I resolved this by refactoring the code into several smaller functions which I could re-use no matter what option is clicked in battle.  It not only meant I could test it properly, 
+it also means if I need to change the game mechanic in the future I do not need to amend multiple functions
+
 ## manual testing
 
 JS mostly checked with automated unit testing, manually test html and CSS elements, responsiveness and obvious errors.
