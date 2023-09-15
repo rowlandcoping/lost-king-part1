@@ -403,24 +403,35 @@ function changeModeToMainWindow() {
     for (let i = 0; i < resetElements.length; i++) {
         resetElements[i].innerHTML = "";
     }
+    document.getElementById('choices-section').style.display = "block";
+    document.getElementById('battles-section').style.display = "none";
     document.getElementById('image-section').style.display = "none";
     document.getElementById('upper-text').style.display = "none";
-    document.getElementById('lower-text').style.display = "none";
+    document.getElementById('lower-text').style.display = "none";    
     document.getElementById('battle-text-player').style.display = "none";
     document.getElementById('battle-text-enemy').style.display = "none";
     document.getElementById('game-text').style.display = "block";
 }
 function changeModeToItemWindow() {
-    const resetElements = document.getElementsByClassName('change-mode');
-    for (let i = 0; i < resetElements.length; i++) {
-        resetElements[i].innerHTML = "";
-    }
+    document.getElementById('choices-section').style.display = "block";
+    document.getElementById('battles-section').style.display = "none";
     document.getElementById('upper-text').style.display = "block";
     document.getElementById('lower-text').style.display = "block";
     document.getElementById('image-section').style.display = "flex";
     document.getElementById('game-text').style.display = "none";
     document.getElementById('battle-text-player').style.display = "block";
     document.getElementById('battle-text-enemy').style.display = "block";
+}
+function changeToBattleWindow(enemy) {   
+    document.getElementById('upper-text').innerHTML = "";
+    document.getElementById('battle-text-player').innerHTML = enemy.initialText;
+    document.getElementById('choices-section').style.display = "none";
+    document.getElementById('battles-section').style.display = "block";
+}
+function changeToGameOver() {   
+    document.getElementById('final-score').innerHTML = mainCharacter.score;
+    document.getElementById('gameover-page').style.display="flex";
+    document.getElementById('game-page').style.display="none";
 }
 //CHARACTER GENERATION
 function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
@@ -643,16 +654,23 @@ function enemyTestResistances(enemy) {
     } else { 
         return 1;
     }
-} 
-function beginFight(enemy) {
-    document.getElementById('upper-text').innerHTML = "";
-    document.getElementById('battle-text-player').innerHTML = enemy.initialText;
-    battleChoices();
 }
+function testForWeapons() {
+    if (currentWeapon.name) {
+        document.getElementById('battle-choice-weapon').innerHTML = currentWeapon.name;
+    } else {
+        document.getElementById('weapon-button').style.display = "none";
+    }
+    if (currentPotion.name) {
+        document.getElementById('battle-choice-potion').innerHTML = currentPotion.name;
+    } else {
+        document.getElementById('potion-button').style.display = "none";
+    }
+} 
 function continueFight(enemy) {
     document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
-    battleChoices();
+    testForWeapons();
 }
 function hitSuccess(enemy, weapon) {
     let overallSkill;
@@ -731,9 +749,10 @@ function playerTurn(enemy, weapon) {
             }
             enemyTurn(ragnarTheHorrible, "enemy");
         } else {
+            changeModeToItemWindow();
             document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
-            document.getElementById('battle-text-enemy').innerHTML ="";
+            document.getElementById('battle-text-enemy').innerHTML ="";            
             //resets values to remove potion effects
             mainCharacterCurrent.strength = mainCharacter.strength;
             mainCharacterCurrent.defence = mainCharacter.defence;
@@ -857,11 +876,9 @@ function enemyTurn(enemy, weapon) {
             }
             continueFight(enemy);
         } else {
-            mainCharacter.score -= 10;
-            document.getElementById('final-score').innerHTML = mainCharacter.score;
-            document.getElementById('gameover-page').style.display="flex";
-            document.getElementById('game-page').style.display="none";
-            document.getElementById('game-outcome').innerHTML = enemy.killedYouText;
+            changeToGameOver();
+            mainCharacter.score -= 10;            
+            document.getElementById('game-outcome').innerHTML = enemy.killedYouText;            
         } 
     }  
 }
@@ -1010,11 +1027,10 @@ function rangarFightChance() {
         document.getElementById('choices-section').innerHTML = optionsFiveSecond;
     }
 }
-
 //Page Six
-
 function testLuck() {
     changeModeToItemWindow();
+    mainCharacter.score += 3;
     if (getLucky()) {
         document.getElementById('upper-text').innerHTML = pageSixFirst + pageSixCommon;
         mainCharacter.score += 3;
@@ -1027,18 +1043,22 @@ function testLuck() {
     document.getElementById('choices-section').innerHTML = optionsSix;
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
-
 function braceYourself() {
     changeModeToItemWindow();
     document.getElementById('upper-text').innerHTML = pageSixThird + pageSixCommon;
     mainCharacterCurrent.health -= 4;
-    mainCharacter.score -= 2;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     document.getElementById('choices-section').innerHTML = optionsSix;
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
-
-
+//Page Seven
+function beginFight(enemy) {
+    changeToBattleWindow(enemy);
+    document.getElementById('fists-button').firstChild.setAttribute("id", "ragnar-one"); 
+    document.getElementById('weapon-button').firstChild.setAttribute("id", "ragnar-two"); 
+    document.getElementById('potion-button').firstChild.setAttribute("id", "ragnar-three"); 
+    testForWeapons();
+}
 
 
 //START GAME EVENT HANDLERS
@@ -1134,15 +1154,13 @@ document.addEventListener("click", function(e){
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-ten"); 
-    if(target){
-        mainCharacter.score += 3; 
+    if(target){ 
         testLuck();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-eleven"); 
-    if(target){
-        mainCharacter.score += 2 ; 
+    if(target){ 
         braceYourself();
     }
 });
@@ -1166,21 +1184,21 @@ document.addEventListener("click", function(e){
 //Page 7 event handlers (fight with Ragnar)
 
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#battle-one"); 
+    const target = e.target.closest("#ragnar-one"); 
     if(target){ 
         playerTurn(ragnarTheHorrible, "fists");
     }
 });
 
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#battle-two"); 
+    const target = e.target.closest("#ragnar-two"); 
     if(target){
         playerTurn(ragnarTheHorrible, "weapon");
     }
 });
 
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#battle-three"); 
+    const target = e.target.closest("#ragnar-three"); 
     if(target){
         potionRound(ragnarTheHorrible);
     }
@@ -1309,23 +1327,7 @@ const battleOne =`
 <li><button class="choice-button" id="battle-one">Attack with your bare, flat-knuckled fists.</button></li>
 `
 function battleChoices() {
-    let battleTwoFirst = "";
-    let battleTwoSecond = "";
-    let battleThreeFirst = "";
-    let battleThreeSecond = "";
-    if (currentWeapon.name) {
-        battleTwoFirst =`
-        <li><button class="choice-button" id="battle-two">Attack with the
-        `;
-        battleTwoSecond =`.</button></li>`;
-    }
-
-    if (currentPotion.name) {
-        battleThreeFirst =`
-        <li><button class="choice-button" id="battle-three">Use your
-        `;
-        battleThreeSecond =`.</button></li>`;
-    }
+    
     document.getElementById('choices-section').innerHTML = battleOne + battleTwoFirst + currentWeapon.name 
     + battleTwoSecond + battleThreeFirst + currentPotion.name + battleThreeSecond;
 }
