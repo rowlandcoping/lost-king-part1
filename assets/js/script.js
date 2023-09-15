@@ -786,7 +786,7 @@ function playerTurn(enemy, weapon) {
     let roundResult = nextRound(enemy, weapon);
     if (roundResult === "fail") {
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
-        enemyTurn(ragnarTheHorrible, "enemy");
+        enemyTurn(enemy, "enemy");
     } else {
         let roundDamage = roundResult;
         if (roundDamage > 0) {enemy.health -= roundDamage;}
@@ -796,19 +796,19 @@ function playerTurn(enemy, weapon) {
             } else {
                 document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
             }
-            enemyTurn(ragnarTheHorrible, "enemy");
+            enemyTurn(enemy, "enemy");
         } else {
             leaveBattle(enemy);
         } 
     }
 }
-function potionRound(enemy) {
+function potionRound(enemy, weapon) {
     let roundDamage;
     let potionName = currentPotion.name;
     if (potionName === "Potion of Catnip") {
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You rub on some of the catnip potion, but it doesn't seem to do anything right now";
         mainCharacter.score -=3;
-        enemyTurn(enemy);
+        enemyTurn(enemy, weapon);
     } else if (potionName === "Potion of Healing") {
         if (mainCharacterCurrent.health + 50 <= mainCharacter.health) {
             mainCharacterCurrent.health =+ 50;
@@ -848,7 +848,7 @@ function potionRound(enemy) {
         } else {
             document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>You hurl the vial at your opponent, and watch as they are consumed by flames. <br>They lose <span class='orange'>" + roundDamage + "</span> health points of damage.</p>";
             mainCharacter.score +=10;
-            enemyTurn(enemy);
+            enemyTurn(enemy, weapon);
         }
     } else if (potionName === "Potion of Ice") {
         roundDamage = 20;
@@ -871,7 +871,7 @@ function potionRound(enemy) {
         } else {
             document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.</p><br>They lose <span class='lightblue'>" + roundDamage + "</span> health points of damage.</p>";
             mainCharacter.score +=10;
-            enemyTurn(enemy);
+            enemyTurn(enemy, weapon);
         }
     } else if (potionName === "Potion of Defence") {
         mainCharacterCurrent.defence += 10;
@@ -1036,7 +1036,7 @@ function nameUnknown(){
 
 //Page Four
 function firstSearch() {
-    searchForItem(15, 35, 55, 100);
+    searchForItem(0,0,100, 100);
     document.getElementById('lower-text').innerHTML = pageFour;
     document.getElementById('choices-section').innerHTML = optionsFour;
     thingsWhatYouveDone.firstRoomSearch = true;
@@ -1238,7 +1238,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#ragnar-three"); 
     if(target){
-        potionRound(ragnarTheHorrible);
+        potionRound(ragnarTheHorrible, "enemy");
     }
 });
 
