@@ -58,33 +58,33 @@ const characterWeapons = [
         skill: -5,
         magic: "",
         type: "sharp",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/oathbringer.jpeg",
         chance: 3,
         score: 50,
         description: "The Oathbringer, long thought consigned to fanciful legends and bar talk.  A razor's edge and lore so endless that Tolkien would think his work thin by comparison."
     },
     {
         category: "weapon",
-        adjective: "a nifty",
-        name: "Cat Sword",
-        attack: 5,
-        skill: 5,
+        adjective: "an unimaginative",
+        name: "Short Sword",
+        attack: 2,
+        skill: 2,
         magic: "",
         type: "sharp",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/short-sword.webp",
         chance: 20,
         score: 10,
-        description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
+        description: "This is the kind of weapon that pretty much everyone carries, everywhere.  It's the Ford Mondeo of weaponary. You wouldn't want to be stabbed by it though."
     },
     {
         category: "weapon",
         adjective: "a pefunctory",
         name: "Rusty Dagger",
         attack: 0,
-        skill: 5,
+        skill: 3,
         magic: "",
         type: "sharp",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/rusty-dagger.webp",
         chance: 50,
         score: 3,
         description: "To say this weapon is blunt would be an understatement.  It weighs practically nothing though, and you are able to wield it with considerable grace."
@@ -93,24 +93,24 @@ const characterWeapons = [
         category: "weapon",
         adjective: "a primitive",
         name: "Gnarled Club",
-        attack: 3,
+        attack: 2,
         skill: 0,
         magic: "",
         type: "blunt",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/club.webp",
         chance: 80,
         score: 3,
-        description: "The dubious stains and what appear to be lumps of scalp adhering to this weapon speak of its purpose.  It is, essentially, little more than a heavy piece of wood."
+        description: "The dubious stains and what appear to be lumps of scalp adhering to this weapon speak of its purpose.  It is, essentially, little more than a club-sized piece of tree."
     },
     {
         category: "weapon",
         adjective: "a brutal",
         name: "Gleaming Mace",
-        attack: 5,
-        skill: 5,
+        attack: 3,
+        skill: 3,
         magic: "",
         type: "blunt",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/mace.webp",
         chance: 90,
         score: 15,
         description: "Not as heavy as its heft would imply, this thing practically whirrs though the air.  This and the pointy spikes on the end mean it is most unfriendly towards skulls."
@@ -119,11 +119,11 @@ const characterWeapons = [
         category: "weapon",
         adjective: "a wizardy",
         name: "Wand of Fire",
-        attack: 5,
+        attack: 4,
         skill: 0,
         magic: "fire",
         type: "magical",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/fire-staff.webp",
         chance: 95,
         score: 30,
         description: "A blazing wand of fire, it can shoot blazing pillars of fire at your opponents... but be warned it's a good idea to know what you're doing."
@@ -132,11 +132,11 @@ const characterWeapons = [
         category: "weapon",
         adjective: "an Ice Queen's",
         name: "Frozen Staff",
-        attack: 5,
+        attack: 4,
         skill: 0,
         magic: "ice",
         type: "magical",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/frozen-staff.webp",
         chance: 100,
         score: 30,
         description: "A fearsome wand of ice, formerly of the Ice Princess from the far frozen North.  How it got here you could not say, but you wouldn't like to meet her if she's looking for it!"
@@ -343,6 +343,23 @@ const characterObjects = [
         description:"It's a rope, but it's not really a rope, is it.  It seems unlikely to take your weight, even in your emaciated state.  In fact, it's hard to see the purpose of this object.  We'll see."
     },
 ];
+//unique objects = 
+const adventureObjects = [
+    {
+        category: "weapon",
+        adjective: "a nifty",
+        name: "Cat Sword",
+        attack: 3,
+        skill: 3,
+        magic: "",
+        type: "sharp",
+        image: "assets/images/items/placeholder-sword.jpeg",
+        chance: 20,
+        score: 10,
+        description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
+    }
+];
+
 
 // CHARACTER INFO STORAGE
 
@@ -596,6 +613,12 @@ function itemStorage() {
     }
     if (foundItemInfo.name === "Furry Gilet and Shorts") {
         mainCharacterCurrent.vulnerability = "fire";
+    }
+    if (foundItemInfo.name === "Oathbringer") {
+        characterWeapons[0].chance = 0;
+    }
+    if (foundItemInfo.name === "Frozen Staff") {
+        characterWeapons[5].chance = 100;
     }
 }
 //write info to DOM, clears foundItemInfo
@@ -897,7 +920,6 @@ function enemyTurn(enemy, weapon) {
     }  
 }
 
-
 //GAMEPLAY FUNCTIONS
 
 // Game restart and reset functions
@@ -964,6 +986,7 @@ function writeInitialToDom() {
     document.getElementById('game-page').style.display = "flex";
     document.getElementById('final-score').innerHTML = "";
     document.getElementById('character-sheet-name').innerHTML = "Identity Unknown";
+    document.getElementById('character-image').innerHTML = `<img src="assets/images/character-profiles/player-default.webp">`;
     document.getElementById('main-strength').innerHTML = mainCharacter.strength;
     document.getElementById('main-skill').innerHTML = mainCharacter.skill;
     document.getElementById('main-defence').innerHTML = mainCharacter.defence;

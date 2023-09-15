@@ -509,6 +509,20 @@ describe("itemStorage function correctly processes 'Furry Gilet and Shorts' obje
       expect(mainCharacterCurrent.vulnerability).toEqual("fire");
    })
 });
+describe("itemStorage function correctly processes 'Oathbringer' object", ()=>{
+   test("Oathbringer chance value is set to zero so it can't be found again", () =>{
+      foundItemInfo.name = "Oathbringer";
+      itemStorage();
+      expect(characterWeapons[0].chance).toEqual(0);
+   })
+});
+describe("itemStorage function correctly processes 'Frozen Staff' object", ()=>{
+   test("Frozen Staff previous object's chance value is set to 100 so Frozen Staff can't be found again", () =>{
+      foundItemInfo.name = "Frozen Staff";
+      itemStorage();
+      expect(characterWeapons[5].chance).toEqual(100);
+   })
+});
 // store item function (DOM)
 describe("storeItem function correctly writes weapon items to the DOM", ()=>{
    beforeAll(() =>{      
