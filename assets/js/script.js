@@ -1052,7 +1052,7 @@ function braceYourself() {
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
 //Page Seven
-function beginFight(enemy) {
+function ragnarFight(enemy) {
     changeToBattleWindow(enemy);
     document.getElementById('fists-button').firstChild.setAttribute("id", "ragnar-one"); 
     document.getElementById('weapon-button').firstChild.setAttribute("id", "ragnar-two"); 
@@ -1177,7 +1177,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-thirteen"); 
     if(target){        
-        beginFight(ragnarTheHorrible);
+        ragnarFight(ragnarTheHorrible);
     }
 });
 
@@ -1321,17 +1321,6 @@ const optionsSix = `
 const battleHeadingYou = `<h3 class="green">Your Turn</h3>`;
 const battleHeadingThem = `<h3 class="red">Enemy Turn</h3>`;
 
-// next round options
-
-const battleOne =`
-<li><button class="choice-button" id="battle-one">Attack with your bare, flat-knuckled fists.</button></li>
-`
-function battleChoices() {
-    
-    document.getElementById('choices-section').innerHTML = battleOne + battleTwoFirst + currentWeapon.name 
-    + battleTwoSecond + battleThreeFirst + currentPotion.name + battleThreeSecond;
-}
-
 
 // OBJECT EXPORTS FOR AUTOMATED TESTING
 var module = module || {};
@@ -1339,12 +1328,12 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
     characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
     currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats, thingsWhatYouveDone, playerTestResistances, 
-    enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
+    enemyTestResistances, ragnarFight, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
     damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
     pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
     pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
     rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
     keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-    braceYourself, testLuck  };
+    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver };
 
 

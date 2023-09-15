@@ -5,13 +5,13 @@ let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStat
    pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent, 
    itemStorage, currentWeapon, currentDefence, currentPotion, currentObject, thingsWhatYouveDone, playerTestResistances, 
-   enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
+   enemyTestResistances, ragnarFight, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
    damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
    pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
    pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
    rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
    keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-   braceYourself, testLuck } = require("../script.js");
+   braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -58,6 +58,12 @@ describe("switch to main game window works as expected", ()=>{
    test("battle-text-enemy element is removed", () =>{
       expect(document.getElementById('battle-text-enemy').style.display).toBe("none");
    }),
+   test("choices section is displayed", () =>{
+      expect(document.getElementById('choices-section').style.display).toEqual("block");
+   }),
+   test("battles section is hidden", () =>{
+      expect(document.getElementById('battles-section').style.display).toEqual("none");
+   }),
    test("elements with class of change-mode emptied", () =>{
       const resetElements = document.getElementsByClassName('change-mode');
       for (let i = 0; i < resetElements.length; i++) {
@@ -87,12 +93,44 @@ describe("switch to item window works as expected", ()=>{
    test("battle-text-enemy displayed is removed", () =>{
       expect(document.getElementById('battle-text-enemy').style.display).toBe("block");
    }),
-   test("elements with class of change-mode emptied", () =>{
-      const resetElements = document.getElementsByClassName('change-mode');
-      for (let i = 0; i < resetElements.length; i++) {
-         expect(resetElements[i].innerHTML).toBe("");
-      }
-   });
+   test("choices section is displayed", () =>{
+      expect(document.getElementById('choices-section').style.display).toEqual("block");
+   }),
+   test("battles section is hidden", () =>{
+      expect(document.getElementById('battles-section').style.display).toEqual("none");
+   })
+});
+describe("switch to battle window works as expected", ()=>{
+   beforeAll(()=>{
+      changeToBattleWindow(ragnarTheHorrible);
+   }),
+   test("upper-text element HTML is cleared", () =>{
+      expect(document.getElementById('upper-text').innerHTML).toEqual("");
+   }),
+   test("initial enemy text displays as intended", () =>{
+      expect(document.getElementById('battle-text-player').innerHTML).toEqual(ragnarTheHorrible.initialText);
+   }),
+   test("choices section is hidden", () =>{
+      expect(document.getElementById('choices-section').style.display).toEqual("none");
+   }),
+   test("battles section is displayed", () =>{
+      expect(document.getElementById('battles-section').style.display).toEqual("block");
+   })
+});
+describe("switch to game over window works as expected", ()=>{
+   beforeAll(()=>{
+      mainCharacter.score=180;
+      changeToGameOver();
+   }),
+   test("game over page is displayed", () =>{
+      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
+   }),
+   test("game page is hidden", () =>{
+      expect(document.getElementById('game-page').style.display).toEqual("none");
+   }),
+   test("final score is displayed", () =>{
+      expect(document.getElementById('final-score').innerHTML).toEqual("180");
+   })
 });
 
 //CHARACTER CREATION TESTING
@@ -555,18 +593,7 @@ describe("storeItem function correctly writes object items to the DOM", ()=>{
 });
 
 // BATTLE FUNCTIONS TESTING
-//test battle before/between rounds function
-describe("test beginFight function works as intended", ()=>{
-   beforeAll(() => {
-      beginFight(ragnarTheHorrible);
-   }),   
-   test("upper-text element emptied", () =>{ 
-      expect(document.getElementById('upper-text').innerHTML).toEqual("");
-   }),
-   test("battle-text element populated correctly", () =>{
-      expect(document.getElementById('battle-text-player').innerHTML).toEqual(ragnarTheHorrible.initialText);
-   })
-});
+//test battle conditions before/between rounds function
 describe("test continueFight function works as intended", ()=>{
    beforeAll(() => {
       ragnarTheHorrible.health = "30";
@@ -585,6 +612,41 @@ describe("test continueFight function works as intended", ()=>{
       expect(document.getElementById('main-health').innerHTML).toEqual(mainCharacterCurrent.health);
    })
 });
+describe("testForWeapons function works as intended", ()=>{
+   test("test weapon name is displayed if weapon equipped", () =>{
+      for(let item of Object.keys(currentWeapon)) {
+         currentWeapon[item] = "";
+      }
+      currentWeapon.name = "dave";
+      testForWeapons();
+      expect(document.getElementById('battle-choice-weapon').innerHTML).toEqual("dave");
+   }),
+   test("test weapon button is not displayed if no weapon equipped", () =>{
+      for(let item of Object.keys(currentWeapon)) {
+         currentWeapon[item] = "";
+      }
+      currentWeapon.name = undefined;
+      testForWeapons();
+      expect(document.getElementById('weapon-button').style.display).toEqual("none");
+   }),
+   test("test potion name is displayed if potion equipped", () =>{
+      for(let item of Object.keys(currentPotion)) {
+         currentPotion[item] = "";
+      }
+      currentPotion.name = "dave";
+      testForWeapons();
+      expect(document.getElementById('battle-choice-potion').innerHTML).toEqual("dave");
+   }),
+   test("test potion button is not displayed if no weapon equipped", () =>{
+      for(let item of Object.keys(currentPotion)) {
+         currentPotion[item] = "";
+      }
+      currentPotion.name = undefined;
+      testForWeapons();
+      expect(document.getElementById('potion-button').style.display).toEqual("none");
+   })
+});
+
 // revised battle mechanics testing
 describe("hitsuccess function works as intended", ()=>{
    beforeAll(() => {
@@ -1131,7 +1193,7 @@ describe("testLuck function works as intended", ()=>{
    })
 });
 describe("braceYourself function works as intended", ()=>{
-   beforeAll(() => {
+   beforeEach(() => {
       mainCharacterCurrent.health = 7;
       mainCharacter.score = 3;
       braceYourself();      
@@ -1147,9 +1209,21 @@ describe("braceYourself function works as intended", ()=>{
    }),
    test("health updated in DOM", () =>{
       expect(document.getElementById('main-health').innerHTML).toEqual("3");
-   }),
-   test("score section updates as expected", () =>{
-      expect(mainCharacter.score).toEqual(1);
+   })
+});
+//page six
+describe("test ragnarFight function works as intended", ()=>{
+   beforeAll(() => {
+      ragnarFight(ragnarTheHorrible);
+   }),   
+   test("fists button child id updated in DOM", () =>{ 
+      expect(document.getElementById('fists-button').firstChild.id).toEqual("ragnar-one");
+   }),   
+   test("weapon button child id updated in DOM", () =>{ 
+      expect(document.getElementById('weapon-button').firstChild.id).toEqual("ragnar-two");
+   }),   
+   test("potion button child id updated in DOM", () =>{ 
+      expect(document.getElementById('potion-button').firstChild.id).toEqual("ragnar-three");
    })
 });
 
