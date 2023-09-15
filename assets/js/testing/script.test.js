@@ -11,7 +11,7 @@ let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStat
    pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
    rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
    keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-   braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver } = require("../script.js");
+   braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -104,8 +104,11 @@ describe("switch to battle window works as expected", ()=>{
    beforeAll(()=>{
       changeToBattleWindow(ragnarTheHorrible);
    }),
-   test("upper-text element HTML is cleared", () =>{
-      expect(document.getElementById('upper-text').innerHTML).toEqual("");
+   test("upper-text element HTML is is hidden", () =>{
+      expect(document.getElementById('upper-text').style.display).toEqual("none");
+   }),
+   test("lower-text element HTML is is hidden", () =>{
+      expect(document.getElementById('lower-text').style.display).toEqual("none");
    }),
    test("initial enemy text displays as intended", () =>{
       expect(document.getElementById('battle-text-player').innerHTML).toEqual(ragnarTheHorrible.initialText);
@@ -434,6 +437,7 @@ describe("itemStorage function returns correct values to currentDefence object",
       foundItemInfo.defence = 15 ;
       foundItemInfo.resist = "fire";
       foundItemInfo.image = "image1";
+      foundItemInfo.playerImage = "image2";
       itemStorage();
    }),
    test("name value written correctly to currentDefence object", () =>{
@@ -447,6 +451,9 @@ describe("itemStorage function returns correct values to currentDefence object",
    }),
    test("image value written correctly to currentDefence object", () =>{
       expect(currentDefence.image).toEqual("image1");
+   }),
+   test("player image value written correctly to currentDefence object", () =>{
+      expect(currentDefence.playerImage).toEqual("image2");
    })
 });
 describe("itemStorage function returns correct values to currentPotion object", ()=>{
@@ -540,6 +547,7 @@ describe("storeItem function correctly writes defence items to the DOM", ()=>{
       foundItemInfo.defence = 15 ;
       foundItemInfo.resist = "fire";
       foundItemInfo.image = "image1";
+      foundItemInfo.playerImage = "image2";
       storeItem();
    }),
    test("name values correctly included on the page", () =>{
@@ -553,6 +561,9 @@ describe("storeItem function correctly writes defence items to the DOM", ()=>{
    }),
    test("image values correctly included on the page", () =>{
       expect(document.getElementById('defence-item-image').innerHTML).toEqual(`<img src="` + currentDefence.image + `">`);
+   }),
+   test("player image values correctly included on the page", () =>{
+      expect(document.getElementById('character-image').innerHTML).toEqual(`<img src="` + currentDefence.playerImage + `">`);
    })
 });
 describe("storeItem function correctly writes potion items to the DOM", ()=>{
@@ -644,6 +655,44 @@ describe("testForWeapons function works as intended", ()=>{
       currentPotion.name = undefined;
       testForWeapons();
       expect(document.getElementById('potion-button').style.display).toEqual("none");
+   })
+});
+describe("leaveBattle function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.strength = 10;
+      mainCharacterCurrent.strength = 20;
+      mainCharacter.defence = 10;
+      mainCharacterCurrent.defence = 20;
+      mainCharacter.score = 3;
+      ragnarTheHorrible.score = 20;
+      leaveBattle(ragnarTheHorrible);
+   })
+   test("choices section is displayed", () =>{
+      expect(document.getElementById('choices-section').style.display).toEqual("block");
+   }),
+   test("battles section is hidden", () =>{
+      expect(document.getElementById('battles-section').style.display).toEqual("none");
+   }),
+   test("enemy health set to zero", () =>{
+      expect(document.getElementById('list-item-four').innerHTML).toEqual('<span class="red">Health: ' + "0</span>");
+   }),
+   test("enemy death text displayed correctly", () =>{
+      expect(document.getElementById('battle-text-player').innerHTML).toEqual('<h3 class="green">' + ragnarTheHorrible.name + " Is Dead.</h3>" + ragnarTheHorrible.deathText);
+   }),
+   test("enemy battle text cleared", () =>{
+      expect(document.getElementById('battle-text-enemy').innerHTML).toEqual("");
+   }),
+   test("temporary strength bonuses removed", () =>{
+      expect(mainCharacterCurrent.strength).toEqual(10);
+   }),
+   test("temporary defence bonuses removed", () =>{
+      expect(mainCharacterCurrent.defence).toEqual(10);
+   }),
+   test("score correctly updated", () =>{
+      expect(mainCharacter.score).toEqual(23);
+   }),
+   test("choices section displays correctly", () =>{
+      expect(document.getElementById('choices-section').innerHTML).toEqual(ragnarTheHorrible.choices);
    })
 });
 

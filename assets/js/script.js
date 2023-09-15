@@ -150,7 +150,8 @@ const characterDefence = [
         name: "Furry Gilet and Shorts",
         defence: 1,
         resist: "",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/gilet.webp",
+        playerImage: "assets/images/character-profiles/player-gilet.webp",
         chance: 15,
         score: 3,
         description: "This natty combination looks like something Jane Fonda might have worn on the set of Barbarella.  It's unlikely her outfit would have smelt quite so much of excrement, or have been quite so vulnerable to naked flames."
@@ -161,7 +162,8 @@ const characterDefence = [
         name: "Golden Loin Cloth",
         defence: 1,
         resist: "fire",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/loincloth.webp",
+        playerImage: "assets/images/character-profiles/player-loincloth.webp",
         chance: 30,
         score: 5,
         description: "If you want to go and tear up the gay scene in 80s New York, this outfit is ideal.  Meandering about through dangerous dungeons with a serious head injury? Not so much."
@@ -172,7 +174,8 @@ const characterDefence = [
         name: "Filthy Jerkin",
         defence: 2,
         resist: "",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/jerkin.webp",
+        playerImage: "assets/images/character-profiles/player-jerkin.webp",
         chance: 75,
         score: 1,
         description: "This foul leather jerkin shows signs of having once contained a decomposing corpse.  Where it came from, you really don't want to know."
@@ -183,7 +186,8 @@ const characterDefence = [
         name: "Chain Mail",
         defence: 4,
         resist: "",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/chainmail.webp",
+        playerImage: "assets/images/character-profiles/player-chainmail.webp",
         chance: 85,
         score: 10,
         description: "Although it probably isn't Mithril, this lovely chain mail still ought to be enough to turn aside an orcan blade.  Or an angry cat warrior claw, for that matter"
@@ -194,7 +198,8 @@ const characterDefence = [
         name: "Purple Helmet",
         defence: 3,
         resist: "ice",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/helmet.webp",
+        playerImage: "assets/images/character-profiles/player-helmet.webp",
         chance: 95,
         score: 30,
         description: "The purpose behind the design of this protective device is a baffling mystery.  I'll leave it to your imagination.  It also seems to be imbued with magical powers."
@@ -205,7 +210,8 @@ const characterDefence = [
         name: "Plate Armor",
         defence: 5,
         resist: "",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/plate.webp",
+        playerImage: "assets/images/character-profiles/player-plate.webp",
         chance: 100,
         score: 40,
         description: "The armor of a noble ancient knight.  It's amazing what you can find lying about in a dungeon, really. This shold keep out all but the most determined foe."
@@ -377,6 +383,7 @@ const foundItemInfo = {
     resist: "",
     type: "",
     image: "",
+    playerImage:"",
     effect: "",
     attack: 0,
     defence: 0,
@@ -413,8 +420,7 @@ function changeModeToMainWindow() {
     document.getElementById('game-text').style.display = "block";
 }
 function changeModeToItemWindow() {
-    document.getElementById('choices-section').style.display = "block";
-    document.getElementById('battles-section').style.display = "none";
+    
     document.getElementById('upper-text').style.display = "block";
     document.getElementById('lower-text').style.display = "block";
     document.getElementById('image-section').style.display = "flex";
@@ -423,7 +429,8 @@ function changeModeToItemWindow() {
     document.getElementById('battle-text-enemy').style.display = "block";
 }
 function changeToBattleWindow(enemy) {   
-    document.getElementById('upper-text').innerHTML = "";
+    document.getElementById('upper-text').style.display = "none";
+    document.getElementById('lower-text').style.display = "none"; 
     document.getElementById('battle-text-player').innerHTML = enemy.initialText;
     document.getElementById('choices-section').style.display = "none";
     document.getElementById('battles-section').style.display = "block";
@@ -506,6 +513,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                 foundItemInfo.magic = i.magic,
                 foundItemInfo.type = i.type,
                 foundItemInfo.image = i.image,
+                foundItemInfo.playerImage = i.playerImage,
                 foundItemInfo.effect = i.effect,
                 foundItemInfo.defence = i.defence,
                 foundItemInfo.score = i.score,
@@ -564,6 +572,7 @@ function itemStorage() {
             currentDefence.defence = foundItemInfo.defence;
             currentDefence.resist = foundItemInfo.resist;
             currentDefence.image = foundItemInfo.image;
+            currentDefence.playerImage = foundItemInfo.playerImage;
         }
     } else if (foundItemInfo.category === "potion") {
         if (currentPotion.name) {
@@ -601,6 +610,7 @@ function storeItem() {
         document.getElementById('weapon-list-item-four').innerHTML = "TYP: " + currentWeapon.type;
     } else if (foundItemInfo.category === "clothing") {
         document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `">`;
+        document.getElementById('character-image').innerHTML = `<img src="` + currentDefence.playerImage + `">`;
         document.getElementById('defence-item-name').innerHTML = currentDefence.name;
         document.getElementById('clothing-list-item-one').innerHTML = "DEF: " + currentDefence.defence;
         if (currentDefence.resist) {document.getElementById('clothing-list-item-two').innerHTML = "RST: " + currentDefence.resist;}
@@ -619,7 +629,40 @@ function storeItem() {
 }
 
 //BATTLE FUNCTIONS
+//fight state change
 
+function testForWeapons() {
+    if (currentWeapon.name) {
+        document.getElementById('battle-choice-weapon').innerHTML = currentWeapon.name;
+        document.getElementById('weapon-button').style.display = "block";
+    } else {
+        document.getElementById('weapon-button').style.display = "none";
+    }
+    if (currentPotion.name) {
+        document.getElementById('battle-choice-potion').innerHTML = currentPotion.name;
+        document.getElementById('potion-button').style.display = "block";
+    } else {
+        document.getElementById('potion-button').style.display = "none";
+    }
+}
+function continueFight(enemy) {
+    document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
+    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+    testForWeapons();
+}
+function leaveBattle(enemy) {
+    document.getElementById('choices-section').style.display = "block";
+    document.getElementById('battles-section').style.display = "none";
+    document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+    document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
+    document.getElementById('battle-text-enemy').innerHTML ="";            
+    //resets values to remove potion effects
+    mainCharacterCurrent.strength = mainCharacter.strength;
+    mainCharacterCurrent.defence = mainCharacter.defence;
+    mainCharacter.score += enemy.score;
+    document.getElementById('choices-section').innerHTML = enemy.choices;
+}
+//fight mechanics
 function playerTestResistances(enemy) {
     //enemy resists/etc
     if (enemy.resist ==="fire" && currentWeapon.magic === "fire") {
@@ -654,23 +697,6 @@ function enemyTestResistances(enemy) {
     } else { 
         return 1;
     }
-}
-function testForWeapons() {
-    if (currentWeapon.name) {
-        document.getElementById('battle-choice-weapon').innerHTML = currentWeapon.name;
-    } else {
-        document.getElementById('weapon-button').style.display = "none";
-    }
-    if (currentPotion.name) {
-        document.getElementById('battle-choice-potion').innerHTML = currentPotion.name;
-    } else {
-        document.getElementById('potion-button').style.display = "none";
-    }
-} 
-function continueFight(enemy) {
-    document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
-    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
-    testForWeapons();
 }
 function hitSuccess(enemy, weapon) {
     let overallSkill;
@@ -749,15 +775,7 @@ function playerTurn(enemy, weapon) {
             }
             enemyTurn(ragnarTheHorrible, "enemy");
         } else {
-            changeModeToItemWindow();
-            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
-            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
-            document.getElementById('battle-text-enemy').innerHTML ="";            
-            //resets values to remove potion effects
-            mainCharacterCurrent.strength = mainCharacter.strength;
-            mainCharacterCurrent.defence = mainCharacter.defence;
-            mainCharacter.score += enemy.score;
-            document.getElementById('choices-section').innerHTML = enemy.choices;
+            leaveBattle(enemy);
         } 
     }
 }
@@ -801,11 +819,9 @@ function potionRound(enemy) {
         }
         
         if (enemy.health<=0) {
-            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+            leaveBattle(enemy);
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>You hurl the vial at your opponent, and watch as they are consumed by flames.</p><p>They slump to the ground, their still smouldering flesh charred and blackened beyond recognition. <br>You almost feel sorry for them... almost.</p>";
-            document.getElementById('battle-text-enemy').innerHTML ="";
-            mainCharacter.score += 10 + enemy.score;
-            document.getElementById('choices-section').innerHTML = enemy.choices;
+            mainCharacter.score += 10;
         } else {
             document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>You hurl the vial at your opponent, and watch as they are consumed by flames. <br>They lose <span class='orange'>" + roundDamage + "</span> health points of damage.</p>";
             mainCharacter.score +=10;
@@ -826,11 +842,9 @@ function potionRound(enemy) {
             currentPotion[item] = "";
         }
         if (enemy.health<=0) {
-            document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+            leaveBattle(enemy);
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.</p><p>They slump to the ground, their skin raked from their flesh by your icy attack. <br>You almost feel sorry for them... almost.</p>";
-            document.getElementById('battle-text-enemy').innerHTML ="";
-            mainCharacter.score += 10 + enemy.score;
-            document.getElementById('choices-section').innerHTML = enemy.choices;
+            mainCharacter.score += 10;   
         } else {
             document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.</p><br>They lose <span class='lightblue'>" + roundDamage + "</span> health points of damage.</p>";
             mainCharacter.score +=10;
@@ -882,6 +896,7 @@ function enemyTurn(enemy, weapon) {
         } 
     }  
 }
+
 
 //GAMEPLAY FUNCTIONS
 
@@ -1334,6 +1349,6 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
     rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
     keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver };
+    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle };
 
 

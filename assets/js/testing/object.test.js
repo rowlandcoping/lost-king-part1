@@ -408,6 +408,9 @@ describe("foundItemInfo contains correct properties", ()=>{
     test("image property exists", () =>{
         expect("image" in foundItemInfo).toBe(true);
     }),
+    test("player image property exists", () =>{
+        expect("playerImage" in foundItemInfo).toBe(true);
+    }),
     test("resist property exists", () =>{
         expect("resist" in foundItemInfo).toBe(true);
     }),

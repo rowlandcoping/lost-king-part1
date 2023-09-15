@@ -113,6 +113,9 @@ ul {
 #character-image {
     padding: 10px;
 }
+#character-image img {
+    width:220px;
+}
 /* Main game-play area */
 #game-section {
     display: flex;
