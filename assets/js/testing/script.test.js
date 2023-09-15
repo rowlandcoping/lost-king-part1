@@ -8,7 +8,10 @@ let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStat
    enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
    damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
    pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
-   pageThreeThird, fightingTalk, nameUnknown, displayItem } = require("../script.js");
+   pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
+   rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
+   keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
+   braceYourself, testLuck } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -24,6 +27,13 @@ describe("random number generator works as expected", ()=>{
    test("should return random integer between 1 and 5", () =>{
       expect(getRandomNumber(1,5)).toBeGreaterThanOrEqual(1);
       expect(getRandomNumber(1,5)).toBeLessThanOrEqual(5);
+   })
+});
+describe("luck test works as expected", ()=>{
+   test("should return true based on inputted values", () =>{
+      jest.spyOn(global.Math, 'random').mockReturnValue(10/20);
+      mainCharacterCurrent.luck = 10;
+      expect(getLucky()).toEqual(true);
    })
 });
 describe("switch to main game window works as expected", ()=>{
@@ -189,7 +199,6 @@ describe("enemy character creation populates DOM as intended", ()=>{
 });
 
 // ITEM SEARCH FUNCTIONS TESTING
-
 //search functions
 describe("findItemType function returns correct category as expected", ()=>{
    test("function returns weapon object", () =>{
@@ -546,7 +555,6 @@ describe("storeItem function correctly writes object items to the DOM", ()=>{
 });
 
 // BATTLE FUNCTIONS TESTING
-
 //test battle before/between rounds function
 describe("test beginFight function works as intended", ()=>{
    beforeAll(() => {
@@ -1060,4 +1068,89 @@ describe("nameUnknown function works as intended", ()=>{
    })
 });
 //page three
+describe("firstSearch function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      firstSearch();      
+   }),
+   test("text is displayed", () =>{
+      expect(document.getElementById('lower-text').innerHTML).toEqual(pageFour);
+   }),
+   test("choices are displayed", () => {
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsFour);
+   }),
+   test("event log updated to log room has been searched", () =>{
+      expect(thingsWhatYouveDone.firstRoomSearch).toEqual(true);
+   })
+});
+// there will be a move on function here for the slime page.  and features elsewhere actually!
+//page four
+describe("keepFirstItem function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      foundItemInfo.score = 20;
+      keepFirstItem();      
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(20);
+   })
+});
+describe("ignoreFirstItem function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      ignoreFirstItem();      
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(-2);
+   })
+});
+describe("rangarFightChance function works as intended", ()=>{
+   afterEach(() => {
+      jest.spyOn(global.Math, 'random').mockRestore();
+   }),
+   test("fightChance odds work as expected modifiedand return correct text for true", () =>{
+      jest.spyOn(global.Math, 'random').mockReturnValue(70 / 100);
+      thingsWhatYouveDone.encounterLikelihood = 20;
+      rangarFightChance();
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageFiveCommon + pageFiveFirst);
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsFiveFirst);
+   }),
+   test("fightChance odds work as expected unmodified and return correct text for false", () =>{
+      jest.spyOn(global.Math, 'random').mockReturnValue(70 / 100);
+      thingsWhatYouveDone.encounterLikelihood = 0;
+      rangarFightChance();
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageFiveCommon + pageFiveSecond);
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsFiveSecond);
+   })
+});
+//page five
+describe("testLuck function works as intended", ()=>{
+   test("choices section populates as expected", () =>{
+      testLuck();
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsSix);
+   })
+});
+describe("braceYourself function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacterCurrent.health = 7;
+      mainCharacter.score = 3;
+      braceYourself();      
+   }),
+   test("choices section populates as expected", () =>{
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsSix);
+   }),
+   test("text section populates as expected", () =>{
+      expect(document.getElementById('upper-text').innerHTML).toEqual(pageSixThird + pageSixCommon);
+   }),
+   test("health object updates as expected", () =>{
+      expect(mainCharacterCurrent.health).toEqual(3);
+   }),
+   test("health updated in DOM", () =>{
+      expect(document.getElementById('main-health').innerHTML).toEqual("3");
+   }),
+   test("score section updates as expected", () =>{
+      expect(mainCharacter.score).toEqual(1);
+   })
+});
+
 

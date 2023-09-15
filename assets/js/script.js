@@ -395,6 +395,9 @@ const thingsWhatYouveDone = {
 // HELPER FUNCTIONS
 // Random number generator
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+//luck tested
+const getLucky = () => getRandomNumber(1,20) <= mainCharacterCurrent.luck;
+//game state switchers
 function changeModeToMainWindow() {
     const resetElements = document.getElementsByClassName('change-mode');
     for (let i = 0; i < resetElements.length; i++) {
@@ -979,9 +982,7 @@ function nameUnknown(){
 //Page Four
 function firstSearch() {
     searchForItem(15, 35, 55, 100);
-    document.getElementById('lower-text').innerHTML = `<p>Tentatively approaching the dark form on the ground, you soon see that it is the corpse of a fellow traveller, gently rotting in the gloom.</p>
-    <p>You find yourself strangely unbothered by this, swiftly rummaging around to see what you can find.</p>
-    `;
+    document.getElementById('lower-text').innerHTML = pageFour;
     document.getElementById('choices-section').innerHTML = optionsFour;
     thingsWhatYouveDone.firstRoomSearch = true;
 }
@@ -989,8 +990,17 @@ function firstSearch() {
 //Page Five
 
 function keepFirstItem() {
+    mainCharacter.score += foundItemInfo.score;
     storeItem();
     changeModeToMainWindow();
+    rangarFightChance();
+}
+function ignoreFirstItem() {
+    changeModeToMainWindow();
+    mainCharacter.score +=-2;
+    rangarFightChance();
+}
+function rangarFightChance() {
     let fightChance = getRandomNumber(1,100);
     if (fightChance <= 50 + thingsWhatYouveDone.encounterLikelihood) {
         document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveFirst;
@@ -999,14 +1009,13 @@ function keepFirstItem() {
         document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveSecond;
         document.getElementById('choices-section').innerHTML = optionsFiveSecond;
     }
-};
+}
 
 //Page Six
 
 function testLuck() {
     changeModeToItemWindow();
-    let getLucky = getRandomNumber(1,20);
-    if (getLucky <= mainCharacterCurrent.luck) {
+    if (getLucky()) {
         document.getElementById('upper-text').innerHTML = pageSixFirst + pageSixCommon;
         mainCharacter.score += 3;
     } else {
@@ -1018,10 +1027,12 @@ function testLuck() {
     document.getElementById('choices-section').innerHTML = optionsSix;
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
+
 function braceYourself() {
     changeModeToItemWindow();
     document.getElementById('upper-text').innerHTML = pageSixThird + pageSixCommon;
     mainCharacterCurrent.health -= 4;
+    mainCharacter.score -= 2;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     document.getElementById('choices-section').innerHTML = optionsSix;
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
@@ -1097,7 +1108,6 @@ document.addEventListener("click", function(e){
         firstSearch();
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-seven"); 
     if(target){
@@ -1109,15 +1119,13 @@ document.addEventListener("click", function(e){
 // page four event handlers (decide whether to keep item)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-eight"); 
-    if(target){
-        mainCharacter.score += foundItemInfo.score ; 
+    if(target){ 
         keepFirstItem();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-nine"); 
     if(target){
-        mainCharacter.score +=-2;
         ignoreFirstItem();
     }
 });
@@ -1245,7 +1253,9 @@ const optionsThree = `
 `;
 
 //Page Four (decide whether to keep item or not)
-
+const pageFour = `<p>Tentatively approaching the dark form on the ground, you soon see that it is the corpse of a fellow traveller, gently rotting in the gloom.</p>
+<p>You find yourself strangely unbothered by this, swiftly rummaging around to see what you can find.</p>
+`;
 const optionsFour = `<li><button class="choice-button" id="choice-eight">Let's keep it!  You never know when it will come in handy.</button></li>
 <li><button class="choice-button" id="choice-nine">I have no use for this rubbish. It's time to leave this room.</button></li>
 `;
@@ -1253,7 +1263,7 @@ const optionsFour = `<li><button class="choice-button" id="choice-eight">Let's k
 //Page Five
 const pageFiveCommon = `
 <p>As you walk away from the corpse you give it a healthy punt with your boot</p>
-<p>The flesh is firmer than you expected it to be, and you freeze, awaiting a response... <p>
+<p>The flesh is firmer than you expected it to be, and you freeze, awaiting a response...</p>
 `
 const pageFiveFirst = `
 <p>With unreasonable speed for a stinking corpse, a filthy hand grabs you around the ankle.
@@ -1330,6 +1340,9 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     enemyTestResistances, beginFight, battleChoices, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
     damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
     pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
-    pageThreeThird, fightingTalk, nameUnknown, displayItem };
+    pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
+    rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
+    keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
+    braceYourself, testLuck  };
 
 

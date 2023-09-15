@@ -47,3 +47,16 @@ JS mostly checked with automated unit testing, manually test html and CSS elemen
 battle outcomes:
 tested JS when it came to final output was working correctly by inserting contact logs at various stages to log outcomes.
 the rest was tested using Jest.
+
+## bugs
+
+As I was writing test for the code and manually testing the gameplay itself, I noticed a number of things.
+Refactoring I realised the resist code wasn't working so defensive bonuses weren't happening.
+
+Once I had refactored the code I came across a phenom where the enemy, Ragnar the Horrible, was doing more damage than was actually possible given his stats.
+This was baffling until I realised that worse the resist roll failed, two minuses would make a plus, and it would be added on to the attack value.
+I also noticed an interesting scenario where the better armor the stronger my opponent seemed to be.  This was due to the armor being applied to the enemy instead of myself (in testing and the function!!).
+These two bugs combined led to me dying a confusing number of times to what should be a pathetially weak opponent.
+The stronger my defence was and the weaker his seemed to be, the harder he hit and the less I could land on him!  
+The bugs were easily fixed but quite amusing, and show that automated testing is not foolproof and needs a healthy dose of manual testing to validate and be effective.
+Indeed any computer program is only as good as the data put into it and the code that processes it!

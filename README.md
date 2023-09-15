@@ -219,6 +219,48 @@ I have kept all this in mind when thinking about my design choices:
 - Although it is a dynamic site, key elements of the page will be sited consistently.
 - The dynamic content will display consistently and logically, and the locations where user input is required will not vary.
 
+### Processes
+
+#### Flow Chart
+
+I have put together a flow chart to lay out the general flow of the narrative and the events and decisions I expect to take place.
+I used this to identify the functions I needed and set about building and testing the game mechanics for the MVP.
+
+The flowchart is [HERE](assets/images/documentation/lost-king-flowchart.jpg)
+
+#### coding processes
+
+My initial task was to build a toolbox of functions covering the main functionality of a game, along with the basic structure of the pages.
+I have identified 3 main activities that take place in-game and built and tested a suite of functions to support it.
+From this point building out the content around the flow chart should be straighfoward; at that point I can move on to refining the look and feel around the current site templates.
+
+1) Exploration
+    - change mode to main window.
+    - display custom text in game-text element.
+    - display options in choices section.
+    - keep score!
+    - update object which logs where searches / battles / actions have taken place.
+    - test
+
+2) searching for an item
+    - initiate seach with searchItem() function (which includes foundItem display mode).
+    - display custom text in a lower-text element.
+    - display options in choices section.
+    - update object which logs where searches / battles / actions have taken place.
+    - store item and update appropriate stats if player chooses to do so.
+    - test
+
+3) combat
+    - create and populate object for the new enemy.
+    - change display mode to item window.
+    - display text in upper-text element.
+    - display options in choices section.
+    - initiate combat with the setEnemyStats function, which includes displaying upcoming enemy.
+    - test
+  
+ NB: Once the combat functions have been passed details of the enemy and their stats and combat has been initiated, 
+ there are set buttons and functions the player uses to resolve the combat - no more development input than setting up 3 event handlers for the buttons with the correct enemy name is needed.
+
 ### Wireframes
 
 
