@@ -3,7 +3,7 @@
  */
 
 const { mainCharacter, ragnarTheHorrible, mainCharacterCurrent, characterWeapons, characterDefence, characterPotions, 
-    characterObjects, currentWeapon, currentDefence, currentPotion, currentObject, foundItemInfo,thingsWhatYouveDone } = require("../script.js");
+    characterObjects, currentWeapon, currentDefence, currentPotion, currentObject, foundItemInfo,thingsWhatYouveDone, sentientSlime } = require("../script.js");
  
  beforeAll(() => {
     let fs = require("fs");
@@ -129,6 +129,71 @@ const { mainCharacter, ragnarTheHorrible, mainCharacterCurrent, characterWeapons
       expect("choices" in ragnarTheHorrible).toBe(true);
    })
  });
+ describe("Slime Character object contains correct properties", ()=> {
+  test("name property exists", () =>{
+     expect("name" in sentientSlime).toBe(true);
+  }),
+  test("description property exists", () =>{
+     expect("description" in sentientSlime).toBe(true);
+  }),
+  test("strength property exists", () =>{
+     expect("strength" in sentientSlime).toBe(true);
+  }),
+  test("strItem property exists", () =>{
+   expect("strItem" in sentientSlime).toBe(true);
+}),
+  test("skill property exists", () =>{
+     expect("skill" in sentientSlime).toBe(true);
+  }),
+  test("defence property exists", () =>{
+     expect("defence" in sentientSlime).toBe(true);
+  }),
+  test("health property exists", () =>{
+     expect("health" in sentientSlime).toBe(true);
+  }),
+  test("image property exists", () =>{
+     expect("image" in sentientSlime).toBe(true);
+  }),
+  test("vulnerability property exists", () =>{
+     expect("vulnerability" in sentientSlime).toBe(true);
+  }),
+  test("resist property exists", () =>{
+     expect("resist" in sentientSlime).toBe(true);
+  }),
+  test("magic property exists", () =>{
+     expect("magic" in sentientSlime).toBe(true);
+  }),
+  test("score property exists", () =>{
+     expect("score" in sentientSlime).toBe(true);
+  }),
+  test("initialText property exists", () =>{
+     expect("initialText" in sentientSlime).toBe(true);
+  }),
+  test("successTextOne property exists", () =>{
+     expect("successTextOne" in sentientSlime).toBe(true);
+  }),
+  test("successTextTwo property exists", () =>{
+     expect("successTextTwo" in sentientSlime).toBe(true);
+  }),
+  test("deathText property exists", () =>{
+     expect("deathText" in sentientSlime).toBe(true);
+  }),
+  test("failText property exists", () =>{
+     expect("failText" in sentientSlime).toBe(true);
+  }),
+  test("hitText property exists", () =>{
+     expect("hitText" in sentientSlime).toBe(true);
+  }),
+  test("killedYouText property exists", () =>{
+     expect("killedYouText" in sentientSlime).toBe(true);
+  }),
+  test("missedText property exists", () =>{
+     expect("missedText" in sentientSlime).toBe(true);
+  }),
+  test("choices property exists", () =>{
+     expect("choices" in sentientSlime).toBe(true);
+  })
+});
 
 //ITEM OBJECT TESTING
 

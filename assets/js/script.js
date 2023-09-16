@@ -46,6 +46,8 @@ const ragnarTheHorrible = {
     missedText: "<p>Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.</p>",
     choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
 }
+const sentientSlime = {
+}
 
 //ITEM OBJECTS
 //weapons
@@ -791,10 +793,18 @@ function playerTurn(enemy, weapon) {
         let roundDamage = roundResult;
         if (roundDamage > 0) {enemy.health -= roundDamage;}
         if (enemy.health > 0) {
-            if (roundDamage > 0){
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+            if (weapon === "fists") {
+                if (roundDamage > 0){
+                    document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                } else {
+                    document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
+                }
             } else {
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
+                if (roundDamage > 0){
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                } else {
+                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
+                }
             }
             enemyTurn(enemy, "enemy");
         } else {
@@ -1036,7 +1046,7 @@ function nameUnknown(){
 
 //Page Four
 function firstSearch() {
-    searchForItem(0,0,100, 100);
+    searchForItem(15, 35, 55, 100);
     document.getElementById('lower-text').innerHTML = pageFour;
     document.getElementById('choices-section').innerHTML = optionsFour;
     thingsWhatYouveDone.firstRoomSearch = true;
@@ -1372,6 +1382,6 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
     rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
     keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle };
+    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle, sentientSlime };
 
 
