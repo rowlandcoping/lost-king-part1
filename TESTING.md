@@ -38,7 +38,19 @@ it also means if I need to change the game mechanic in the future I do not need 
 
 // in order to test the functionality of the 'playerTurn' and 'enemyTurn' functions automatically, it would require setting up mock functions to return set results.
 I have struggled to do this for several hours to make this work and concluded I can cover this in manual testing without wasting any more time on it.
-Ultimately whilst in this case automated testing is a nice to have, using console.log at various points in the function and extensive playtesting has made it clear to me the code is working as intended
+Ultimately whilst in this case automated testing is a nice to have, using console.log at various points in the function and extensive playtesting has made it clear to me the code is working as intended.
+
+### question marks over necessity of automated testing
+
+ with certain phases of the project, the vlaue was quite clear - for example automated testing uncovered a number of issues with the item search algorithms.
+ However as the project has progressed and the main game mechanics have been established and de-bugged, most of the remaining code will concern writing the correct values to the DOM
+ via various event listners and callback functions.  In this case errors are exposed far more effectively using manual testing and will not show up at all through automated tests.
+ I have also found building the various automated tests relating to populating the DOM a massive and unnecessary time sink, paricularly when it is a solo project
+
+ As such I have made the decision that I will only use automated testing where significant new logic or numerical operations are taking place that need to be fully tested.
+ This is, for example, in the case that I write a new loop or logical operation (eg battle or item search code) or significantly update existing code.  
+ I will contiune to use the existing tests to ensure my code operates as intended.
+ Simple functions to call content or change backgrounds will be left to manual testing - this will, any major oversights aside, comprise the majority of the remainder of the project.
 
 ## manual testing
 
@@ -60,3 +72,10 @@ These two bugs combined led to me dying a confusing number of times to what shou
 The stronger my defence was and the weaker his seemed to be, the harder he hit and the less I could land on him!  
 The bugs were easily fixed but quite amusing, and show that automated testing is not foolproof and needs a healthy dose of manual testing to validate and be effective.
 Indeed any computer program is only as good as the data put into it and the code that processes it!
+
+rolls modified by enemy resistances returned valkues that were not integers - fixced this by rounding in the 'next round' function.
+
+the potion section was not passing value to the enemy round so the enemy was not getting a turn.  This was most obvbuosly manifested by endlessly clicking the use catnip button and running up infinite negative scores.
+Was rectified by ensuring the necessary parameter was passed to the potion function.
+
+after refactoring the 'weapons' section of the turn was not returning the correct text values - it turned out that I had mistakenly deleted the text values so I retrieved them from Github.
