@@ -47,6 +47,29 @@ const ragnarTheHorrible = {
     choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
 }
 const sentientSlime = {
+    name: "Sentient Slime",
+    description: "This sentient pool of goo is a mystery; whether it be the product of some bizarre evolutionary process or a magic spell gone wrong it seems to mean you harm.",
+    strength: 0,
+    strItem: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    image: "assets/images/character-profiles/warrior-face.png",
+    vulnerability:"",
+    resist: "",
+    magic:"",
+    score:40,
+    initialText: "<p>The strange ball of goo seems to rotate about the limited space of the corridor, occasionally reaching out tendrils as if in search of prey.</p>",
+    successTextOne: "<p>You strike the sentient slime with your ",
+    successTextTwo: "<br>It rolls around in a half circle, but seems undeterred from your destruction.</p>",
+    deathText: "<p>The goo seems to lose all form, collapsing into itself and leaving trails of gelatious liquid across the stone floor of the corridor.<br>You think that it is dead.</p>",
+    failText: "<p>Your blow seems to pass through the slime, and your attempted strike has little effect</p>",
+    hitText: "<p>The slime lashes out with a solid tendril of goo, taking you by surprise,",
+    killedYouText: "<p>Exhausted from the encounter, the slime senses your weakness and takes its chance to envelop and suffocate you.<br>YOU ARE DEAD</p>",
+    missedText: "<p>The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.</p>",
+    choices: `<li><button class="choice-button" id="choice-twenty">Leave the area, by returning the way you came from.</button></li>
+    <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway</button></li>
+    <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>`
 }
 
 //ITEM OBJECTS
@@ -801,9 +824,21 @@ function playerTurn(enemy, weapon) {
                 }
             } else {
                 if (roundDamage > 0){
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                    if (playerTestResistances(enemy) < 1) {
+                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo + weaponIneffective;
+                    } else if (playerTestResistances(enemy) > 1) {
+                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo + weaponEffective;
+                    } else { 
+                    document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                    }
                 } else {
-                document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
+                    if (playerTestResistances(enemy) < 1) {
+                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo + weaponIneffective;
+                    } else if (playerTestResistances(enemy) > 1) {
+                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo + weaponEffective;
+                    } else { 
+                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
+                    }
                 }
             }
             enemyTurn(enemy, "enemy");
@@ -1099,12 +1134,72 @@ function braceYourself() {
     document.getElementById('choices-section').innerHTML = optionsSix;
     setEnemyStats(ragnarTheHorrible, 8,12,20,30);
 }
-//Page Seven
+//Ragnar Fight Setup
 function ragnarFight(enemy) {
     changeToBattleWindow(enemy);
     document.getElementById('fists-button').firstChild.setAttribute("id", "ragnar-one"); 
     document.getElementById('weapon-button').firstChild.setAttribute("id", "ragnar-two"); 
     document.getElementById('potion-button').firstChild.setAttribute("id", "ragnar-three"); 
+    testForWeapons();
+}
+//Page Seven
+function slimeEncounter() {
+    changeModeToMainWindow()
+    mainCharacter.score += 1;
+    document.getElementById('game-text').innerHTML = pageSeven;
+    document.getElementById('choices-section').innerHTML = optionsSeven;
+}
+
+//Page Eight
+
+function gameOverDrink() {
+    mainCharacter.score -=10;
+    document.getElementById('final-score').innerHTML = mainCharacter.score;
+    document.getElementById('gameover-page').style.display="flex";
+    document.getElementById('game-page').style.display="none";
+    document.getElementById('game-outcome').innerHTML = drinkSlime;
+}
+function slimeAttack() {
+    mainCharacter.score +=5;
+    document.getElementById('game-text').innerHTML = pageEight;
+    document.getElementById('choices-section').innerHTML = optionsEight;
+}
+
+//Page nine
+function slimeLuck() {
+    changeModeToItemWindow();
+    thingsWhatYouveDone.slimeKill = true;
+    if (getLucky()) {
+        mainCharacter.score += 3;
+        document.getElementById('lower-text').innerHTML = pageNineFirst;
+        document.getElementById('choices-section').innerHTML = optionsNine;
+        setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
+    } else {
+        mainCharacter.score -=10;
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = strangledSlime;
+    }
+}
+function slimeSmash() {
+    thingsWhatYouveDone.slimeKill = true;
+    changeModeToItemWindow();
+    document.getElementById('upper-text').innerHTML = pageNineSecond;
+    mainCharacterCurrent.health -= 5;
+    mainCharacter.score += 3;
+    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+    document.getElementById('choices-section').innerHTML = optionsNine;
+    setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
+}
+
+// Slime fight setup
+
+function slimeFight(enemy) {
+    changeToBattleWindow(enemy);
+    document.getElementById('fists-button').firstChild.setAttribute("id", "slime-one"); 
+    document.getElementById('weapon-button').firstChild.setAttribute("id", "slime-two"); 
+    document.getElementById('potion-button').firstChild.setAttribute("id", "slime-three"); 
     testForWeapons();
 }
 
@@ -1179,7 +1274,6 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-seven"); 
     if(target){
-        mainCharacter.score += 1;
         slimeEncounter();
     }
 });
@@ -1212,11 +1306,9 @@ document.addEventListener("click", function(e){
         braceYourself();
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twelve"); 
     if(target){
-        mainCharacter.score += 1; 
         slimeEncounter();
     }
 });
@@ -1229,7 +1321,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-//Page 7 event handlers (fight with Ragnar)
+//Ragnar fight event handlers
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#ragnar-one"); 
@@ -1237,14 +1329,12 @@ document.addEventListener("click", function(e){
         playerTurn(ragnarTheHorrible, "fists");
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#ragnar-two"); 
     if(target){
         playerTurn(ragnarTheHorrible, "weapon");
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#ragnar-three"); 
     if(target){
@@ -1252,6 +1342,67 @@ document.addEventListener("click", function(e){
     }
 });
 
+//page 7 event handlers
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourteen"); 
+    if(target){ 
+        gameOverDrink();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifteen"); 
+    if(target){
+        slimeAttack();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixteen"); 
+    if(target){
+        catCavern();
+    }
+});
+
+//page 8 event handlers
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-seventeen"); 
+    if(target){
+        slimeLuck();
+    }
+});
+document.addEventListener("click", function(e){
+const target = e.target.closest("#choice-eighteen"); 
+    if(target){
+        slimeSmash();
+    }
+});
+
+// page 9 event handlers
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-nineteen"); 
+    if(target){        
+        slimeFight(sentientSlime);
+    }
+});
+
+//slime fight event handlers
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#slime-one"); 
+    if(target){ 
+        playerTurn(sentientSlime, "fists");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#slime-two"); 
+    if(target){
+        playerTurn(sentientSlime, "weapon");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#slime-three"); 
+    if(target){
+        potionRound(sentientSlime, "enemy");
+    }
+});
 
 /* GAME TEXT */
 
@@ -1363,11 +1514,44 @@ const pageSixThird = `
 const optionsSix = `
 <li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
 `
+//page seven text
+const pageSeven =`<p>Leaving by the only exit, you soon find yourself in a dark passageway, feeling for the walls either side of you in the claustrophobia of the gloomy corridor.</p>
+<p>Finally you see light from beyond the corner up ahead glinting from the surface of a small patch of liquid. <br>Light... and water... too much to ask?</p>
+<p>You run your tongue over your parched lips.  You don't know when it last was you drank anything.
+<br>This could do wonders for your constitution. What do you do?</p>
+`;
+const optionsSeven =    `<li><button class="choice-button" id="choice-fourteen">Drink the liquid.</button></li>
+<li><button class="choice-button" id="choice-fifteen">Examine the liquid.</button></li>
+<li><button class="choice-button" id="choice-sixteen">Move swiftly on, giving the puddle a wide berth.</button></li>
+`;
+//page eight text
+const drinkSlime = `<p>You fall to your hands and knees by the puddle, scooping the liquid into your mouth and swallowing it unthikingly.</p>
+<p>It is incredibly refreshing, if a little more gelatinous than normal water... until you realise that you cannot breathe.</p>
+<p>The sentient slime you have discovered does not appreciate being drunk, and expands to fill your airwaves.
+<br>It is a slow and agonising death, giving you ample time to appreciate what a poor decision you have just made.</p>
+<p>YOU ARE DEAD</p>`;
+
+const pageEight = `<p>Kneeling by the glinting pool, you cautiously lower your fingers into the liquid. As you lift your hand it clings to your fingers, glooping slowly down to rejoin the rest as if it were a single entity.</p>
+<p>Without warning the liquid seems to reach up of its own accord, enveloping your arm.  It begins to squeeze, hard, and dark borders start to appear at the edges of your vision</p>`;
+const optionsEight = `<li><button class="choice-button" id="choice-seventeen">TEST YOUR LUCK: Try and shake off the slime</button></li>
+<li><button class="choice-button" id="choice-eighteen">Smash your arm against the wall to try and free it.</button></li>`;
+//page nine text
+const pageNineFirst = `<p>Moving swiftly, you manage to shake your arm free, sending the goo skittering from the opposite wall.</p>`;
+const pageNineSecond = `<p>No matter what you do, you can't shake the goo off. Your only option is to smash your arm into the hard rock of the corridor wall. It sends the goo skittering and frees your arm, at the cost of <span class="red">5</span> health points.`;
+const strangledSlime = `<p>You attempt to shake the slime free of your arm, but somehow it clings on.  You gather your strength to try again but it has already enveloped your arm, and is reaching for your throat.</p>
+<p>Slowly its grip tightens, until you can no longer breathe.  You have no choices left.</p>
+<p>YOU ARE DEAD</p>`;
+const optionsNine = `<li><button class="choice-button" id="choice-nineteen">Prepare to do battle with the sentient slime.</button></li>`;
+
+
 // GENERIC - text for battles
 
 // turn indicators
 const battleHeadingYou = `<h3 class="green">Your Turn</h3>`;
 const battleHeadingThem = `<h3 class="red">Enemy Turn</h3>`;
+
+const weaponEffective = `<p>Your weapon appears to have a devastating effect on this foe.</p>`;
+const weaponIneffective = `<p>Your weapon appears to be particularly ineffective against this foe.</p>`;
 
 
 // OBJECT EXPORTS FOR AUTOMATED TESTING
