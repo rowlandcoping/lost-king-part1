@@ -31,7 +31,7 @@ const ragnarTheHorrible = {
     skill: 0,
     defence: 0,
     health: 0,
-    image: "assets/images/character-profiles/warrior-face.png",
+    image: "assets/images/enemies/ragnar.jpeg",
     vulnerability:"",
     resist: "",
     magic:"",
@@ -54,7 +54,7 @@ const sentientSlime = {
     skill: 0,
     defence: 0,
     health: 0,
-    image: "assets/images/character-profiles/warrior-face.png",
+    image: "assets/images/enemies/slime.webp",
     vulnerability:"",
     resist: "",
     magic:"",
@@ -62,13 +62,13 @@ const sentientSlime = {
     initialText: "<p>The strange ball of goo seems to rotate about the limited space of the corridor, occasionally reaching out tendrils as if in search of prey.</p>",
     successTextOne: "<p>You strike the sentient slime with your ",
     successTextTwo: "<br>It rolls around in a half circle, but seems undeterred from your destruction.</p>",
-    deathText: "<p>The goo seems to lose all form, collapsing into itself and leaving trails of gelatious liquid across the stone floor of the corridor.<br>You think that it is dead.</p>",
-    failText: "<p>Your blow seems to pass through the slime, and your attempted strike has little effect</p>",
+    deathText: "<p>The goo seems to lose all form, collapsing into itself and leaving trails of gelatious liquid across the stone floor of the corridor.<br>You think that it is finally dead.</p>",
+    failText: "<p>The slime seems to re-arrange its form to avoid your attack, and your attempted strike cannot find its target.</p>",
     hitText: "<p>The slime lashes out with a solid tendril of goo, taking you by surprise,",
     killedYouText: "<p>Exhausted from the encounter, the slime senses your weakness and takes its chance to envelop and suffocate you.<br>YOU ARE DEAD</p>",
     missedText: "<p>The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.</p>",
     choices: `<li><button class="choice-button" id="choice-twenty">Leave the area, by returning the way you came from.</button></li>
-    <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway</button></li>
+    <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway.</button></li>
     <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>`
 }
 
@@ -249,7 +249,7 @@ const characterPotions = [
         adjective: "an alluring",
         name: "Potion of Catnip",
         effect: "Cats likely to be more friendly",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/catnip.webp",
         chance: 15,
         score: 10,
         description:"Cats seem to find this potion particularly delightful. You decide it might be best to wear it like after-shave.  What could possibly go wrong?"
@@ -259,7 +259,7 @@ const characterPotions = [
         adjective: "a soothing",
         name: "Potion of Healing",
         effect:"Restores 50 Health",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/healing.webp",
         chance: 30,
         score: 10,
         description: "There is not much to say about a potion of healing.  It's a pretty standard fantasy trope, and speaks of a chronic lack of imagination."
@@ -269,7 +269,7 @@ const characterPotions = [
         adjective: "a spicy",
         name: "Potion of Fire",
         effect:"Causes Fire Damage",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/fire.webp",
         chance: 50,
         score: 15,
         description:"If you are lucky enough to find this along with the golden loincloth and the wand of fire, you better hope you come across enemies with a fire vulnerability."
@@ -279,7 +279,7 @@ const characterPotions = [
         adjective: "a chilly",
         name: "Potion of Ice",
         effect:"Causes Ice Damage",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/ice.webp",
         chance: 70,
         score: 10,
         description:"If the Ice Queen is coming down here after her lost staff, then this potion will be useless against her.  I'm sure you'll find something to do with it though."
@@ -289,7 +289,7 @@ const characterPotions = [
         adjective: "a combat",
         name: "Potion of Defence",
         effect:"Increases Defence for rest of the fight",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/defence.webp",
         chance: 85,
         score: 10,
         description:"If you're on your last legs and facing down a furious furry furore of feline fencers, then this might draw the game out for another couple of minues."
@@ -299,7 +299,7 @@ const characterPotions = [
         adjective: "a combat",
         name: "Potion of Power",
         effect:"Increases attack for rest of the fight",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/power.webp",
         chance: 100,
         score: 10,
         description:"One swig of this, nothing and no-one will be able to stand before you!  But only briefly, because it will have run out - there's not that much left in the bottle."
@@ -312,7 +312,7 @@ const characterObjects = [
         adjective: "a useless",
         name: "Bag of Cables",
         effect: "May help plugging something in",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/cables.webp",
         chance: 20,
         score: 1,
         description: "It's not quite clear how, but I'm sure if you keep hold of this big bag of obsolete cables for long enough it will come in useful.  Right?  Right??"
@@ -321,8 +321,8 @@ const characterObjects = [
         category: "object",
         adjective: "a tasty",
         name: "Cat Biscuits",
-        effect:"Restores 20 Health",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        effect:"Cats really like these.",
+        image: "assets/images/items/cat-biscuits.webp",
         chance: 35,
         score: 10,
         description: "Whilst it's clear your furry adversaries love these things, you can't help but be put off by the strong smell of fish."
@@ -332,7 +332,7 @@ const characterObjects = [
         adjective: "a useful",
         name: "Insect Repellent",
         effect:"Scares off bugs",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/insect-repellant.webp",
         chance: 50,
         score: 10,
         description: "There may come a point in this adventure where you reach bug-infested climes, and you will be grateful for the day you decided to keep hold of this.  Orrrr... perhaps not."
@@ -342,7 +342,7 @@ const characterObjects = [
         adjective: "a lucky",
         name: "Four Leaf Clover",
         effect:"Said to bring good fortune",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/clover.webp",
         chance: 65,
         score: 15,
         description:"Less gruesome than a rabbit's foot, and less effective than a gypsy's blessing, this item nevertheless is handy if you need to take your chances.  Which might actually happen a lot."
@@ -352,7 +352,7 @@ const characterObjects = [
         adjective: "a useless",
         name: "Stress Balls",
         effect:"You may need this",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/balls.webp",
         chance: 80,
         score: 4,
         description: "There's nothing more stressful than playing a browser-based game, stuck in an endless and seemingly inescapable gameplay loop, wondering where it all might end. On reflection, you may need these."
@@ -362,7 +362,7 @@ const characterObjects = [
         adjective: "an intriguing",
         name: "Frayed Rope",
         effect:"A rope in name only",
-        image: "assets/images/items/placeholder-sword.jpeg",
+        image: "assets/images/items/rope.webp",
         chance: 100,
         score: 7,
         description:"It's a rope, but it's not really a rope, is it.  It seems unlikely to take your weight, even in your emaciated state.  In fact, it's hard to see the purpose of this object.  We'll see."
@@ -802,7 +802,7 @@ function nextRound(enemy, weapon) {
         let roundDamage = initialDamage(enemy, weapon);      
         roundDamage -= damageResist (enemy, weapon);
         roundDamage *= playerTestResistances(enemy);
-        return roundDamage;
+        return Math.floor(roundDamage);
     } else {
         return "fail";
     }
@@ -851,7 +851,7 @@ function potionRound(enemy, weapon) {
     let roundDamage;
     let potionName = currentPotion.name;
     if (potionName === "Potion of Catnip") {
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You rub on some of the catnip potion, but it doesn't seem to do anything right now";
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You rub on some of the catnip potion, but it doesn't seem to do anything right now.";
         mainCharacter.score -=3;
         enemyTurn(enemy, weapon);
     } else if (potionName === "Potion of Healing") {
@@ -983,6 +983,7 @@ function resetGame() {
     document.getElementById('final-score').innerHTML = "";    
 }
 function startGame(event) {
+    localStorage.clear();
     if (!mainCharacter.name) {        
         if (document.getElementById('character-name').value) {
         mainCharacter.name = document.getElementById('character-name').value;
@@ -1038,7 +1039,8 @@ function writeInitialToDom() {
     document.getElementById('main-luck').innerHTML = mainCharacter.luck;
     document.getElementById('main-health').innerHTML = mainCharacter.health;
     document.getElementById('game-text').innerHTML = pageOne;
-    document.getElementById('choices-section').innerHTML = optionsOne;    
+    document.getElementById('choices-section').innerHTML = optionsOne;
+    document.getElementById('game-section').style.backgroundImage = "";
 }
 
 //Page Two
@@ -1046,8 +1048,9 @@ function writeInitialToDom() {
 //open eyes
 function openEyes(){
     mainCharacter.score +=1;   
-    document.getElementById('game-text').innerHTML = pageTwo;
-    document.getElementById('choices-section').innerHTML = optionsTwoFirst + mainCharacter.name + optionsTwoSecond;   
+    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern-dark.webp') no-repeat left center";
+    document.getElementById('choices-section').innerHTML = optionsTwoFirst + mainCharacter.name + optionsTwoSecond;
+    document.getElementById('game-text').innerHTML = pageTwo;  
 }
 //give up (death)
 function gameOverGiveUp() {
@@ -1060,7 +1063,8 @@ function gameOverGiveUp() {
 
 //Page Three
 function knowMyName(){   
-    mainCharacter.score +=3; 
+    mainCharacter.score +=3;
+    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern.webp') no-repeat left center";
     document.getElementById('game-text').innerHTML = pageThreeFirst + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
     document.getElementById('choices-section').innerHTML = optionsThree;   
@@ -1068,12 +1072,14 @@ function knowMyName(){
 function fightingTalk(){
     mainCharacter.score +=1;
     thingsWhatYouveDone.encounterLikelihood += 20;
+    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern.webp') no-repeat left center";
     document.getElementById('game-text').innerHTML = pageThreeSecondOne + mainCharacter.name + pageThreeSecondTwo + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
     document.getElementById('choices-section').innerHTML = optionsThree;  
 }
 function nameUnknown(){
-    mainCharacter.score +=5;  
+    mainCharacter.score +=5;
+    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern.webp') no-repeat left center";  
     document.getElementById('game-text').innerHTML = pageThreeThird + pageThreeCommon;
     document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>(provisional)</em>";
     document.getElementById('choices-section').innerHTML = optionsThree;    
@@ -1146,6 +1152,7 @@ function ragnarFight(enemy) {
 function slimeEncounter() {
     changeModeToMainWindow()
     mainCharacter.score += 1;
+    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/corridorv3.webp') no-repeat left center";
     document.getElementById('game-text').innerHTML = pageSeven;
     document.getElementById('choices-section').innerHTML = optionsSeven;
 }
@@ -1459,8 +1466,8 @@ const pageThreeThird = `
 `
 const pageThreeCommon =`
     <p>Your head still hurts, but as your eyes adjust a very dim light grows.</p>
-    <p>You appear to be in a small cave. The tiny hint of light comes from a rough-hewn exit on the opposite wall.</p>
-    <p>Away to your right, you see the dark bulk of... something...</p>
+    <p>You appear to be in a small cave. A dark,rough-hewn apeture forms a the only visible exit on the opposite wall.</p>
+    <p>To your left, you see the dark bulk of... something...</p>
     <p>It is time to act.</p>
 `;
 
@@ -1506,10 +1513,10 @@ const pageSixFirst = `
 <p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh</p>
 `
 const pageSixSecond = `
-<p>You try to dodge but with your ankle caught fast there is no way of avoiding the blade.  <br>It plunges into your thigh for 7 health points of damage.</p>
+<p>You try to dodge but with your ankle caught fast there is no way of avoiding the blade.  <br>It plunges into your thigh for <span class="red">7</span> health points of damage.</p>
 `
 const pageSixThird = `
-<p>You stand your ground and angle yourself to best withstand the impact of the blade.  <br>It grazes off your thigh for 4 health points of damage.</p>
+<p>You stand your ground and angle yourself to best withstand the impact of the blade.  <br>It grazes off your thigh for <span class="red">4</span> health points of damage.</p>
 `
 const optionsSix = `
 <li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
@@ -1536,8 +1543,9 @@ const pageEight = `<p>Kneeling by the glinting pool, you cautiously lower your f
 const optionsEight = `<li><button class="choice-button" id="choice-seventeen">TEST YOUR LUCK: Try and shake off the slime</button></li>
 <li><button class="choice-button" id="choice-eighteen">Smash your arm against the wall to try and free it.</button></li>`;
 //page nine text
-const pageNineFirst = `<p>Moving swiftly, you manage to shake your arm free, sending the goo skittering from the opposite wall.</p>`;
-const pageNineSecond = `<p>No matter what you do, you can't shake the goo off. Your only option is to smash your arm into the hard rock of the corridor wall. It sends the goo skittering and frees your arm, at the cost of <span class="red">5</span> health points.`;
+const pageNineFirst = `<p>Moving swiftly, you manage to shake your arm free, sending the goo skittering from the opposite wall.</p><p>The ooze immediately coalesces and begins moving in your general direction.</p>`;
+const pageNineSecond = `<p>No matter what you do, you can't shake the goo off. Your only option is to smash your arm into the hard rock of the corridor wall. It sends the goo skittering and frees your arm, at the cost of <span class="red">5</span> health points.</p>
+<p>The ooze immediately coalesces and begins moving in your general direction.</p>`;
 const strangledSlime = `<p>You attempt to shake the slime free of your arm, but somehow it clings on.  You gather your strength to try again but it has already enveloped your arm, and is reaching for your throat.</p>
 <p>Slowly its grip tightens, until you can no longer breathe.  You have no choices left.</p>
 <p>YOU ARE DEAD</p>`;
@@ -1566,6 +1574,8 @@ module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom,
     pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
     rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
     keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle, sentientSlime };
+    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle, sentientSlime, slimeEncounter, pageSeven, optionsSeven,
+    gameOverDrink, drinkSlime, slimeAttack, pageEight, optionsEight, slimeLuck, pageNineFirst, optionsNine, strangledSlime,
+    slimeSmash, pageNineSecond, slimeFight, sentientSlime };
 
 

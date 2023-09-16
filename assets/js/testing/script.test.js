@@ -11,7 +11,9 @@ let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStat
    pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
    rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
    keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-   braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle } = require("../script.js");
+   braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle, slimeEncounter, pageSeven, optionsSeven,
+   gameOverDrink, drinkSlime, slimeAttack, pageEight, optionsEight, slimeLuck, pageNineFirst, optionsNine, strangledSlime,
+   slimeSmash, pageNineSecond, slimeFight, sentientSlime } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -1289,5 +1291,150 @@ describe("test ragnarFight function works as intended", ()=>{
       expect(document.getElementById('potion-button').firstChild.id).toEqual("ragnar-three");
    })
 });
-
-
+//page seven
+describe("test slimeEncounter function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      slimeEncounter();
+   }),   
+   test("game text is updated", () =>{ 
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageSeven);
+   }),   
+   test("choices section is updated", () =>{ 
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsSeven);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(1);
+   })
+});
+//page eight
+describe("test gameOverDrink function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      gameOverDrink();
+   }),   
+   test("final score element updated", () =>{ 
+      expect(document.getElementById('final-score').innerHTML).toEqual("-10");
+   }),
+   test("game over page is displayed", () =>{
+      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
+   }),
+   test("game page is hidden", () =>{
+      expect(document.getElementById('game-page').style.display).toEqual("none");
+   }),
+   test("game over text is displayed", () =>{
+      expect(document.getElementById('game-outcome').innerHTML).toEqual(drinkSlime);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(-10);
+   })
+});
+describe("test slimeAttack function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      slimeAttack();
+   }),   
+   test("game text is updated", () =>{ 
+      expect(document.getElementById('game-text').innerHTML).toEqual(pageEight);
+   }),   
+   test("choices section is updated", () =>{ 
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsEight);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(5);
+   })
+});
+//page nine
+describe("test slimeluck function works as intended", ()=>{
+   test("gane status funtion upated to confirm slime encounter", () =>{     
+      slimeLuck();
+      expect(thingsWhatYouveDone.slimeKill).toEqual(true);
+   }),
+   test("if failed - final score element updated", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 0;      
+      slimeLuck();
+      expect(document.getElementById('final-score').innerHTML).toEqual("-10");
+   }),
+   test("if failed - game over page is displayed", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 0;      
+      slimeLuck();
+      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
+   }),
+   test("if failed - game page is hidden", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 0;      
+      slimeLuck();
+      expect(document.getElementById('game-page').style.display).toEqual("none");
+   }),
+   test("if failed - game over text is displayed", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 0;      
+      slimeLuck();
+      expect(document.getElementById('game-outcome').innerHTML).toEqual(strangledSlime);
+   }),
+   test("if failed - score is updated", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 0;      
+      slimeLuck();
+      expect(mainCharacter.score).toEqual(-10);
+   }),
+   test("if succeeded - text displayed in lower-text element", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 20;      
+      slimeLuck();
+      expect(document.getElementById('lower-text').innerHTML).toEqual(pageNineFirst);
+   }),
+   test("if succeeded - corrent choices displayed", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 20;      
+      slimeLuck();
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsNine);
+   }),
+   test("if succeeded - score is updated", () =>{
+      mainCharacter.score = 0;
+      mainCharacterCurrent.luck = 20;      
+      slimeLuck();
+      expect(mainCharacter.score).toEqual(3);
+   })
+});
+describe("test slimeSmash function works as intended", ()=>{
+   beforeAll(() => {
+      mainCharacter.score = 0;
+      mainCharacterCurrent.health = 20;
+      slimeSmash();
+   }),
+   test("gane status funtion upated to confirm slime encounter", () =>{    
+      expect(thingsWhatYouveDone.slimeKill).toEqual(true);
+   }),
+   test("health to be updated in DOM", () =>{
+      expect(document.getElementById('main-health').innerHTML).toEqual("15");
+   }),
+   test("health is correctly updated", () =>{
+      expect(mainCharacterCurrent.health).toEqual(15);
+   }),
+   test("score is updated", () =>{
+      expect(mainCharacter.score).toEqual(3);
+   }),   
+   test("game text is updated", () =>{ 
+      expect(document.getElementById('upper-text').innerHTML).toEqual(pageNineSecond);
+   }),   
+   test("choices section is updated", () =>{ 
+      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsNine);
+   })
+});
+describe("test slimeFight function works as intended", ()=>{
+   beforeAll(() => {
+      slimeFight(sentientSlime);
+   }),   
+   test("fists button child id updated in DOM", () =>{ 
+      expect(document.getElementById('fists-button').firstChild.id).toEqual("slime-one");
+   }),   
+   test("weapon button child id updated in DOM", () =>{ 
+      expect(document.getElementById('weapon-button').firstChild.id).toEqual("slime-two");
+   }),   
+   test("potion button child id updated in DOM", () =>{ 
+      expect(document.getElementById('potion-button').firstChild.id).toEqual("slime-three");
+   })
+});
