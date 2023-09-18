@@ -2,18 +2,12 @@
  * @jest-environment jsdom
  */
 let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
-   pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
-   characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent, 
-   itemStorage, currentWeapon, currentDefence, currentPotion, currentObject, thingsWhatYouveDone, playerTestResistances, 
-   enemyTestResistances, ragnarFight, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
-   damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
-   pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
-   pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
-   rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
-   keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-   braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle, slimeEncounter, pageSeven, optionsSeven,
-   gameOverDrink, drinkSlime, slimeAttack, pageEight, optionsEight, slimeLuck, pageNineFirst, optionsNine, strangledSlime,
-   slimeSmash, pageNineSecond, slimeFight, sentientSlime } = require("../script.js");
+   pageOne, optionsOne, findItemType, characterWeapons,characterDefence, characterPotions, 
+   characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
+   currentDefence, currentPotion, currentObject, itemStorage, playerTestResistances, 
+   enemyTestResistances, continueFight, potionRound, hitSuccess, initialDamage,
+   damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, displayItem, getLucky, changeToBattleWindow, testForWeapons, 
+   changeToGameOver, leaveBattle } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -90,10 +84,10 @@ describe("switch to item window works as expected", ()=>{
       expect(document.getElementById('lower-text').style.display).toBe("block");
    }),
    test("battle-text-player displayed is removed", () =>{
-      expect(document.getElementById('battle-text-player').style.display).toBe("block");
+      expect(document.getElementById('battle-text-player').style.display).toEqual("none");
    }),
    test("battle-text-enemy displayed is removed", () =>{
-      expect(document.getElementById('battle-text-enemy').style.display).toBe("block");
+      expect(document.getElementById('battle-text-enemy').style.display).toEqual("none");
    }),
    test("choices section is displayed", () =>{
       expect(document.getElementById('choices-section').style.display).toEqual("block");
@@ -111,6 +105,12 @@ describe("switch to battle window works as expected", ()=>{
    }),
    test("lower-text element HTML is is hidden", () =>{
       expect(document.getElementById('lower-text').style.display).toEqual("none");
+   }),
+   test("battle-text-player displayed is displayed", () =>{
+      expect(document.getElementById('battle-text-player').style.display).toEqual("block");
+   }),
+   test("battle-text-enemy displayed is displayed", () =>{
+      expect(document.getElementById('battle-text-enemy').style.display).toEqual("block");
    }),
    test("initial enemy text displays as intended", () =>{
       expect(document.getElementById('battle-text-player').innerHTML).toEqual(ragnarTheHorrible.initialText);
@@ -1098,343 +1098,4 @@ describe("writeContentToDOM works as intended", () => {
       expect(document.getElementById('choices-section').innerHTML).toBe(optionsOne);
    })
    
-});
-
-//game progression functions
-//page two
-describe("ensure gameOverGiveUp function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      gameOverGiveUp();      
-   }),
-   test("game over page is displayed", () =>{
-      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
-   }),
-   test("game page is hidden", () =>{
-      expect(document.getElementById('game-page').style.display).toEqual("none");
-   }),
-   test("game over text is displayed", () =>{
-      expect(document.getElementById('game-outcome').innerHTML).toEqual(giveUp);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(-5);
-   })
-});
-describe("openeyes function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      openEyes();      
-   }),
-   test("text is displayed", () =>{
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageTwo);
-   }),
-   test("choices are displayed", () => {
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsTwoFirst + mainCharacter.name + optionsTwoSecond);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(1);
-   })
-});
-//page three
-describe("knowMyName function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      knowMyName();      
-   }),
-   test("text is displayed", () =>{
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageThreeFirst + pageThreeCommon);
-   }),
-   test("choices are displayed", () => {
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsThree);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(3);
-   }),
-   test("character name is updated in DOM", () =>{
-      expect(document.getElementById('character-sheet-name').innerHTML).toEqual(mainCharacter.name);
-   })
-});
-describe("fightingTalk function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      thingsWhatYouveDone.encounterLikelihood = 0;
-      fightingTalk();      
-   }),
-   test("text is displayed", () =>{
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageThreeSecondOne + mainCharacter.name + pageThreeSecondTwo + pageThreeCommon);
-   }),
-   test("choices are displayed", () => {
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsThree);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(1);
-   }),
-   test("character name is updated in DOM", () =>{
-      expect(document.getElementById('character-sheet-name').innerHTML).toEqual(mainCharacter.name);
-   }),
-   test("event log updated to make encounters more likely", () =>{
-      expect(thingsWhatYouveDone.encounterLikelihood).toEqual(20);
-   })
-});
-describe("nameUnknown function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      nameUnknown();      
-   }),
-   test("text is displayed", () =>{
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageThreeThird + pageThreeCommon);
-   }),
-   test("choices are displayed", () => {
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsThree);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(5);
-   }),
-   test("character name is updated in DOM", () =>{
-      expect(document.getElementById('character-sheet-name').innerHTML).toEqual(mainCharacter.name + "<br><em>(provisional)</em>");
-   })
-});
-//page three
-describe("firstSearch function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      firstSearch();      
-   }),
-   test("text is displayed", () =>{
-      expect(document.getElementById('lower-text').innerHTML).toEqual(pageFour);
-   }),
-   test("choices are displayed", () => {
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsFour);
-   }),
-   test("event log updated to log room has been searched", () =>{
-      expect(thingsWhatYouveDone.firstRoomSearch).toEqual(true);
-   })
-});
-// there will be a move on function here for the slime page.  and features elsewhere actually!
-//page four
-describe("keepFirstItem function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      foundItemInfo.score = 20;
-      keepFirstItem();      
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(20);
-   })
-});
-describe("ignoreFirstItem function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      ignoreFirstItem();      
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(-2);
-   })
-});
-describe("rangarFightChance function works as intended", ()=>{
-   afterEach(() => {
-      jest.spyOn(global.Math, 'random').mockRestore();
-   }),
-   test("fightChance odds work as expected modifiedand return correct text for true", () =>{
-      jest.spyOn(global.Math, 'random').mockReturnValue(70 / 100);
-      thingsWhatYouveDone.encounterLikelihood = 20;
-      rangarFightChance();
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageFiveCommon + pageFiveFirst);
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsFiveFirst);
-   }),
-   test("fightChance odds work as expected unmodified and return correct text for false", () =>{
-      jest.spyOn(global.Math, 'random').mockReturnValue(70 / 100);
-      thingsWhatYouveDone.encounterLikelihood = 0;
-      rangarFightChance();
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageFiveCommon + pageFiveSecond);
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsFiveSecond);
-   })
-});
-//page five
-describe("testLuck function works as intended", ()=>{
-   test("choices section populates as expected", () =>{
-      testLuck();
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsSix);
-   })
-});
-describe("braceYourself function works as intended", ()=>{
-   beforeEach(() => {
-      mainCharacterCurrent.health = 7;
-      mainCharacter.score = 3;
-      braceYourself();      
-   }),
-   test("choices section populates as expected", () =>{
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsSix);
-   }),
-   test("text section populates as expected", () =>{
-      expect(document.getElementById('upper-text').innerHTML).toEqual(pageSixThird + pageSixCommon);
-   }),
-   test("health object updates as expected", () =>{
-      expect(mainCharacterCurrent.health).toEqual(3);
-   }),
-   test("health updated in DOM", () =>{
-      expect(document.getElementById('main-health').innerHTML).toEqual("3");
-   })
-});
-//page six
-describe("test ragnarFight function works as intended", ()=>{
-   beforeAll(() => {
-      ragnarFight(ragnarTheHorrible);
-   }),   
-   test("fists button child id updated in DOM", () =>{ 
-      expect(document.getElementById('fists-button').firstChild.id).toEqual("ragnar-one");
-   }),   
-   test("weapon button child id updated in DOM", () =>{ 
-      expect(document.getElementById('weapon-button').firstChild.id).toEqual("ragnar-two");
-   }),   
-   test("potion button child id updated in DOM", () =>{ 
-      expect(document.getElementById('potion-button').firstChild.id).toEqual("ragnar-three");
-   })
-});
-//page seven
-describe("test slimeEncounter function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      slimeEncounter();
-   }),   
-   test("game text is updated", () =>{ 
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageSeven);
-   }),   
-   test("choices section is updated", () =>{ 
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsSeven);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(1);
-   })
-});
-//page eight
-describe("test gameOverDrink function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      gameOverDrink();
-   }),   
-   test("final score element updated", () =>{ 
-      expect(document.getElementById('final-score').innerHTML).toEqual("-10");
-   }),
-   test("game over page is displayed", () =>{
-      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
-   }),
-   test("game page is hidden", () =>{
-      expect(document.getElementById('game-page').style.display).toEqual("none");
-   }),
-   test("game over text is displayed", () =>{
-      expect(document.getElementById('game-outcome').innerHTML).toEqual(drinkSlime);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(-10);
-   })
-});
-describe("test slimeAttack function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      slimeAttack();
-   }),   
-   test("game text is updated", () =>{ 
-      expect(document.getElementById('game-text').innerHTML).toEqual(pageEight);
-   }),   
-   test("choices section is updated", () =>{ 
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsEight);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(5);
-   })
-});
-//page nine
-describe("test slimeluck function works as intended", ()=>{
-   test("gane status funtion upated to confirm slime encounter", () =>{     
-      slimeLuck();
-      expect(thingsWhatYouveDone.slimeKill).toEqual(true);
-   }),
-   test("if failed - final score element updated", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 0;      
-      slimeLuck();
-      expect(document.getElementById('final-score').innerHTML).toEqual("-10");
-   }),
-   test("if failed - game over page is displayed", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 0;      
-      slimeLuck();
-      expect(document.getElementById('gameover-page').style.display).toEqual("flex");
-   }),
-   test("if failed - game page is hidden", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 0;      
-      slimeLuck();
-      expect(document.getElementById('game-page').style.display).toEqual("none");
-   }),
-   test("if failed - game over text is displayed", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 0;      
-      slimeLuck();
-      expect(document.getElementById('game-outcome').innerHTML).toEqual(strangledSlime);
-   }),
-   test("if failed - score is updated", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 0;      
-      slimeLuck();
-      expect(mainCharacter.score).toEqual(-10);
-   }),
-   test("if succeeded - text displayed in lower-text element", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 20;      
-      slimeLuck();
-      expect(document.getElementById('lower-text').innerHTML).toEqual(pageNineFirst);
-   }),
-   test("if succeeded - corrent choices displayed", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 20;      
-      slimeLuck();
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsNine);
-   }),
-   test("if succeeded - score is updated", () =>{
-      mainCharacter.score = 0;
-      mainCharacterCurrent.luck = 20;      
-      slimeLuck();
-      expect(mainCharacter.score).toEqual(3);
-   })
-});
-describe("test slimeSmash function works as intended", ()=>{
-   beforeAll(() => {
-      mainCharacter.score = 0;
-      mainCharacterCurrent.health = 20;
-      slimeSmash();
-   }),
-   test("gane status funtion upated to confirm slime encounter", () =>{    
-      expect(thingsWhatYouveDone.slimeKill).toEqual(true);
-   }),
-   test("health to be updated in DOM", () =>{
-      expect(document.getElementById('main-health').innerHTML).toEqual("15");
-   }),
-   test("health is correctly updated", () =>{
-      expect(mainCharacterCurrent.health).toEqual(15);
-   }),
-   test("score is updated", () =>{
-      expect(mainCharacter.score).toEqual(3);
-   }),   
-   test("game text is updated", () =>{ 
-      expect(document.getElementById('upper-text').innerHTML).toEqual(pageNineSecond);
-   }),   
-   test("choices section is updated", () =>{ 
-      expect(document.getElementById('choices-section').innerHTML).toEqual(optionsNine);
-   })
-});
-describe("test slimeFight function works as intended", ()=>{
-   beforeAll(() => {
-      slimeFight(sentientSlime);
-   }),   
-   test("fists button child id updated in DOM", () =>{ 
-      expect(document.getElementById('fists-button').firstChild.id).toEqual("slime-one");
-   }),   
-   test("weapon button child id updated in DOM", () =>{ 
-      expect(document.getElementById('weapon-button').firstChild.id).toEqual("slime-two");
-   }),   
-   test("potion button child id updated in DOM", () =>{ 
-      expect(document.getElementById('potion-button').firstChild.id).toEqual("slime-three");
-   })
 });

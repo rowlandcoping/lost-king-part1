@@ -369,21 +369,15 @@ const characterObjects = [
     },
 ];
 //unique objects = 
-const adventureObjects = [
-    {
-        category: "weapon",
-        adjective: "a nifty",
-        name: "Cat Sword",
-        attack: 3,
-        skill: 3,
-        magic: "",
-        type: "sharp",
-        image: "assets/images/items/placeholder-sword.jpeg",
-        chance: 20,
-        score: 10,
-        description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
-    }
-];
+const slime = {
+    category: "object",
+    adjective: "a slimy",
+    name: "Slime",
+    effect: "This object may make things slimy.",
+    image: "assets/images/items/slime-hand.webp",
+    score: 5,
+    description: "This slime is no longer sentient, but it still retains some key properties of the dangerous monstrosity, in that it is slimy. As you might expect."
+}
 
 
 // CHARACTER INFO STORAGE
@@ -438,7 +432,366 @@ const foundItemInfo = {
 const thingsWhatYouveDone = {
     firstRoomSearch: false,
     slimeKill: false,
-    encounterLikelihood: 0
+    encounterLikelihood: 0,
+    slimeCollect: false
+}
+
+//ROOM OBJECTS
+
+//object for initial location (cavern, Ragnar, search)
+const firstCavern = {
+    // bsic details
+    backgroundOne: "url('assets/images/backgrounds/cavern-dark.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/cavern.webp') no-repeat left center",
+    //initial options
+    openEyes: function openEyes(){
+        mainCharacter.score +=1;   
+        document.getElementById('game-section').style.background = this.backgroundOne;
+        document.getElementById('choices-section').innerHTML = this.optionsTwoFirst + mainCharacter.name + this.optionsTwoSecond;
+        document.getElementById('game-text').innerHTML = this.pageTwo;  
+    },
+    pageTwo: `
+    <p>It makes no discernable difference.  Either you are blind, or it is deep, pitch dark.</p>
+
+    <p>But who are you?</p>
+    <p>"Who am I???"</p>
+    <p>Somebody spoke the words.  You think that it was you.</p>
+    `,
+    optionsTwoFirst:`
+    <li><button class="choice-button" id="choice-three">That's easy.  I am called... 
+    `,   
+    optionsTwoSecond:`
+    </button></li>
+    <li><button class="choice-button" id="choice-four">I am The Soul Of DARKNESSSSS.</button></li>
+    <li><button class="choice-button" id="choice-five">It's...... too early to say.</button></li>
+    `,
+    //give up (death)
+    gameOverGiveUp: function gameOverGiveUp() {
+        mainCharacter.score -=5;
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = this.giveUp;
+    },
+    giveUp:`
+    <p>You force the pain and the cruel world that accompanies it to the back of your mind.</p>
+    <p>Your head sinks slowly back to the rough, cool, rocky floor.</p>
+    <p>Your eyes relax, and you breathe the darkness in.</p>
+    <p>They never open again</p>
+    <p>YOU ARE DEAD</p>
+    `,
+    // name options
+    pageThreeCommon:`
+    <p>You appear to be in a small cave. A dark,rough-hewn apeture forms a the only visible exit on the opposite wall.</p>
+    <p>To your left, you see the dark bulk of... something...</p>
+    <p>It is time to act.</p>
+    `,
+    optionsThree:`
+    <li><button class="choice-button" id="choice-six">I am curious.  Let us examine the thing on the floor. </button></li>
+    <li><button class="choice-button" id="choice-seven">Maybe I can find a light. Or safety. Let's get out of here.</button></li>  
+    `,
+    knowMyName: function knowMyName(){   
+        mainCharacter.score +=3;
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-text').innerHTML = this.pageThreeFirst + this.pageThreeCommon;
+        document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
+        document.getElementById('choices-section').innerHTML = this.optionsThree;   
+    },
+    pageThreeFirst:`
+    <p>Very good.  You... remember.</p>
+    <p>Or at least you think you do...</p>
+    <p>Your head still hurts, but as your eyes adjust a very dim light grows.</p>
+    `,
+    fightingTalk: function fightingTalk(){
+        mainCharacter.score +=1;
+        thingsWhatYouveDone.encounterLikelihood += 20;
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-text').innerHTML = this.pageThreeSecondOne + mainCharacter.name + this.pageThreeSecondTwo + this.pageThreeCommon;
+        document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
+        document.getElementById('choices-section').innerHTML = this.optionsThree;  
+    },
+    pageThreeSecondOne:`
+    <p>Even as you think them, you are screaming out the words - your deep, cracked voice echoes from the walls.</p>
+    <p><em><strong>Darkness, destroyer of worlds.</strong></em></p>
+    <p>But of course, that is not your real name.  You are
+    `,
+    pageThreeSecondTwo:`... aren't you???</p><p>Your head still hurts, but as your eyes adjust a very dim light grows.</p>
+    `,
+    nameUnknown: function nameUnknown(){
+        mainCharacter.score +=5;
+        document.getElementById('game-section').style.background = this.backgroundTwo;  
+        document.getElementById('game-text').innerHTML = this.pageThreeThird + this.pageThreeCommon;
+        document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>(provisional)</em>";
+        document.getElementById('choices-section').innerHTML = this.optionsThree;    
+    },
+    pageThreeThird:`
+    <p>A name comes to mind.  A familiar phrase... but you dare not think it. Perhaps you are mistaken.
+    <br>You will try it out for now.  No committing though.</p>
+    <p>Your head still hurts, but as your eyes adjust a very dim light grows.</p>
+    `,    
+    // search for an item
+    firstSearch: function firstSearch() {
+        searchForItem(15, 35, 55, 100);
+        document.getElementById('lower-text').innerHTML = this.pageFour;
+        document.getElementById('choices-section').innerHTML = this.optionsFour;
+        thingsWhatYouveDone.firstRoomSearch = true;
+    },
+    pageFour: `<p>Tentatively approaching the dark form on the ground, you soon see that it is the corpse of a fellow traveller, gently rotting in the gloom.</p>
+    <p>You find yourself strangely unbothered by this, swiftly rummaging around to see what you can find.</p>
+    `,
+    optionsFour: `<li><button class="choice-button" id="choice-eight">Let's keep it!  You never know when it will come in handy.</button></li>
+    <li><button class="choice-button" id="choice-nine">I have no use for this rubbish. It's time to leave this room.</button></li>
+    `,
+    // keep or leave the item    
+    keepFirstItem: function keepFirstItem() {
+        mainCharacter.score += foundItemInfo.score;
+        storeItem();
+        this.rangarFightChance();
+    },
+    ignoreFirstItem: function ignoreFirstItem() {
+        changeModeToMainWindow();
+        mainCharacter.score +=-2;
+        this.rangarFightChance();
+    },
+    rangarFightChance: function rangarFightChance() {
+        changeModeToMainWindow();
+        let fightChance = getRandomNumber(1,100);
+        if (fightChance <= 50 + thingsWhatYouveDone.encounterLikelihood) {
+            document.getElementById('game-text').innerHTML = this.pageFiveCommon + this.pageFiveFirst;
+            document.getElementById('choices-section').innerHTML = this.optionsFiveFirst;
+        } else {
+            document.getElementById('game-text').innerHTML = this.pageFiveCommon + this.pageFiveSecond;
+            document.getElementById('choices-section').innerHTML = this.optionsFiveSecond;
+        }
+    },
+    pageFiveCommon: `
+    <p>As you walk away from the corpse you give it a healthy punt with your boot</p>
+    <p>The flesh is firmer than you expected it to be, and you freeze, awaiting a response...</p>
+    `,
+    pageFiveFirst: `
+    <p>With unreasonable speed for a stinking corpse, a filthy hand grabs you around the ankle.
+    <br>From within the bundle of rags, a blade flashes in the darkness...</p>
+    `,
+    pageFiveSecond: `
+    <p>The figure remains still. Whoever this was, they are definitely dead.  You'd have been surprised if not, because they really do smell like it.</p>
+    `,
+    optionsFiveFirst: `
+    <li><button class="choice-button" id="choice-ten">TEST YOUR LUCK! Can you dodge the blade?</button></li>
+    <li><button class="choice-button" id="choice-eleven">Superstitious nonsense.  Let's just crush this wretch.</button></li>
+    `,
+    optionsFiveSecond:`
+    <li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>
+    `,
+    // luck test fight with ragnar (or not!)
+    testLuck: function testLuck() {
+        changeModeToItemWindow();
+        mainCharacter.score += 3;
+        if (getLucky()) {
+            document.getElementById('upper-text').innerHTML = this.pageSixFirst + this.pageSixCommon;
+            mainCharacter.score += 3;
+        } else {
+            document.getElementById('upper-text').innerHTML = this.pageSixSecond + this.pageSixCommon;
+            mainCharacterCurrent.health -= 7;
+            mainCharacter.score -= 3;
+            document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+        }
+        document.getElementById('choices-section').innerHTML = this.optionsSix;
+        setEnemyStats(ragnarTheHorrible, 8,12,20,30);
+    }, 
+    braceYourself: function braceYourself() {
+        changeModeToItemWindow();
+        document.getElementById('upper-text').innerHTML = this.pageSixThird + this.pageSixCommon;
+        mainCharacterCurrent.health -= 4;
+        document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+        document.getElementById('choices-section').innerHTML = this.optionsSix;
+        setEnemyStats(ragnarTheHorrible, 8,12,20,30);
+    },
+    pageSixCommon: `
+    <p>Snarling, you break free of your foe's grip and turn to face them.</p>
+    <p>The pile of rags on the floor has metamorphasised, like a corpse-stench ridden butterfly, into a furious looking warrior with a filthy straggly beard. </p>
+    `,
+    pageSixFirst: `
+    <p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh</p>
+    `,
+    pageSixSecond: `
+    <p>You try to dodge but with your ankle caught fast there is no way of avoiding the blade.  <br>It plunges into your thigh for <span class="red">7</span> health points of damage.</p>
+    `,
+    pageSixThird: `
+    <p>You stand your ground and angle yourself to best withstand the impact of the blade.  <br>It grazes off your thigh for <span class="red">4</span> health points of damage.</p>
+    `,
+    optionsSix: `
+    <li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
+    `,
+    //Ragnar Fight Setup
+    ragnarFight: function ragnarFight(enemy) {
+        changeToBattleWindow(enemy);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "ragnar-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "ragnar-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "ragnar-three"); 
+        testForWeapons();
+    },
+    // returning to the loation    
+    caveReturn: function caveReturn() {
+        changeModeToMainWindow();
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-text').innerHTML = this.pageThreeCommon;
+        if (thingsWhatYouveDone.firstRoomSearch) {
+            if (thingsWhatYouveDone.slimeCollect) {
+            document.getElementById('choices-section').innerHTML = this.optionsThreeSearchedTwo;
+            } else {
+            document.getElementById('choices-section').innerHTML = this.optionsThreeSearchedOne;   
+            }
+        } else {
+            document.getElementById('choices-section').innerHTML = this.optionsThree;
+        }
+    },    
+    optionsThreeSearchedOne:`
+    <li><button class="choice-button" id="choice-seven">I think we've exhausted all the fun in this room.  Let's move on!</button></li>
+    `,
+    optionsThreeSearchedTwo:`
+    <li><button class="choice-button" id="choice-twenty-three">I think we've exhausted all the fun in this room.  Let's move on!</button></li>
+    `
+}
+//object for corridor with slime encounter.
+const slimeCorridor = {
+    background: "url('assets/images/backgrounds/corridorv3.webp') no-repeat left center",
+    //corridor navigation
+    slimeEncounter: function slimeEncounter() {
+        changeModeToMainWindow();
+        if (thingsWhatYouveDone.slimeCollect) {
+            catCavern.catCavern();
+        } else if (thingsWhatYouveDone.slimeKill) {
+            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-text').innerHTML = this.pageSevenSlimed;
+            document.getElementById('choices-section').innerHTML = this.optionsSevenTwo;
+        } else {
+        mainCharacter.score += 1;
+        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-text').innerHTML = this.pageSeven;
+        document.getElementById('choices-section').innerHTML = this.optionsSeven;
+        }
+    },
+    pageSeven: `<p>Leaving by the only exit, you soon find yourself in a dark passageway, feeling for the walls either side of you in the claustrophobia of the gloomy corridor.</p>
+    <p>Finally you see light from beyond the corner up ahead glinting from the surface of a small patch of liquid. <br>Light... and water... too much to ask?</p>
+    <p>You run your tongue over your parched lips.  You don't know when it last was you drank anything.
+    <br>This could do wonders for your constitution. What do you do?</p>
+    `,
+    pageSevenSlimed: `
+    <p>Once again you enter the dark narrow corridor, but more confidently this time.  </p>
+    <p>As you come to the point where you defeated the slime you still see pools of dead goo puddled, glinting in the half-light.
+    `,
+    optionsSeven: `
+    <li><button class="choice-button" id="choice-fourteen">Drink the liquid.</button></li>
+    <li><button class="choice-button" id="choice-fifteen">Examine the liquid.</button></li>
+    <li><button class="choice-button" id="choice-twenty">Turn and hurry back the way you came.</button></li>
+    <li><button class="choice-button" id="choice-sixteen">Move swiftly on, giving the puddle a wide berth.</button></li>
+    `,
+    optionsSevenTwo: `
+    <li><button class="choice-button" id="choice-twenty">Go back the way you came.  You liked that room.</button></li>
+    <li><button class="choice-button" id="choice-sixteen">Round the bend in the corridor.</button></li>
+    <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>
+    `,
+    //Goo initial interactions
+    gameOverDrink: function gameOverDrink() {
+        mainCharacter.score -=10;
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = this.drinkSlime;
+    },
+    slimeAttack: function slimeAttack() {
+        mainCharacter.score +=5;
+        document.getElementById('game-text').innerHTML = this.pageEight;
+        document.getElementById('choices-section').innerHTML = this.optionsEight;
+    },
+    drinkSlime: `<p>You fall to your hands and knees by the puddle, scooping the liquid into your mouth and swallowing it unthikingly.</p>
+    <p>It is incredibly refreshing, if a little more gelatinous than normal water... until you realise that you cannot breathe.</p>
+    <p>The sentient slime you have discovered does not appreciate being drunk, and expands to fill your airwaves.
+    <br>It is a slow and agonising death, giving you ample time to appreciate what a poor decision you have just made.</p>
+    <p>YOU ARE DEAD</p>
+    `,
+    pageEight: `<p>Kneeling by the glinting pool, you cautiously lower your fingers into the liquid. As you lift your hand it clings to your fingers, 
+    glooping slowly down to rejoin the rest as if it were a single entity.</p>
+    <p>Without warning the liquid seems to reach up of its own accord, enveloping your arm.  It begins to squeeze, hard, and dark borders 
+    start to appear at the edges of your vision...</p>
+    `,
+    optionsEight: `
+    <li><button class="choice-button" id="choice-seventeen">TEST YOUR LUCK: Try and shake off the slime</button></li>
+    <li><button class="choice-button" id="choice-eighteen">Smash your arm against the wall to try and free it.</button></li>
+    `,  
+    //Page nine
+    slimeLuck: function slimeLuck() {
+        changeModeToItemWindow();
+        thingsWhatYouveDone.slimeKill = true;
+        if (getLucky()) {
+            mainCharacter.score += 3;
+            document.getElementById('lower-text').innerHTML = this.pageNineFirst;
+            document.getElementById('choices-section').innerHTML = this.optionsNine;
+            setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
+        } else {
+            mainCharacter.score -=10;
+            document.getElementById('final-score').innerHTML = mainCharacter.score;
+            document.getElementById('gameover-page').style.display="flex";
+            document.getElementById('game-page').style.display="none";
+            document.getElementById('game-outcome').innerHTML = this.strangledSlime;
+        }
+    },
+    slimeSmash: function slimeSmash() {
+        thingsWhatYouveDone.slimeKill = true;
+        changeModeToItemWindow();
+        document.getElementById('upper-text').innerHTML = this.pageNineSecond;
+        mainCharacterCurrent.health -= 5;
+        mainCharacter.score += 3;
+        document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+        document.getElementById('choices-section').innerHTML = this.optionsNine;
+        setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
+    },
+    pageNineFirst: `
+    <p>Moving swiftly, you manage to shake your arm free, sending the goo skittering from the opposite wall.</p><p>The ooze immediately coalesces 
+    and begins moving in your general direction.</p>
+    `,
+    pageNineSecond: `<p>No matter what you do, you can't shake the goo off. Your only option is to smash your arm into the hard rock of the corridor wall. 
+    It sends the goo skittering and frees your arm, at the cost of <span class="red">5</span> health points.</p>
+    <p>The ooze immediately coalesces and begins moving in your general direction.</p>
+    `,
+    strangledSlime: `<p>You attempt to shake the slime free of your arm, but somehow it clings on.  You gather your strength to try again but it has already 
+    enveloped your arm, and is reaching for your throat.</p>
+    <p>Slowly its grip tightens, until you can no longer breathe.  You have no choices left.</p>
+    <p>YOU ARE DEAD</p>
+    `,
+    optionsNine: `
+    <li><button class="choice-button" id="choice-nineteen">Prepare to do battle with the sentient slime.</button></li>
+    `,
+    // Slime fight setup
+    slimeFight: function slimeFight(enemy) {
+        changeToBattleWindow(enemy);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "slime-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "slime-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "slime-three"); 
+        testForWeapons();
+    },
+    // Pickup slime
+    getSlime: function getSlime() {
+        thingsWhatYouveDone.slimeCollect = true;
+        changeModeToItemWindow();
+        foundItemInfo.category = slime.category;
+        foundItemInfo.adjective = slime.adjective
+        foundItemInfo.name = slime.name;
+        foundItemInfo.effect = slime.effect;
+        foundItemInfo.image = slime.image;
+        foundItemInfo.score = slime.score;
+        foundItemInfo.description = slime.description;
+        document.getElementById('lower-text').innerHTML = this.slimeGet;
+        displayItem();
+        storeItem();
+    },
+    slimeGet: `<p>You reach down and tentatively pick up some of the goo.  The handful you take sags through your fingers and forms gloopy tendrils connecting it to the rest of the slime on the floor, but eventually comes free.</p>
+    <p>You put it away, wondering what earthly use you might ever have for it.</p>
+    `,
+}
+//object for room where cats are encountered.
+const catCavern = {
+
 }
 
 // HELPER FUNCTIONS
@@ -448,10 +801,6 @@ const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + 
 const getLucky = () => getRandomNumber(1,20) <= mainCharacterCurrent.luck;
 //game state switchers
 function changeModeToMainWindow() {
-    const resetElements = document.getElementsByClassName('change-mode');
-    for (let i = 0; i < resetElements.length; i++) {
-        resetElements[i].innerHTML = "";
-    }
     document.getElementById('choices-section').style.display = "block";
     document.getElementById('battles-section').style.display = "none";
     document.getElementById('image-section').style.display = "none";
@@ -462,17 +811,22 @@ function changeModeToMainWindow() {
     document.getElementById('game-text').style.display = "block";
 }
 function changeModeToItemWindow() {
-    
+    const resetElements = document.getElementsByClassName('change-mode');
+    for (let i = 0; i < resetElements.length; i++) {
+        resetElements[i].innerHTML = "";
+    }
     document.getElementById('upper-text').style.display = "block";
     document.getElementById('lower-text').style.display = "block";
     document.getElementById('image-section').style.display = "flex";
     document.getElementById('game-text').style.display = "none";
+    document.getElementById('battle-text-player').style.display = "none";
+    document.getElementById('battle-text-enemy').style.display = "none";
+}
+function changeToBattleWindow(enemy) {
+    document.getElementById('upper-text').style.display = "none";
+    document.getElementById('lower-text').style.display = "none";
     document.getElementById('battle-text-player').style.display = "block";
     document.getElementById('battle-text-enemy').style.display = "block";
-}
-function changeToBattleWindow(enemy) {   
-    document.getElementById('upper-text').style.display = "none";
-    document.getElementById('lower-text').style.display = "none"; 
     document.getElementById('battle-text-player').innerHTML = enemy.initialText;
     document.getElementById('choices-section').style.display = "none";
     document.getElementById('battles-section').style.display = "block";
@@ -511,7 +865,7 @@ function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlt
     document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
 }
 
-// ITEM SEARCH FUNCTIONS
+// ITEM FUNCTIONS
 //select category
 function findItemType (chanceOne, chanceTwo, chanceThree, chanceFour) {
     let randomChance = getRandomNumber(1, 100);
@@ -566,7 +920,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
     displayItem();  
 }
 //displays found item on screen
-function displayItem() {    
+function displayItem() {
     document.getElementById('image-section').style.display = "flex";
     document.getElementById('upper-text').style.display = "block";
     document.getElementById('lower-text').style.display = "block";
@@ -1043,188 +1397,29 @@ function writeInitialToDom() {
     document.getElementById('game-section').style.backgroundImage = "";
 }
 
-//Page Two
-
-//open eyes
-function openEyes(){
-    mainCharacter.score +=1;   
-    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern-dark.webp') no-repeat left center";
-    document.getElementById('choices-section').innerHTML = optionsTwoFirst + mainCharacter.name + optionsTwoSecond;
-    document.getElementById('game-text').innerHTML = pageTwo;  
-}
-//give up (death)
-function gameOverGiveUp() {
-    mainCharacter.score -=5;
-    document.getElementById('final-score').innerHTML = mainCharacter.score;
-    document.getElementById('gameover-page').style.display="flex";
-    document.getElementById('game-page').style.display="none";
-    document.getElementById('game-outcome').innerHTML = giveUp;
-};
-
-//Page Three
-function knowMyName(){   
-    mainCharacter.score +=3;
-    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern.webp') no-repeat left center";
-    document.getElementById('game-text').innerHTML = pageThreeFirst + pageThreeCommon;
-    document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
-    document.getElementById('choices-section').innerHTML = optionsThree;   
-}
-function fightingTalk(){
-    mainCharacter.score +=1;
-    thingsWhatYouveDone.encounterLikelihood += 20;
-    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern.webp') no-repeat left center";
-    document.getElementById('game-text').innerHTML = pageThreeSecondOne + mainCharacter.name + pageThreeSecondTwo + pageThreeCommon;
-    document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
-    document.getElementById('choices-section').innerHTML = optionsThree;  
-}
-function nameUnknown(){
-    mainCharacter.score +=5;
-    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/cavern.webp') no-repeat left center";  
-    document.getElementById('game-text').innerHTML = pageThreeThird + pageThreeCommon;
-    document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>(provisional)</em>";
-    document.getElementById('choices-section').innerHTML = optionsThree;    
-}
-
-//Page Four
-function firstSearch() {
-    searchForItem(15, 35, 55, 100);
-    document.getElementById('lower-text').innerHTML = pageFour;
-    document.getElementById('choices-section').innerHTML = optionsFour;
-    thingsWhatYouveDone.firstRoomSearch = true;
-}
-
-//Page Five
-
-function keepFirstItem() {
-    mainCharacter.score += foundItemInfo.score;
-    storeItem();
-    changeModeToMainWindow();
-    rangarFightChance();
-}
-function ignoreFirstItem() {
-    changeModeToMainWindow();
-    mainCharacter.score +=-2;
-    rangarFightChance();
-}
-function rangarFightChance() {
-    let fightChance = getRandomNumber(1,100);
-    if (fightChance <= 50 + thingsWhatYouveDone.encounterLikelihood) {
-        document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveFirst;
-        document.getElementById('choices-section').innerHTML = optionsFiveFirst;
-    } else {
-        document.getElementById('game-text').innerHTML = pageFiveCommon + pageFiveSecond;
-        document.getElementById('choices-section').innerHTML = optionsFiveSecond;
-    }
-}
-//Page Six
-function testLuck() {
-    changeModeToItemWindow();
-    mainCharacter.score += 3;
-    if (getLucky()) {
-        document.getElementById('upper-text').innerHTML = pageSixFirst + pageSixCommon;
-        mainCharacter.score += 3;
-    } else {
-        document.getElementById('upper-text').innerHTML = pageSixSecond + pageSixCommon;
-        mainCharacterCurrent.health -= 7;
-        mainCharacter.score -= 3;
-        document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
-    }
-    document.getElementById('choices-section').innerHTML = optionsSix;
-    setEnemyStats(ragnarTheHorrible, 8,12,20,30);
-}
-function braceYourself() {
-    changeModeToItemWindow();
-    document.getElementById('upper-text').innerHTML = pageSixThird + pageSixCommon;
-    mainCharacterCurrent.health -= 4;
-    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
-    document.getElementById('choices-section').innerHTML = optionsSix;
-    setEnemyStats(ragnarTheHorrible, 8,12,20,30);
-}
-//Ragnar Fight Setup
-function ragnarFight(enemy) {
-    changeToBattleWindow(enemy);
-    document.getElementById('fists-button').firstChild.setAttribute("id", "ragnar-one"); 
-    document.getElementById('weapon-button').firstChild.setAttribute("id", "ragnar-two"); 
-    document.getElementById('potion-button').firstChild.setAttribute("id", "ragnar-three"); 
-    testForWeapons();
-}
 //Page Seven
-function slimeEncounter() {
-    changeModeToMainWindow()
-    mainCharacter.score += 1;
-    document.getElementById('game-section').style.background = "url('assets/images/backgrounds/corridorv3.webp') no-repeat left center";
-    document.getElementById('game-text').innerHTML = pageSeven;
-    document.getElementById('choices-section').innerHTML = optionsSeven;
-}
 
-//Page Eight
 
-function gameOverDrink() {
-    mainCharacter.score -=10;
-    document.getElementById('final-score').innerHTML = mainCharacter.score;
-    document.getElementById('gameover-page').style.display="flex";
-    document.getElementById('game-page').style.display="none";
-    document.getElementById('game-outcome').innerHTML = drinkSlime;
-}
-function slimeAttack() {
-    mainCharacter.score +=5;
-    document.getElementById('game-text').innerHTML = pageEight;
-    document.getElementById('choices-section').innerHTML = optionsEight;
-}
+//page ten
 
-//Page nine
-function slimeLuck() {
-    changeModeToItemWindow();
-    thingsWhatYouveDone.slimeKill = true;
-    if (getLucky()) {
-        mainCharacter.score += 3;
-        document.getElementById('lower-text').innerHTML = pageNineFirst;
-        document.getElementById('choices-section').innerHTML = optionsNine;
-        setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
-    } else {
-        mainCharacter.score -=10;
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
-        document.getElementById('game-outcome').innerHTML = strangledSlime;
-    }
-}
-function slimeSmash() {
-    thingsWhatYouveDone.slimeKill = true;
-    changeModeToItemWindow();
-    document.getElementById('upper-text').innerHTML = pageNineSecond;
-    mainCharacterCurrent.health -= 5;
-    mainCharacter.score += 3;
-    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
-    document.getElementById('choices-section').innerHTML = optionsNine;
-    setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
-}
+function catCaveDirect() {
 
-// Slime fight setup
-
-function slimeFight(enemy) {
-    changeToBattleWindow(enemy);
-    document.getElementById('fists-button').firstChild.setAttribute("id", "slime-one"); 
-    document.getElementById('weapon-button').firstChild.setAttribute("id", "slime-two"); 
-    document.getElementById('potion-button').firstChild.setAttribute("id", "slime-three"); 
-    testForWeapons();
 }
-
 
 //START GAME EVENT HANDLERS
 
-/*start game button event handler*/
+//start-game-button
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('start-game-button').addEventListener('click', startGame);
 });
-/*restart character button event handlers*/
+//restart game event handlers
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('restart-game-button').addEventListener('click', startGame);
 });
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('restart-game-button-end').addEventListener('click', startGame);
 });
-/*reset character button event handlers*/
+//reset character button event handlers
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('reset-game-button').addEventListener('click', resetGame);
 });
@@ -1234,39 +1429,40 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // IN-GAME EVENT HANDLERS
 
-/*page one event handlers*/
+//FIRST ROOM EVENT HANDLERS (Cavern)
+// open eyes / give up
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-one");
     if(target){
-        openEyes();
+       firstCavern.openEyes();
     }
  });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-two");
     if(target){
-        gameOverGiveUp();     
+        firstCavern.gameOverGiveUp();     
     }
  });
 
- // page two event handlers
+//name decision
 
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-three");
     if(target){
-        knowMyName();
+        firstCavern.knowMyName();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-four");
     if(target){
-        fightingTalk();
+        firstCavern.fightingTalk();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-five"); 
     if(target){
-        nameUnknown();
+        firstCavern.nameUnknown();
     }
 });
 // page three event handlers (decide whether to search or leave area)
@@ -1275,13 +1471,19 @@ document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-six"); 
     if(target){
         mainCharacter.score += 3;
-        firstSearch();
+        firstCavern.firstSearch();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-seven"); 
     if(target){
-        slimeEncounter();
+        slimeCorridor.slimeEncounter();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#twenty-three"); 
+    if(target){
+        firstCavern.catCavernDirect();
     }
 });
 
@@ -1289,13 +1491,13 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-eight"); 
     if(target){ 
-        keepFirstItem();
+        firstCavern.keepFirstItem();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-nine"); 
     if(target){
-        ignoreFirstItem();
+        firstCavern.ignoreFirstItem();
     }
 });
 
@@ -1304,19 +1506,19 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-ten"); 
     if(target){ 
-        testLuck();
+        firstCavern.testLuck();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-eleven"); 
     if(target){ 
-        braceYourself();
+        firstCavern.braceYourself();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twelve"); 
     if(target){
-        slimeEncounter();
+        slimeCorridor.slimeEncounter();
     }
 });
 
@@ -1324,7 +1526,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-thirteen"); 
     if(target){        
-        ragnarFight(ragnarTheHorrible);
+        firstCavern.ragnarFight(ragnarTheHorrible);
     }
 });
 
@@ -1353,19 +1555,19 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fourteen"); 
     if(target){ 
-        gameOverDrink();
+        slimeCorridor.gameOverDrink();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifteen"); 
     if(target){
-        slimeAttack();
+        slimeCorridor.slimeAttack();
     }
 });
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-sixteen"); 
     if(target){
-        catCavern();
+        catCavern.catCavern();
     }
 });
 
@@ -1373,13 +1575,13 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-seventeen"); 
     if(target){
-        slimeLuck();
+        slimeCorridor.slimeLuck();
     }
 });
 document.addEventListener("click", function(e){
 const target = e.target.closest("#choice-eighteen"); 
     if(target){
-        slimeSmash();
+        slimeCorridor.slimeSmash();
     }
 });
 
@@ -1387,7 +1589,7 @@ const target = e.target.closest("#choice-eighteen");
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-nineteen"); 
     if(target){        
-        slimeFight(sentientSlime);
+        slimeCorridor.slimeFight(sentientSlime);
     }
 });
 
@@ -1411,6 +1613,29 @@ document.addEventListener("click", function(e){
     }
 });
 
+// page 10 event handlers (post slime fight)
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-twenty"); 
+    if(target){ 
+        firstCavern.caveReturn();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-twenty-one"); 
+    if(target){
+        catCavern.catCavern();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-twenty-two"); 
+    if(target){
+        slimeCorridor.getSlime();
+    }
+});
+
+// page 10 event handlers (cat cavern)
+
+
 /* GAME TEXT */
 
 /*page one (open eyes)*/
@@ -1426,132 +1651,6 @@ const optionsOne = `
     <li><button class="choice-button" id="choice-two">Give up.</button></li>
 `;
 
-/* page two (decide on name / give up death text) */
-const pageTwo = `
-    <p>It makes no discernable difference.  Either you are blind, or it is deep, pitch dark.</p>
-
-    <p>But who are you?</p>
-    <p>"Who am I???"</p>
-    <p>Somebody spoke the words.  You think that it was you.</p>
-`;
-const optionsTwoFirst = `
-    <li><button class="choice-button" id="choice-three">That's easy.  I am called... `   
-const optionsTwoSecond = `
-    </button></li>
-    <li><button class="choice-button" id="choice-four">I am The Soul Of DARKNESSSSS.</button></li>
-    <li><button class="choice-button" id="choice-five">It's...... too early to say.</button></li>
-`;
-const giveUp = `
-        <p>You force the pain and the cruel world that accompanies it to the back of your mind.</p>
-        <p>Your head sinks slowly back to the rough, cool, rocky floor.</p>
-        <p>Your eyes relax, and you breathe the darkness in.</p>
-        <p>They never open again</p>
-        <p>YOU ARE DEAD</p>
-        `   
-/* page three (name established, choice to search or carry on)*/
-const pageThreeFirst = `
-    <p>Very good.  You... remember.</p>
-    <p>Or at least you think you do...</p>
-`
-const pageThreeSecondOne = `
-    <p>Even as you think them, you are screaming out the words - your deep, cracked voice echoes from the walls.</p>
-    <p><em><strong>Darkness, destroyer of worlds.</strong></em></p>
-    <p>But of course, that is not your real name.  You are
-`
-const pageThreeSecondTwo = `... aren't you???</p>
-`
-const pageThreeThird = `
-    <p>A name comes to mind.  A familiar phrase... but you dare not think it. Perhaps you are mistaken.
-    <br>You will try it out for now.  No committing though.</p>
-`
-const pageThreeCommon =`
-    <p>Your head still hurts, but as your eyes adjust a very dim light grows.</p>
-    <p>You appear to be in a small cave. A dark,rough-hewn apeture forms a the only visible exit on the opposite wall.</p>
-    <p>To your left, you see the dark bulk of... something...</p>
-    <p>It is time to act.</p>
-`;
-
-const optionsThree = `
-    <li><button class="choice-button" id="choice-six">I am curious.  Let us examine the thing on the floor. </button></li>
-    <li><button class="choice-button" id="choice-seven">Maybe I can find a light. Or safety. Let's get out of here.</button></li>  
-`;
-
-//Page Four (decide whether to keep item or not)
-const pageFour = `<p>Tentatively approaching the dark form on the ground, you soon see that it is the corpse of a fellow traveller, gently rotting in the gloom.</p>
-<p>You find yourself strangely unbothered by this, swiftly rummaging around to see what you can find.</p>
-`;
-const optionsFour = `<li><button class="choice-button" id="choice-eight">Let's keep it!  You never know when it will come in handy.</button></li>
-<li><button class="choice-button" id="choice-nine">I have no use for this rubbish. It's time to leave this room.</button></li>
-`;
-
-//Page Five
-const pageFiveCommon = `
-<p>As you walk away from the corpse you give it a healthy punt with your boot</p>
-<p>The flesh is firmer than you expected it to be, and you freeze, awaiting a response...</p>
-`
-const pageFiveFirst = `
-<p>With unreasonable speed for a stinking corpse, a filthy hand grabs you around the ankle.
-<br>From within the bundle of rags, a blade flashes in the darkness...</p>
-`
-const pageFiveSecond = `
-<p>The figure remains still. Whoever this was, they are definitely dead.  You'd have been surprised if not, because they really do smell like it.</p>
-`
-const optionsFiveFirst = `
-<li><button class="choice-button" id="choice-ten">TEST YOUR LUCK! Can you dodge the blade?</button></li>
-<li><button class="choice-button" id="choice-eleven">Superstitious nonsense.  Let's just crush this wretch.</button></li>
-`
-const optionsFiveSecond = `
-<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>
-`
-//Page Six (initial fight with Ragnar)
-
-const pageSixCommon = `
-<p>Snarling, you break free of your foe's grip and turn to face them.</p>
-<p>The pile of rags on the floor has metamorphasised, like a corpse-stench ridden butterfly, into a furious looking warrior with a filthy straggly beard. </p>
-`
-const pageSixFirst = `
-<p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh</p>
-`
-const pageSixSecond = `
-<p>You try to dodge but with your ankle caught fast there is no way of avoiding the blade.  <br>It plunges into your thigh for <span class="red">7</span> health points of damage.</p>
-`
-const pageSixThird = `
-<p>You stand your ground and angle yourself to best withstand the impact of the blade.  <br>It grazes off your thigh for <span class="red">4</span> health points of damage.</p>
-`
-const optionsSix = `
-<li><button class="choice-button" id="choice-thirteen">Stand and fight the warrior.</button></li>
-`
-//page seven text
-const pageSeven =`<p>Leaving by the only exit, you soon find yourself in a dark passageway, feeling for the walls either side of you in the claustrophobia of the gloomy corridor.</p>
-<p>Finally you see light from beyond the corner up ahead glinting from the surface of a small patch of liquid. <br>Light... and water... too much to ask?</p>
-<p>You run your tongue over your parched lips.  You don't know when it last was you drank anything.
-<br>This could do wonders for your constitution. What do you do?</p>
-`;
-const optionsSeven =    `<li><button class="choice-button" id="choice-fourteen">Drink the liquid.</button></li>
-<li><button class="choice-button" id="choice-fifteen">Examine the liquid.</button></li>
-<li><button class="choice-button" id="choice-sixteen">Move swiftly on, giving the puddle a wide berth.</button></li>
-`;
-//page eight text
-const drinkSlime = `<p>You fall to your hands and knees by the puddle, scooping the liquid into your mouth and swallowing it unthikingly.</p>
-<p>It is incredibly refreshing, if a little more gelatinous than normal water... until you realise that you cannot breathe.</p>
-<p>The sentient slime you have discovered does not appreciate being drunk, and expands to fill your airwaves.
-<br>It is a slow and agonising death, giving you ample time to appreciate what a poor decision you have just made.</p>
-<p>YOU ARE DEAD</p>`;
-
-const pageEight = `<p>Kneeling by the glinting pool, you cautiously lower your fingers into the liquid. As you lift your hand it clings to your fingers, glooping slowly down to rejoin the rest as if it were a single entity.</p>
-<p>Without warning the liquid seems to reach up of its own accord, enveloping your arm.  It begins to squeeze, hard, and dark borders start to appear at the edges of your vision</p>`;
-const optionsEight = `<li><button class="choice-button" id="choice-seventeen">TEST YOUR LUCK: Try and shake off the slime</button></li>
-<li><button class="choice-button" id="choice-eighteen">Smash your arm against the wall to try and free it.</button></li>`;
-//page nine text
-const pageNineFirst = `<p>Moving swiftly, you manage to shake your arm free, sending the goo skittering from the opposite wall.</p><p>The ooze immediately coalesces and begins moving in your general direction.</p>`;
-const pageNineSecond = `<p>No matter what you do, you can't shake the goo off. Your only option is to smash your arm into the hard rock of the corridor wall. It sends the goo skittering and frees your arm, at the cost of <span class="red">5</span> health points.</p>
-<p>The ooze immediately coalesces and begins moving in your general direction.</p>`;
-const strangledSlime = `<p>You attempt to shake the slime free of your arm, but somehow it clings on.  You gather your strength to try again but it has already enveloped your arm, and is reaching for your throat.</p>
-<p>Slowly its grip tightens, until you can no longer breathe.  You have no choices left.</p>
-<p>YOU ARE DEAD</p>`;
-const optionsNine = `<li><button class="choice-button" id="choice-nineteen">Prepare to do battle with the sentient slime.</button></li>`;
-
-
 // GENERIC - text for battles
 
 // turn indicators
@@ -1565,17 +1664,10 @@ const weaponIneffective = `<p>Your weapon appears to be particularly ineffective
 // OBJECT EXPORTS FOR AUTOMATED TESTING
 var module = module || {};
 module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
-    pageOne, optionsOne, gameOverGiveUp, giveUp, findItemType, characterWeapons,characterDefence, characterPotions, 
+    pageOne, optionsOne, findItemType, characterWeapons,characterDefence, characterPotions, 
     characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
-    currentDefence, currentPotion, currentObject, itemStorage, setEnemyStats, thingsWhatYouveDone, playerTestResistances, 
-    enemyTestResistances, ragnarFight, continueFight, potionRound, enemyTurn, hitSuccess, initialDamage,
-    damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, openEyes, optionsTwoFirst, optionsTwoSecond,
-    pageTwo, knowMyName, pageThreeFirst, pageThreeCommon, optionsThree, pageThreeSecondOne, pageThreeSecondTwo,
-    pageThreeThird, fightingTalk, nameUnknown, displayItem, firstSearch, optionsFour, pageFour, ignoreFirstItem,
-    rangarFightChance, pageFiveSecond, pageFiveCommon, pageFiveFirst, optionsFiveFirst, optionsFiveSecond, 
-    keepFirstItem, getLucky, pageSixFirst, pageSixCommon, pageSixSecond, optionsSix, pageSixThird,
-    braceYourself, testLuck, changeToBattleWindow, testForWeapons, changeToGameOver, leaveBattle, sentientSlime, slimeEncounter, pageSeven, optionsSeven,
-    gameOverDrink, drinkSlime, slimeAttack, pageEight, optionsEight, slimeLuck, pageNineFirst, optionsNine, strangledSlime,
-    slimeSmash, pageNineSecond, slimeFight, sentientSlime };
-
+    currentDefence, currentPotion, currentObject, itemStorage, thingsWhatYouveDone, playerTestResistances, 
+    enemyTestResistances, continueFight, potionRound, hitSuccess, initialDamage,
+    damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, displayItem, getLucky, changeToBattleWindow, testForWeapons, 
+    changeToGameOver, leaveBattle, sentientSlime };
 
