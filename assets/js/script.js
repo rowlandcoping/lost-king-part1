@@ -71,6 +71,31 @@ const sentientSlime = {
     <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway.</button></li>
     <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>`
 }
+const catWarrior = {
+    name: "Cat Warrior",
+    description: "This sentient pool of goo is a mystery; whether it be the product of some bizarre evolutionary process or a magic spell gone wrong it seems to mean you harm.",
+    strength: 0,
+    strItem: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    image: "assets/images/enemies/cat-warrior.webp",
+    vulnerability:"",
+    resist: "",
+    magic:"",
+    score: 20,
+    initialText: "<p>The cats draw to a swift halt, glance at each other, then step back and allow the largest of them centre-stage</p><p>It looks like you're going to have to fight this Cat Warrior.</p>",
+    successTextOne: "<p>You strike the sentient slime with your ",
+    successTextTwo: "<br>It rolls around in a half circle, but seems undeterred from your destruction.</p>",
+    deathText: "<p>The goo seems to lose all form, collapsing into itself and leaving trails of gelatious liquid across the stone floor of the corridor.<br>You think that it is finally dead.</p>",
+    failText: "<p>The slime seems to re-arrange its form to avoid your attack, and your attempted strike cannot find its target.</p>",
+    hitText: "<p>The slime lashes out with a solid tendril of goo, taking you by surprise,",
+    killedYouText: "<p>Exhausted from the encounter, the slime senses your weakness and takes its chance to envelop and suffocate you.<br>YOU ARE DEAD</p>",
+    missedText: "<p>The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.</p>",
+    choices: `<li><button class="choice-button" id="choice-twenty">Leave the area, by returning the way you came from.</button></li>
+    <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway.</button></li>
+    <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>`
+}
 
 //ITEM OBJECTS
 //weapons
@@ -432,8 +457,13 @@ const foundItemInfo = {
 const thingsWhatYouveDone = {
     firstRoomSearch: false,
     slimeKill: false,
-    encounterLikelihood: 0,
-    slimeCollect: false
+    encounterLikelihood: false,
+    slimeCollect: false,
+    cavernVisits: 0,
+    catArrest: 25,
+    catFight: 60,
+    catRunaway: 14,
+    catGod: 1
 }
 
 //ROOM OBJECTS
@@ -504,7 +534,10 @@ const firstCavern = {
     `,
     fightingTalk: function fightingTalk(){
         mainCharacter.score +=1;
-        thingsWhatYouveDone.encounterLikelihood += 20;
+        thingsWhatYouveDone.encounterLikelihood = true;
+        thingsWhatYouveDone.catArrest -= 10;
+        thingsWhatYouveDone.catFight += 10;
+
         document.getElementById('game-section').style.background = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.pageThreeSecondOne + mainCharacter.name + this.pageThreeSecondTwo + this.pageThreeCommon;
         document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
@@ -556,7 +589,10 @@ const firstCavern = {
     rangarFightChance: function rangarFightChance() {
         changeModeToMainWindow();
         let fightChance = getRandomNumber(1,100);
-        if (fightChance <= 50 + thingsWhatYouveDone.encounterLikelihood) {
+        if(thingsWhatYouveDone.encounterLikelihood) {
+            fightChance -= 20;
+        }
+        if (fightChance <= 50) {
             document.getElementById('game-text').innerHTML = this.pageFiveCommon + this.pageFiveFirst;
             document.getElementById('choices-section').innerHTML = this.optionsFiveFirst;
         } else {
@@ -791,12 +827,119 @@ const slimeCorridor = {
 }
 //object for room where cats are encountered.
 const catCavern = {
+    background: "url('assets/images/backgrounds/cat-cavern.webp') no-repeat left center",
+    catImage: `<img src="assets/images/enemies/cat-warriors.webp">`,
+    catCavern: function catCavern() {
+        changeModeToMainWindow();
+        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-text').innerHTML = this.catCavernText + this.catImage;
+        if (thingsWhatYouveDone.cavernVisits == 0){
+            document.getElementById('choices-section').innerHTML = this.catCavernOptionsFirst;
+        } else if (thingsWhatYouveDone.cavernVisits == 1){
+            document.getElementById('choices-section').innerHTML = this.catCavernOptionsSecond;
+        } else if (thingsWhatYouveDone.cavernVisits == 2){
+            document.getElementById('choices-section').innerHTML = this.catCavernOptionsThird;
+        } else if (thingsWhatYouveDone.cavernVisits == 3){
+            document.getElementById('choices-section').innerHTML = this.catCavernOptionsFourth;
+        } else if (thingsWhatYouveDone.cavernVisits > 3){
+            document.getElementById('choices-section').innerHTML = this.catCavernOptionsMore;
+        } 
+    },
+    catCavernText: `
+    <p>Immediately beyond the bend the corridor abrupts opens out into a large cavernous space enclosed by sheer rock cliffs. Upon the walls a number of lanterns are hung, barely illuminating the vast space.</p>
+    <p>It is clear this area is often frequented.</p>
+    <p>Before you can assess your options, a building sound startles you.  It sound like... feet?  Not quite.  Claws?  You hope not.
+    <br>You have little time to react before a small group of cat-like warriors charge into the room.</p>
+    `,
+    catCavernOptionsFirst: `
+    <li><button class="choice-button" id="choice-twenty-four">I can scarcely wait to see what happens next.</li>
+    `,
+    catCavernOptionsSecond: `
+    <li><button class="choice-button" id="choice-twenty-four">The first time was great, the second time...</li>
+    `,
+    catCavernOptionsThird: `
+    <li><button class="choice-button" id="choice-twenty-four">I can see that this is starting to become a theme.</li>
+    `,
+    catCavernOptionsFourth: `
+    <li><button class="choice-button" id="choice-twenty-four">I almost missed you, furry cat friends.</li>
+    `,
+    catCavernOptionsMore: `
+    <li><button class="choice-button" id="choice-twenty-four">OK I want to get out of this gameplay loop now.</li>
+    `,
+    catDecision: function catDecision(chanceOne, chanceTwo, chanceThree, chanceFour) {
+        let randomChance = getRandomNumber(0,100);
+        if (randomChance <= chanceOne){
+            return randomChance +" arrest";
+        } else if (randomChance <= chanceTwo && randomChance > chanceOne){
+            return randomChance + " fight";
+        } else if (randomChance <= chanceThree && randomChance > chanceTwo) {
+            return randomChance + " run away";
+        } else {
+            return randomChance + " god";
+        } 
+    },
+    catCavernDecision: function catCavernDecision() {
+        let catResult = this.catDecision(thingsWhatYouveDone.catArrest, thingsWhatYouveDone.catFight + thingsWhatYouveDone.catArrest,
+        thingsWhatYouveDone.catRunaway + thingsWhatYouveDone.catFight + thingsWhatYouveDone.catArrest, 
+        thingsWhatYouveDone.catRunaway + thingsWhatYouveDone.catFight + thingsWhatYouveDone.catArrest + thingsWhatYouveDone.catGod);
+        if (catResult === "arrest") {
+            this.catArrest();
+        } else if (catResult === "fight") {
+            this.catFight();
+        } else if (catResult === "run away") {
+            this.runAway();
+        } else {
+            this.catGod();
+        }
+    },
+    catArrest: function catArrest() {
+        setEnemyStats(catWarrior, 8,10,20,30,2,5,0, 0, "fire");
+        changeToBattleWindow(catWarrior);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "cat-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "cat-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "cat-three"); 
+        testForWeapons();
 
+    },
+    catFight: function catFight() {
+        setEnemyStats(catWarrior, 8,10,20,30,2,5,0, 0, "fire");
+        changeToBattleWindow(catWarrior);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "cat-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "cat-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "cat-three"); 
+        testForWeapons();
+    },
+    runAway: function runAway() {
+        setEnemyStats(catWarrior, 8,10,20,30,2,5,0, 0, "fire");
+        changeToBattleWindow(catWarrior);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "cat-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "cat-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "cat-three"); 
+        testForWeapons();
+
+    },
+    catGod: function catGod() {
+        setEnemyStats(catWarrior, 8,10,20,30,2,5,0, 0, "fire");
+        changeToBattleWindow(catWarrior);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "cat-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "cat-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "cat-three"); 
+        testForWeapons();
+
+    },
+    catExitOptions: function catExitOptions() {
+        changeModeToMainWindow();
+        document.getElementById('game-text').innerHTML = this.catCavernExitText;
+    },
+    catCavernExitText: `<p>Up ahead you see a broad corridor, floor worn smooth by the passage of many feet.
+    <br>To your left you see a stone doorway, seemingly without a door.
+    <br>Over to your right a treacherous narrow stairway is cut directly into the rock of the cavern wall.</p>
+    `
 }
 
 // HELPER FUNCTIONS
 // Random number generator
-const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+const getRandomNumber = (min, max) => Math.ceil(Math.random() * (max - min)) + min;
 //luck tested
 const getLucky = () => getRandomNumber(1,20) <= mainCharacterCurrent.luck;
 //game state switchers
@@ -838,11 +981,11 @@ function changeToGameOver() {
 }
 //CHARACTER GENERATION
 function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
-    character.strength = getRandomNumber(min, max);
-    character.skill = getRandomNumber(min, max);
-    character.defence = getRandomNumber(min, max);
-    character.luck = getRandomNumber(min, max);
-    character.health = getRandomNumber(hMin, hMax);
+    character.strength = getRandomNumber(min-1, max);
+    character.skill = getRandomNumber(min-1, max);
+    character.defence = getRandomNumber(min-1, max);
+    character.luck = getRandomNumber(min-1, max);
+    character.health = getRandomNumber(hMin-1, hMax);
     if(strItem) {
         character.strength += strItem;
         character.strItem = strItem;
@@ -868,7 +1011,7 @@ function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlt
 // ITEM FUNCTIONS
 //select category
 function findItemType (chanceOne, chanceTwo, chanceThree, chanceFour) {
-    let randomChance = getRandomNumber(1, 100);
+    let randomChance = getRandomNumber(0, 100);
     let objectSelection;
     if (randomChance > chanceFour) {
         objectSelection = "";
@@ -890,7 +1033,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
     let itemType = findItemType(chanceWeapon, chanceDefence, chancePotion, chanceObject);
     if (itemType) {
         let likelihoods = itemType.map(i => i.chance);
-        let itemSelection = getRandomNumber(1, 100);
+        let itemSelection = getRandomNumber(0, 100);
         let valueSelector = [];
         const filterItems = likelihoods.filter((value) => {  
             if (itemSelection <= value) {
@@ -1102,7 +1245,7 @@ function enemyTestResistances(enemy) {
 }
 function hitSuccess(enemy, weapon) {
     let overallSkill;
-    let chanceToHit = getRandomNumber(1,20);
+    let chanceToHit = getRandomNumber(0,20);
     if (weapon === "fists") {
         overallSkill = mainCharacter.skill;
     } else if (weapon === "weapon") {
@@ -1134,10 +1277,10 @@ function initialDamage (enemy, weapon) {
         minStrength = 1;
         maxStrength = mainCharacterCurrent.strength;
     }
-    return getRandomNumber(minStrength, maxStrength); 
+    return getRandomNumber(minStrength -1, maxStrength); 
 }
 function damageResist (enemy, weapon) {
-    let initialResist = getRandomNumber(1,15);
+    let initialResist = getRandomNumber(0,15);
     let overallDefence;
     if (weapon ==="enemy") {
         overallDefence = mainCharacterCurrent.defence + currentDefence.defence;
@@ -1320,6 +1463,13 @@ function enemyTurn(enemy, weapon) {
 }
 
 //GAMEPLAY FUNCTIONS
+//cat cavern decision-making dynamic
+
+
+//cat court decision making dynamic
+function catCourt(){
+
+}
 
 // Game restart and reset functions
 
@@ -1334,7 +1484,10 @@ function resetGame() {
     document.getElementById('landing-page').style.display = "flex";
     document.getElementById('game-page').style.display = "none";
     document.getElementById('gameover-page').style.display = "none";
-    document.getElementById('final-score').innerHTML = "";    
+    document.getElementById('final-score').innerHTML = "";
+    for(let item of Object.keys(thingsWhatYouveDone)) {
+        thingsWhatYouveDone[item] = false;
+    }   
 }
 function startGame(event) {
     localStorage.clear();
@@ -1366,6 +1519,9 @@ function startGame(event) {
     for(let item of Object.keys(currentObject)) {
         currentObject[item] = "";
     }
+    for(let item of Object.keys(thingsWhatYouveDone)) {
+        thingsWhatYouveDone[item] = false;
+    }
     changeModeToMainWindow()
     writeInitialToDom();
 }
@@ -1395,15 +1551,6 @@ function writeInitialToDom() {
     document.getElementById('game-text').innerHTML = pageOne;
     document.getElementById('choices-section').innerHTML = optionsOne;
     document.getElementById('game-section').style.backgroundImage = "";
-}
-
-//Page Seven
-
-
-//page ten
-
-function catCaveDirect() {
-
 }
 
 //START GAME EVENT HANDLERS
@@ -1483,7 +1630,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#twenty-three"); 
     if(target){
-        firstCavern.catCavernDirect();
+        firstCavern.catCavern();
     }
 });
 
@@ -1551,7 +1698,9 @@ document.addEventListener("click", function(e){
     }
 });
 
-//page 7 event handlers
+
+// ROOM 2- SLIME CORRIDOR
+//Slime Corridor event handlers
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fourteen"); 
     if(target){ 
@@ -1571,7 +1720,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-//page 8 event handlers
+//what to do with the slime
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-seventeen"); 
     if(target){
@@ -1585,7 +1734,7 @@ const target = e.target.closest("#choice-eighteen");
     }
 });
 
-// page 9 event handlers
+//fight slime
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-nineteen"); 
     if(target){        
@@ -1613,7 +1762,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-// page 10 event handlers (post slime fight)
+//post slime fight optionss (post slime fight)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twenty"); 
     if(target){ 
@@ -1633,7 +1782,14 @@ document.addEventListener("click", function(e){
     }
 });
 
-// page 10 event handlers (cat cavern)
+// ROOM 3 - cat cavern.
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-twenty-four"); 
+    if(target){
+        catCavern.catCavernDecision();
+    }
+});
 
 
 /* GAME TEXT */

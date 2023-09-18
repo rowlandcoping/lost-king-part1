@@ -998,6 +998,7 @@ describe("start game function works as intended", ()=>{
       mainCharacterCurrent.strength = 12;
       mainCharacterCurrent.luck = 12;
       mainCharacterCurrent.defence = 12;
+   
       startGame();
    }),
    test("name field in mainCharacter correctly if name not entered", () =>{

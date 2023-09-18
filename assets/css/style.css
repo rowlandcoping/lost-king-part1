@@ -86,6 +86,10 @@ ul {
     width: 100%;
 }
 
+#game-text img {
+    width:40%;
+}
+
 /* Title section */
 
 .title-section {
