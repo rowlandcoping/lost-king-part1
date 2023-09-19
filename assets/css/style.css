@@ -23,6 +23,11 @@ ul {
     color: lightblue;
 }
 
+#transparency {
+    opacity: 1;
+    background-color:black;
+}
+
 /*landing page*/
 
 #landing-page {
@@ -81,9 +86,38 @@ ul {
 /*Game Page*/
 
 #game-page {
+    position: relative;
     display:none;
     flex-flow: column;
     width: 100%;
+}
+#transparency {
+    opacity: 1;
+    background-color:black;
+}
+#alert-page {
+    display:none;
+    position:absolute;
+    left: 50%;
+    right: 50%;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 400px;
+    height: 200px;
+    z-index: 1000;
+    text-align:center;
+    background: darkgrey;
+    border: dashed red 8px;
+    color: black;
+}
+#alert-page button {
+    width: 300px;
+}
+
+
+#alert-title {
+    color: red;
 }
 
 #game-text img {

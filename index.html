@@ -37,135 +37,152 @@
 <!-- Game Page (in-game state)-->
 
         <div id="game-page">
-            <div class="title-section">
-                <div id="title-left"><h1>The Lost King of Catland</h1></div>
-                <div id="title-right"><h2>Part 1 - Amnesia</h2></div>
+            <div id ="alert-page">
+                <h3 id="alert-title"> Warning</h3>
+                <p>This action will item will replace the item:</p>
+                <p id = "item-details"></p>
+                <p>What would you like to do?</p>
+                <ul>
+                    <li id="keep-new"><button >Keep the new item, it's clearly better!</button></li>
+                    <li id="keep-old"><button >I'd like to keep hold of what I've got.</button></li>
+                </ul>
+
             </div>
-            <div id="centre-section">
-                <div id="character-section">
-                    <div id="character-image">
-                        <img src="assets/images/character-profiles/player-default.webp">
+            <div id = "transparency">
+                <div class="title-section">
+                    <div id="title-left"><h1>The Lost King of Catland</h1></div>
+                    <div id="title-right"><h2>Part 1 - Amnesia</h2></div>
+                </div>
+                <div id="centre-section">
+                    <div id="character-section">
+                        <div id="character-image">
+                            <img src="assets/images/character-profiles/player-default.webp">
+                        </div>
+                        <div id="character-stats">
+                            <h3 id="character-sheet-name"></h3>
+                            <ul>
+                                <li>Strength: <span id="main-strength"></span></li>
+                                <li>Skill: <span id="main-skill"></span></li>
+                                <li>Defence: <span id="main-defence"></span></li>
+                                <li>Luck: <span id="main-luck"></span></li>
+                                <li>Health: <span id="main-health"></span></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div id="character-stats">
-                        <h3 id="character-sheet-name"></h3>
+                    <div id="game-section">
+                        <!-- Optional image and text/stats-->
+                        <div class="reset change-mode" id="upper-text">
+                        </div>
+                        <div class="reset change-mode" id="lower-text">
+                        </div>
+                        <div id="image-section">
+                            <div id="image-image">
+                                <img src="">
+                            </div>
+                            <div id="image-text">
+                                <h3 class="reset change-mode" id="image-title"></h3>
+                                <p class="reset change-mode" id="item-description"></p>
+                                <ul>
+                                    <li class="reset change-mode" id="list-item-one"></li>
+                                    <li class="reset change-mode" id="list-item-two"></li>
+                                    <li class="reset change-mode" id="list-item-three"></li>
+                                    <li class="reset change-mode" id="list-item-four"></li>
+                                    <li class="reset change-mode" id="list-item-five"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <!--Text to describe battles and outcome-->
+                        <div class="reset change-mode" id="battle-text-player">
+                        </div>
+                        <div class="reset change-mode" id="battle-text-enemy">
+                            <p>Ragnar thumps you hard in the nose, causing a contusion and a lot of confusion</p>
+                        </div>
+                        <!-- Text for main description of what's going on -->
+                        <div class="reset change-mode" id="game-text">
+                                                
+                        </div>
+                        
+                        <!-- Options for the player to select from -->
+                        <div>
+                            <ul class="reset change mode" id="choices-section">                
+                            </ul>
+                            <ul id="battles-section">
+                                <li id="fists-button"><button class="choice-button" id="battle-list-one">Attack with your bare, flat-knuckled fists.</button></li>
+                                <li id="weapon-button"><button class="choice-button" id="battle-list-two">Attack with the <span id="battle-choice-weapon"></span>.</button></li>
+                                <li id="potion-button"><button class="choice-button" id="battle-list-three">Use your <span id="battle-choice-potion"></span>.</button></li>
+                                <li id="object-button-one"><button class="choice-button" id="object-item-one">Eat your Cat Biscuits.</button></li>
+                                <li id="object-button-two"><button class="choice-button" id="object-item-two">Give your Cat Biscuits to the cat.</button></li>
+                                <li id="object-button-three"><button class="choice-button" id="object-item-three">Spray the insect repellant.</button></li>
+                            </ul>
+                        </div>                    
+                    </div>
+                </div>
+                <div id="bottom-game-section">
+                    <div id="game-navigation">
                         <ul>
-                            <li>Strength: <span id="main-strength"></span></li>
-                            <li>Skill: <span id="main-skill"></span></li>
-                            <li>Defence: <span id="main-defence"></span></li>
-                            <li>Luck: <span id="main-luck"></span></li>
-                            <li>Health: <span id="main-health"></span></li>
+                            <li><button id="restart-game-button">Restart Game</button></li>
+                            <li><button id="reset-game-button">Reset Character</button></li>
                         </ul>
                     </div>
-                </div>
-                <div id="game-section">
-                    <!-- Optional image and text/stats-->
-                    <div class="reset change-mode" id="upper-text">
-                    </div>
-                    <div class="reset change-mode" id="lower-text">
-                    </div>
-                    <div id="image-section">
-                        <div id="image-image">
-                            <img src="">
+                    <div id="player-items">
+                        <div class="item-display" id="weapon-item">
+                            <div class="item-image" id="weapon-item-image">
+                                <img src="assets/images/items/box.png">
+                            </div>
+                            <div class="item-text">
+                                <h4 class="reset" id="weapon-item-name">Weapon Slot</h4>
+                                <hr>
+                                <ul>
+                                    <li class="reset" id="weapon-list-item-one"></li>
+                                    <li class="reset" id="weapon-list-item-two"></li>
+                                    <li class="reset" id="weapon-list-item-three"></li>
+                                    <li class="reset" id="weapon-list-item-four"></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div id="image-text">
-                            <h3 class="reset change-mode" id="image-title"></h3>
-                            <p class="reset change-mode" id="item-description"></p>
-                            <ul>
-                                <li class="reset change-mode" id="list-item-one"></li>
-                                <li class="reset change-mode" id="list-item-two"></li>
-                                <li class="reset change-mode" id="list-item-three"></li>
-                                <li class="reset change-mode" id="list-item-four"></li>
-                                <li class="reset change-mode" id="list-item-five"></li>
-                            </ul>
+                        <div class="item-display" id="defence-item">
+                            <div class="item-image" id="defence-item-image">
+                                <img src="assets/images/items/box.png">
+                            </div>
+                            <div class="item-text" >
+                                <h4 class="reset" id="defence-item-name">Clothing Slot</h4>
+                                <hr>
+                                <ul>
+                                    <li class="reset" id="clothing-list-item-one"></li>
+                                    <li class="reset" id="clothing-list-item-two"></li>
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <!--Text to describe battles and outcome-->
-                    <div class="reset change-mode" id="battle-text-player">
-                    </div>
-                    <div class="reset change-mode" id="battle-text-enemy">
-                        <p>Ragnar thumps you hard in the nose, causing a contusion and a lot of confusion</p>
-                    </div>
-                    <!-- Text for main description of what's going on -->
-                    <div class="reset change-mode" id="game-text">
-                                            
-                    </div>
+                        <div class="item-display">
+                            <div class="item-image" id="potion-item-image">
+                                <img src="assets/images/items/box.png">
+                            </div>
+                            <div class="item-text">
+                                <h4 class="reset" id="potion-item-name">Potion Slot</h4>
+                                <hr>
+                                <ul>
+                                    <li class="reset" id="potion-list-item-one"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="item-display">
+                            <div class="item-image" id="object-item-image">
                     
-                    <!-- Options for the player to select from -->
-                    <div>
-                        <ul class="reset change mode" id="choices-section">                
-                        </ul>
-                        <ul id="battles-section">
-                            <li id="fists-button"><button class="choice-button" id="battle-list-one">Attack with your bare, flat-knuckled fists.</button></li>
-                            <li id="weapon-button"><button class="choice-button" id="battle-list-two">Attack with the <span id="battle-choice-weapon"></span>.</button></li>
-                            <li id="potion-button"><button class="choice-button" id="battle-list-three">Use your <span id="battle-choice-potion"></span>.</button></li>
-                        </ul>
-                    </div>                    
-                </div>
-            </div>
-            <div id="bottom-game-section">
-                <div id="game-navigation">
-                    <ul>
-                        <li><button id="restart-game-button">Restart Game</button></li>
-                        <li><button id="reset-game-button">Reset Character</button></li>
-                    </ul>
-                </div>
-                <div id="player-items">
-                    <div class="item-display" id="weapon-item">
-                        <div class="item-image" id="weapon-item-image">
-                            <img src="assets/images/items/box.png">
+                                <img src="assets/images/items/box.png">
+                            </div>
+                            <div class="item-text" >
+                                <h4 class="reset" id="object-item-name">Object Slot</h4>
+                                <hr>
+                                <ul>
+                                    <li class="reset" id="object-list-item-one"></li>
+                                </ul>
+                            </div>
                         </div>
-                        <div class="item-text">
-                            <h4 class="reset" id="weapon-item-name">Weapon Slot</h4>
-                            <hr>
-                            <ul>
-                                <li class="reset" id="weapon-list-item-one"></li>
-                                <li class="reset" id="weapon-list-item-two"></li>
-                                <li class="reset" id="weapon-list-item-three"></li>
-                                <li class="reset" id="weapon-list-item-four"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="item-display" id="defence-item">
-                        <div class="item-image" id="defence-item-image">
-                            <img src="assets/images/items/box.png">
-                        </div>
-                        <div class="item-text" >
-                            <h4 class="reset" id="defence-item-name">Clothing Slot</h4>
-                            <hr>
-                            <ul>
-                                <li class="reset" id="clothing-list-item-one"></li>
-                                <li class="reset" id="clothing-list-item-two"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="item-display">
-                        <div class="item-image" id="potion-item-image">
-                            <img src="assets/images/items/box.png">
-                        </div>
-                        <div class="item-text">
-                            <h4 class="reset" id="potion-item-name">Potion Slot</h4>
-                            <hr>
-                            <ul>
-                                <li class="reset" id="potion-list-item-one"></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="item-display">
-                        <div class="item-image" id="object-item-image">
-                
-                            <img src="assets/images/items/box.png">
-                        </div>
-                        <div class="item-text" >
-                            <h4 class="reset" id="object-item-name">Object Slot</h4>
-                            <hr>
-                            <ul>
-                                <li class="reset" id="object-list-item-one"></li>
-                            </ul>
-                        </div>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
+        
 
 <!-- Game-over page (end game state) -->
         <div id="gameover-page">
