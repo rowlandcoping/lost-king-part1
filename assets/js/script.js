@@ -92,8 +92,74 @@ const catWarrior = {
     failText: "<p>The Cat Warrior arcs its body in an impossible shape, deftly avoiding your attack. Before returning to the perfect fighting stance like still water</p>",
     killedYouText: "<p>You are babmoozled by the speed of the furry warriors attacks, and unable to do anything to defend yourself as it lands the killing blow.<br>YOU ARE DEAD</p>",
     missedText: "<p>The Cat Sword moves like lightning, but the warrior's accuracy did not match it's speed, and the attack whistles past your ear.</p>",
-    choices: `<li><button class="choice-button" id="choice-twenty-five">Retrieve the Cat Sword.</button></li>
-    <li><button class="choice-button" id="choice-twenty-six">Decide what to do next.</button></li>`,
+    choices: `
+    <li><button class="choice-button" id="choice-twenty-six">He should never have challenged me.</button></li>
+    `
+}
+const iceQueen = {
+    name: "Ice Queen",
+    description: `
+    She is tall, and dreadful, and thinks herself invincible because she was born to power.  
+    Invicible she is not, but you wouldn't like to meet her in a dark cave at night.
+    `,
+    strength: 0,
+    strItem: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    image: "assets/images/enemies/ice-queen.webp",
+    vulnerability:"",
+    resist: "ice",
+    magic:"ice",
+    score: 70,
+    initialText: "<p>As you scream the quesnion that's been haunting you the Ice Queen just laughs in your face. As you stalk forward, baying for her blood, she just laughs harder.</p>",
+    successTextOne: "<p>You strike the Ice Queen with your ",
+    successTextTwo: "<br>She take a step back, a rictus grin on her face, ice crystals flying from the spot where you struck her.</p>",
+    hitText: "<p>With the barest motion of her fingers a pillar of ice strikes you square in the chest, winding you, ",
+    deathText: "<p>Finally you land a killing blow.  A column of ice rises up to consume her, and then she is gone, leaving no trace she ever existed but a few shards of ice tinkling on the hard floor.</p>",
+    failText: "<p>You move to strike confidently, but an icy shield forms between you, deflecting the blow.</p>",
+    killedYouText: `
+    <p>Frost is forming in your beard and your breathing has become laboured.  She knows she has you</p>
+    <p>"DIEEEEEEE!!!!"</p>
+    <p>She clearly relishes your death, and you never found out why.<br>YOU ARE DEAD</p>
+    `,
+    missedText: "<p>You manage to roll under another sheet of ice as it rolls towards you, avoiding the attack.</p>",
+    choices: `
+    <li><button class="choice-button" id="choice-thirty-nine">What is my name?</button></li>
+    `
+}
+const fireMage = {
+    name: "Fire Mage",
+    description: `The majesty and prowess of the Fire Mages is well known. For their mercy, their humanity? Less so, for they have none. 
+    Why this one has taken an interest in you, you could not say.
+    `,
+    strength: 0,
+    strItem: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    image: "assets/images/enemies/fire-mage.webp",
+    vulnerability:"",
+    resist: "fire",
+    magic:"fire",
+    score: 70,
+    initialText: `
+    <p>"You ask me your name, yet I do not think you really want to know."
+    <p>You have no choice but to attack the wizard as blazing orbs of fire build in both his hands.
+   <p>>He just looks serenely back at you, as if it was nothing.</p>
+    `,
+    successTextOne: "<p>You strike the Fire Mage with your ",
+    successTextTwo: "<br>As you strike the mage he stands as if rooted, eyes closed, softly chanting some kind of mantra.  Your aim though is true, </p>",
+    hitText: "<p>The mage launches an orb of fire which arcs into your groin like a blazing fastball,",
+    deathText: "<p>Finally, the mage's chants can keep him upright no more.  As he crumples to the floor, his corpse burns with a bright phosphorescent flame, leaving nothing but ashes.</p>",
+    failText: "<p>The mage's form seems to flicker like a flame, and somehow you miss him.</p>",
+    killedYouText: `<p>The final ball of burning fire was too much for you, and you collapse to your knees, helpless to avoid your destruction.</p>
+    As your vision fills with flame and you black out from the pain, you can only think of one thing.<p>"What was my name?</p><br>YOU ARE DEAD</p>
+    `,
+    missedText: "<p>You dodge at the last second and the fireball blazes past you, leaving a dark charcoal graze on your clothing.</p>",
+    choices: `
+    <li><button class="choice-button" id="choice-thirty-nine">What. Is. My. Name.</button></li>
+    `
 }
 
 //ITEM OBJECTS
@@ -166,23 +232,23 @@ const characterWeapons = [
     },
     {
         category: "weapon",
-        adjective: "a wizardy",
+        adjective: "a Fire Mage's",
         name: "Wand of Fire",
         attack: 4,
-        skill: 0,
+        skill: 1,
         magic: "fire",
         type: "magical",
         image: "assets/images/items/fire-staff.webp",
         chance: 95,
         score: 30,
-        description: "A blazing wand of fire, it can shoot blazing pillars of fire at your opponents... but be warned it's a good idea to know what you're doing."
+        description: "A blazing wand of fire, it can shoot blazing pillars of fire at your opponents... who knows how such a weapon ended up here - I'd imagine whoever it belongs to will want it back!"
     },
     {
         category: "weapon",
         adjective: "an Ice Queen's",
         name: "Frozen Staff",
         attack: 4,
-        skill: 0,
+        skill: 1,
         magic: "ice",
         type: "magical",
         image: "assets/images/items/frozen-staff.webp",
@@ -406,8 +472,8 @@ const catSword = {
     category: "weapon",
         adjective: "a nifty",
         name: "Cat Sword",
-        attack: 3,
-        skill: 4,
+        attack: 2,
+        skill: 3,
         magic: "",
         type: "sharp",
         image: "assets/images/items/cat-sword.webp",
@@ -419,6 +485,7 @@ const catSword = {
 // CHARACTER INFO STORAGE
 
 const currentWeapon = {
+    category: "",
     name: "",
     attack: 0,
     skill: 0,
@@ -428,6 +495,7 @@ const currentWeapon = {
 }
 
 const currentDefence = {
+    category: "",
     name: "",
     defence: 0,
     magic: "",
@@ -435,12 +503,14 @@ const currentDefence = {
 }
 
 const currentPotion = {
+    category: "",
     name: "",
     effect: "",
     image: ""
 }
 
 const currentObject = {
+    category: "",
     name: "",
     effect: "",
     image: ""
@@ -471,6 +541,8 @@ const thingsWhatYouveDone = {
     encounterLikelihood: false,
     slimeCollect: false,
     firstCatKilled: false,
+    getCatSword: false,
+    catGod: false,
     catsKilled: 0,
     cavernVisits: 0,
     catCaptureChance: 25,
@@ -488,6 +560,8 @@ const thingsWhatYouveDoneInitial = {
     slimeCollect: false,
     firstCatKilled: false,
     catSwordCollected: false,
+    getCatSword: false,
+    catGod: false,
     catsKilled: 0,
     cavernVisits: 0,
     catCaptureChance: 25,
@@ -505,6 +579,9 @@ function thingsReset() {
     thingsWhatYouveDone.encounterLikelihood = thingsWhatYouveDoneInitial.encounterLikelihood;
     thingsWhatYouveDone.slimeCollect = thingsWhatYouveDoneInitial.slimeCollect;
     thingsWhatYouveDone.firstCatKilled = thingsWhatYouveDoneInitial.firstCatKilled;
+    thingsWhatYouveDone.getCatSword = thingsWhatYouveDoneInitial.getCatSword;
+    thingsWhatYouveDone.catGod = thingsWhatYouveDoneInitial.catGod;
+
     thingsWhatYouveDone.catsKilled = thingsWhatYouveDoneInitial.catsKilled;
     thingsWhatYouveDone.cavernVisits = thingsWhatYouveDoneInitial.cavernVisits;
     thingsWhatYouveDone.catCaptureChance = thingsWhatYouveDoneInitial.catCaptureChance;
@@ -627,19 +704,19 @@ const firstCavern = {
     `,
     // keep or leave the item
     checkFirstItem: function checkFirstItem() {
-        if (foundItemInfo.category == currentWeapon.category) {
+        if (foundItemInfo.category === currentWeapon.category) {
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('item-details').innerHTML = currentWeapon.name;
             document.getElementById('keep-new').firstChild.setAttribute("id", "keep-search"); 
             document.getElementById('keep-old').firstChild.setAttribute("id", "lose-search"); 
-        } else if (foundItemInfo.category == currentDefence.category) {
+        } else if (foundItemInfo.category === currentDefence.category) {
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('item-details').innerHTML = currentDefence.name;
             document.getElementById('keep-new').firstChild.setAttribute("id", "keep-search"); 
             document.getElementById('keep-old').firstChild.setAttribute("id", "lose-search"); 
-        } else if (foundItemInfo.category == currentPotion.category) {
+        } else if (foundItemInfo.category === currentPotion.category) {
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('item-details').innerHTML = currentPotion.name;
@@ -712,6 +789,11 @@ const firstCavern = {
             document.getElementById('upper-text').innerHTML = this.pageSixSecond + this.pageSixCommon;
             mainCharacterCurrent.health -= 7;
             mainCharacter.score -= 3;
+            if (mainCharacterCurrent.health <=0) {
+                changeToGameOver();
+                mainCharacter.score -= 10;            
+                document.getElementById('game-outcome').innerHTML = ragnarTheHorrible.killedYouText;
+            }
             document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
         }
         document.getElementById('choices-section').innerHTML = this.optionsSix;
@@ -863,6 +945,11 @@ const slimeCorridor = {
         document.getElementById('upper-text').innerHTML = this.pageNineSecond;
         mainCharacterCurrent.health -= 5;
         mainCharacter.score += 3;
+        if (mainCharacterCurrent.health <=0) {
+            changeToGameOver();
+            mainCharacter.score -= 10;            
+            document.getElementById('game-outcome').innerHTML = sentientSlime.killedYouText;
+        }
         document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
         document.getElementById('choices-section').innerHTML = this.optionsNine;
         setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
@@ -937,24 +1024,29 @@ const catCavern = {
         changeModeToMainWindow();
         mainCharacter.score += 2;
         document.getElementById('game-section').style.background = this.background;
-        document.getElementById('game-text').innerHTML = this.catCavernText + this.catImage;
-        if (thingsWhatYouveDone.cavernVisits === 0){
-            document.getElementById('choices-section').innerHTML = this.catCavernOptionsFirst;
-        } else if (thingsWhatYouveDone.cavernVisits === 1){
-            document.getElementById('choices-section').innerHTML = this.catCavernOptionsSecond;
-        } else if (thingsWhatYouveDone.cavernVisits === 2){
-            document.getElementById('choices-section').innerHTML = this.catCavernOptionsThird;
-        } else if (thingsWhatYouveDone.cavernVisits === 3){
-            document.getElementById('choices-section').innerHTML = this.catCavernOptionsFourth;
-        } else if (thingsWhatYouveDone.cavernVisits > 3){
-            document.getElementById('choices-section').innerHTML = this.catCavernOptionsMore;
+        if (thingsWhatYouveDone.catsKilled === 5){
+            document.getElementById('game-text').innerHTML = this.catCavernText + this.catsGoneText;
+            document.getElementById('choices-section').innerHTML = this.catsGoneOptions;
+        } else {
+            document.getElementById('game-text').innerHTML = this.catCavernText + this.catImage;
+            if (thingsWhatYouveDone.cavernVisits === 0){
+                document.getElementById('choices-section').innerHTML = this.catCavernOptionsFirst;
+            } else if (thingsWhatYouveDone.cavernVisits === 1){
+                document.getElementById('choices-section').innerHTML = this.catCavernOptionsSecond;
+            } else if (thingsWhatYouveDone.cavernVisits === 2){
+                document.getElementById('choices-section').innerHTML = this.catCavernOptionsThird;
+            } else if (thingsWhatYouveDone.cavernVisits === 3){
+                document.getElementById('choices-section').innerHTML = this.catCavernOptionsFourth;
+            } else if (thingsWhatYouveDone.cavernVisits > 3){
+                document.getElementById('choices-section').innerHTML = this.catCavernOptionsMore;
+            }
         }
         thingsWhatYouveDone.cavernVisits +=1;
     },
     catCavernText: `
-    <p>Immediately beyond the bend the corridor abrupts opens out into a large cavernous space enclosed by sheer rock cliffs. Upon the walls a number of lanterns are hung, barely illuminating the vast space.</p>
+    <p>You emerge into a large cavernous space enclosed by sheer rock cliffs. Lanterns have been placed sparsely about the room, barely illuminating the vast space.</p>
     <p>It is clear this area is often frequented.</p>
-    <p>Before you can assess your options, a building sound startles you.  It sound like... feet?  Not quite.  Claws?  You hope not.
+    <p>Before you can assess your options, a loud noise startles you.  It sound like... feet?  Not quite.  Claws?  You hope not.
     <br>You have little time to react before a small group of cat-like warriors charge into the room.</p>
     `,
     catCavernOptionsFirst: `
@@ -972,6 +1064,14 @@ const catCavern = {
     catCavernOptionsMore: `
     <li><button class="choice-button" id="choice-twenty-four">OK I want to get out of this gameplay loop now.</li>
     `,
+    catsGoneText:`
+    <p>You prepare yourself for the patter of tiny cat feet, but you hear nothing.  The cavern is eerily silent.</p>
+    <p>There is no sign of life anywhere, just the slowly rotting pile of cat corpses which YOU have created.</p>
+    <p>Could it be you have forced them to leave for a safer place, following the endless slaughter of their kind?</p>
+    `,
+    catsGoneOptions:` 
+    <li><button class="choice-button" id="choice-thirty-two">They left me little choice.</button></li>
+    `,
     catDecision: function catDecision(chanceOne, chanceTwo, chanceThree, chanceFour) {
         let randomChance = getRandomNumber(0,100);
         if (randomChance <= chanceOne){
@@ -985,37 +1085,42 @@ const catCavern = {
         } 
     },
     catCavernDecision: function catCavernDecision() {
-        if (currentPotion.name === "Potion of Catnip") {
+        if (thingsWhatYouveDone.catGod === true) {
+            this.catGod();
+        } else {
+            if (currentPotion.name === "Potion of Catnip") {
             thingsWhatYouveDone.catCaptureChance -= 5;
             thingsWhatYouveDone.catFightChance -= 5;
             thingsWhatYouveDone.catRunawayChance -= 5;
             thingsWhatYouveDone.catGodChance += 15;
-        }
-        let catResult = this.catDecision(thingsWhatYouveDone.catCaptureChance, thingsWhatYouveDone.catFightChance + thingsWhatYouveDone.catCaptureChance,
-        thingsWhatYouveDone.catRunawayChance + thingsWhatYouveDone.catFightChance + thingsWhatYouveDone.catCaptureChance, 
-        thingsWhatYouveDone.catRunawayChance + thingsWhatYouveDone.catFightChance + thingsWhatYouveDone.catCaptureChance + thingsWhatYouveDone.catGodChance);
-        if (currentPotion.name === "Potion of Catnip") {
-            thingsWhatYouveDone.catCaptureChance += 5;
-            thingsWhatYouveDone.catFightChance += 5;
-            thingsWhatYouveDone.catRunawayChance += 5;
-            thingsWhatYouveDone.catGodChance -= 15;
-        }
-        if (catResult === "arrest") {
-            this.catCapture();
-        } else if (catResult === "fight") {
-            this.catAttack();
-        } else if (catResult === "run away") {
-            this.runAway();
-        } else {
-            this.catGod();
+            }
+            let catResult = this.catDecision(thingsWhatYouveDone.catCaptureChance, thingsWhatYouveDone.catFightChance + thingsWhatYouveDone.catCaptureChance,
+            thingsWhatYouveDone.catRunawayChance + thingsWhatYouveDone.catFightChance + thingsWhatYouveDone.catCaptureChance, 
+            thingsWhatYouveDone.catRunawayChance + thingsWhatYouveDone.catFightChance + thingsWhatYouveDone.catCaptureChance + thingsWhatYouveDone.catGodChance);
+            if (currentPotion.name === "Potion of Catnip") {
+                thingsWhatYouveDone.catCaptureChance += 5;
+                thingsWhatYouveDone.catFightChance += 5;
+                thingsWhatYouveDone.catRunawayChance += 5;
+                thingsWhatYouveDone.catGodChance -= 15;
+            }
+            if (catResult === "arrest") {
+                this.catCapture();
+            } else if (catResult === "fight") {
+                this.catAttack();
+            } else if (catResult === "run away") {
+                this.catsRunAway();
+            } else {
+                this.catGod();
+            }
         }
     },
     catCapture: function catCapture() {
+        mainCharacter.score +=5;
         document.getElementById('game-text').innerHTML = this.catCaptureText;
         document.getElementById('choices-section').innerHTML = this.catCaptureOptions;
     },
     catCaptureText:`
-    <p>The cats arrange themselves around you in a semi-circle and, at an urgent mewl from what seemed to be their leader, pounced as one</p>
+    <p>The cats arrange themselves around you in a semi-circle and, at an urgent mewl from what seemed to be their leader, pounced as one.</p>
     <p>Faster than you would care to admit, you are overwhelmed and slung in some kind of... cats cradle... between the group, being transported at speed along a wide corridor.</p>
     `,
     catCaptureOptions: `
@@ -1052,6 +1157,7 @@ const catCavern = {
         thingsWhatYouveDone.catGodChance +=10;
         thingsWhatYouveDone.courtHangChance -=10;
         thingsWhatYouveDone.courtGodChance +=10;
+        mainCharacter.score += 20;
         //remove cat biscuits from inventory
         document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
         document.getElementById('object-item-name').innerHTML = "";
@@ -1060,7 +1166,7 @@ const catCavern = {
             currentObject[item] = "";
         }        
         document.getElementById('game-text').innerHTML = this.catBiscuitsText;
-        document.getElementById('game-text').innerHTML = this.bicsuitOptions;
+        document.getElementById('choices-text').innerHTML = this.bicsuitOptions;
     },
     catBiscuitsText: `
     <p>You offer out a handful of biscuits to the fearsome kitty - whilst at first he looks fearful and confused, he eventually pushes his nose into your hand and scoffs the lot</p>
@@ -1077,6 +1183,7 @@ const catCavern = {
         thingsWhatYouveDone.courtHangChance -=10;
         thingsWhatYouveDone.courtPrisonChance -=10;
         thingsWhatYouveDone.courtGodChance +=20;
+        mainCharacter.score += 30;
         //remove catnip biscuits from inventory
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
         document.getElementById('potion-item-name').innerHTML = "";
@@ -1140,22 +1247,30 @@ const catCavern = {
         this.catExitOptions();
     },
     catsRunAway: function catsRunAway() {
-        document.getElementById('game-text').innerHTML = this.catsRunAwayText + this.catCavernExitText;
-        document.getElementById('game-text').innerHTML = this.catCavernExitOptions;
+        mainCharacter.score += 5;
+        document.getElementById('game-text').innerHTML = this.catsRunAwayText;
+        document.getElementById('choices-section').innerHTML = this.optionsRunAway;
     },
     catsRunAwayText: `
-    <p>No sooner has your brain even begun to register what is going on, the little furry troublemakers swiftly conclude a debate among themselves</p>
-    <p>As swiftly as they appeared, the cats appear to have decided discretion is the better part of valour, and hot-footed back the way they came.</p>
-    <p>Confused but with no option but to continue, you examine your surroundings in more detail.</p>
+    <p>No sooner has your brain even begun to register what is going on, the little furry troublemakers rapidly conclude a debate among themselves.</p>
+    <p>As swiftly as they appeared, the cats appear to have decided discretion is the better part of valour, and hot-foot it back the way they came.</p>
+    `,
+    optionsRunAway: `
+    <li><button class="choice-button" id="choice-thirty-two">I guess I look pretty fearsome to a cat...</button></li>
     `,
     catGod: function catGod() {
-        document.getElementById('game-text').innerHTML = this.catGodText + this.catCavernExitText;
-        document.getElementById('game-text').innerHTML = this.catCavernExitOptions;
+        thingsWhatYouveDone.catGod = true;
+        document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>Cat Deity</em>";
+        document.getElementById('game-text').innerHTML = this.catGodText;
+        document.getElementById('choices-section').innerHTML = this.optionsGod;
     },
     catGodText: `
-    <p>The cats slowly approach you, and you see both fear and wonder in their eyes.  Falling to their knees, they bow and grovel for as long as they dare, before melting away into the groom</p>
+    <p>The cats slowly approach you, and you see both fear and wonder in their eyes.  Falling to their knees, they bow and grovel for as long as they dare, before melting away into the gloom</p>
     <p>Strange as this seemed, it is preferable to many of the alternatives you might have imagined.</p>
-    <p>You take a moment to compose yourself and assess your options.</p>
+    <p>Quite apart from that, although your memory is still hazy, this also feels like the exact way you SHOULD be treated.</p>
+    `,
+    optionsGod: `
+    <li><button class="choice-button" id="choice-thirty-two">I always felt... different...</button></li>
     `,
     catExitOptions: function catExitOptions() {
         changeModeToMainWindow();
@@ -1219,6 +1334,133 @@ const catCavern = {
         }
     }
 }
+const mysteryRoom = {
+    background: "url('assets/images/backgrounds/mystery-room.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/mystery-room-golden.webp') no-repeat left center",
+
+    mysteryRoom: function mysteryRoom() {
+        changeModeToMainWindow();
+        mainCharacter.score += 5;
+        document.getElementById('game-section').style.background = this.background;
+        if (currentObject.name === "Glowing Orb") {
+            document.getElementById('game-text').innerHTML = this.mysteryRoomText + this.mysteryRoomOrbText;
+            document.getElementById('choices-section').innerHTML = this.mysteryRoomOptionsTwo;
+        } else {
+            document.getElementById('game-text').innerHTML = this.mysteryRoomText;
+            document.getElementById('choices-section').innerHTML = this.mysteryRoomOptionsOne;
+        }
+    },
+    mysteryRoomText: `
+    <p>The room within is small and square, but far more ornately decorated than any other so far.</p>
+    <p>Not hard really since everything else was simply hewn from the rock.  Nevertheless.</p>
+    <p>In one of the walls stands a plinth, which has every appearance of being designed for a very specific item.
+    <br>There are no other exits.</p>
+    `,
+    mysteryRoomOrbText: `
+    <p>Looking down at the strange Glowing Orb you are carrying, it looks like it might be a fit for the plinth.
+    <br>I wouldn't call this a spoiler... what else were you going to do?</p>
+    <p>Not to say that it isn't some kind of cruelly conceived trap though. I mean it would be perfectly in keeping, wouldn't it?</p>
+    `,
+    mysteryRoomOptionsOne: `
+    <li><button class="choice-button" id="choice-sixteen">I guess there's no choice but to go back in there with all the bloody cats.</button></li>
+    `,
+    mysteryRoomOptionsTwo: `
+    <li><button class="choice-button" id="choice-thirty-seven">Place the Glowing Orb on the plinth.</button></li>
+    <li><button class="choice-button" id="choice-sixteen">Leave the room.</button></li>
+    `,
+    orbPlace: function orbPlace() {
+        mainCharacter.score += 100;
+        document.getElementById('game-text').innerHTML = this.orbPlaceText;
+        document.getElementById('choices-section').innerHTML = this.orbPlaceOptions;
+    },
+    orbPlaceText: `
+    <p>Almost as soon as you place the orb, you hear a loud click in the wall to your right.</p>
+    <p>You watch as a stone panel slides open... whatever lies beyond there is a light draught, and air that could almost be described as fresh.</p>
+    <p>To say you've made it would be an understatement, since you have no idea where you are, but at least...</p>
+    <p>Your thoughts freeze as you hear footsteps, and what can only be described as evil laughter.</p>
+    `,
+    orbPlaceOptions: `
+    <li><button class="choice-button" id="choice-thirty-eight">Well of course... but... yeah well this can't be good...</button></li>
+    `,
+    sorcererFight: function sorcererFight() {
+        if (getRandomNumber(0,100)<=50) {
+            changeModeToItemWindow();
+            document.getElementById('upper-text').innerHTML = this.iceQueenText;
+            document.getElementById('choices-section').innerHTML = this.iceQueenChoices;
+            setEnemyStats(iceQueen, 13,16,35,40);
+        } else {
+            changeModeToItemWindow();
+            document.getElementById('upper-text').innerHTML = this.fireMageText;
+            document.getElementById('choices-section').innerHTML = this.fireMageChoices;
+            setEnemyStats(fireMage, 13,16,35,40);
+        }
+    },
+    iceQueenText: `
+    <p>The draught of air turns freezing as the Ice Queen strides into the room.  The place suddenly feels very small indeed</p>
+    <p>"Oh, it's you! I thought I was well rid of you!"</p>
+    <p>All you can do is look at her blanky.  Her laugh barks out again, shrill and awful.</p>
+    <p>"Poor baby... you don't even remember, do you?  It won't matter now."</p>
+    `,
+    iceQueenTextTwo: `
+    <p>"Is that my staff by the way? If you don't mind I might have to take it from your...c-c-c-c-cooolllld... dead corpse."
+    `,
+    iceQueenChoices: `
+    <li><button class="choice-button" id="choice-fourty">What... is... MY... NAME???</button></li>
+    `,
+    fireMageText: `
+    <p>The draught of air turns the room to a blazing furnace as the Fire Mage glides through the door. In spite of yourself you find you are backing away.</p>
+    <p>"HA! You live! At least for now!"</p>
+    <p>You had no idea you knew this man.</p>
+    <p>"What have you become... do you even know your powers?  I suppose it's up to me to finish the job... AGAIN."</p>
+    `,
+    fireMageTextTwo: `
+    <p>The mage acknowledges the Wand of Fire held in your trembling hands.
+    <br>"Do you even know how that thing works, boy? No matter, now."</p>
+    `,
+    fireMageChoices: `
+    <li><button class="choice-button" id="choice-fourty-one">What... is... MY... NAME???</button></li>
+    `,
+    endFightQueen: function endFightQueen(enemy) {
+        changeToBattleWindow(enemy);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "queen-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "queen-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "queen-three");
+        testForWeapons(enemy);
+    },
+    endFightMage: function endFightMage(enemy) {
+        changeToBattleWindow(enemy);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "mage-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "mage-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "mage-three");
+        testForWeapons(enemy);
+    },
+}
+const endingScene = {
+    endingScene: function endingScene() {
+        mainCharacter.score += 10;
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = this.endingText;
+        
+    },
+    endingText: `
+    <p>You pass through the secret door, and beyond it a short flight of stairs.
+    <br>All the time, the darkness fades and you see hope of a world beyond these caverns.  You enter a short corridor, and see sun streaming in through an opening at the end of it.</p>
+    <p>You wonder how you remember what that even is. You wonder what that world now holds for you.</p>
+    <p>You know that you must cast this assumed name aside. You know that you have been wronged, the sorceror proved as much.
+    <br>Their recognition, their hostility - what did it really mean??</p>
+    <p>Now is the time to find out who you REALLY are. And when the time is right?</p>
+    <p>VENGENCE.</p>
+    `
+}
+const dangerStairs = {
+    dangerStairs: function dangerStairs() {
+        
+    }
+}
+
+
 
 const catCourt ={
     catCourt: function catCourt(){
@@ -1383,6 +1625,7 @@ function displayItem() {
 //Store Item as current, place item in current inventory
 function itemStorage() {
     if (foundItemInfo.category === "weapon") {
+        currentWeapon.category = foundItemInfo.category;
         currentWeapon.name = foundItemInfo.name;
         currentWeapon.attack = foundItemInfo.attack;
         currentWeapon.skill = foundItemInfo.skill;
@@ -1391,16 +1634,19 @@ function itemStorage() {
         currentWeapon.image = foundItemInfo.image;
         
     } else if (foundItemInfo.category === "clothing") {
+        currentDefence.category = foundItemInfo.category;
         currentDefence.name = foundItemInfo.name;
         currentDefence.defence = foundItemInfo.defence;
         currentDefence.resist = foundItemInfo.resist;
         currentDefence.image = foundItemInfo.image;
         currentDefence.playerImage = foundItemInfo.playerImage;
     } else if (foundItemInfo.category === "potion") {
+        currentPotion.category = foundItemInfo.category;
         currentPotion.name = foundItemInfo.name;
         currentPotion.effect = foundItemInfo.effect;
         currentPotion.image = foundItemInfo.image;
     } else if (foundItemInfo.category === "object") {
+        currentObject.category = foundItemInfo.category;
         currentObject.name = foundItemInfo.name;
         currentObject.effect = foundItemInfo.effect;
         currentObject.image = foundItemInfo.image;
@@ -2133,6 +2379,7 @@ document.addEventListener("click", function(e){
         catCavern.catFight(catWarrior);
     }
 });
+//run away option (incomplete)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twenty-nine"); 
     if(target){
@@ -2232,6 +2479,80 @@ document.addEventListener("click", function(e){
         dangerStairs.dangerStairs();
     }
 });
+
+// ROOM 4- MYSTERY ROOM
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-thirty-seven"); 
+    if(target){
+        mysteryRoom.orbPlace();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-thirty-eight"); 
+    if(target){
+        mysteryRoom.sorcererFight();
+    }
+});
+//initiate final fights
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty"); 
+    if(target){
+        mysteryRoom.endFightQueen(iceQueen);
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-one"); 
+    if(target){
+        mysteryRoom.endFightMage(fireMage);
+    }
+});
+//final fight ice
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#queen-one"); 
+    if(target){
+        playerTurn(iceQueen, "fists");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#queen-two"); 
+    if(target){
+        playerTurn(iceQueen, "weapon");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#queen-three"); 
+    if(target){
+        potionRound(iceQueen, "enemy");
+    }
+});
+//final fight fire
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#mage-one"); 
+    if(target){
+        playerTurn(fireMage, "fists");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#mage-two"); 
+    if(target){
+        playerTurn(fireMage, "weapon");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#mage-three"); 
+    if(target){
+        potionRound(fireMage, "enemy");
+    }
+});
+//ending scene
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-thirty-nine"); 
+    if(target){
+        endingScene.endingScene();
+    }
+});
+
+
 /* GAME TEXT */
 
 /*page one (open eyes)*/
