@@ -1342,7 +1342,7 @@ const mysteryRoom = {
         changeModeToMainWindow();
         mainCharacter.score += 5;
         document.getElementById('game-section').style.background = this.background;
-        if (currentObject.name === "Glowing Orb") {
+        if (specialObject.name === "Glowing Orb") {
             document.getElementById('game-text').innerHTML = this.mysteryRoomText + this.mysteryRoomOrbText;
             document.getElementById('choices-section').innerHTML = this.mysteryRoomOptionsTwo;
         } else {
@@ -1455,9 +1455,136 @@ const endingScene = {
     `
 }
 const dangerStairs = {
+    background: "url('assets/images/backgrounds/danger-stairs.webp') no-repeat left center",
     dangerStairs: function dangerStairs() {
-        
-    }
+        changeModeToMainWindow();
+        mainCharacter.score += 5;
+        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-text').innerHTML = this.stairsText;
+        document.getElementById('choices-section').innerHTML = this.stairsChoices;
+    },
+    stairsText: `
+    <p>The closer you get to the stairs the worse an idea it looks going up them.  Still, in for a penny and all that.</p>
+    <p>Do you still want to try the stairs?</p>
+    `,
+    stairsChoices: `
+    <li><button class="choice-button" id="choice-fourty-two">Of course, it's a flight of stairs not the darn Ice Queen!</button></li>
+    <li><button class="choice-button" id="choice-thirty-two">No thank you, I'm scared.</button></li>
+    `,
+    stairsFallOutcome: function stairsFallOutcome() {
+        let randomChance = getRandomNumber(0,100);
+        if (randomChance <= 15) {
+            return "death";
+        } else if (randomChance>15<=75) {
+            return "injury";
+        } else {
+            return "fine";
+        }
+    },
+    climbStairs: function climbStairs() {
+        if (getLucky()) {
+            mainCharacter.score +=5;
+            document.getElementById('game-text').innerHTML = this.stairsClimbedText;
+            document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
+        } else {
+            if (this.stairsFallOutcome() === "death") {
+                this.deathStairs();
+            } else if (this.stairsFallOutcome() === "injury") {
+                mainCharacter.score -=5;
+                let injuryStair = getRandomNumber(0,7);
+                mainCharacterCurrent.health -= injuryStair;
+                if (mainCharacterCurrent.health<=0) {
+                    this.deathStairs();
+                } else {
+                    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                    document.getElementById('game-text').innerHTML = this.stairsInjuryTextOne + injuryStair + this.stairsInjuryTextTwo;
+                    document.getElementById('choices-section').innerHTML = this.stairsFellChoices;
+                }
+            } else {
+                mainCharacter.score -=2;
+                document.getElementById('game-text').innerHTML = this.stairsFellText;
+                document.getElementById('choices-section').innerHTML = this.stairsFellChoices;
+            }
+        }
+    },
+    stairsClimbedText: `
+    <p>There were a few slips and scares on the way, but you just about make it to the top unscathed</p>
+    <p>Stairs, indeed.  Talk about generation snowflake.</p>
+    <p>Anyhow, right ahead of you there is an entry to a cave.  You can smell the rank stale air from where you are stood, overlooking the canyon.</p>
+    `,
+    stairsClimbedChoices:`
+    <li><button class="choice-button" id="choice-fourty-three">Set about exploring the cave</button></li>
+    <li><button class="choice-button" id="choice-fourty-four">Go down the stairs.</button></li>
+    `,
+    stairsInjuryTextOne: `
+    <p>Just as you put your foot down the step beneath you crumbles, sending you tumbling off balance back down to the floor of the cavern</p>
+    <p>Fortunately, you get off lightly, losing <span class="red"> 
+    `,
+    stairsInjuryTextTwo: `
+    </span> health points.</p>
+    `,
+    stairsFellText: `
+    <p>No matter how tentatively you approach the stairs, you can't stop yourself from slipping and falling on the treacherous surface</p>
+    <p>Fortunately you hadn't got very far up the flight, so no harm was done</p>
+    `,
+    stairsFellChoices: `
+    <li><button class="choice-button" id="choice-fourty-two">If at first you don't succeed...</button></li>
+    <li><button class="choice-button" id="choice-thirty-two">Bugger this for a game of skittles.</button></li>
+    `,
+    descendStairs: function descendStairs() {
+        if (getLucky()) {
+            mainCharacter.score +=5;
+            document.getElementById('game-text').innerHTML = this.stairsDescendedText + this.stairsDescendedTextCommon;
+            document.getElementById('choices-section').innerHTML = this.stairsDescendedChoices;
+        } else {
+            if (this.stairsFallOutcome() === "death") {
+                this.deathStairs();
+            } else if (this.stairsFallOutcome() === "injury") {
+                mainCharacter.score -=5;
+                let injuryStair = getRandomNumber(0,7)
+                mainCharacterCurrent.health -= injuryStair;
+                if (mainCharacterCurrent.health<=0) {
+                    this.deathStairs();
+                } else {
+                    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                    document.getElementById('game-text').innerHTML = this.stairsInjuryTextOne + injuryStair + this.stairsInjuryTextTwo + this.stairsDescendedTextCommon;
+                    document.getElementById('choices-section').innerHTML = this.stairsDescendedChoices;
+                }
+            } else {
+                mainCharacter.score -=2;
+                document.getElementById('game-text').innerHTML = this.stairsFellDescendedText;
+                document.getElementById('choices-section').innerHTML = this.stairsDescendedChoices;
+            }
+        }
+    },
+    stairsDescendedText: `
+    <p>There were a few slips and scares on the way, but you just about make it to the bottom unscathed</p>
+    <p>Regardless, these are probably the worst stairs ever.</p>
+    `,
+    stairsDescendedTextCommon: `
+    <p>You find yourself at the fringes of the large cavern where you encountered the cat warriors.</p>
+    `,
+    stairsFellDescendedText: `
+    <p>No matter how tentatively you approach the stairs, you can't stop yourself from slipping and falling on the treacherous surface</p>
+    <p>Fortunately you'd got most of the way down, so no harm was done</p>
+    `,
+    stairsDescendedChoices:`
+    <li><button class="choice-button" id="choice-fourty-two">Go back up the stairs again.</button></li>
+    <li><button class="choice-button" id="choice-thirty-two">Enter the cavern.</button></li>
+    `,
+    deathStairs: function deathStairs() {
+        mainCharacter.score -= 10;
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = this.deathStairsText;
+    },
+    deathStairsText:`
+    <p>You lose your footing at just the wrong moment...</p>
+    <p>Having been thrown off balance, you are powerless to prevent yourself from toppling over the steep canyon edge.</p>
+    <p>You have little time to think before your brains are dashed out on the rocks below.
+    <br>YOU ARE DEAD</p>
+    `
 }
 
 
@@ -2551,7 +2678,19 @@ document.addEventListener("click", function(e){
         endingScene.endingScene();
     }
 });
-
+// ROOM 5- DANGER STAIRS
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-two"); 
+    if(target){
+        dangerStairs.climbStairs();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-four"); 
+    if(target){
+        dangerStairs.descendStairs();
+    }
+});
 
 /* GAME TEXT */
 
