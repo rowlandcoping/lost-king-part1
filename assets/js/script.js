@@ -146,7 +146,7 @@ const fireMage = {
     initialText: `
     <p>"You ask me your name, yet I do not think you really want to know."
     <p>You have no choice but to attack the wizard as blazing orbs of fire build in both his hands.
-   <p>>He just looks serenely back at you, as if it was nothing.</p>
+    <p>He just looks serenely back at you, as if it was nothing.</p>
     `,
     successTextOne: "<p>You strike the Fire Mage with your ",
     successTextTwo: "<br>As you strike the mage he stands as if rooted, eyes closed, softly chanting some kind of mantra.  Your aim though is true, </p>",
@@ -479,6 +479,10 @@ const catSword = {
         image: "assets/images/items/cat-sword.webp",
         score: 10,
         description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
+}
+const specialObject = {
+    name: "",
+    image: "assets/images/items/glowing-orb.webp",
 }
 
 
@@ -1274,6 +1278,7 @@ const catCavern = {
     `,
     catExitOptions: function catExitOptions() {
         changeModeToMainWindow();
+        document.getElementById('game-section').style.background = this.background;
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         if (thingsWhatYouveDone.firstCatKilled && thingsWhatYouveDone.getCatSword) {
@@ -1370,11 +1375,12 @@ const mysteryRoom = {
     `,
     orbPlace: function orbPlace() {
         mainCharacter.score += 100;
+        document.getElementById('game-section').style.background = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.orbPlaceText;
         document.getElementById('choices-section').innerHTML = this.orbPlaceOptions;
     },
     orbPlaceText: `
-    <p>Almost as soon as you place the orb, you hear a loud click in the wall to your right.</p>
+    <p>Almost as soon as you place the orb, you hear a loud click in the wall to your right. The orb glows brighter, illuminating the entire room with its golden rays, making you take a step back.</p>
     <p>You watch as a stone panel slides open... whatever lies beyond there is a light draught, and air that could almost be described as fresh.</p>
     <p>To say you've made it would be an understatement, since you have no idea where you are, but at least...</p>
     <p>Your thoughts freeze as you hear footsteps, and what can only be described as evil laughter.</p>
@@ -1456,10 +1462,18 @@ const endingScene = {
 }
 const dangerStairs = {
     background: "url('assets/images/backgrounds/danger-stairs.webp') no-repeat left center",
-    dangerStairs: function dangerStairs() {
+    backgroundTwo: "url('assets/images/backgrounds/stairs-down.webp') no-repeat left center",
+    dangerStairsUp: function dangerStairsUp() {
         changeModeToMainWindow();
         mainCharacter.score += 5;
         document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-text').innerHTML = this.stairsText;
+        document.getElementById('choices-section').innerHTML = this.stairsChoices;
+    },
+    dangerStairsDown: function dangerStairsDown() {
+        changeModeToMainWindow();
+        mainCharacter.score += 5;
+        document.getElementById('game-section').style.background = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.stairsText;
         document.getElementById('choices-section').innerHTML = this.stairsChoices;
     },
@@ -1473,6 +1487,9 @@ const dangerStairs = {
     `,
     stairsFallOutcome: function stairsFallOutcome() {
         let randomChance = getRandomNumber(0,100);
+        if (currentDefence.name ==="Purple Helmet") {
+            randomChance += 10;
+        }
         if (randomChance <= 15) {
             return "death";
         } else if (randomChance>15<=75) {
@@ -1484,6 +1501,7 @@ const dangerStairs = {
     climbStairs: function climbStairs() {
         if (getLucky()) {
             mainCharacter.score +=5;
+            document.getElementById('game-section').style.background = this.backgroundTwo;
             document.getElementById('game-text').innerHTML = this.stairsClimbedText;
             document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
         } else {
@@ -1532,6 +1550,7 @@ const dangerStairs = {
     <li><button class="choice-button" id="choice-thirty-two">Bugger this for a game of skittles.</button></li>
     `,
     descendStairs: function descendStairs() {
+        document.getElementById('game-section').style.background = this.background;
         if (getLucky()) {
             mainCharacter.score +=5;
             document.getElementById('game-text').innerHTML = this.stairsDescendedText + this.stairsDescendedTextCommon;
@@ -1585,6 +1604,9 @@ const dangerStairs = {
     <p>You have little time to think before your brains are dashed out on the rocks below.
     <br>YOU ARE DEAD</p>
     `
+}
+const spiderRoom = {
+
 }
 
 
@@ -2164,6 +2186,7 @@ function enemyTurn(enemy, weapon) {
 
 function resetGame() {
     thingsReset();
+    specialObject.name = "";
     mainCharacter.name = "";
     mainCharacter.strength = "";
     mainCharacter.skill = "";
@@ -2189,6 +2212,7 @@ function startGame(event) {
         mainCharacterCurrent[item] = "";
     }
     thingsReset();
+    specialObject.name = "";
     mainCharacterCurrent.health = mainCharacter.health;
     mainCharacterCurrent.strength = mainCharacter.strength;
     mainCharacterCurrent.luck = mainCharacter.luck;
@@ -2603,7 +2627,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-thirty-six"); 
     if(target){
-        dangerStairs.dangerStairs();
+        dangerStairs.dangerStairsUp();
     }
 });
 
