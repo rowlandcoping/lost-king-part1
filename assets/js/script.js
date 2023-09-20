@@ -161,6 +161,40 @@ const fireMage = {
     <li><button class="choice-button" id="choice-thirty-nine">What. Is. My. Name.</button></li>
     `
 }
+const giantSpider = {
+    name: "Giant Spider",
+    description: `
+    <p>The terrifying Giant Spider is often found in dark caves in Fantasy-RPG games like this one.  This example has far too many eyes.</p>
+    `,
+    strength: 0,
+    strItem: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    image: "assets/images/enemies/giant-spider.webp",
+    vulnerability:"sharp",
+    score: 70,
+    initialText: `
+    <p>The spider hisses and chatters at you, and actually appears to be salivating.
+    <br>You do not intend to be its next meal.</p>
+    `,
+    successTextOne: "<p>You whack the Giant Spider in its soft underbelly with your ",
+    successTextTwo: "<br>It chatters, as if surprised it could be hurt, before coming at you again.</p>",
+    hitText: "<p>The spider strikes out a spiny limb with incredible speed which catches you off guard,",
+    deathText: `<p>With one last thrust you disembowel the creature; its innards spill across the cave floor in front of you.
+    <br>This smells really bad.</p>
+    `,
+    failText: "<p>The giant sagging form of the spider side-steps with surprising speed, causing you to miss.</p>",
+    killedYouText: `<p>As you reel from the latest blow the spider lurches forwards and sinks its fangs into your neck, completely incapacitating you</p>
+    <p>The next few days are spent in agony, immobilised in a cocoon of silk yet still fully conscious, as your innards slowly dissolve.</p>
+    <p>As you die half mad from the burning pain, you still don't remember who you once were.
+    <br>YOU ARE DEAD</p>
+    `,
+    missedText: "<p>As the spider strikes, you pirouette in a half circle, narrowly avoiding its trailing claw.</p>",
+    choices: `
+    <li><button class="choice-button" id="choice-fourty-seven">That's probably the least fun I've had so far.</button></li>
+    `
+}
 
 //ITEM OBJECTS
 //weapons
@@ -547,6 +581,10 @@ const thingsWhatYouveDone = {
     firstCatKilled: false,
     getCatSword: false,
     catGod: false,
+    spiderKill: false,
+    caveExplore: false,
+    rearEntry: false,
+    catCourtVisits: 0,
     catsKilled: 0,
     cavernVisits: 0,
     catCaptureChance: 25,
@@ -566,6 +604,10 @@ const thingsWhatYouveDoneInitial = {
     catSwordCollected: false,
     getCatSword: false,
     catGod: false,
+    spiderKill: false,
+    caveExplore: false,
+    rearEntry: false,
+    catCourtVisits: 0,
     catsKilled: 0,
     cavernVisits: 0,
     catCaptureChance: 25,
@@ -576,7 +618,6 @@ const thingsWhatYouveDoneInitial = {
     courtHangChance: 15,
     courtPrisonChance: 70
 }
-
 function thingsReset() {
     thingsWhatYouveDone.firstRoomSearch = thingsWhatYouveDoneInitial.firstRoomSearch;
     thingsWhatYouveDone.slimeKill = thingsWhatYouveDoneInitial.slimeKill;
@@ -585,7 +626,11 @@ function thingsReset() {
     thingsWhatYouveDone.firstCatKilled = thingsWhatYouveDoneInitial.firstCatKilled;
     thingsWhatYouveDone.getCatSword = thingsWhatYouveDoneInitial.getCatSword;
     thingsWhatYouveDone.catGod = thingsWhatYouveDoneInitial.catGod;
+    thingsWhatYouveDone.spiderKill = thingsWhatYouveDoneInitial.spiderKill;
+    thingsWhatYouveDone.caveExplore = thingsWhatYouveDoneInitial.caveExplore;
+    thingsWhatYouveDone.rearEntry = thingsWhatYouveDoneInitial.rearEntry;
 
+    thingsWhatYouveDone.catCourtVisits = thingsWhatYouveDoneInitial.catCourtVisits;
     thingsWhatYouveDone.catsKilled = thingsWhatYouveDoneInitial.catsKilled;
     thingsWhatYouveDone.cavernVisits = thingsWhatYouveDoneInitial.cavernVisits;
     thingsWhatYouveDone.catCaptureChance = thingsWhatYouveDoneInitial.catCaptureChance;
@@ -1155,6 +1200,22 @@ const catCavern = {
         }
         testForWeapons(enemy);
     },
+    eatBiscuits: function eatBiscuits(enemy, weapon) {
+        if (mainCharacterCurrent.health + 20 <= mainCharacter.health) {
+            mainCharacterCurrent.health += 20;
+        } else {
+            mainCharacterCurrent.health = mainCharacter.health
+        }
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>You crunch down the cat biscuits, restoring <span class='green'>20</span> health.<br>Fortunately they taste much better than they smell.</p><p>The cats look on with much displeasure - that was a bit cruel to be fair.</p>";
+        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('potion-item-name').innerHTML = "";
+        document.getElementById('potion-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentObject)) {
+            currentObject[item] = "";
+        }
+        mainCharacter.score +=10;
+        enemyTurn(enemy, weapon);
+    },
     feedBiscuits: function feedBiscuits() {
         changeModeToMainWindow();
         thingsWhatYouveDone.catFightChance -=10;
@@ -1170,7 +1231,7 @@ const catCavern = {
             currentObject[item] = "";
         }        
         document.getElementById('game-text').innerHTML = this.catBiscuitsText;
-        document.getElementById('choices-text').innerHTML = this.bicsuitOptions;
+        document.getElementById('choices-section').innerHTML = this.bicsuitOptions;
     },
     catBiscuitsText: `
     <p>You offer out a handful of biscuits to the fearsome kitty - whilst at first he looks fearful and confused, he eventually pushes his nose into your hand and scoffs the lot</p>
@@ -1462,7 +1523,7 @@ const endingScene = {
 }
 const dangerStairs = {
     background: "url('assets/images/backgrounds/danger-stairs.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/stairs-down.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/top-stairs.webp') no-repeat left center",
     dangerStairsUp: function dangerStairsUp() {
         changeModeToMainWindow();
         mainCharacter.score += 5;
@@ -1470,23 +1531,27 @@ const dangerStairs = {
         document.getElementById('game-text').innerHTML = this.stairsText;
         document.getElementById('choices-section').innerHTML = this.stairsChoices;
     },
+    stairsText: `
+    <p>The closer you get to the stairs the worse an idea it looks going up them.  Still, in for a penny and all that.</p>
+    <p>Do you still want to try the stairs?</p>
+    `,
     dangerStairsDown: function dangerStairsDown() {
         changeModeToMainWindow();
         mainCharacter.score += 5;
         document.getElementById('game-section').style.background = this.backgroundTwo;
-        document.getElementById('game-text').innerHTML = this.stairsText;
-        document.getElementById('choices-section').innerHTML = this.stairsChoices;
+        document.getElementById('game-text').innerHTML = this.stairsDownText;
+        document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
     },
-    stairsText: `
-    <p>The closer you get to the stairs the worse an idea it looks going up them.  Still, in for a penny and all that.</p>
-    <p>Do you still want to try the stairs?</p>
+    stairsDownText: `
+    <p>These stairs look seriously unsafe, crumbling in all the wrong places and with the threat of a sheer drop below.</p>
+    <p>It doesn't look like there are many other options though.</p>
     `,
     stairsChoices: `
     <li><button class="choice-button" id="choice-fourty-two">Of course, it's a flight of stairs not the darn Ice Queen!</button></li>
     <li><button class="choice-button" id="choice-thirty-two">No thank you, I'm scared.</button></li>
     `,
     stairsFallOutcome: function stairsFallOutcome() {
-        let randomChance = getRandomNumber(0,100);
+        let randomChance = getRandomNumber(0,100);     
         if (currentDefence.name ==="Purple Helmet") {
             randomChance += 10;
         }
@@ -1499,15 +1564,17 @@ const dangerStairs = {
         }
     },
     climbStairs: function climbStairs() {
+        
         if (getLucky()) {
             mainCharacter.score +=5;
             document.getElementById('game-section').style.background = this.backgroundTwo;
             document.getElementById('game-text').innerHTML = this.stairsClimbedText;
             document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
         } else {
-            if (this.stairsFallOutcome() === "death") {
+            let fallOutcome = this.stairsFallOutcome();
+            if (fallOutcome === "death") {
                 this.deathStairs();
-            } else if (this.stairsFallOutcome() === "injury") {
+            } else if (fallOutcome === "injury") {
                 mainCharacter.score -=5;
                 let injuryStair = getRandomNumber(0,7);
                 mainCharacterCurrent.health -= injuryStair;
@@ -1526,12 +1593,11 @@ const dangerStairs = {
         }
     },
     stairsClimbedText: `
-    <p>There were a few slips and scares on the way, but you just about make it to the top unscathed</p>
-    <p>Stairs, indeed.  Talk about generation snowflake.</p>
-    <p>Anyhow, right ahead of you there is an entry to a cave.  You can smell the rank stale air from where you are stood, overlooking the canyon.</p>
+    <p>You stand at the entrance to a cave.  You can smell the rank stale air from within, almost choking you with its pungency.</p>
+    <p>There is also a treacherous looking flight of stairs which lead down to the cavern where you first encountered the cats.</p>
     `,
     stairsClimbedChoices:`
-    <li><button class="choice-button" id="choice-fourty-three">Set about exploring the cave</button></li>
+    <li><button class="choice-button" id="choice-fourty-three">Enter the cave.</button></li>
     <li><button class="choice-button" id="choice-fourty-four">Go down the stairs.</button></li>
     `,
     stairsInjuryTextOne: `
@@ -1556,9 +1622,10 @@ const dangerStairs = {
             document.getElementById('game-text').innerHTML = this.stairsDescendedText + this.stairsDescendedTextCommon;
             document.getElementById('choices-section').innerHTML = this.stairsDescendedChoices;
         } else {
-            if (this.stairsFallOutcome() === "death") {
+            let fallOutcome = this.stairsFallOutcome();
+            if (fallOutcome === "death") {
                 this.deathStairs();
-            } else if (this.stairsFallOutcome() === "injury") {
+            } else if (fallOutcome === "injury") {
                 mainCharacter.score -=5;
                 let injuryStair = getRandomNumber(0,7)
                 mainCharacterCurrent.health -= injuryStair;
@@ -1606,11 +1673,262 @@ const dangerStairs = {
     `
 }
 const spiderRoom = {
+    background: "url('assets/images/backgrounds/spider-cave.webp') no-repeat left center",
+    spiderRoom: function spiderRoom() {
+        changeModeToMainWindow();
+        if (thingsWhatYouveDone.spiderKill) {
+            this.noSpider();
+        } else {
+        mainCharacter.score += 5;
+        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-text').innerHTML = this.caveText;
+        document.getElementById('choices-section').innerHTML = this.caveChoices;
+        }
+    },
+    caveText: `
+    <p>You enter the cave with caution - you've had enough surprises already today</p>
+    <p>There's not much surprising about this scene though - cat bones litter the floor, and there is a worrying density of what appears to be spider's web.</p>
+    <p>In, fact, you're not surprised at all when you hear a loud chittering noise emerge from the depths of the cave.</p>
+    `,
+    caveChoices: `
+    <li><button class="choice-button" id="choice-fourty-five">Run Away!!</button></li>
+    <li><button class="choice-button" id="choice-fourty-six">Let's get it over with.</button></li>
+    `,
+    spiderAttack: function spiderAttack() {
+        changeModeToItemWindow();
+        document.getElementById('upper-text').innerHTML = this.spiderText;
+        document.getElementById('choices-section').innerHTML = this.spiderChoices;
+        setEnemyStats(giantSpider, 12,15,25,30);
+    },
+    spiderText: `
+    <p>What emerges from the back of the cave is even more terrifying than perhaps you were prepared for.</p>
+    <p>The spider is clearly enormous, having gorged iteslf over the years on errant cats.  Most of its body, aside from a sliver of underbelly, is covered with a tough-looking chitinous armour.</p>
+    <p>Perhaps because of the perpetual darkness of the cave, it has far too many eyes for your liking.
+    <br>And now you have to fight it.  Great. The perfect day.</p>
+    `,
+    spiderChoices: `
+    <li><button class="choice-button" id="choice-fifty">I take it I can no longer run away?</button></li>
+    `,
+    spiderFight: function spiderFight(enemy) {
+        changeToBattleWindow(enemy);
+        thingsWhatYouveDone.spiderKill = true;
+        thingsWhatYouveDone.courtGodChance += 15;
+        thingsWhatYouveDone.courtHangChance -= 10;
+        thingsWhatYouveDone.courtPrisonChance -= 5;
+        document.getElementById('fists-button').firstChild.setAttribute("id", "spider-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "spider-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "spider-three");
+        if (currentObject.name === "Insect Repellant") {
+            document.getElementById('object-button-three').firstChild.setAttribute("id", "spider-four");
+        }
+        testForWeapons(enemy);
+    },
+    insectRepellant: function insectRepellant(enemy, weapon) {
+        mainCharacter.score -=10;
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + `<p>You spray the insect repellant at the spider, emptying the bottle. It just blinks its eyes and looks at you incredulously, if a spider can even do that.<br>It was unlikely to work on a 6 ft high cat-eating spider.  Plus, you know, a spider isn't even an insect.`;
+        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('object-item-name').innerHTML = "";
+        document.getElementById('object-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentObject)) {
+            currentObject[item] = "";
+        }
+        enemyTurn(enemy, weapon);
+    },
+    noSpider: function nospider() {
+        changeModeToMainWindow();
+        if (this.rearOfCaveRearEntry()) {
+            document.getElementById('game-text').innerHTML = this.noSpiderRearText;
+            document.getElementById('choices-section').innerHTML = this.noSpiderRearChoices;
+        } else {
+            document.getElementById('game-text').innerHTML = this.noSpiderText;
+            document.getElementById('choices-section').innerHTML = this.noSpiderChoices;
+        }
+    },
+    noSpiderText: `
+    <p>There are so many cat bones.  Those little folk will surely be delighted the beast is slain.</p>
+    <p>Towards the rear of the cave it widens out, and you can see a narrow apeture high up on the wall.</p>
+    `,
+    noSpiderChoices: `
+    <li><button class="choice-button" id="choice-fourty-five">Leave the cave.</button></li>
+    <li><button class="choice-button" id="choice-fourty-eight">Investigate the apeture.</button></li>
+    `,
+    noSpiderRearText: `
+    <p>There are so many cat bones in here.  Those little folk will surely be delighted the beast is slain.</p>
+    <p>Towards the rear of the cave you can see the exit to the car corridor high up on the wall.</p>
+    `,
+    noSpiderRearChoices: `
+    <li><button class="choice-button" id="choice-fourty-five">Leave the cave.</button></li>
+    <li><button class="choice-button" id="choice-fourty-eight">Go through to the rear of the cave.</button></li>
+    `,
+    caveBackExit: function caveBackExit() {
+        if (thingsWhatYouveDone.rearEntry) {
+            this.rearOfCaveRearEntry();
+        }else{
+            thingsWhatYouveDone.caveExplore = true;
+            if (currentObject.name === "Frayed Rope") {
+                document.getElementById('game-text').innerHTML = this.backExitText + this.backExitTextTwo;
+                document.getElementById('choices-section').innerHTML = this.backExitChoices + this.backExitChoicesTwo;
+            } else {
+                document.getElementById('game-text').innerHTML = this.backExitText;
+                document.getElementById('choices-section').innerHTML = this.backExitChoices;
+            }
+        }
+    },
+    backExitText: `
+    <p>The apeture seems to have once been an exit, and sits high up on the wall at the back of the cave.  You have no way of reaching it or climbing up there.</p>
+    <p>Whatever stairs used to lead up there are now rubble.</p>
+    `,
+    backExitTextTwo: `
+    <p>You look down at the frayed length of rope you have found, and wonder if it might take your weight after all.</p>
+    `,
+    backExitChoices: `
+    <li><button class="choice-button" id="choice-fourty-five">Leave the cave.</button></li>
+    `,
+    backExitChoicesTwo: `
+    <li><button class="choice-button" id="choice-fourty-nine">Try using the rope to climb up.</button></li>
+    `,
+    ropeFallOutcome: function ropeFallOutcome() {
+        let randomChance = getRandomNumber(0,100);     
+        if (currentDefence.name ==="Purple Helmet") {
+            randomChance += 10;
+        }
+        if (randomChance <= 5) {
+            return "death";
+        } else if (randomChance>5<=60) {
+            return "injury";
+        } else {
+            return "fine";
+        }
+    },
+    ropeBroke: function ropeBroke() {
+        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
+        document.getElementById('object-item-name').innerHTML = "";
+        document.getElementById('object-list-item-one').innerHTML = "";
+        for(let item of Object.keys(currentObject)) {
+            currentObject[item] = "";
+        }
+        let fallOutcome = this.ropeFallOutcome();
+            if (fallOutcome === "death") {
+                mainCharacter.score -=20;
+                this.deathRope();
+            } else if (fallOutcome === "injury") {
+                mainCharacter.score -=10;
+                let injuryRope = getRandomNumber(0,7)
+                mainCharacterCurrent.health -= injuryRope;
+                if (mainCharacterCurrent.health<=0) {
+                    this.deathRope();
+                } else {
+                    document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                    document.getElementById('game-text').innerHTML = this.ropeBrokeCommon + this.ropeInjury + injuryRope + this.ropeInjuryTwo + this.ropeBrokeCommonTwo;
+                    document.getElementById('choices-section').innerHTML = this.ropeFallChoices;
+                }
+            } else {
+                mainCharacter.score -=10;
+                document.getElementById('game-text').innerHTML = this.ropeBrokeCommon + this.ropeBrokeFine + this.ropeBrokeCommonTwo;
+                document.getElementById('choices-section').innerHTML = this.ropeFallChoices;
+            }
+    },
+    deathRope: function deathRope() {
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = this.ropeBrokeCommon + this.deathRopeText;
+    },
+    ropeBrokeCommon: `
+    <p>Unsurprisingly, the Frayed Rope is unable to take your weight.  It unravels and snaps and sends you tumbling to the ground.</p>
+    `,
+    deathRopeText: `
+    <p>Unfortunately, you were near the top when it finally let go, and the awkward angle sent you head-first into the ground, cracking open your skull and spilling the contents.</p>
+    <p>Congratulations, you have just discovered the dumbest way to die in the whole game.
+    <br>YOU ARE DEAD.</p>
+    `,
+    ropeInjury: `
+    <p>The fall causes you to lose <span class="red">
+    `,
+    ropeInjuryTwo: `
+    </span> health points. Think yourself lucky.</p>
+    `,
+    ropeBrokeFine: `
+    <p>Fortunately, you didn't get far and manage to land more or less on your feet.</p>
+    <p>You must have been spending too much time around cats.</p>
+    `,
+    ropeBrokeCommonTwo: `
+    <p>There is little more to do in this cave.</p>
+    `,
+    ropeFallChoices: `
+    <li><button class="choice-button" id="choice-fourty-five">Leave the cave.</button></li>
+    `,
+    caveRearEntry: function caveRearEntry() {
+        thingsWhatYouveDone.rearEntry = true;
+        if (thingsWhatYouveDone.caveExplore) {
+            document.getElementById('game-text').innerHTML = this.rearEntryText;
+            document.getElementById('choices-section').innerHTML = this.rearEntryChoices;
+        } else {
+            document.getElementById('game-text').innerHTML = this.rearEntryTextTwo;
+            document.getElementById('choices-section').innerHTML = this.rearEntryChoicesTwo;
+        }
+        
+    },
+    rearEntryText: `
+    <p>The narrow exit from the corridor leads to... nothing!</p>
+    <p>You find yourself teetering on the precipice of a drop before realising it's not too high to lower yourself down, but you'd never get back up again.</p>
+    <p>The room seems to be the spider's cave you have entered previously. You wonder that the spider never emerged at night and ran amok.</p>
+    <p>Maybe it did...</p>
+    `,
+    rearEntryTextTwo: `
+    <p>The narrow exit from the corridor leads to... nothing!</p>
+    <p>You find yourself teetering on the precipice of a drop before realising it's not too high to lower yourself down... but you'd never get back up again.</p>
+    <p>The room beyond the door is dark, and you can hear faint shuffling noises from below.</p>
+    `,
+    rearEntryChoices: `
+    <li><button class="choice-button" id="choice-fifty-one">Lower yourself down.</button></li>
+    <li><button class="choice-button" id="choice-eleventy-twelve">Return to the corridor.</button></li>
+    `,
+    rearEntryChoices: `
+    <li><button class="choice-button" id="choice-fifty-two">Lower yourself down.</button></li>
+    <li><button class="choice-button" id="choice-eleventy-twelve">Return to the corridor.</button></li>
+    `,
+    rearOfCaveRearEntry: function rearOfCaveRearEntry() {
+        thingsWhatYouveDone.caveExplore = true;
+        if (thingsWhatYouveDone.spiderKill) {
+            if (currentObject.name === "Frayed Rope") {
+                document.getElementById('game-text').innerHTML = this.rearRearText + this.rearRearTextTwo;
+                document.getElementById('choices-section').innerHTML = this.backExitChoices + this.backExitChoicesTwo;
+            } else {
+                document.getElementById('game-text').innerHTML = this.rearRearChoices;
+                document.getElementById('choices-section').innerHTML = this.rearRearChoicesTwo;
+            }
+        } else {
+            changeModeToItemWindow();
+            document.getElementById('upper-text').innerHTML = this.spiderRearText;
+            document.getElementById('choices-section').innerHTML = this.spiderRearChoices;
+            setEnemyStats(giantSpider, 12,15,25,30);
+        }
+    },
+    rearRearText: `
+    <p>In the rear of the spider's den, your nostrils fill with the stench of the beast; it's decaying corpse lies in the main cave.</p>
+    <p>You really don't want to be here any more.</p>
+    <p>It would be impossible to climb up through the exit to the cat corridor, so there is only really one viable way out.</p>
+    `,
+    rearRearTextTwo: `
+    <p>Unless... looking at the frayed rope you picked up earlier, you wonder if it would take your weight.</p>
+    `,
+    rearRearChoices: `
+    <li><button class="choice-button" id="choice-fourty-five">Leave the cave.</button></li>
+    `,
+    rearRearChoicesTwo: `
+    <li><button class="choice-button" id="choice-fourty-nine">Try using the rope to climb up.</button></li>
+    `,
+    spiderRearText: `
+    <p>As you drop to the ground, you come face to face with multiple sets of eyes.  Far too many eyes in fact.</p>
+    <p>You barely have enough time to leap clear and take up your guard before the Giant Spider can sink its fangs into you.</p>
+    `,
+    spiderRearChoices: `
+    <li><button class="choice-button" id="choice-fifty">And so it continues.</button></li>
+    `
+
 
 }
-
-
-
 const catCourt ={
     catCourt: function catCourt(){
 
@@ -2135,22 +2453,7 @@ function potionRound(enemy, weapon) {
         }
         mainCharacter.score +=5;
         enemyTurn(enemy);
-    } else if (currentObject.name === "Cat Biscuits") {
-        if (mainCharacterCurrent.health + 20 <= mainCharacter.health) {
-            mainCharacterCurrent.health += 20;
-        } else {
-            mainCharacterCurrent.health = mainCharacter.health
-        }
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You crunch down the cat biscuits, which in truth taste much better than they smell, restoring 20 health points.  The cats look on with much displeasure - that was a bit cruel to be fair.";
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
-        for(let item of Object.keys(currentPotion)) {
-            currentPotion[item] = "";
-        }
-        mainCharacter.score +=10;
-        enemyTurn(enemy);
-    }
+    } 
 }
 function enemyTurn(enemy, weapon) {
     let roundResult = nextRound(enemy, weapon);
@@ -2206,7 +2509,7 @@ function startGame(event) {
         }else{
             mainCharacter.name = "Another Lazy Gamer";
            }
-        generateStats (mainCharacter, 10, 15, 50, 75);  
+        generateStats (mainCharacter, 12, 15, 60, 75);  
     }
     for(let item of Object.keys(mainCharacterCurrent)) {
         mainCharacterCurrent[item] = "";
@@ -2559,7 +2862,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#cat-four"); 
     if(target){
-        potionRound(catWarrior, "enemy");
+        catCavern.eatBiscuits(catWarrior, "enemy");
     }
 });
 document.addEventListener("click", function(e){
@@ -2710,11 +3013,84 @@ document.addEventListener("click", function(e){
     }
 });
 document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-three"); 
+    if(target){
+        spiderRoom.spiderRoom();
+    }
+});
+document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fourty-four"); 
     if(target){
         dangerStairs.descendStairs();
     }
 });
+//ROOM 6 - SPIDER ROOM
+
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-five"); 
+    if(target){
+        dangerStairs.dangerStairsDown();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-six"); 
+    if(target){
+        spiderRoom.spiderAttack();
+    }
+});
+//fight with spider
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty"); 
+    if(target){
+        spiderRoom.spiderFight(giantSpider);
+    }
+});
+//spider fight handlers
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#spider-one"); 
+    if(target){
+        playerTurn(giantSpider, "fists");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#spider-two"); 
+    if(target){
+        playerTurn(giantSpider, "weapon");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#spider-three"); 
+    if(target){
+        potionRound(giantSpider, "enemy");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#spider-four"); 
+    if(target){
+        spiderRoom.insectRepellant(giantSpider, "enemy");
+    }
+});
+//post fight option
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-seven"); 
+    if(target){
+        spiderRoom.noSpider();
+    }
+});
+//back of cave
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-eight"); 
+    if(target){
+        spiderRoom.caveBackExit();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-nine"); 
+    if(target){
+        spiderRoom.ropeBroke();
+    }
+});
+
 
 /* GAME TEXT */
 
