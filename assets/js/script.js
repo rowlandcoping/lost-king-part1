@@ -1191,14 +1191,18 @@ const catCavern = {
     `,
     runAway: function runAway() {
         changeModeToMainWindow();
+        thingsWhatYouveDone.catRunawayChance -= 5;
+        thingsWhatYouveDone.catCaptureChance += 5;
         if (getLucky()) {
         mainCharacter.score += 2;
             document.getElementById('game-text').innerHTML = this.runAwayTextOne;
             document.getElementById('choices-section').innerHTML = this.runAwayChoices;
         } else {
+            mainCharacter.score -= 2;
             let injuryRunAway = getRandomNumber(0,7);
             mainCharacterCurrent.health -= injuryRunAway;
             if (mainCharacterCurrent.health<=0) {
+                mainCharacter.score -= 10;
                 this.deathRunAway();
             } else {
                 document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
@@ -1222,7 +1226,6 @@ const catCavern = {
     <li><button class="choice-button" id="choice-thirty-four">That was a close one.</button></li>
     `,
     deathRunAway: function deathRunAway() {
-        mainCharacter.score -= 10;
         changeToGameOver();
         document.getElementById('game-outcome').innerHTML = this.deathRunAwayText;
     },
@@ -1981,6 +1984,7 @@ const catDining = {
         changeModeToMainWindow();
         if (thingsWhatYouveDone.catGod === true) {
             mainCharacter.score += 5;
+            specialObject.name = "Glowing Orb";
             document.getElementById('game-section').style.background = this.background;
             document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodText;
             document.getElementById('choices-section').innerHTML = this.diningGodChoices;
@@ -3189,8 +3193,18 @@ document.addEventListener("click", function(e){
     }
 });
 //ROOM 6 - CAT DINING ROOM
-
-
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fourty-eight"); 
+    if(target){
+        spiderRoom.caveBackExit();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-three"); 
+    if(target){
+        catCorridor.catCorridor();
+    }
+});
 /* GAME TEXT */
 
 /*page one (open eyes)*/

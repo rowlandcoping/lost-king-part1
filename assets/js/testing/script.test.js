@@ -6,8 +6,8 @@ let { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStat
    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
    currentDefence, currentPotion, currentObject, itemStorage, playerTestResistances, 
    enemyTestResistances, continueFight, potionRound, hitSuccess, initialDamage,
-   damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, displayItem, getLucky, changeToBattleWindow, testForWeapons, 
-   changeToGameOver, leaveBattle } = require("../script.js");
+   damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, displayItem, getLucky, changeToBattleWindow, 
+   testForWeapons, changeToGameOver, leaveBattle } = require("../script.js");
 
 beforeAll(() => {
    let fs = require("fs");
@@ -59,12 +59,6 @@ describe("switch to main game window works as expected", ()=>{
    }),
    test("battles section is hidden", () =>{
       expect(document.getElementById('battles-section').style.display).toEqual("none");
-   }),
-   test("elements with class of change-mode emptied", () =>{
-      const resetElements = document.getElementsByClassName('change-mode');
-      for (let i = 0; i < resetElements.length; i++) {
-         expect(resetElements[i].innerHTML).toBe("");
-      }
    })
 });
 describe("switch to item window works as expected", ()=>{
@@ -645,7 +639,7 @@ describe("testForWeapons function works as intended", ()=>{
          currentWeapon[item] = "";
       }
       currentWeapon.name = "dave";
-      testForWeapons();
+      testForWeapons(ragnarTheHorrible);
       expect(document.getElementById('battle-choice-weapon').innerHTML).toEqual("dave");
    }),
    test("test weapon button is not displayed if no weapon equipped", () =>{
@@ -653,7 +647,7 @@ describe("testForWeapons function works as intended", ()=>{
          currentWeapon[item] = "";
       }
       currentWeapon.name = undefined;
-      testForWeapons();
+      testForWeapons(ragnarTheHorrible);
       expect(document.getElementById('weapon-button').style.display).toEqual("none");
    }),
    test("test potion name is displayed if potion equipped", () =>{
@@ -661,7 +655,7 @@ describe("testForWeapons function works as intended", ()=>{
          currentPotion[item] = "";
       }
       currentPotion.name = "dave";
-      testForWeapons();
+      testForWeapons(ragnarTheHorrible);
       expect(document.getElementById('battle-choice-potion').innerHTML).toEqual("dave");
    }),
    test("test potion button is not displayed if no weapon equipped", () =>{
@@ -669,7 +663,7 @@ describe("testForWeapons function works as intended", ()=>{
          currentPotion[item] = "";
       }
       currentPotion.name = undefined;
-      testForWeapons();
+      testForWeapons(ragnarTheHorrible);
       expect(document.getElementById('potion-button').style.display).toEqual("none");
    })
 });

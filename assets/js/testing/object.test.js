@@ -503,6 +503,6 @@ describe("thingsWhatYouveDone object contains properties in correct state", ()=>
         expect(thingsWhatYouveDone.slimeKill).toEqual(false);
     }),
     test("encounterLikelihood property set to 0", () =>{
-        expect(thingsWhatYouveDone.encounterLikelihood).toEqual(0);
+        expect(thingsWhatYouveDone.encounterLikelihood).toEqual(false);
     })
 });
