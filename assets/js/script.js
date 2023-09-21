@@ -1189,6 +1189,48 @@ const catCavern = {
     <li><button class="choice-button" id="choice-twenty-eight">Stand your ground and meet the challenge.</button></li>
     <li><button class="choice-button" id="choice-twenty-nine">Make a run for it to avoid the slaughter.</button></li>
     `,
+    runAway: function runAway() {
+        changeModeToMainWindow();
+        if (getLucky()) {
+        mainCharacter.score += 2;
+            document.getElementById('game-text').innerHTML = this.runAwayTextOne;
+            document.getElementById('choices-section').innerHTML = this.runAwayChoices;
+        } else {
+            let injuryRunAway = getRandomNumber(0,7);
+            mainCharacterCurrent.health -= injuryRunAway;
+            if (mainCharacterCurrent.health<=0) {
+                this.deathRunAway();
+            } else {
+                document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                document.getElementById('game-text').innerHTML = this.runAwayTextTwo + injuryRunAway + this.runAwayTextThree;
+                document.getElementById('choices-section').innerHTML = this.runAwayChoices;
+            }
+        }
+    },
+    runAwayTextOne: `
+    <p>You sucessfully managed to dodge past the warrior's flailing blade, making rapidly for the corridor opposite</p>
+    <p>The furry creatures all manage to fall over one another in a scene reminiscent of Back to The Future, and as the sounds of pursuit fade you slow to a trot, breathing hard.</p>
+    `,
+    runAwayTextTwo: `
+    <p>As you try to dodge past the Cat Warrior, he catches you with the tip of his blade - you lose <span class = "red">
+    `,
+    runAwayTextThree: `
+    </span> health.</p>
+    <p>As you sprint up the broad corridor, they give up the pursiut almost immediately.  You don't know if this is a good thing or a bad thing.</p>
+    `,
+    runAwayChoices: `
+    <li><button class="choice-button" id="choice-thirty-four">That was a close one.</button></li>
+    `,
+    deathRunAway: function deathRunAway() {
+        mainCharacter.score -= 10;
+        changeToGameOver();
+        document.getElementById('game-outcome').innerHTML = this.deathRunAwayText;
+    },
+    deathRunAwayText: `
+    <p>As you attempt to run, the Cat Warrior's blade swings true and deals a killing blow</p>
+    <p>As you sink to the floor, blood pumping, you reflect on how cute his little furry face is.
+    <br>YOU ARE DEAD</p>
+    `,
     catFight: function catFight(enemy) {
         changeToBattleWindow(enemy);
         document.getElementById('fists-button').firstChild.setAttribute("id", "cat-one"); 
@@ -1543,7 +1585,8 @@ const dangerStairs = {
         document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
     },
     stairsDownText: `
-    <p>These stairs look seriously unsafe, crumbling in all the wrong places and with the threat of a sheer drop below.</p>
+    <p>The stairs before you appear to lead down to the cavern where you first encountered the cats.</p>
+    <p>They look seriously unsafe, crumbling in all the wrong places and with the threat of a sheer drop below.</p>
     <p>It doesn't look like there are many other options though.</p>
     `,
     stairsChoices: `
@@ -1593,8 +1636,8 @@ const dangerStairs = {
         }
     },
     stairsClimbedText: `
+    <p>You just about make it to the top of the stairs without incident.  Nothing to be worried about.</p>
     <p>You stand at the entrance to a cave.  You can smell the rank stale air from within, almost choking you with its pungency.</p>
-    <p>There is also a treacherous looking flight of stairs which lead down to the cavern where you first encountered the cats.</p>
     `,
     stairsClimbedChoices:`
     <li><button class="choice-button" id="choice-fourty-three">Enter the cave.</button></li>
@@ -1656,13 +1699,11 @@ const dangerStairs = {
     `,
     stairsDescendedChoices:`
     <li><button class="choice-button" id="choice-fourty-two">Go back up the stairs again.</button></li>
-    <li><button class="choice-button" id="choice-thirty-two">Enter the cavern.</button></li>
+    <li><button class="choice-button" id="choice-twenty-one">Enter the cavern.</button></li>
     `,
     deathStairs: function deathStairs() {
         mainCharacter.score -= 10;
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
+        changeToGameOver();
         document.getElementById('game-outcome').innerHTML = this.deathStairsText;
     },
     deathStairsText:`
@@ -1674,6 +1715,7 @@ const dangerStairs = {
 }
 const spiderRoom = {
     background: "url('assets/images/backgrounds/spider-cave.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/cave-drop.webp') no-repeat left center",
     spiderRoom: function spiderRoom() {
         changeModeToMainWindow();
         if (thingsWhatYouveDone.spiderKill) {
@@ -1736,6 +1778,7 @@ const spiderRoom = {
     },
     noSpider: function nospider() {
         changeModeToMainWindow();
+        document.getElementById('game-section').style.background = this.background;
         if (this.rearOfCaveRearEntry()) {
             document.getElementById('game-text').innerHTML = this.noSpiderRearText;
             document.getElementById('choices-section').innerHTML = this.noSpiderRearChoices;
@@ -1860,6 +1903,7 @@ const spiderRoom = {
     `,
     caveRearEntry: function caveRearEntry() {
         thingsWhatYouveDone.rearEntry = true;
+        document.getElementById('game-section').style.background = this.backgroundTwo;
         if (thingsWhatYouveDone.caveExplore) {
             document.getElementById('game-text').innerHTML = this.rearEntryText;
             document.getElementById('choices-section').innerHTML = this.rearEntryChoices;
@@ -1890,6 +1934,7 @@ const spiderRoom = {
     `,
     rearOfCaveRearEntry: function rearOfCaveRearEntry() {
         thingsWhatYouveDone.caveExplore = true;
+        document.getElementById('game-section').style.background = this.background;
         if (thingsWhatYouveDone.spiderKill) {
             if (currentObject.name === "Frayed Rope") {
                 document.getElementById('game-text').innerHTML = this.rearRearText + this.rearRearTextTwo;
@@ -1928,6 +1973,60 @@ const spiderRoom = {
     `
 
 
+}
+const catDining = {
+    background: "url('assets/images/backgrounds/cat-dining-full.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/cat-dining-empty.webp') no-repeat left center",
+    catDining: function catDining() {
+        changeModeToMainWindow();
+        if (thingsWhatYouveDone.catGod === true) {
+            mainCharacter.score += 5;
+            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodText;
+            document.getElementById('choices-section').innerHTML = this.diningGodChoices;
+        } else if (thingsWhatYouveDone.catsKilled<5) {
+            mainCharacter.score += 5;
+            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningCaptureText;
+            document.getElementById('choices-section').innerHTML = this.diningCaptureChoices;
+        } else {
+            mainCharacter.score += 5;
+            document.getElementById('game-section').style.background = this.backgroundTwo;
+            document.getElementById('game-text').innerHTML = this.diningEmptyText;
+            document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
+        }
+    },
+    diningCommonText: `
+    <p>After following the corridor for a short time, you abruptly stumble out into a large open space.</p>
+    <p>The room is full of the cat warriors in full armor, seemingly engaged in a grand banquet</p>
+    `,
+    diningGodText: `
+    <p>Immidiately on spotting you, the nearest warriors drop to their knees; before long the entire room is prostrate in supplication.
+    <br>You are their God.</p>
+    <p>The creatures surround you in what seems to be a parade, and start marching towards the hall's grand entrance.  <br>Where you are going, you could not say.</p>
+    `,
+    diningGodChoices: `
+    <li><button class="choice-button" id="choice-thirty">Show me the way, my cat bretheren!</button></li>
+    `,
+    diningCaptureText: `
+    <p>When the nearest cat senses your presence, they sound a general alarm</p>
+    <p>Within seconds, the bristling points of multiple cat swords are being held at your through.</p>
+    <p>A guard is arranged, and soon you are being frogmarched towards the hall's grand entrance.</p>
+    `,
+    diningCaptureChoices: `
+    <li><button class="choice-button" id="choice-thirty">This surely cannot be good.</button></li>
+    `,
+    diningEmptyText: `
+    <p>You have not been following the corridor for long before you stumble into a room where it looks like a great feast has been taking place...
+    <br>...but there is nobody feasting.  Have the cats abandoned their home, or just locked themselves away?</p>
+    <p>What seems to be the hall's grand entrance is closed, the door locked tight.</p>
+    <p>In the middle of the room, among the detruitis, is a glowing golden orb. Lost in the melee?
+    <br>Without a second's pause for debate, you grab it tight.  You feel like you will be needing this.</p>
+    `,
+    diningEmptyChoices: `
+    <li><button class="choice-button" id="choice-twenty-three">Go back to the cat cavern.</button></li>
+    <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
+    `
 }
 const catCourt ={
     catCourt: function catCourt(){
@@ -2310,7 +2409,6 @@ function nextRound(enemy, weapon) {
     if (hitSuccess(enemy, weapon)) {
         let roundDamage = initialDamage(enemy, weapon);      
         roundDamage -= damageResist (enemy, weapon);
-        roundDamage *= playerTestResistances(enemy);
         return Math.floor(roundDamage);
     } else {
         return "fail";
@@ -2322,7 +2420,7 @@ function playerTurn(enemy, weapon) {
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
         enemyTurn(enemy, "enemy");
     } else {
-        let roundDamage = roundResult;
+        let roundDamage = roundResult *= playerTestResistances(enemy);
         if (roundDamage > 0) {enemy.health -= roundDamage;}
         if (enemy.health > 0) {
             if (weapon === "fists") {
@@ -2461,7 +2559,7 @@ function enemyTurn(enemy, weapon) {
         document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
         continueFight(enemy);
     } else {
-        let roundDamage = roundResult;
+        let roundDamage = roundResult *= enemyTestResistances(enemy);
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {
@@ -2509,7 +2607,7 @@ function startGame(event) {
         }else{
             mainCharacter.name = "Another Lazy Gamer";
            }
-        generateStats (mainCharacter, 12, 15, 60, 75);  
+        generateStats (mainCharacter, 12, 15, 50, 75);  
     }
     for(let item of Object.keys(mainCharacterCurrent)) {
         mainCharacterCurrent[item] = "";
@@ -3090,6 +3188,7 @@ document.addEventListener("click", function(e){
         spiderRoom.ropeBroke();
     }
 });
+//ROOM 6 - CAT DINING ROOM
 
 
 /* GAME TEXT */
