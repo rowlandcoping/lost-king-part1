@@ -435,7 +435,7 @@ const characterObjects = [
         category: "object",
         adjective: "a useless",
         name: "Bag of Cables",
-        effect: "May help plugging something in",
+        effect: "May help plugging something in.",
         image: "assets/images/items/cables.webp",
         chance: 20,
         score: 1,
@@ -455,7 +455,7 @@ const characterObjects = [
         category: "object",
         adjective: "a useful",
         name: "Insect Repellent",
-        effect:"Scares off bugs",
+        effect:"Scares off bugs.",
         image: "assets/images/items/insect-repellant.webp",
         chance: 50,
         score: 10,
@@ -465,7 +465,7 @@ const characterObjects = [
         category: "object",
         adjective: "a lucky",
         name: "Four Leaf Clover",
-        effect:"Said to bring good fortune",
+        effect:"Said to bring good fortune.",
         image: "assets/images/items/clover.webp",
         chance: 65,
         score: 15,
@@ -475,7 +475,7 @@ const characterObjects = [
         category: "object",
         adjective: "a useless",
         name: "Stress Balls",
-        effect:"You may need this",
+        effect:"Relieves anxiety.",
         image: "assets/images/items/balls.webp",
         chance: 80,
         score: 4,
@@ -485,7 +485,7 @@ const characterObjects = [
         category: "object",
         adjective: "an intriguing",
         name: "Frayed Rope",
-        effect:"A rope in name only",
+        effect:"A rope in name only.",
         image: "assets/images/items/rope.webp",
         chance: 100,
         score: 7,
@@ -1983,11 +1983,15 @@ const catDining = {
     catDining: function catDining() {
         changeModeToMainWindow();
         if (thingsWhatYouveDone.catGod === true) {
-            mainCharacter.score += 5;
-            specialObject.name = "Glowing Orb";
             document.getElementById('game-section').style.background = this.background;
-            document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodText;
-            document.getElementById('choices-section').innerHTML = this.diningGodChoices;
+            mainCharacter.score += 5;
+            if (thingsWhatYouveDone.catCourtVisits === 0) {
+                document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodTextOne;
+                document.getElementById('choices-section').innerHTML = this.diningGodChoicesOne;
+            } else {
+                document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodTextTwo;
+                document.getElementById('choices-section').innerHTML = this.diningGodChoicesTwo;
+            }
         } else if (thingsWhatYouveDone.catsKilled<5) {
             mainCharacter.score += 5;
             document.getElementById('game-section').style.background = this.background;
@@ -2004,13 +2008,22 @@ const catDining = {
     <p>After following the corridor for a short time, you abruptly stumble out into a large open space.</p>
     <p>The room is full of the cat warriors in full armor, seemingly engaged in a grand banquet</p>
     `,
-    diningGodText: `
+    diningGodTextOne: `
     <p>Immidiately on spotting you, the nearest warriors drop to their knees; before long the entire room is prostrate in supplication.
     <br>You are their God.</p>
     <p>The creatures surround you in what seems to be a parade, and start marching towards the hall's grand entrance.  <br>Where you are going, you could not say.</p>
     `,
-    diningGodChoices: `
+    diningGodTextTwo: `
+    <p>This banquet has been going on for some time now.</p>
+    <p>A particularly friendly looking creature seems to wave cheerily at you.  They seem to have become a lot more comfortable with a Deity in their midst.
+    <br>Either that or the day long drinking and eating binge has left them considerably the worse for wear.</p>
+    `,
+    diningGodChoicesOne: `
     <li><button class="choice-button" id="choice-thirty">Show me the way, my cat bretheren!</button></li>
+    `,
+    diningGodChoicesTwo: `
+    <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
+    <li><button class="choice-button" id="twenty-three">Return to the Cat Cavern.</button></li>
     `,
     diningCaptureText: `
     <p>When the nearest cat senses your presence, they sound a general alarm</p>
@@ -2032,10 +2045,146 @@ const catDining = {
     <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
     `
 }
-const catCourt ={
+const catCourt = {
+    background: "url('assets/images/backgrounds/cat-court.webp') no-repeat left center",
     catCourt: function catCourt(){
-
-    }
+        changeModeToMainWindow();
+        thingsWhatYouveDone.catCourtVisits +=1
+        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-text').innerHTML = this.catCourtText;
+        document.getElementById('choices-section').innerHTML = this.catCourtChoices;
+    },
+    catCourtText: `
+    <p>It has to be said that not much surprises you any more.
+    <br>The sight of the Royal Court of the Cat Creatures was something nothing on your travels could have prepared you for.</p>
+    <p>Amidst the opulence and pagentry sit their Magnificent Furrinesses, the Cat King and Cat Queen.</p>
+    <p>The room goes silent.</p>
+    <p>It seems the warriors are expecting some kind of a judgment.</p>
+    `,
+    catCourtChoices: `
+    <li><button class="choice-button" id="choice-fifty-four">Wait, a what now?</button></li>
+    `,
+    catJudgment: function catDecision(chanceOne, chanceTwo, chanceThree) {
+        let randomChance = getRandomNumber(0,100);
+        if (randomChance <= chanceOne){
+            return "god";
+        } else if (randomChance <= chanceTwo && randomChance > chanceOne){
+            return "death";
+        } else if (randomChance <= chanceThree && randomChance > chanceTwo) {
+            return "prison";
+        }
+    },
+    catCourtJudgment: function catCourtJudgment() {
+        if (thingsWhatYouveDone.catGod) {
+            this.courtGod();
+        } else {
+            let courtResult = this.catJudgment(thingsWhatYouveDone.courtGodChance, thingsWhatYouveDone.courtHangChance + thingsWhatYouveDone.courtGodChance,
+            thingsWhatYouveDone.courtPrisonChance + thingsWhatYouveDone.courtHangChance + thingsWhatYouveDone.courtGodChance);
+            if (courtResult === "god") {
+                this.courtGod();
+            } else if (courtResult === "death") {
+                this.courtDeath();
+            } else if (courtResult === "prison") {
+                this.courtPrison();
+            }
+        }
+    },
+    itemGift: function itemGift() {
+        let giftSelect = getRandomNumber(0,100);
+        if (giftSelect<=50) {
+            return "loin";
+        } else {
+            return "helmet";
+        }
+    },
+    courtGod: function courtGod() {
+        thingsWhatYouveDone.catGod = true;
+        document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>Cat Deity</em>";
+        changeModeToItemWindow();
+        if (this.itemGift()==="loin") {
+            foundItemInfo.category = characterDefence[1].category;
+            foundItemInfo.name = characterDefence[1].name;
+            foundItemInfo.defence = characterDefence[1].defence;
+            foundItemInfo.resist = characterDefence[1].resist;
+            foundItemInfo.image = characterDefence[1].image;
+            foundItemInfo.playerImage = characterDefence[1].playerImage
+            foundItemInfo.score = characterDefence[1].score;
+            foundItemInfo.description = characterDefence[1].description;
+            displayItem();
+            document.getElementById('upper-text').innerHTML = "<h3>You have been gifted a Golden Loin Cloth</h3>";
+        } else {
+            foundItemInfo.category = characterDefence[4].category;
+            foundItemInfo.name = characterDefence[4].name;
+            foundItemInfo.defence = characterDefence[4].defence;
+            foundItemInfo.resist = characterDefence[4].resist;
+            foundItemInfo.image = characterDefence[4].image;
+            foundItemInfo.playerImage = characterDefence[4].playerImage
+            foundItemInfo.score = characterDefence[4].score;
+            foundItemInfo.description = characterDefence[4].description;
+            displayItem();
+            document.getElementById('upper-text').innerHTML = "<h3>You have been gifted a Purple Helmet</h3>";
+        }
+        document.getElementById('lower-text').innerHTML = this.catGodText;
+        document.getElementById('choices-section').innerHTML = this.catGodChoices;
+    },
+    catGodText: `
+    <p>The noble Cat King turns his paw to face upwards, and the cats all around you fall to their knees in supplication.</p>
+    <p>It's scarcely believable, but it seems that they believe you to be some kind of a deity!</p>
+    <p>Before you can really grasp what is going on, they present you with a magical item.</p>
+    `,
+    catGodChoices: `
+    <li><button class="choice-button" id="choice-fifty-five">Keep the item.</button></li>
+    <li><button class="choice-button" id="choice-fifty-six">Refuse the item.</button></li>
+    `,
+    keepGiftItem: function keepGiftItem() {
+        document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('alert-page').style.display = "none";
+        mainCharacter.score += foundItemInfo.score;
+        storeItem();
+        this.catCourtGodExit();
+    },
+    catCourtGodExit: function catCourtGodExit() {
+        changeModeToMainWindow();
+        specialObject.name = "Glowing Orb";
+        document.getElementById('game-text').innerHTML = this.catExitText;
+        document.getElementById('choices-section').innerHTML = this.catExitChoices;
+    },
+    catExitText: `
+    <p>Finally, one of the royal minions advances towards you, carrying a glowing golden orb on a velvet cusion.</p>
+    <p>It is clear they view this as one of the trappings of your Godhood.
+    <br>You take the object with much reverence. You feel like you may need it later.</p>
+    <p>Once you have claimed the orb, the cats begin sheparding you towards the exit doors.
+    <br>It appears that even Gods can out-stay their welcome.</p>
+    `,
+    catExitChoices: `
+    <li><button class="choice-button" id="choice-fifty-seven">Until the next time, my children.</button></li>
+    `,
+    courtDeath: function courtDeath() {
+        mainCharacter.score -= 20;
+        changeToGameOver();
+        document.getElementById('game-outcome').innerHTML = this.deathCatpostText;
+    },
+    deathCatpostText: `
+    <p>The Cat King appears to frown, and turns his paw to face downwards.
+    <br>Shocked cat sounds echo around the hall.</p>
+    <p>Soon you find yourself surrounded by cat guards in elaborate armor, and marched to the corner of the hall.
+    <br>There you see looming before you a large and elaborate scratching post.</p>
+    <p>Rope is tied around your ankles, and at that point a terrible realisation.</p>
+    <p>You spend the rest of your agonising days tied to the top of the pole, used by cat warriors and royalty as a living plaything.</p>
+    <p>It is weeks before you finally succumb to your injuries - blinded, bleeding from wounds all over your body, and none the wiser as to who you really are.
+    <br>YOU ARE DEAD</p>
+    `,
+    courtPrison: function courtPrison() {
+        changeModeToMainWindow();
+        document.getElementById('game-text').innerHTML = this.catPrisonText;
+        document.getElementById('choices-section').innerHTML = this.catPrisonChoices;
+    },
+    catPrisonText: `
+    <p>On seeing you brought before them, the Cat King becomes animated, mewling angrily at his subordinates
+    <br>It seems that somebody has made an error</p>
+    <p>Finally he gestures toward the guards, and they gather around and begin escorting you towards the back of the Great Hall.</p>
+    `,
+    catPrisonChoices: `<li><button class="choice-button" id="choice-fifty-eight">Things could be worse, I guess...</button></li>`
 }
 
 // HELPER FUNCTIONS
@@ -2142,7 +2291,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                valueSelector.push(value);
             }
         });
-        foundItem = valueSelector[0];
+        let foundItem = valueSelector[0];
         for (let i of itemType) {
             if (i.chance === foundItem) {
                 foundItemInfo.category = i.category;
@@ -2935,13 +3084,21 @@ document.addEventListener("click", function(e){
         catCavern.catFight(catWarrior);
     }
 });
-//run away option (incomplete)
+//run away option
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twenty-nine"); 
     if(target){
         catCavern.runAway();
     }
 });
+//cat god option
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-thirty"); 
+    if(target){
+        catCourt.catCourt();
+    }
+});
+
 //battle event handlers
 document.addEventListener("click", function(e){
     const target = e.target.closest("#cat-one"); 
@@ -3192,17 +3349,37 @@ document.addEventListener("click", function(e){
         spiderRoom.ropeBroke();
     }
 });
+
 //ROOM 6 - CAT DINING ROOM
-document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-fourty-eight"); 
-    if(target){
-        spiderRoom.caveBackExit();
-    }
-});
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifty-three"); 
     if(target){
         catCorridor.catCorridor();
+    }
+});
+//ROOM 7 - CAT COURT
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-four"); 
+    if(target){
+        catCourt.catCourtJudgment();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-five"); 
+    if(target){
+        catCourt.keepGiftItem();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-six"); 
+    if(target){
+        catCourt.catCourtGodExit();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-eight"); 
+    if(target){
+        catPrison.catPrison();
     }
 });
 /* GAME TEXT */
