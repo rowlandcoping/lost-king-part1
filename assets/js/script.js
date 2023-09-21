@@ -87,7 +87,7 @@ const catWarrior = {
     initialText: "<p>The car warrior stalks you, every muscle tensed and its tail gently wagging as it looks for the opportinity to strike<br>You do not intend to give it one.</p>",
     successTextOne: "<p>You strike the Cat Warrior with your ",
     successTextTwo: "<br>The cat lands on its feet, as they are prone to do, and comes at you again.</p>",
-    hitText: "<p>The does a sort of triple-salco, tail flailing and sword flashing before landing an accurate strike,",
+    hitText: "<p>The cat does a sort of triple-salco, tail flailing and sword flashing before landing an accurate strike,",
     deathText: "<p>At the killing blow the kitty slumps to the ground, all curled up in a little ball, its sword skittering.  Something inside you dies.</p>",
     failText: "<p>The Cat Warrior arcs its body in an impossible shape, deftly avoiding your attack. Before returning to the perfect fighting stance like still water</p>",
     killedYouText: "<p>You are babmoozled by the speed of the furry warriors attacks, and unable to do anything to defend yourself as it lands the killing blow.<br>YOU ARE DEAD</p>",
@@ -173,7 +173,7 @@ const giantSpider = {
     health: 0,
     image: "assets/images/enemies/giant-spider.webp",
     vulnerability:"sharp",
-    score: 70,
+    score: 20,
     initialText: `
     <p>The spider hisses and chatters at you, and actually appears to be salivating.
     <br>You do not intend to be its next meal.</p>
@@ -195,6 +195,37 @@ const giantSpider = {
     <li><button class="choice-button" id="choice-fourty-seven">That's probably the least fun I've had so far.</button></li>
     `
 }
+const bigBug = {
+    name: "Giant Cockroach",
+    description: `
+    <p>Although the Giant Cockroach is not particularly dangerous, it is extremely alarming to come across.  Dog-sized and extremely difficult to kill, they are more than just a pest.</p>
+    `,
+    strength: 0,
+    strItem: 0,
+    skill: 0,
+    defence: 0,
+    health: 0,
+    dItem: 0,
+    image: "assets/images/enemies/giant-bug.webp",
+    vulnerability:"",
+    score: 10,
+    initialText: "<p>The bug scuttles towards you with aggressive intent.  It is alarming.</p>",
+    successTextOne: "<p>Hoping desperately to discourage it, you thwhack the cockroach with your ",
+    successTextTwo: "<br>It skids away, right itself, then comes at you again, unperturbed.</p>",
+    hitText: "<p>The cockroach lashes at you with its foreleg,",
+    deathText: `<p>Finally, after your most recent blow, the cursed creature finally stops moving.  A growing pool of green ooze from it's midsection suggests this situation may be permanent.</p>
+    `,
+    failText: "<p>You strike at the beast but it is a weary blow, and it is able to evade you.</p>",
+    killedYouText: `<p>The pace of the fight and the concentration required is taking its toll - the relentless creature will not die.</p>
+    <p>Finally, as you stumble to your knees, it crushes your skull with its mandibles, putting you out of your misery.
+    <br>YOU ARE DEAD</p>
+    `,
+    missedText: "<p>The roach reaches out with its legs to strike you again, but you are able to move to evade it.</p>",
+    choices: `
+    <li><button class="choice-button" id="choice-fifty-eight">I hate those things.</button></li>
+    `
+}
+
 
 //ITEM OBJECTS
 //weapons
@@ -584,6 +615,11 @@ const thingsWhatYouveDone = {
     spiderKill: false,
     caveExplore: false,
     rearEntry: false,
+    cellOneSearched: false,
+    cellTwoSearched: false,
+    bugFight: false,
+    prisonerSearched: false,
+    prisonVisits: 0,
     catCourtVisits: 0,
     catsKilled: 0,
     cavernVisits: 0,
@@ -607,6 +643,11 @@ const thingsWhatYouveDoneInitial = {
     spiderKill: false,
     caveExplore: false,
     rearEntry: false,
+    cellOneSearched: false,
+    cellTwoSearched: false,
+    bugFight: false,
+    prisonerSearched: false,
+    prisonVisits: 0,
     catCourtVisits: 0,
     catsKilled: 0,
     cavernVisits: 0,
@@ -629,7 +670,12 @@ function thingsReset() {
     thingsWhatYouveDone.spiderKill = thingsWhatYouveDoneInitial.spiderKill;
     thingsWhatYouveDone.caveExplore = thingsWhatYouveDoneInitial.caveExplore;
     thingsWhatYouveDone.rearEntry = thingsWhatYouveDoneInitial.rearEntry;
+    thingsWhatYouveDone.cellOneSearched = thingsWhatYouveDoneInitial.cellOneSearched;
+    thingsWhatYouveDone.cellTwoSearched = thingsWhatYouveDoneInitial.cellTwoSearched;
+    thingsWhatYouveDone.bugFight = thingsWhatYouveDoneInitial.bugFight;
+    thingsWhatYouveDone.prisonerSearched =thingsWhatYouveDoneInitial.prisonerSearched
 
+    thingsWhatYouveDone.prisonVisits = thingsWhatYouveDoneInitial.prisonVisits;
     thingsWhatYouveDone.catCourtVisits = thingsWhatYouveDoneInitial.catCourtVisits;
     thingsWhatYouveDone.catsKilled = thingsWhatYouveDoneInitial.catsKilled;
     thingsWhatYouveDone.cavernVisits = thingsWhatYouveDoneInitial.cavernVisits;
@@ -1276,11 +1322,11 @@ const catCavern = {
             currentObject[item] = "";
         }        
         document.getElementById('game-text').innerHTML = this.catBiscuitsText;
-        document.getElementById('choices-section').innerHTML = this.bicsuitOptions;
+        document.getElementById('choices-section').innerHTML = this.biscuitOptions;
     },
     catBiscuitsText: `
-    <p>You offer out a handful of biscuits to the fearsome kitty - whilst at first he looks fearful and confused, he eventually pushes his nose into your hand and scoffs the lot</p>
-    <p>Stopping briefly to run affectionately and alarmingly against your leg, both the warrior and his bretheren are soon high-tailing it back the way they came.</p>
+    <p>You offer out a handful of biscuits to the fearsome kitty - whilst at first he looks fearful and confused, he eventually pushes his nose into your hand and scoffs the lot.</p>
+    <p>Stopping briefly to rub affectionately and alarmingly against your leg, both the warrior and his bretheren are soon high-tailing it back the way they came.</p>
     `,
     biscuitOptions: `
     <li><button class="choice-button" id="choice-thirty-two">Well, there's something you don't see every day.</button></li>
@@ -1495,7 +1541,8 @@ const mysteryRoom = {
     <li><button class="choice-button" id="choice-thirty-eight">Well of course... but... yeah well this can't be good...</button></li>
     `,
     sorcererFight: function sorcererFight() {
-        if (getRandomNumber(0,100)<=50) {
+        let mageChance = getRandomNumber(0,100)
+        if (mageChance <= 50) {
             changeModeToItemWindow();
             document.getElementById('upper-text').innerHTML = this.iceQueenText;
             document.getElementById('choices-section').innerHTML = this.iceQueenChoices;
@@ -1782,7 +1829,7 @@ const spiderRoom = {
     noSpider: function nospider() {
         changeModeToMainWindow();
         document.getElementById('game-section').style.background = this.background;
-        if (this.rearOfCaveRearEntry()) {
+        if (thingsWhatYouveDone.rearEntry === true) {
             document.getElementById('game-text').innerHTML = this.noSpiderRearText;
             document.getElementById('choices-section').innerHTML = this.noSpiderRearChoices;
         } else {
@@ -1912,7 +1959,7 @@ const spiderRoom = {
             document.getElementById('choices-section').innerHTML = this.rearEntryChoices;
         } else {
             document.getElementById('game-text').innerHTML = this.rearEntryTextTwo;
-            document.getElementById('choices-section').innerHTML = this.rearEntryChoicesTwo;
+            document.getElementById('choices-section').innerHTML = this.rearEntryChoices;
         }
         
     },
@@ -1929,22 +1976,19 @@ const spiderRoom = {
     `,
     rearEntryChoices: `
     <li><button class="choice-button" id="choice-fifty-one">Lower yourself down.</button></li>
-    <li><button class="choice-button" id="choice-eleventy-twelve">Return to the corridor.</button></li>
-    `,
-    rearEntryChoices: `
-    <li><button class="choice-button" id="choice-fifty-two">Lower yourself down.</button></li>
-    <li><button class="choice-button" id="choice-eleventy-twelve">Return to the corridor.</button></li>
+    <li><button class="choice-button" id="choice-sixty-two">Return to the corridor.</button></li>
     `,
     rearOfCaveRearEntry: function rearOfCaveRearEntry() {
         thingsWhatYouveDone.caveExplore = true;
+        thingsWhatYouveDone.rearEntry = true;
         document.getElementById('game-section').style.background = this.background;
         if (thingsWhatYouveDone.spiderKill) {
             if (currentObject.name === "Frayed Rope") {
                 document.getElementById('game-text').innerHTML = this.rearRearText + this.rearRearTextTwo;
                 document.getElementById('choices-section').innerHTML = this.backExitChoices + this.backExitChoicesTwo;
             } else {
-                document.getElementById('game-text').innerHTML = this.rearRearChoices;
-                document.getElementById('choices-section').innerHTML = this.rearRearChoicesTwo;
+                document.getElementById('game-text').innerHTML = this.rearRearText;
+                document.getElementById('choices-section').innerHTML = this.rearRearChoices;
             }
         } else {
             changeModeToItemWindow();
@@ -1954,7 +1998,7 @@ const spiderRoom = {
         }
     },
     rearRearText: `
-    <p>In the rear of the spider's den, your nostrils fill with the stench of the beast; it's decaying corpse lies in the main cave.</p>
+    <p>In the rear of the spider's den, your nostrils fill with the stench of the beast; it's decaying corpse lies nearby.</p>
     <p>You really don't want to be here any more.</p>
     <p>It would be impossible to climb up through the exit to the cat corridor, so there is only really one viable way out.</p>
     `,
@@ -1974,8 +2018,6 @@ const spiderRoom = {
     spiderRearChoices: `
     <li><button class="choice-button" id="choice-fifty">And so it continues.</button></li>
     `
-
-
 }
 const catDining = {
     background: "url('assets/images/backgrounds/cat-dining-full.webp') no-repeat left center",
@@ -1998,7 +2040,8 @@ const catDining = {
             document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningCaptureText;
             document.getElementById('choices-section').innerHTML = this.diningCaptureChoices;
         } else {
-            mainCharacter.score += 5;
+            mainCharacter.score += 50;
+            specialObject.name = "Glowing Orb";
             document.getElementById('game-section').style.background = this.backgroundTwo;
             document.getElementById('game-text').innerHTML = this.diningEmptyText;
             document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
@@ -2023,7 +2066,7 @@ const catDining = {
     `,
     diningGodChoicesTwo: `
     <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
-    <li><button class="choice-button" id="twenty-three">Return to the Cat Cavern.</button></li>
+    <li><button class="choice-button" id="choice-twenty-three">Return to the Cat Cavern.</button></li>
     `,
     diningCaptureText: `
     <p>When the nearest cat senses your presence, they sound a general alarm</p>
@@ -2041,8 +2084,8 @@ const catDining = {
     <br>Without a second's pause for debate, you grab it tight.  You feel like you will be needing this.</p>
     `,
     diningEmptyChoices: `
-    <li><button class="choice-button" id="choice-twenty-three">Go back to the cat cavern.</button></li>
     <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
+    <li><button class="choice-button" id="choice-twenty-three">Go back to the cat cavern.</button></li>
     `
 }
 const catCourt = {
@@ -2050,6 +2093,7 @@ const catCourt = {
     catCourt: function catCourt(){
         changeModeToMainWindow();
         thingsWhatYouveDone.catCourtVisits +=1
+        mainCharacter.score += 5;
         document.getElementById('game-section').style.background = this.background;
         document.getElementById('game-text').innerHTML = this.catCourtText;
         document.getElementById('choices-section').innerHTML = this.catCourtChoices;
@@ -2146,6 +2190,7 @@ const catCourt = {
     catCourtGodExit: function catCourtGodExit() {
         changeModeToMainWindow();
         specialObject.name = "Glowing Orb";
+        mainCharacter.score += 50;
         document.getElementById('game-text').innerHTML = this.catExitText;
         document.getElementById('choices-section').innerHTML = this.catExitChoices;
     },
@@ -2167,7 +2212,7 @@ const catCourt = {
     deathCatpostText: `
     <p>The Cat King appears to frown, and turns his paw to face downwards.
     <br>Shocked cat sounds echo around the hall.</p>
-    <p>Soon you find yourself surrounded by cat guards in elaborate armor, and marched to the corner of the hall.
+    <p>Soon you find yourself surrounded by cat guards in full plate armor, and marched to the corner of the hall.
     <br>There you see looming before you a large and elaborate scratching post.</p>
     <p>Rope is tied around your ankles, and at that point a terrible realisation.</p>
     <p>You spend the rest of your agonising days tied to the top of the pole, used by cat warriors and royalty as a living plaything.</p>
@@ -2185,6 +2230,329 @@ const catCourt = {
     <p>Finally he gestures toward the guards, and they gather around and begin escorting you towards the back of the Great Hall.</p>
     `,
     catPrisonChoices: `<li><button class="choice-button" id="choice-fifty-eight">Things could be worse, I guess...</button></li>`
+}
+const catCorridor = {
+    background: "url('assets/images/backgrounds/cat-corridor-one.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/cat-corridor-two.webp') no-repeat left center",
+    catCorridor: function catCorridor() {
+        mainCharacter.score += 5;
+        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('choices-section').innerHTML = this.catCorridorChoices;
+            if  (thingsWhatYouveDone.prisonVisits === 0) {
+        document.getElementById('game-text').innerHTML = this.catCorridorTextOne;
+        } else {
+            document.getElementById('game-text').innerHTML = this.catCorridorTextTwo;
+        }        
+    },
+    catCorridorTextOne: `
+    <p>You find yourself in a good-sized corridor well lit by lanterns.  High in the wall you see a small barred window you could -just- about fit through.</p>
+    <p>There is no way you can reach it though.</p>
+    <p>From one direction you can hear cat noises and the sound of cat merriment.
+    <br>In the other direction the lamps seem to peter out.  It is the road less travelled.</p>
+    `,
+    catCorridorTextTwo: `
+    <p>You find yourself in a good-sized corridor well lit by lanterns. High in the wall you see the window to the prison cell.</p>
+    <p>There is no way you can reach it from here though.
+    <br>Why would you even want to??</p>
+    <p>From one direction you can hear cat noises and the sound of cat merriment.
+    <br>In the other direction the lamps seem to peter out.  It is the road less travelled.</p>
+    `,
+    catCorridorChoices: `
+    <li><button class="choice-button" id="choice-sixty">Head away from the cat sounds.</button></li>
+    <li><button class="choice-button" id="choice-thirty-four">Head towards the cat sounds.</button></li>
+    `,
+    catCorridorTwo: function catCorridorTwo() {
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-text').innerHTML = this.catCorridorTwoText;
+        document.getElementById('choices-section').innerHTML = this.catCorridorTwoChoices;
+    },
+    catCorridorTwoText: `
+    <p>The corridor narrows, then seems almost to shrink.  There are no longer lanterns on the wall, and the darkness begins to close in again.</p>
+    <p>Eventually it ends with a narrow doorway through which you reckon you can just about fit.</p>
+    `,
+    catCorridorTwoChoices: `
+    <li><button class="choice-button" id="choice-sixty-one">Investigate the doorway.</button></li>
+    <li><button class="choice-button" id="choice-thirty-four">Turn around and head back the other way, towards the cat sounds.</button></li>
+    `
+}
+const catPrison = {
+    background: "url('assets/images/backgrounds/cat-prison.webp') no-repeat left center",
+    backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp') no-repeat left center",
+    catPrison: function catPrison() {
+        changeModeToMainWindow();
+        document.getElementById('game-section').style.background = this.background;
+        if (thingsWhatYouveDone.prisonVisits === 0) {
+            document.getElementById('game-text').innerHTML = this.catPrisonTextOne;
+            if (thingsWhatYouveDone.prisonerSearched) {
+                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellOneSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+                } else {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                }
+            } else {
+                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellOneSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+                } else {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                }
+            }
+        } else {
+            document.getElementById('game-text').innerHTML = this.catPrisonTextTwo;
+            if (thingsWhatYouveDone.prisonerSearched) {
+                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellOneSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+                } else {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                }
+            } else {
+                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellOneSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                } else if (thingsWhatYouveDone.cellTwoSearched) {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+                } else {
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+                }
+            }
+        }
+    },
+    catPrisonTextOne: `
+    <p>You find yourself in a prison cell.  It wouldn't be so bad, if it weren't for the putrid rotting corpse you're having to share the room with.</p>
+    <p>It looks like a multi-purpose facility, with three cells linked by adjoining doors.  All the adjoining doors to your are open for now, suggesting you are the only one here.
+    <br>It seems like they don't get too many guests down here.</p>
+    <p>A small narrow window is within arm's reach.  You may or may not fit through it.</p>
+    `,
+    catPrisonTextTwo: `
+    <p>You find yourself back in the prison cell.</p>
+    <p>Nobody has replaced the window bar. It's beyond you how the cats seem to be so baffled by your escape.
+    <br>Perhaps they hadn't factored in your height.</p>
+    <p>The corpse is still in here.  If anything its rictus grin is growing ever wider.</p>
+    `,
+    catPrisonChoicesOne: `
+    <li><button class="choice-button" id="choice-sixty-two">Search the dead prisoner.</button></li>
+    `,
+    catPrisonChoicesTwo: `
+    <li><button class="choice-button" id="choice-sixty-three">Search the first adjoining cell.</button></li>
+    `,
+    catPrisonChoicesThree: `
+    <li><button class="choice-button" id="choice-sixty-four">Search the second adjoining cell.</button></li>
+    `,
+    catPrisonChoicesFour: `
+    <li><button class="choice-button" id="choice-sixty-five">See if you can get out of the window.</button></li>
+    `,
+    climbOutWindow: function climbOutWindow() {
+        if (thingsWhatYouveDone.prisonVisits === 0) {
+            document.getElementById('game-text').innerHTML = this.windowTextOne;
+        } else {
+            document.getElementById('game-text').innerHTML = this.windowTextTwo;
+        }
+        thingsWhatYouveDone.prisonVisits += 1;
+        mainCharacter.score += 10;
+        document.getElementById('choices-section').innerHTML = this.windowChoices;
+    },
+    windowTextOne: `
+    <p>You reach up and grab the single metal bar blocking your exit, and try to use it to haul yourself up to the window at eye-level, to see what is beyond.
+    <br>As you do so, the bar comes away in your hand.</p>
+    <p>It seems security is not a cat strong point.</p>
+    <p>Even so, it is no small matter to pull and shimmy your aching and distraught frame through the tiny hole in the wall that remains.</p>
+    `,
+    windowTextTwo: `
+    <p>As before, you shimmy your aching and distraught frame through the tiny hole in the wall and out into the corridor beyond.</p>
+    <p>You don't really want to be doing this too often, you reflect.</p>
+    `,
+    windowChoices: `
+    <li><button class="choice-button" id="choice-fifty-seven">It's called the dungeon diet...</button></li>
+    `,
+    searchCorpse: function searchCorpse() {
+        changeModeToItemWindow();
+        thingsWhatYouveDone.prisonerSearched = true;
+        foundItemInfo.category = characterDefence[0].category;
+        foundItemInfo.adjective = characterDefence[0].adjective;
+        foundItemInfo.name = characterDefence[0].name;
+        foundItemInfo.defence = characterDefence[0].defence;
+        foundItemInfo.resist = characterDefence[0].resist;
+        foundItemInfo.image = characterDefence[0].image;
+        foundItemInfo.playerImage = characterDefence[0].playerImage
+        foundItemInfo.score = characterDefence[0].score;
+        foundItemInfo.description = characterDefence[0].description;
+        displayItem();
+        document.getElementById('lower-text').innerHTML = this.corpseSearchText;
+        document.getElementById('choices-section').innerHTML = this.corpseSearchOptions;
+        
+    },
+    corpseSearchText: `
+    <p>The corpse is wearing a rather tasteless furry gilet with matching short-shorts.</p>
+    <p>You clean it off as best you can.  It doesn't offer much protection from a blade, but it looks cosy.</p>
+    `,
+    corpseSearchOptions: `
+    <li><button class="choice-button" id="choice-sixty-nine">Keep the Furry Gilet.</button></li>
+    <li><button class="choice-button" id="choice-fifty-eight">Discard the foul-smelling rags.</button></li>
+    `,
+    checkGilet: function checkGilet() {
+        if (currentDefence.name) {
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('item-details').innerHTML = currentDefence.name;
+            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-gilet"); 
+            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-gilet");
+        } else {
+            this.keepGilet();
+        }
+    },
+    keepGilet: function keepGilet() {
+        document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('alert-page').style.display = "none";
+        mainCharacter.score += foundItemInfo.score;
+        storeItem();
+        this.catPrison();
+    },
+    bugChance: function bugChance() {
+        let bugLikelihood = getRandomNumber(0,100);
+        if (bugLikelihood<=70) {
+            return true;
+        } else {
+            return false;
+        }
+    },
+    firstCellSearch: function firstCellSearch() {
+        if (this.bugChance()) {
+            if (!thingsWhatYouveDone.bugKill) {
+                document.getElementById('game-section').style.background = this.backgroundTwo;
+                changeModeToItemWindow();
+                document.getElementById('upper-text').innerHTML = this.bigBugText;
+                document.getElementById('choices-section').innerHTML = this.bigBugChoices;
+                setEnemyStats(bigBug, 8,10,15,25);
+                thingsWhatYouveDone.bugKill = true;
+            }
+        } else {
+            searchForItem(10, 80, 90, 100);
+            document.getElementById('lower-text').innerHTML = this.cellSearch;
+            document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
+            thingsWhatYouveDone.cellOneSearched = true;
+        }
+    },
+    secondCellSearch: function secondCellSearch() {
+        if (this.bugChance()) {
+            if (!thingsWhatYouveDone.bugKill) {
+                document.getElementById('game-section').style.background = this.backgroundTwo;
+                changeModeToItemWindow();
+                document.getElementById('upper-text').innerHTML = this.bigBugText;
+                document.getElementById('choices-section').innerHTML = this.bigBugChoices;
+                setEnemyStats(bigBug, 6,8,25,30,0,0,15);
+                thingsWhatYouveDone.bugKill = true;
+            }
+        } else {
+            searchForItem(0, 0, 100, 100);
+            document.getElementById('lower-text').innerHTML = this.cellSearch;
+            document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
+            thingsWhatYouveDone.cellTwoSearched = true;
+        }
+    },
+    cellSearch: `
+    <p>Although you didn't hold out much hope, you eventually manage to find a discarded item worth keeping in the corner of the cell</p>
+    <p>These cats really aren't ones for housekeeping.</p>    
+    `,
+    cellSearchOptions: `
+    <li><button class="choice-button" id="choice-seventy">Keep the item.</button></li>
+    <li><button class="choice-button" id="choice-fifty-eight">Discard the item.</button></li>
+    `,
+    checkCellItem: function checkCellItem() {
+        if (foundItemInfo.category === currentWeapon.category) {
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('item-details').innerHTML = currentWeapon.name;
+            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
+            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+        } else if (foundItemInfo.category === currentDefence.category) {
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('item-details').innerHTML = currentDefence.name;
+            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
+            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+        } else if (foundItemInfo.category === currentPotion.category) {
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('item-details').innerHTML = currentPotion.name;
+            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
+            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+        } else if (foundItemInfo.category == currentObject.category) {
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('item-details').innerHTML = currentObject.name;
+            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
+            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+        } else {
+            this.keepCellItem();
+        }
+    },
+    keepCellItem: function keepCellItem() {
+    document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('alert-page').style.display = "none";
+        mainCharacter.score += foundItemInfo.score;
+        storeItem();
+        this.catPrison();
+    },
+    bigBugText: `
+    <p>As you rummage around in the dark space of the unlit cell, you catch movement in the corner of your eye.</p>
+    <p>Looking, you see a cockroach the size of a Basset Hound.
+    <br>You don't have time to be alarmed before it is upon you.</p>
+    `,
+    bigBugChoices: `
+    <li><button class="choice-button" id="choice-sixty-seven">I've seen bigger...</button></li>
+    `,
+    bigBugFight: function bigBugFight(enemy) {
+        changeToBattleWindow(enemy);
+        document.getElementById('fists-button').firstChild.setAttribute("id", "bug-one"); 
+        document.getElementById('weapon-button').firstChild.setAttribute("id", "bug-two"); 
+        document.getElementById('potion-button').firstChild.setAttribute("id", "bug-three");
+        if (currentObject.name === "Insect Repellant") {
+            document.getElementById('object-button-three').firstChild.setAttribute("id", "bug-four");
+        }
+        testForWeapons(enemy);
+    },
+    insectRepellantBug: function insectRepellantBug() {
+        document.getElementById('upper-text').innerHTML = this.insectRepellantBugText;
+        if (thingsWhatYouveDone.prisonerSearched) {
+            if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellOneSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+            } else {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            }
+        } else {
+            if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellOneSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+            } else {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            }
+        }
+    },
+    insectRepellantBugText: `
+    <p>You spray the bottle of insect repellant until it empties, more in hope than expectation</p>
+    <p>The dog-sized, near indestructible insect pauses, wipes its head with its forelegs, then disappears through a large crack.
+    <br>You HAVE to find more of this stuff.</p>
+    <p>Confident there will be no more bugs in the area, you can continue your search.</p>
+    `
 }
 
 // HELPER FUNCTIONS
@@ -2435,7 +2803,7 @@ function testForWeapons(enemy) {
     } else {
         document.getElementById('potion-button').style.display = "none";
     }
-    if (currentObject.name === "Insect Repellant") {
+    if (currentObject.name === "Insect Repellant" && (enemy === "giantSpider" || enemy === "bigBug")) {
         document.getElementById('object-button-three').style.display = "block";
     } else {
         document.getElementById('object-button-three').style.display = "none";
@@ -2730,15 +3098,9 @@ function enemyTurn(enemy, weapon) {
 }
 
 //GAMEPLAY FUNCTIONS
-//cat cavern decision-making dynamic
-
-
-//cat court decision making dynamic
-
-
 // Game restart and reset functions
-
 function resetGame() {
+    window.localStorage.clear();
     thingsReset();
     specialObject.name = "";
     mainCharacter.name = "";
@@ -2760,11 +3122,12 @@ function startGame(event) {
         }else{
             mainCharacter.name = "Another Lazy Gamer";
            }
-        generateStats (mainCharacter, 12, 15, 50, 75);  
+        generateStats (mainCharacter, 10, 15, 50, 75);  
     }
     for(let item of Object.keys(mainCharacterCurrent)) {
         mainCharacterCurrent[item] = "";
     }
+    window.localStorage.clear();
     thingsReset();
     specialObject.name = "";
     mainCharacterCurrent.health = mainCharacter.health;
@@ -3349,6 +3712,18 @@ document.addEventListener("click", function(e){
         spiderRoom.ropeBroke();
     }
 });
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-two"); 
+    if(target){
+        catCorridor.catCorridorTwo();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-one"); 
+    if(target){
+        spiderRoom.rearOfCaveRearEntry();
+    }
+});
 
 //ROOM 6 - CAT DINING ROOM
 document.addEventListener("click", function(e){
@@ -3377,9 +3752,135 @@ document.addEventListener("click", function(e){
     }
 });
 document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-seven"); 
+    if(target){
+        catCorridor.catCorridor();
+    }
+});
+document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifty-eight"); 
     if(target){
         catPrison.catPrison();
+    }
+});
+
+
+// ROOM 8 - CAT CORRIDOR
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty"); 
+    if(target){
+        catCorridor.catCorridorTwo();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-one"); 
+    if(target){
+        spiderRoom.caveRearEntry();
+    }
+});
+
+// ROOM 9 - CAT PRISON
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-two"); 
+    if(target){
+        catPrison.searchCorpse();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-three"); 
+    if(target){
+        catPrison.firstCellSearch();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-four"); 
+    if(target){
+        catPrison.secondCellSearch();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-five"); 
+    if(target){
+        catPrison.climbOutWindow();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-nine"); 
+    if(target){ 
+        catPrison.checkGilet();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#keep-gilet"); 
+    if(target){ 
+        catPrison.keepGilet();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#lose-gilet"); 
+    if(target){
+        catPrison.catPrison();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-six"); 
+    if(target){
+        catPrison.keepGilet();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-seven"); 
+    if(target){
+        catPrison.bigBugFight(bigBug);
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-seventy"); 
+    if(target){ 
+        catPrison.checkCellItem();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#keep-cell"); 
+    if(target){ 
+        catPrison.keepCellItem();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#lose-cell"); 
+    if(target){
+        catPrison.catPrison();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-sixty-eight"); 
+    if(target){
+        catPrison.keepCellItem();
+    }
+});
+//cockroach battle listeners
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#bug-one"); 
+    if(target){
+        playerTurn(bigBug, "fists");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#bug-two"); 
+    if(target){
+        playerTurn(bigBug, "weapon");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#bug-three"); 
+    if(target){
+        potionRound(bigBug, "enemy");
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#bug-four"); 
+    if(target){
+        insectRepellantBug(bigBug, "enemy");
     }
 });
 /* GAME TEXT */
