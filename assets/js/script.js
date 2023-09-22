@@ -2061,12 +2061,12 @@ const catDining = {
         if (thingsWhatYouveDone.catGod === true) {
             document.getElementById('game-section').style.background = this.background;
             mainCharacter.score += 5;
-            if (thingsWhatYouveDone.catCourtVisits === 0) {
-                document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodTextOne;
-                document.getElementById('choices-section').innerHTML = this.diningGodChoicesOne;
-            } else {
+            if (specialObject.name === "Glowing Orb") {
                 document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodTextTwo;
                 document.getElementById('choices-section').innerHTML = this.diningGodChoicesTwo;
+            } else {
+                document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodTextOne;
+                document.getElementById('choices-section').innerHTML = this.diningGodChoicesOne;     
             }
         } else if (thingsWhatYouveDone.catsKilled<5) {
             mainCharacter.score += 5;
@@ -2508,13 +2508,13 @@ const catPrison = {
                 setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             } else {
-                searchForItem(10, 80, 90, 100);
+                searchForItem(20, 30, 50, 100);
                 document.getElementById('lower-text').innerHTML = this.cellSearch;
                 document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
                 thingsWhatYouveDone.cellOneSearched = true;
             }
         } else {
-            searchForItem(10, 80, 90, 100);
+            searchForItem(20, 30, 50, 100);
             document.getElementById('lower-text').innerHTML = this.cellSearch;
             document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
             thingsWhatYouveDone.cellOneSearched = true;
@@ -2532,13 +2532,13 @@ const catPrison = {
                 setEnemyStats(bigBug, 6,8,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             } else {
-                searchForItem(10, 20, 90, 100);
-            }                
-            document.getElementById('lower-text').innerHTML = this.cellSearch;
-            document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
-            thingsWhatYouveDone.cellTwoSearched = true;
+                searchForItem(10, 20, 70, 100);                
+                document.getElementById('lower-text').innerHTML = this.cellSearch;
+                document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
+                thingsWhatYouveDone.cellTwoSearched = true;
+            }
         } else {
-            searchForItem(10, 20, 90, 100);
+            searchForItem(10, 20, 70, 100);
             document.getElementById('lower-text').innerHTML = this.cellSearch;
             document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
             thingsWhatYouveDone.cellTwoSearched = true;
