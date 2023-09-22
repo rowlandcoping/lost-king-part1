@@ -1555,6 +1555,9 @@ const mysteryRoom = {
     `,
     orbPlace: function orbPlace() {
         mainCharacter.score += 100;
+        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
+        document.getElementById('object-item-name').innerHTML = "";
+        document.getElementById('object-list-item-one').innerHTML = "";
         document.getElementById('game-section').style.background = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.orbPlaceText;
         document.getElementById('choices-section').innerHTML = this.orbPlaceOptions;
@@ -2076,6 +2079,9 @@ const catDining = {
             document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
             document.getElementById('object-item-name').innerHTML = "Glowing Orb";
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
+            for(let item of Object.keys(currentObject)) {
+                currentObject[item] = "";
+            }
             document.getElementById('game-section').style.background = this.backgroundTwo;
             document.getElementById('game-text').innerHTML = this.diningEmptyTextOne + catCourt.orbImage + this.diningEmptyTextTwo;
             document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
