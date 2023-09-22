@@ -154,7 +154,7 @@ const fireMage = {
     deathText: "<p>Finally, the mage's chants can keep him upright no more.  As he crumples to the floor, his corpse burns with a bright phosphorescent flame, leaving nothing but ashes.</p>",
     failText: "<p>The mage's form seems to flicker like a flame, and somehow you miss him.</p>",
     killedYouText: `<p>The final ball of burning fire was too much for you, and you collapse to your knees, helpless to avoid your destruction.</p>
-    As your vision fills with flame and you black out from the pain, you can only think of one thing.<p>"What was my name?</p><br>YOU ARE DEAD</p>
+    As your vision fills with flame and you black out from the pain, you can only think of one thing.<p>"What was my name?"</p><br>YOU ARE DEAD</p>
     `,
     missedText: "<p>You dodge at the last second and the fireball blazes past you, leaving a dark charcoal graze on your clothing.</p>",
     choices: `
@@ -896,6 +896,7 @@ const firstCavern = {
     }, 
     braceYourself: function braceYourself() {
         changeModeToItemWindow();
+        document.getElementById('lower-text').style.display = "none";
         document.getElementById('upper-text').innerHTML = this.pageSixThird + this.pageSixCommon;
         mainCharacterCurrent.health -= 4;
         document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
@@ -1020,6 +1021,7 @@ const slimeCorridor = {
     //Page nine
     slimeLuck: function slimeLuck() {
         changeModeToItemWindow();
+        document.getElementById('lower-text').style.display = "none";
         thingsWhatYouveDone.slimeKill = true;
         if (getLucky()) {
             mainCharacter.score += 3;
@@ -1037,6 +1039,7 @@ const slimeCorridor = {
     slimeSmash: function slimeSmash() {
         thingsWhatYouveDone.slimeKill = true;
         changeModeToItemWindow();
+        document.getElementById('lower-text').style.display = "none";
         document.getElementById('upper-text').innerHTML = this.pageNineSecond;
         mainCharacterCurrent.health -= 5;
         mainCharacter.score += 3;
@@ -1223,6 +1226,7 @@ const catCavern = {
     `,
     catAttack: function catAttack() {
         changeModeToItemWindow();
+        document.getElementById('lower-text').style.display = "none";
         document.getElementById('upper-text').innerHTML = this.catAttackText;
         document.getElementById('choices-section').innerHTML = this.catAttackChoices;
         setEnemyStats(catWarrior, 8,10,20,30,2,5,0, 0, "fire");
@@ -1544,11 +1548,13 @@ const mysteryRoom = {
         let mageChance = getRandomNumber(0,100)
         if (mageChance <= 50) {
             changeModeToItemWindow();
+            document.getElementById('lower-text').style.display = "none";
             document.getElementById('upper-text').innerHTML = this.iceQueenText;
             document.getElementById('choices-section').innerHTML = this.iceQueenChoices;
             setEnemyStats(iceQueen, 13,16,35,40);
         } else {
             changeModeToItemWindow();
+            document.getElementById('lower-text').style.display = "none";
             document.getElementById('upper-text').innerHTML = this.fireMageText;
             document.getElementById('choices-section').innerHTML = this.fireMageChoices;
             setEnemyStats(fireMage, 13,16,35,40);
@@ -1788,6 +1794,7 @@ const spiderRoom = {
     `,
     spiderAttack: function spiderAttack() {
         changeModeToItemWindow();
+        document.getElementById('lower-text').style.display = "none";
         document.getElementById('upper-text').innerHTML = this.spiderText;
         document.getElementById('choices-section').innerHTML = this.spiderChoices;
         setEnemyStats(giantSpider, 12,15,25,30);
@@ -2180,6 +2187,17 @@ const catCourt = {
     <li><button class="choice-button" id="choice-fifty-five">Keep the item.</button></li>
     <li><button class="choice-button" id="choice-fifty-six">Refuse the item.</button></li>
     `,
+    checkGiftItem: function checkGiftItem() {
+        if (currentDefence.name) {
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('item-details').innerHTML = currentDefence.name;
+            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-gift"); 
+            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-gift");
+        } else {
+            this.keepGiftItem();
+        }
+    },
     keepGiftItem: function keepGiftItem() {
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
@@ -2189,6 +2207,8 @@ const catCourt = {
     },
     catCourtGodExit: function catCourtGodExit() {
         changeModeToMainWindow();
+        document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('alert-page').style.display = "none";
         specialObject.name = "Glowing Orb";
         mainCharacter.score += 50;
         document.getElementById('game-text').innerHTML = this.catExitText;
@@ -2280,6 +2300,8 @@ const catPrison = {
     backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp') no-repeat left center",
     catPrison: function catPrison() {
         changeModeToMainWindow();
+        document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('alert-page').style.display = "none";
         document.getElementById('game-section').style.background = this.background;
         if (thingsWhatYouveDone.prisonVisits === 0) {
             document.getElementById('game-text').innerHTML = this.catPrisonTextOne;
@@ -2432,9 +2454,10 @@ const catPrison = {
             if (!thingsWhatYouveDone.bugKill) {
                 document.getElementById('game-section').style.background = this.backgroundTwo;
                 changeModeToItemWindow();
+                document.getElementById('lower-text').style.display = "none";
                 document.getElementById('upper-text').innerHTML = this.bigBugText;
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
-                setEnemyStats(bigBug, 8,10,15,25);
+                setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             }
         } else {
@@ -2449,13 +2472,14 @@ const catPrison = {
             if (!thingsWhatYouveDone.bugKill) {
                 document.getElementById('game-section').style.background = this.backgroundTwo;
                 changeModeToItemWindow();
+                document.getElementById('lower-text').style.display = "none";
                 document.getElementById('upper-text').innerHTML = this.bigBugText;
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
-                setEnemyStats(bigBug, 6,8,25,30,0,0,15);
+                setEnemyStats(bigBug, 6,8,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             }
         } else {
-            searchForItem(0, 0, 100, 100);
+            searchForItem(10, 20, 90, 100);
             document.getElementById('lower-text').innerHTML = this.cellSearch;
             document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
             thingsWhatYouveDone.cellTwoSearched = true;
@@ -2499,7 +2523,7 @@ const catPrison = {
         }
     },
     keepCellItem: function keepCellItem() {
-    document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
         storeItem();
@@ -2587,7 +2611,7 @@ function changeToBattleWindow(enemy) {
     document.getElementById('upper-text').style.display = "none";
     document.getElementById('lower-text').style.display = "none";
     document.getElementById('battle-text-player').style.display = "block";
-    document.getElementById('battle-text-enemy').style.display = "block";
+    document.getElementById('battle-text-enemy').style.display = "none";
     document.getElementById('battle-text-player').innerHTML = enemy.initialText;
     document.getElementById('choices-section').style.display = "none";
     document.getElementById('battles-section').style.display = "block";
@@ -2930,7 +2954,7 @@ function nextRound(enemy, weapon) {
     if (hitSuccess(enemy, weapon)) {
         let roundDamage = initialDamage(enemy, weapon);      
         roundDamage -= damageResist (enemy, weapon);
-        return Math.floor(roundDamage);
+        return roundDamage;
     } else {
         return "fail";
     }
@@ -2941,7 +2965,7 @@ function playerTurn(enemy, weapon) {
         document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
         enemyTurn(enemy, "enemy");
     } else {
-        let roundDamage = roundResult *= playerTestResistances(enemy);
+        let roundDamage = Math.floor(roundResult * playerTestResistances(enemy));
         if (roundDamage > 0) {enemy.health -= roundDamage;}
         if (enemy.health > 0) {
             if (weapon === "fists") {
@@ -3076,11 +3100,15 @@ function potionRound(enemy, weapon) {
 }
 function enemyTurn(enemy, weapon) {
     let roundResult = nextRound(enemy, weapon);
+    if (document.getElementById('battle-text-enemy').style.display === "none") {
+        document.getElementById('battle-text-enemy').style.display = "block";
+    }
     if (roundResult === "fail") {
         document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
         continueFight(enemy);
     } else {
-        let roundDamage = roundResult *= enemyTestResistances(enemy);
+        let roundDamage = Math.floor(roundResult * enemyTestResistances(enemy))
+        roundDamage = Math.floor(roundDamage);
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {
@@ -3740,9 +3768,15 @@ document.addEventListener("click", function(e){
     }
 });
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-fifty-five"); 
+    const target = e.target.closest("#keep-gift"); 
     if(target){
         catCourt.keepGiftItem();
+    }
+});
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-fifty-five"); 
+    if(target){
+        catCourt.checkGiftItem();
     }
 });
 document.addEventListener("click", function(e){
@@ -3751,6 +3785,13 @@ document.addEventListener("click", function(e){
         catCourt.catCourtGodExit();
     }
 });
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#lose-gift"); 
+    if(target){
+        catCourt.catCourtGodExit();
+    }
+});
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifty-seven"); 
     if(target){
@@ -3852,12 +3893,7 @@ document.addEventListener("click", function(e){
         catPrison.catPrison();
     }
 });
-document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-sixty-eight"); 
-    if(target){
-        catPrison.keepCellItem();
-    }
-});
+
 //cockroach battle listeners
 document.addEventListener("click", function(e){
     const target = e.target.closest("#bug-one"); 

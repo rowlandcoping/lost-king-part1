@@ -90,6 +90,7 @@ ul {
     display:none;
     flex-flow: column;
     width: 100%;
+    
 }
 #transparency {
     opacity: 1;
@@ -120,7 +121,23 @@ ul {
     color: red;
 }
 
+
+#game-text, #upper-text, #lower-text, #image-section, #battle-text-player, #battle-text-enemy {
+    background-color: #00000080;
+    width:70%;
+    margin:auto;
+    padding:0 5px 0 5px;
+}
+
+#choices-section, #battles-section {
+    margin-bottom:20px;
+}
+#upper-text {
+    margin-top:20px;
+}
+
 #game-text img {
+    
     width:40%;
 }
 
@@ -173,7 +190,6 @@ ul {
     margin-right: auto;
     padding:5px;
     border: 2px solid red;
-    width:65%; 
 }
 
 #battle-text {
@@ -181,13 +197,13 @@ ul {
 }
 
 #image-image img {
-    padding: 10px;
+    padding: 5px;
     width: 200px;
 }
 
 .choice-button {
     margin: 3px 0;
-    width:60%;
+    width:70%;
 }
 
 /* bottom items and game restart section */
