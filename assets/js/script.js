@@ -2010,7 +2010,7 @@ const spiderRoom = {
     `,
     rearEntryChoices: `
     <li><button class="choice-button" id="choice-fifty-one">Lower yourself down.</button></li>
-    <li><button class="choice-button" id="choice-sixty-two">Return to the corridor.</button></li>
+    <li><button class="choice-button" id="choice-seventy-two">Return to the corridor.</button></li>
     `,
     rearOfCaveRearEntry: function rearOfCaveRearEntry() {
         thingsWhatYouveDone.caveExplore = true;
@@ -3785,7 +3785,7 @@ document.addEventListener("click", function(e){
     }
 });
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-sixty-two"); 
+    const target = e.target.closest("#choice-seventy-two"); 
     if(target){
         catCorridor.catCorridorTwo();
     }

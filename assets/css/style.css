@@ -89,8 +89,7 @@ ul {
     position: relative;
     display:none;
     flex-flow: column;
-    width: 100%;
-    
+    width: 100%;  
 }
 #transparency {
     opacity: 1;
@@ -248,11 +247,11 @@ ul {
 
 .item-text {
     width: 100px;
-    text-align:center;
+    text-align: center;
 }
 .item-text h4 {
     margin:0;
-    padding:0;
+    padding-top:2px;
 }
 
 .item-text hr {
@@ -296,4 +295,47 @@ ul {
 #end-game-navigation button {
     width:75%;
     margin-top:10px;
+}
+
+/* Media Queries */
+
+@media screen and (max-width:1750px) {
+
+/*GAME PAGE */
+
+/* Item slots */
+#player-items {
+    flex:3;
+    display:flex;
+    align-items: center;
+    margin-left:0px;
+}
+    .item-display {
+        display:flex;
+        flex-flow: column;
+        align-items: center;
+        border: 2px solid blue;
+        margin: 0px;
+        padding: 3px;
+        height:100%;
+    }
+
+    .item-image img {
+        width: 80px;
+        margin: 2px;
+    }
+
+    .item-text {
+        width: 80px;
+        text-align:center;
+    }
+    .item-text h4 {
+        margin:0;
+        padding-top:2px;
+    }
+
+    .item-text hr {
+        width:75%;
+    }
+
 }
