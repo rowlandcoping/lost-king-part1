@@ -305,10 +305,8 @@ ul {
 
 /* Item slots */
 #player-items {
-    flex:3;
     display:flex;
-    align-items: center;
-    margin-left:0px;
+    align-items: right;
 }
     .item-display {
         display:flex;

@@ -2487,7 +2487,7 @@ const catPrison = {
     },
     bugChance: function bugChance() {
         let bugLikelihood = getRandomNumber(0,100);
-        if (bugLikelihood<=50) {
+        if (bugLikelihood<=100) {
             return true;
         } else {
             return false;
@@ -2624,6 +2624,10 @@ const getRandomNumber = (min, max) => Math.ceil(Math.random() * (max - min)) + m
 const getLucky = () => getRandomNumber(0,20) <= mainCharacterCurrent.luck;
 //game state switchers
 function changeModeToMainWindow() {
+    const resetElements = document.getElementsByClassName('change-mode');
+    for (let i = 0; i < resetElements.length; i++) {
+        resetElements[i].innerHTML = "";
+    }
     document.getElementById('choices-section').style.display = "block";
     document.getElementById('battles-section').style.display = "none";
     document.getElementById('image-section').style.display = "none";
