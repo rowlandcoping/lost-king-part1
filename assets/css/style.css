@@ -163,6 +163,7 @@ ul {
     border: 2px solid green;
     padding:5px;
     flex:1;
+    justify-content: center;
 }
 
 #character-image {
@@ -214,22 +215,23 @@ ul {
 }
 
 #game-navigation {
-    flex:1;
     text-align:center;
     justify-content:center;
 }
+#game-navigation li {
+    display:inline-block;
+    width:100px;
+}
 
 #game-navigation button {
-    margin-bottom:10px;
-    width: 75%;
+    margin: 10px;
 }
 
 #player-items {
-    flex:3;
+    flex:1;
     display:flex;
     align-items: center;
     justify-content: space-around;
-    margin-left:75px;
 }
 
 .item-display {
@@ -242,12 +244,12 @@ ul {
 }
 
 .item-image img {
-    width: 92px;
+    width: 105px;
     margin: 0 5px;
 }
 
 .item-text {
-    width: 92px;
+    width: 105px;
     text-align: center;
 }
 .item-text h4 {
@@ -311,15 +313,57 @@ ul {
 }
 
 /* Item slots */
-    #player-items {
-        display:flex;
-        align-items: center;
-        margin-left:50px;
+    
+
+}
+
+@media screen and (max-width:1500px) {
+    .title-section, #centre-section, #bottom-game-section {
+        margin:0px 100px;
     }
+}
+
+@media screen and (max-width:1200px) {
+.item-text, .item-image img {
+    width: 95px; 
+}
+}
+
+
+@media screen and (max-width:1080px) {
+
     .item-display {
         flex-flow: column;
-        margin: 0px;
         height:100%;
+        margin-top:20px;
+    }
+    .item-text, .item-image img {
+        width: 120px; 
+    }
+
+    .title-section, #centre-section, #bottom-game-section {
+        margin:0px 50px;
+    }
+
+    #centre-section {
+        align-items: center;
+    }
+
+    /*character section
+    #centre-section {
+        flex-flow:column;
+    }
+    #character-section {
+        flex-flow: row;
+    }*/
+    
+    
+    .item-text, .item-image img  {
+        width: 75;
+    }
+    #game-section {
+        min-height: 70vh;
+        max-height: 100%;
     }
 
 }
@@ -327,8 +371,13 @@ ul {
 
 /* SCREEN HEIGHTS */
 @media screen and (max-height:800px) {
+
+    #character-section {
+        height: 100%;
+    }
     #game-section {
-        height:75vh;
+        min-height:75vh;
+        max-height: 100%;
     }
     #image-image img {
         padding: 5px;
