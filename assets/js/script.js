@@ -2499,11 +2499,7 @@ const catPrison = {
                 setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             } else {
-                if (specialObject.name === "Glowing Orb") {
-                    searchForItem(10, 90, 100, 100);
-                } else {
                 searchForItem(10, 80, 90, 100);
-                }
                 document.getElementById('lower-text').innerHTML = this.cellSearch;
                 document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
                 thingsWhatYouveDone.cellOneSearched = true;
@@ -2527,15 +2523,11 @@ const catPrison = {
                 setEnemyStats(bigBug, 6,8,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             } else {
-                if (specialObject.name === "Glowing Orb") {
-                    searchForItem(10, 20, 100, 100);
-                } else {
-                    searchForItem(10, 20, 90, 100);
-                }                
-                document.getElementById('lower-text').innerHTML = this.cellSearch;
-                document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
-                thingsWhatYouveDone.cellTwoSearched = true;
-            }
+                searchForItem(10, 20, 90, 100);
+            }                
+            document.getElementById('lower-text').innerHTML = this.cellSearch;
+            document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
+            thingsWhatYouveDone.cellTwoSearched = true;
         } else {
             searchForItem(10, 20, 90, 100);
             document.getElementById('lower-text').innerHTML = this.cellSearch;
