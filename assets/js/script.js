@@ -2295,13 +2295,16 @@ const catCorridor = {
     <li><button class="choice-button" id="choice-thirty-four">Turn around and head back the other way, towards the cat sounds.</button></li>
     `
 }
+document.getElementById('transparency').style.opacity = 1;
+        document.getElementById('alert-page').style.display = "none";
 const catPrison = {
+    
     background: "url('assets/images/backgrounds/cat-prison.webp') no-repeat left center",
     backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp') no-repeat left center",
     catPrison: function catPrison() {
-        changeModeToMainWindow();
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
+        changeModeToMainWindow();
         document.getElementById('game-section').style.background = this.background;
         if (thingsWhatYouveDone.prisonVisits === 0) {
             document.getElementById('game-text').innerHTML = this.catPrisonTextOne;
@@ -2443,15 +2446,15 @@ const catPrison = {
     },
     bugChance: function bugChance() {
         let bugLikelihood = getRandomNumber(0,100);
-        if (bugLikelihood<=70) {
+        if (bugLikelihood<=50) {
             return true;
         } else {
             return false;
         }
     },
     firstCellSearch: function firstCellSearch() {
-        if (this.bugChance()) {
-            if (!thingsWhatYouveDone.bugKill) {
+        if (!thingsWhatYouveDone.bugKill) {
+            if (this.bugChance()) {
                 document.getElementById('game-section').style.background = this.backgroundTwo;
                 changeModeToItemWindow();
                 document.getElementById('lower-text').style.display = "none";
@@ -2459,6 +2462,11 @@ const catPrison = {
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
                 setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
+            } else {
+                searchForItem(10, 80, 90, 100);
+                document.getElementById('lower-text').innerHTML = this.cellSearch;
+                document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
+                thingsWhatYouveDone.cellOneSearched = true;
             }
         } else {
             searchForItem(10, 80, 90, 100);
@@ -2468,8 +2476,8 @@ const catPrison = {
         }
     },
     secondCellSearch: function secondCellSearch() {
-        if (this.bugChance()) {
-            if (!thingsWhatYouveDone.bugKill) {
+        if (!thingsWhatYouveDone.bugKill) {
+            if (this.bugChance()) {
                 document.getElementById('game-section').style.background = this.backgroundTwo;
                 changeModeToItemWindow();
                 document.getElementById('lower-text').style.display = "none";
@@ -2477,6 +2485,11 @@ const catPrison = {
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
                 setEnemyStats(bigBug, 6,8,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
+            } else {
+                searchForItem(10, 20, 90, 100);
+                document.getElementById('lower-text').innerHTML = this.cellSearch;
+                document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
+                thingsWhatYouveDone.cellTwoSearched = true;
             }
         } else {
             searchForItem(10, 20, 90, 100);
