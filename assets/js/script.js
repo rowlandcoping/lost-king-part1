@@ -67,9 +67,7 @@ const sentientSlime = {
     hitText: "<p>The slime lashes out with a solid tendril of goo, taking you by surprise,",
     killedYouText: "<p>Exhausted from the encounter, the slime senses your weakness and takes its chance to envelop and suffocate you.<br>YOU ARE DEAD</p>",
     missedText: "<p>The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.</p>",
-    choices: `<li><button class="choice-button" id="choice-twenty">Leave the area, by returning the way you came from.</button></li>
-    <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway.</button></li>
-    <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>`
+    choices: `<li><button class="choice-button" id="choice-seventy-one">What a gross and annoying creature.</button></li>`
 }
 const catWarrior = {
     name: "Cat Warrior",
@@ -547,7 +545,7 @@ const catSword = {
 }
 const specialObject = {
     name: "",
-    image: "assets/images/items/glowing-orb.webp",
+    image: "assets/images/items/orb-cusion.webp",
 }
 
 
@@ -786,7 +784,11 @@ const firstCavern = {
     `,    
     // search for an item
     firstSearch: function firstSearch() {
-        searchForItem(15, 35, 55, 100);
+        if (specialObject.name === "Glowing Orb") {
+            searchForItem(30, 35, 100, 100);
+        } else {
+            searchForItem(30, 35, 50, 100);
+        }
         document.getElementById('lower-text').innerHTML = this.pageFour;
         document.getElementById('choices-section').innerHTML = this.optionsFour;
         thingsWhatYouveDone.firstRoomSearch = true;
@@ -957,7 +959,7 @@ const slimeCorridor = {
         changeModeToMainWindow();
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
-        if (thingsWhatYouveDone.slimeCollect) {
+        if (thingsWhatYouveDone.slimeCollect || (thingsWhatYouveDone.slimeKill && specialObject.name === "Glowing Orb")) {
             catCavern.catCavern();
         } else if (thingsWhatYouveDone.slimeKill) {
             document.getElementById('game-section').style.background = this.background;
@@ -1076,6 +1078,26 @@ const slimeCorridor = {
         document.getElementById('potion-button').firstChild.setAttribute("id", "slime-three"); 
         testForWeapons(enemy);
     },
+    slimeDead: function slimeDead() {
+        changeModeToMainWindow();
+        document.getElementById('game-text').innerHTML = this.slimeDeadText;
+        if (specialObject.name === "Glowing Orb") {
+            document.getElementById('choices-section').innerHTML = this.slimeDeadOptionsOne;
+        } else {
+            document.getElementById('choices-section').innerHTML = this.slimeDeadOptionsOne + this.slimeDeadOptionsTwo;
+        }    
+    },
+    slimeDeadText: `
+    <p>You feel like many unwary creatures must have perished to the blight of that slime monster.</p>
+    <p>It is both strange and worrying that no remnants of these poor souls can be found.</p>
+    `,
+    slimeDeadOptionsOne: `
+    <li><button class="choice-button" id="choice-twenty">Leave the area, by returning the way you came from.</button></li>
+    <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway.</button></li>
+    `,
+    slimeDeadOptionsTwo: `
+    <li><button class="choice-button" id="choice-twenty-two">Collect some of the goo.</button></li>
+    `,
     // Pickup slime
     checkSlime: function checkSlime() {
         if (currentObject.name) {
@@ -1123,10 +1145,10 @@ const catCavern = {
         mainCharacter.score += 2;
         document.getElementById('game-section').style.background = this.background;
         if (thingsWhatYouveDone.catsKilled === 5){
-            document.getElementById('game-text').innerHTML = this.catCavernText + this.catsGoneText;
+            document.getElementById('game-text').innerHTML = this.catCavernTextOne + this.catsGoneText;
             document.getElementById('choices-section').innerHTML = this.catsGoneOptions;
         } else {
-            document.getElementById('game-text').innerHTML = this.catCavernText + this.catImage;
+            document.getElementById('game-text').innerHTML = this.catCavernTextOne + this.catCavernTextTwo + this.catImage;
             if (thingsWhatYouveDone.cavernVisits === 0){
                 document.getElementById('choices-section').innerHTML = this.catCavernOptionsFirst;
             } else if (thingsWhatYouveDone.cavernVisits === 1){
@@ -1141,9 +1163,11 @@ const catCavern = {
         }
         thingsWhatYouveDone.cavernVisits +=1;
     },
-    catCavernText: `
+    catCavernTextOne: `
     <p>You emerge into a large cavernous space enclosed by sheer rock cliffs. Lanterns have been placed sparsely about the room, barely illuminating the vast space.</p>
     <p>It is clear this area is often frequented.</p>
+    `,
+    catCavernTextTwo: `
     <p>Before you can assess your options, a loud noise startles you.  It sound like... feet?  Not quite.  Claws?  You hope not.
     <br>You have little time to react before a small group of cat-like warriors charge into the room.</p>
     `,
@@ -2049,8 +2073,11 @@ const catDining = {
         } else {
             mainCharacter.score += 50;
             specialObject.name = "Glowing Orb";
+            document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
+            document.getElementById('object-item-name').innerHTML = "Glowing Orb";
+            document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
             document.getElementById('game-section').style.background = this.backgroundTwo;
-            document.getElementById('game-text').innerHTML = this.diningEmptyText;
+            document.getElementById('game-text').innerHTML = this.diningEmptyTextOne + catCourt.orbImage + this.diningEmptyTextTwo;
             document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
         }
     },
@@ -2083,12 +2110,13 @@ const catDining = {
     diningCaptureChoices: `
     <li><button class="choice-button" id="choice-thirty">This surely cannot be good.</button></li>
     `,
-    diningEmptyText: `
+    diningEmptyTextOne: `
     <p>You have not been following the corridor for long before you stumble into a room where it looks like a great feast has been taking place...
     <br>...but there is nobody feasting.  Have the cats abandoned their home, or just locked themselves away?</p>
     <p>What seems to be the hall's grand entrance is closed, the door locked tight.</p>
-    <p>In the middle of the room, among the detruitis, is a glowing golden orb. Lost in the melee?
-    <br>Without a second's pause for debate, you grab it tight.  You feel like you will be needing this.</p>
+    <p>In the middle of the room, among the detruitis, is a glowing golden orb. Lost in the melee?</p>
+    `,
+    diningEmptyTextTwo: `<p>Without a second's pause for debate, you grab it tight.  You feel like you will be needing this.</p>
     `,
     diningEmptyChoices: `
     <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
@@ -2097,6 +2125,7 @@ const catDining = {
 }
 const catCourt = {
     background: "url('assets/images/backgrounds/cat-court.webp') no-repeat left center",
+    orbImage: `<img src="assets/images/items/orb-cusion-wide.webp">`,
     catCourt: function catCourt(){
         changeModeToMainWindow();
         thingsWhatYouveDone.catCourtVisits +=1
@@ -2210,12 +2239,17 @@ const catCourt = {
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         specialObject.name = "Glowing Orb";
+        document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
+        document.getElementById('object-item-name').innerHTML = "Glowing Orb";
+        document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
         mainCharacter.score += 50;
-        document.getElementById('game-text').innerHTML = this.catExitText;
+        document.getElementById('game-text').innerHTML = this.catExitTextOne + this.orbImage + this.catExitTextTwo;
         document.getElementById('choices-section').innerHTML = this.catExitChoices;
     },
-    catExitText: `
+    catExitTextOne: `
     <p>Finally, one of the royal minions advances towards you, carrying a glowing golden orb on a velvet cusion.</p>
+    `,
+    catExitTextTwo:`
     <p>It is clear they view this as one of the trappings of your Godhood.
     <br>You take the object with much reverence. You feel like you may need it later.</p>
     <p>Once you have claimed the orb, the cats begin sheparding you towards the exit doors.
@@ -2256,30 +2290,49 @@ const catCorridor = {
     backgroundTwo: "url('assets/images/backgrounds/cat-corridor-two.webp') no-repeat left center",
     catCorridor: function catCorridor() {
         mainCharacter.score += 5;
-        document.getElementById('game-section').style.background = this.background;
-        document.getElementById('choices-section').innerHTML = this.catCorridorChoices;
-            if  (thingsWhatYouveDone.prisonVisits === 0) {
-        document.getElementById('game-text').innerHTML = this.catCorridorTextOne;
+        if (thingsWhatYouveDone.catsKilled === 5) {
+            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('choices-section').innerHTML = this.catCorridorChoicesTwo;
+                if  (thingsWhatYouveDone.prisonVisits === 0) {
+            document.getElementById('game-text').innerHTML = this.catCorridorTextOne + this.catCorridorTextFour;
+            } else {
+                document.getElementById('game-text').innerHTML = this.catCorridorTextTwo + this.catCorridorTextFour;
+            } 
+
         } else {
-            document.getElementById('game-text').innerHTML = this.catCorridorTextTwo;
-        }        
+            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('choices-section').innerHTML = this.catCorridorChoicesOne;
+                if  (thingsWhatYouveDone.prisonVisits === 0) {
+            document.getElementById('game-text').innerHTML = this.catCorridorTextOne + this.catCorridorTextThree;
+            } else {
+                document.getElementById('game-text').innerHTML = this.catCorridorTextTwo + this.catCorridorTextThree;
+            } 
+        }       
     },
     catCorridorTextOne: `
     <p>You find yourself in a good-sized corridor well lit by lanterns.  High in the wall you see a small barred window you could -just- about fit through.</p>
     <p>There is no way you can reach it though.</p>
-    <p>From one direction you can hear cat noises and the sound of cat merriment.
-    <br>In the other direction the lamps seem to peter out.  It is the road less travelled.</p>
     `,
     catCorridorTextTwo: `
     <p>You find yourself in a good-sized corridor well lit by lanterns. High in the wall you see the window to the prison cell.</p>
     <p>There is no way you can reach it from here though.
     <br>Why would you even want to??</p>
+    `,
+    catCorridorTextThree: `
     <p>From one direction you can hear cat noises and the sound of cat merriment.
     <br>In the other direction the lamps seem to peter out.  It is the road less travelled.</p>
     `,
-    catCorridorChoices: `
-    <li><button class="choice-button" id="choice-sixty">Head away from the cat sounds.</button></li>
+    catCorridorTextFour: `
+    <p>In one direction lies the place where cats used to dine.
+    <br>In the other direction the lamps seem to peter out.  It is the road less travelled.</p>
+    `,
+    catCorridorChoicesOne: `
     <li><button class="choice-button" id="choice-thirty-four">Head towards the cat sounds.</button></li>
+    <li><button class="choice-button" id="choice-sixty">Head away from the cat sounds.</button></li>    
+    `,
+    catCorridorChoicesTwo: `
+    <li><button class="choice-button" id="choice-thirty-four">Head back into the empty dining room.</button></li>
+    <li><button class="choice-button" id="choice-sixty">Head into the gloom.</button></li>
     `,
     catCorridorTwo: function catCorridorTwo() {
         document.getElementById('game-section').style.background = this.backgroundTwo;
@@ -2292,11 +2345,9 @@ const catCorridor = {
     `,
     catCorridorTwoChoices: `
     <li><button class="choice-button" id="choice-sixty-one">Investigate the doorway.</button></li>
-    <li><button class="choice-button" id="choice-thirty-four">Turn around and head back the other way, towards the cat sounds.</button></li>
+    <li><button class="choice-button" id="choice-thirty-four">Turn around and head back the other way, towards the dining hall.</button></li>
     `
 }
-document.getElementById('transparency').style.opacity = 1;
-        document.getElementById('alert-page').style.display = "none";
 const catPrison = {
     background: "url('assets/images/backgrounds/cat-prison.webp') no-repeat left center",
     backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp') no-repeat left center",
@@ -2448,7 +2499,11 @@ const catPrison = {
                 setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             } else {
+                if (specialObject.name === "Glowing Orb") {
+                    searchForItem(10, 90, 100, 100);
+                } else {
                 searchForItem(10, 80, 90, 100);
+                }
                 document.getElementById('lower-text').innerHTML = this.cellSearch;
                 document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
                 thingsWhatYouveDone.cellOneSearched = true;
@@ -2472,7 +2527,11 @@ const catPrison = {
                 setEnemyStats(bigBug, 6,8,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
             } else {
-                searchForItem(10, 20, 90, 100);
+                if (specialObject.name === "Glowing Orb") {
+                    searchForItem(10, 20, 100, 100);
+                } else {
+                    searchForItem(10, 20, 90, 100);
+                }                
                 document.getElementById('lower-text').innerHTML = this.cellSearch;
                 document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
                 thingsWhatYouveDone.cellTwoSearched = true;
@@ -3410,6 +3469,12 @@ document.addEventListener("click", function(e){
 });
 
 //post slime fight optionss (post slime fight)
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#choice-seventy-one"); 
+    if(target){
+        slimeCorridor.slimeDead();
+    }
+});
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twenty"); 
     if(target){ 
