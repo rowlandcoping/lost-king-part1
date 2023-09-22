@@ -177,7 +177,6 @@ ul {
     display: flex;
     flex-direction: column;
     flex:3;
-    margin-left:50px;
     background-size: 100%;
     height:60vh;
     justify-content: space-around;
@@ -230,7 +229,13 @@ ul {
 #player-items {
     flex:1;
     display:flex;
+    flex-flow: row;
     align-items: center;
+    justify-content: space-around;
+}
+.player-items-switch {
+    flex:1;
+    display:flex;
     justify-content: space-around;
 }
 
@@ -368,6 +373,53 @@ ul {
 
 }
 
+@media screen and (max-width:768px) {
+    .title-section, #centre-section, #bottom-game-section {
+        margin:0px 10px;
+    }
+    #landing-image-left, #landing-image-right {
+        display:none;
+        justify-content:space-around;
+    }
+    #landing-image-container {
+        width:100%;
+    }
+/*Title Section */
+
+.title-section {
+    text-align:center;
+    flex-flow: column;
+}
+
+
+/*character section*/
+    #centre-section {
+        flex-flow:column;
+    }
+    #character-section {
+        flex-flow: row;
+    }
+/*game section*/
+#game-section {
+    width:100%;
+}
+
+#game-text img {
+     width:75%;
+}
+
+#image-section {
+    flex-flow:column;
+}
+
+/*items section*/
+#player-items{
+    width:100%;
+}
+.player-items-switch {
+    flex-flow:column;
+}
+}
 
 /* SCREEN HEIGHTS */
 @media screen and (max-height:800px) {
