@@ -2311,7 +2311,7 @@ const catPrison = {
                 } else if (thingsWhatYouveDone.cellOneSearched) {
                     document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
                 } else if (thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
                 } else {
                     document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
                 }
