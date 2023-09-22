@@ -2487,7 +2487,10 @@ const catPrison = {
     },
     bugChance: function bugChance() {
         let bugLikelihood = getRandomNumber(0,100);
-        if (bugLikelihood<=100) {
+        if(thingsWhatYouveDone.encounterLikelihood) {
+            bugLikelihood -= 20;
+        }
+        if (bugLikelihood<=50) {
             return true;
         } else {
             return false;
@@ -3150,7 +3153,6 @@ function enemyTurn(enemy, weapon) {
         continueFight(enemy);
     } else {
         let roundDamage = Math.floor(roundResult * enemyTestResistances(enemy))
-        roundDamage = Math.floor(roundDamage);
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {

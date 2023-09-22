@@ -90,6 +90,7 @@ ul {
     display:none;
     flex-flow: column;
     width: 100%;  
+    
 }
 #transparency {
     opacity: 1;
@@ -219,8 +220,8 @@ ul {
 }
 
 #game-navigation button {
-    width:75%;
     margin-bottom:10px;
+    width: 75%;
 }
 
 #player-items {
@@ -228,7 +229,7 @@ ul {
     display:flex;
     align-items: center;
     justify-content: space-around;
-    margin-left:50px;
+    margin-left:75px;
 }
 
 .item-display {
@@ -241,12 +242,12 @@ ul {
 }
 
 .item-image img {
-    width: 80px;
-    margin: 0 15px;
+    width: 92px;
+    margin: 0 5px;
 }
 
 .item-text {
-    width: 100px;
+    width: 92px;
     text-align: center;
 }
 .item-text h4 {
@@ -298,42 +299,42 @@ ul {
 }
 
 /* Media Queries */
+/*SCREEN WIDTHS*/
 
 @media screen and (max-width:1750px) {
 
 /*GAME PAGE */
 
-/* Item slots */
-#player-items {
-    display:flex;
-    align-items: right;
+/*character section*/
+#character-image img {
+    max-width:100%;
 }
-    .item-display {
+
+/* Item slots */
+    #player-items {
         display:flex;
-        flex-flow: column;
         align-items: center;
-        border: 2px solid blue;
+        margin-left:50px;
+    }
+    .item-display {
+        flex-flow: column;
         margin: 0px;
-        padding: 3px;
         height:100%;
     }
 
-    .item-image img {
-        width: 80px;
-        margin: 2px;
-    }
+}
 
-    .item-text {
-        width: 80px;
-        text-align:center;
-    }
-    .item-text h4 {
-        margin:0;
-        padding-top:2px;
-    }
 
-    .item-text hr {
-        width:75%;
+/* SCREEN HEIGHTS */
+@media screen and (max-height:800px) {
+    #game-section {
+        height:75vh;
     }
-
+    #image-image img {
+        padding: 5px;
+        width: 125px;
+    }
+    #game-page {
+        font-size: 85%;
+    }
 }
