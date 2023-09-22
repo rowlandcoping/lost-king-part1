@@ -487,7 +487,7 @@ const characterObjects = [
         adjective: "a useful",
         name: "Insect Repellent",
         effect:"Scares off bugs.",
-        image: "assets/images/items/insect-repellant.webp",
+        image: "assets/images/items/insect-repellent.webp",
         chance: 50,
         score: 10,
         description: "There may come a point in this adventure where you reach bug-infested climes, and you will be grateful for the day you decided to keep hold of this.  Orrrr... perhaps not."
@@ -1817,14 +1817,14 @@ const spiderRoom = {
         document.getElementById('fists-button').firstChild.setAttribute("id", "spider-one"); 
         document.getElementById('weapon-button').firstChild.setAttribute("id", "spider-two"); 
         document.getElementById('potion-button').firstChild.setAttribute("id", "spider-three");
-        if (currentObject.name === "Insect Repellant") {
+        if (currentObject.name === "Insect Repellent") {
             document.getElementById('object-button-three').firstChild.setAttribute("id", "spider-four");
         }
         testForWeapons(enemy);
     },
     insectRepellant: function insectRepellant(enemy, weapon) {
         mainCharacter.score -=10;
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + `<p>You spray the insect repellant at the spider, emptying the bottle. It just blinks its eyes and looks at you incredulously, if a spider can even do that.<br>It was unlikely to work on a 6 ft high cat-eating spider.  Plus, you know, a spider isn't even an insect.`;
+        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + `<p>You spray the Insect Repellent at the spider, emptying the bottle. It just blinks its eyes and looks at you incredulously, if a spider can even do that.<br>It was unlikely to work on a 6 ft high cat-eating spider.  Plus, you know, a spider isn't even an insect.`;
         document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('object-item-name').innerHTML = "";
         document.getElementById('object-list-item-one').innerHTML = "";
@@ -2298,9 +2298,31 @@ const catCorridor = {
 document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
 const catPrison = {
-    
     background: "url('assets/images/backgrounds/cat-prison.webp') no-repeat left center",
     backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp') no-repeat left center",
+    prisonSearchOptions: function prisonSearchOptions() {
+        if (thingsWhatYouveDone.prisonerSearched) {
+            if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellOneSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+            } else {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            }
+        } else {
+            if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellOneSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            } else if (thingsWhatYouveDone.cellTwoSearched) {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
+            } else {
+                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
+            }
+        }
+    },
     catPrison: function catPrison() {
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
@@ -2308,51 +2330,10 @@ const catPrison = {
         document.getElementById('game-section').style.background = this.background;
         if (thingsWhatYouveDone.prisonVisits === 0) {
             document.getElementById('game-text').innerHTML = this.catPrisonTextOne;
-            if (thingsWhatYouveDone.prisonerSearched) {
-                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellOneSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
-                } else {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                }
-            } else {
-                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellOneSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
-                } else {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                }
-            }
         } else {
             document.getElementById('game-text').innerHTML = this.catPrisonTextTwo;
-            if (thingsWhatYouveDone.prisonerSearched) {
-                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellOneSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
-                } else {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                }
-            } else {
-                if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellOneSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                } else if (thingsWhatYouveDone.cellTwoSearched) {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
-                } else {
-                    document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-                }
-            }
         }
+        this.prisonSearchOptions();        
     },
     catPrisonTextOne: `
     <p>You find yourself in a prison cell.  It wouldn't be so bad, if it weren't for the putrid rotting corpse you're having to share the room with.</p>
@@ -2386,6 +2367,9 @@ const catPrison = {
         }
         thingsWhatYouveDone.prisonVisits += 1;
         mainCharacter.score += 10;
+        thingsWhatYouveDone.courtGodChance +=2;
+        thingsWhatYouveDone.courtPrisonChance +=3;
+        thingsWhatYouveDone.courtHangChance -=5;
         document.getElementById('choices-section').innerHTML = this.windowChoices;
     },
     windowTextOne: `
@@ -2403,6 +2387,7 @@ const catPrison = {
     `,
     searchCorpse: function searchCorpse() {
         changeModeToItemWindow();
+        document.getElementById('game-section').style.background = this.background;
         thingsWhatYouveDone.prisonerSearched = true;
         foundItemInfo.category = characterDefence[0].category;
         foundItemInfo.adjective = characterDefence[0].adjective;
@@ -2415,8 +2400,7 @@ const catPrison = {
         foundItemInfo.description = characterDefence[0].description;
         displayItem();
         document.getElementById('lower-text').innerHTML = this.corpseSearchText;
-        document.getElementById('choices-section').innerHTML = this.corpseSearchOptions;
-        
+        document.getElementById('choices-section').innerHTML = this.corpseSearchOptions;    
     },
     corpseSearchText: `
     <p>The corpse is wearing a rather tasteless furry gilet with matching short-shorts.</p>
@@ -2453,10 +2437,11 @@ const catPrison = {
         }
     },
     firstCellSearch: function firstCellSearch() {
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        changeModeToItemWindow();
         if (!thingsWhatYouveDone.bugKill) {
             if (this.bugChance()) {
                 document.getElementById('game-section').style.background = this.backgroundTwo;
-                changeModeToItemWindow();
                 document.getElementById('lower-text').style.display = "none";
                 document.getElementById('upper-text').innerHTML = this.bigBugText;
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
@@ -2476,10 +2461,11 @@ const catPrison = {
         }
     },
     secondCellSearch: function secondCellSearch() {
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        changeModeToItemWindow();
         if (!thingsWhatYouveDone.bugKill) {
             if (this.bugChance()) {
                 document.getElementById('game-section').style.background = this.backgroundTwo;
-                changeModeToItemWindow();
                 document.getElementById('lower-text').style.display = "none";
                 document.getElementById('upper-text').innerHTML = this.bigBugText;
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
@@ -2555,37 +2541,19 @@ const catPrison = {
         document.getElementById('fists-button').firstChild.setAttribute("id", "bug-one"); 
         document.getElementById('weapon-button').firstChild.setAttribute("id", "bug-two"); 
         document.getElementById('potion-button').firstChild.setAttribute("id", "bug-three");
-        if (currentObject.name === "Insect Repellant") {
+        if (currentObject.name === "Insect Repellent") {
             document.getElementById('object-button-three').firstChild.setAttribute("id", "bug-four");
         }
         testForWeapons(enemy);
     },
-    insectRepellantBug: function insectRepellantBug() {
-        document.getElementById('upper-text').innerHTML = this.insectRepellantBugText;
-        if (thingsWhatYouveDone.prisonerSearched) {
-            if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesFour;
-            } else if (thingsWhatYouveDone.cellOneSearched) {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-            } else if (thingsWhatYouveDone.cellTwoSearched) {
-                document.getElementById('choices-section').innerHTML = this.this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
-            } else {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-            }
-        } else {
-            if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesFour;
-            } else if (thingsWhatYouveDone.cellOneSearched) {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-            } else if (thingsWhatYouveDone.cellTwoSearched) {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesFour;
-            } else {
-                document.getElementById('choices-section').innerHTML = this.catPrisonChoicesOne + this.catPrisonChoicesTwo + this.catPrisonChoicesThree + this.catPrisonChoicesFour;
-            }
-        }
+    insectRepellentBug: function insectRepellantBug() {
+        changeModeToMainWindow();
+        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-text').innerHTML = this.insectRepellantBugText;
+        this.prisonSearchOptions();
     },
     insectRepellantBugText: `
-    <p>You spray the bottle of insect repellant until it empties, more in hope than expectation</p>
+    <p>You spray the bottle of Insect Repellent until it empties, more in hope than expectation</p>
     <p>The dog-sized, near indestructible insect pauses, wipes its head with its forelegs, then disappears through a large crack.
     <br>You HAVE to find more of this stuff.</p>
     <p>Confident there will be no more bugs in the area, you can continue your search.</p>
@@ -2840,7 +2808,7 @@ function testForWeapons(enemy) {
     } else {
         document.getElementById('potion-button').style.display = "none";
     }
-    if (currentObject.name === "Insect Repellant" && (enemy === "giantSpider" || enemy === "bigBug")) {
+    if (currentObject.name === "Insect Repellent" && (enemy.name === "Giant Spider" || enemy.name === "Giant Cockroach")) {
         document.getElementById('object-button-three').style.display = "block";
     } else {
         document.getElementById('object-button-three').style.display = "none";
@@ -3929,7 +3897,7 @@ document.addEventListener("click", function(e){
 document.addEventListener("click", function(e){
     const target = e.target.closest("#bug-four"); 
     if(target){
-        insectRepellantBug(bigBug, "enemy");
+        catPrison.insectRepellentBug();
     }
 });
 /* GAME TEXT */
