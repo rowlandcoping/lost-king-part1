@@ -99,8 +99,8 @@ ul {
 #alert-page {
     display:none;
     position:absolute;
-    left: 50%;
-    right: 50%;
+    left: 0;
+    right: 0;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -179,6 +179,7 @@ ul {
     flex:3;
     background-size: 100%;
     height:60vh;
+    margin-left:50px;
     justify-content: space-around;
 }
 
@@ -367,13 +368,16 @@ ul {
         width: 75;
     }
     #game-section {
-        min-height: 70vh;
+        min-height: 40vh;
         max-height: 100%;
     }
 
 }
 
 @media screen and (max-width:768px) {
+    #game-section {
+    margin-left:0;
+    }
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 10px;
     }
@@ -420,6 +424,17 @@ ul {
     flex-flow:column;
 }
 }
+
+#alert-page {
+    display:none;
+    position:absolute;
+    width: 200px;
+    height: 400px;
+}
+#alert-page button {
+    width: 100%;
+}
+
 
 /* SCREEN HEIGHTS */
 @media screen and (max-height:800px) {
