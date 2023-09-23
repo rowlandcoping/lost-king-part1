@@ -1643,7 +1643,7 @@ const endingScene = {
     <p>You know that you must cast this assumed name aside. You know that you have been wronged, the sorceror proved as much.
     <br>Their recognition, their hostility - what did it really mean??</p>
     <p>Now is the time to find out who you REALLY are. And when the time is right?</p>
-    <p>VENGENCE.</p>
+    <p>VENGEANCE.</p>
     `
 }
 const dangerStairs = {
