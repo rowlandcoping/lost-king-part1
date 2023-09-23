@@ -99,8 +99,8 @@ ul {
 #alert-page {
     display:none;
     position:absolute;
-    left: 0;
-    right: 0;
+    left: 50%;
+    right: 50%;
     top: 0;
     bottom: 0;
     margin: auto;
@@ -355,16 +355,7 @@ ul {
         align-items: center;
     }
 
-    /*character section
-    #centre-section {
-        flex-flow:column;
-    }
-    #character-section {
-        flex-flow: row;
-    }*/
-    
-    
-    .item-text, .item-image img  {
+       .item-text, .item-image img  {
         width: 75;
     }
     #game-section {
@@ -423,17 +414,18 @@ ul {
 .player-items-switch {
     flex-flow:column;
 }
-}
-
 #alert-page {
-    display:none;
-    position:absolute;
+    left: 0;
+    right: 0;
     width: 200px;
     height: 400px;
 }
 #alert-page button {
     width: 100%;
 }
+}
+
+
 
 
 /* SCREEN HEIGHTS */
