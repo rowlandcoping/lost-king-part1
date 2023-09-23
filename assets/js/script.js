@@ -2285,8 +2285,8 @@ const catCourt = {
         document.getElementById('choices-section').innerHTML = this.catPrisonChoices;
     },
     catPrisonText: `
-    <p>On seeing you brought before them, the Cat King becomes animated, mewling angrily at his subordinates
-    <br>It seems that somebody has made an error</p>
+    <p>On seeing you brought before them, the Cat King becomes animated, mewling angrily at his subordinates.
+    <br>It seems that somebody has made an error in bringing you before him.</p>
     <p>Finally he gestures toward the guards, and they gather around and begin escorting you towards the back of the Great Hall.</p>
     `,
     catPrisonChoices: `<li><button class="choice-button" id="choice-fifty-eight">Things could be worse, I guess...</button></li>`
@@ -2394,8 +2394,8 @@ const catPrison = {
     },
     catPrisonTextOne: `
     <p>You find yourself in a prison cell.  It wouldn't be so bad, if it weren't for the putrid rotting corpse you're having to share the room with.</p>
-    <p>It looks like a multi-purpose facility, with three cells linked by adjoining doors.  All the adjoining doors to your are open for now, suggesting you are the only one here.
-    <br>It seems like they don't get too many guests down here.</p>
+    <p>It looks like a multi-purpose facility, with three cells linked by adjoining doors.  All the adjoining doors to your cell are open for now, suggesting you are the only one here.</p>
+    <p>It seems like they don't get too many guests down here.</p>
     <p>A small narrow window is within arm's reach.  You may or may not fit through it.</p>
     `,
     catPrisonTextTwo: `
