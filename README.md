@@ -266,9 +266,162 @@ From this point building out the content around the flow chart should be straigh
 
 Please find the wireframes [HERE](WIREFRAMES.md).
 
+## UX - Surface
+([back to top](#the-lost-king-of-catland))
 
-Credits:
+### Colour Palate
+
+On account of the setting of the game (ie a dungeon), I have opted for overall background evocative of a stone dungeon. 
+I have chosen to emulate the effect of inlaid wood panels for the title and item sections, using transparencies for the 'inlaid' effect.
+I have also used a parchment style background for the character sheet (evocative of D&D roleplay).
+These colors also balance very well against the main game display.
+
+In the main game window the backgrounds vary so I have used a dark transparency to overlay with white text for contrast.
+In combat and other situations where character health is effected I have used red and green text for positive or negative effects, and orance and ice blue to indicate fire or ice damage.
+Again this is meant to evoke RPG games past and is fairly standard in the genre - users will know exactly what is going on.
+
+### Fonts
+
+### Images
+
+All images and backgrounds have been created using AI, specifically Bing Image Creator. I have chosen this route for a number of reasons:
+
+ - speed and ease of use
+ - price (ie free)
+ - ownership (I own all AI created images and can use them how I please)
+ - consistency (having all images created by the same program and in the same manner means they all have a similar artistic style.)
+
+### Navigation / player options
+
+ - Baldur's gate for navigation?  Definite retro throwback.
+ - errr
+
+### Responsiveness
+
+The game was designed for 1980px screen width - anything below uses a 'max-size' media query, anything above a 'min-size'
+From wireframe up the CSS flexbox page structure was designed to be easily adjusted to other screen widths.
+
+The main difficulty is that the backgrounds are not designed for mobiles of for larger screens. This is partly a product of Bing image creator, which only produces widths of 1024 pixels.
+The main problem however is that the backgrounds are called by Javascript, which makes it a problem replacing them using conventional media queries.
+This has been addressed by:
+ - adjusting margins of the game area for larger screens.  It means more blank space but the backgrounds display correctly.
+ - Adjusting zoom and positioning of backgrounds for smaller screen sizes.  It's not an ideal solution but helps ensure a player has a broadly similar experience.
+
+Overall I have limited the number of break points to avoid an overload of CSS micromanagement on this project.  The major break points are as follows:
+ - max width 768px (works on screens down to 320px)
+ - max width 1024px (indended for tablet devices)
+ - max width 1200px (for smaller laptops and similar)
+ - max-height 800px (for smaller laptops and similar)
+ - default (designed for standard HD displays)
+ - min width 2000 (for larger screen sizes)
+
+## Testing Documentation
+([back to top](#the-lost-king-of-catland))
+
+Please find all testing documentation [HERE](TESTING.md).
+  
+## Deployment
+([back to top](#the-lost-king-of-catland))
+
+### Initial Deployment
+
+The website has been deployed [HERE](https://rowlandcoping.github.io/lost-king-part1/) via github pages, using the method below:
+
+- I logged in to my github account.
+- I opened the lost-king-part1 repository.
+- From within the repository I selected 'Settings'
+- From the settings page I selected 'Pages' from the 'Code and automation' section of the left menu.
+- I selected 'deploy from a branch' from the 'source menu' and then select the 'main' branch of the repository, along with 'root' as the folder.
+- On pressing 'Save' the site deployed.
+
+### Deployment Instructions
+
+If you wish to deploy this website yourself, here is how to go about it.
+
+1:  Using github pages
+
+- Log in to or create your own github account [HERE](https://github.com/).
+- Go to the lost-king-part1 repository [HERE](https://github.com/rowlandcoping/lost-king-part1/) and select 'Fork' to create your own snapshot of the repository.
+- From the forked repository select 'Settings'
+- From the settings page select 'Pages' from the 'Code and automation' section of the left menu.
+- Select 'deploy from a branch' from the 'source menu' and then select the 'main' branch of the forked repo, along with 'root' as the folder.
+- Press save.  The site will now be deployed from your own forked repository!
+
+2:  Using source files
+
+Because this website is built using nothing but html and css you can deploy it in any web browser from local files.
+
+- Go to the lost-king-part1 repository [HERE](https://github.com/rowlandcoping/lost-king-part1/) 
+- Download all the files in the repository to a folder on your local machine.  You may exclude the 'node_modules' folder and the package-lock.json and package.json files if you don't wish to deploy the files necessary for Jest testing.
+- In your local folder, right click the 'index.html', select 'Open With' and then select any web browser.
+
+NB If you wish you could also deploy these files by copying and pasting them to the 'www' folder of your own web host, but keep in mind that the method of deployment will vary depending on the web hosting package you use.
+
+NNB If you are using a Linux operating system running Apache you can simply save the files in your local '/var/www/html' folder and deploy by typing 'localhost' into a browser window. Please see instructions for installing Apache [HERE](https://ubuntu.com/tutorials/install-and-configure-apache#1-overview) if you haven't already.
+
+THE 404 PAGE:
+
+On Github the server is pre-configured to display a 404.html page whenever a page is not found, but that may not be the case in all deployments.  Depending on the server you are deploying from, there are a number of steps you may need to take.  In Apache, one way is using an .htaccess file, however it is preferable where possible to directly configure the server.  In most cases this is straightforward; I have sourced guides below to the more popular servers:
+  - Click [HERE](https://www.msnoob.com/how-to-redirect-404-error-page-to-another-url-in-iis-server.html) for Microsoft IIS Server.
+  - Click [HERE](https://www.ionos.com/digitalguide/server/configuration/configure-apache-to-use-custom-error-pages/) for Apache servers.
+  - Click [HERE](https://www.cyberciti.biz/faq/howto-nginx-customizing-404-403-error-page/) for NGINX servers.
+
+### Continuing This Project
+
+If you are a developer and wish to extend this project further, there are a number of development environments I have used, which I have outlined below.  All suggestings make the assumption you have already forked the github repository as outlined above, and don't have access to any paid-for IDEs:
+
+1: Text Editor
+
+The simplest method is to use a basic text editor.  I use notepad++ on Windows or Geany on Linux, but even something as simple as Windows Notepad will do.
+
+ - Download all files from your forked repository except for the '.devcontainer' folder and the '.gitignore' file to a folder on your local machine.
+ - Right click the file you wish to edit, select 'Open With' and then select your text editor of choice.
+
+ 2: VS Code in Windows
+
+ I have used VS Code throughout this project, running in a Windows environment.  If you wish to do the same:
+  - Follow the guide I have created [HERE](https://rowlandcoping.github.io/work-locally/)
+  - When cloning a repo be sure you already have a forked version of the lost-king-part1 repository (see [HERE](#deployment-instructions)).
+
+3: VS Code on Linux using local files
+
+Although I have not used Linux on this occasion, I have done in the past. I set up my development environment on Linux using the guide [HERE](https://www.theodinproject.com/).
+
+  - Create an account at The Odin Project.
+  - Navigate to 'Installation Guides' at the bottom of the page.
+  - When it guides you on how to download the repo locally, be sure to clone the forked repository of lost-king-part1.
+  - Once you have followed the guide you will have your own local development environment!
+
+## Credits
+([back to top](#the-lost-king-of-catland))
+
+### Fonts
+
+### Images
+
+All images created using [Bing Image Creator](https://www.bing.com/create) and are therefore owned by me.
+
+### Content
+
+© 2023 John Hall, all rights reserved.  I don't mind imitators, but this content belongs to me!
+
+### Code
+
+I used this method to ensure the Jest module doesn't throw errors in devtools that I might be marked down on:
 
 https://stackoverflow.com/questions/66349868/jest-unit-testing-module-export-error-in-browser-console
 
-way of preventing module not defined error in dev tools.
+### Acknowledgments
+
+Thanks once again to Mitko and also Iris for your infinite patience.  Also thanks to everyone who playtested, and at least pretended to enjoy the journey!
+
+## Technical Information
+([back to top](#the-lost-king-of-catland))
+
+Version Control: Git and Github\
+Testing: Jest\
+Languages: HTML, CSS, JavaScript\
+Development Environment: VS Code on Windows\
+Wireframes: Balsamiq\
+Image Creation: Bing Image Creator\
+Image Editing: GIMP

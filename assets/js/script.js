@@ -332,7 +332,8 @@ const characterDefence = [
         playerImage: "assets/images/character-profiles/player-gilet.webp",
         chance: 15,
         score: 3,
-        description: "This natty combination looks like something Jane Fonda might have worn on the set of Barbarella.  It's unlikely her outfit would have smelt quite so much of excrement, or have been quite so vulnerable to naked flames."
+        description: "This natty combination looks like something Jane Fonda might have worn on the set of Barbarella.  It's unlikely her outfit would have smelt quite so much of excrement, or have been quite so vulnerable to naked flames.",
+        vulnerability: "fire"
     },
     {
         category: "clothing",
@@ -344,7 +345,8 @@ const characterDefence = [
         playerImage: "assets/images/character-profiles/player-loincloth.webp",
         chance: 30,
         score: 5,
-        description: "If you want to go and tear up the gay scene in 80s New York, this outfit is ideal.  Meandering about through dangerous dungeons with a serious head injury? Not so much."
+        description: "If you want to go and tear up the gay scene in 80s New York, this outfit is ideal.  Meandering about through dangerous dungeons with a serious head injury? Not so much.",
+        vulnerability: ""
     },
     {
         category: "clothing",
@@ -356,7 +358,8 @@ const characterDefence = [
         playerImage: "assets/images/character-profiles/player-jerkin.webp",
         chance: 75,
         score: 1,
-        description: "This foul leather jerkin shows signs of having once contained a decomposing corpse.  Where it came from, you really don't want to know."
+        description: "This foul leather jerkin shows signs of having once contained a decomposing corpse.  Where it came from, you really don't want to know.",
+        vulnerability: ""
     },
     {
         category: "clothing",
@@ -368,7 +371,8 @@ const characterDefence = [
         playerImage: "assets/images/character-profiles/player-chainmail.webp",
         chance: 85,
         score: 10,
-        description: "Although it probably isn't Mithril, this lovely chain mail still ought to be enough to turn aside an orcan blade.  Or an angry cat warrior claw, for that matter"
+        description: "Although it probably isn't Mithril, this lovely chain mail still ought to be enough to turn aside an orcan blade.  Or an angry cat warrior claw, for that matter",
+        vulnerability: ""
     },
     {
         category: "clothing",
@@ -380,7 +384,8 @@ const characterDefence = [
         playerImage: "assets/images/character-profiles/player-helmet.webp",
         chance: 95,
         score: 30,
-        description: "The purpose behind the design of this protective device is a baffling mystery.  I'll leave it to your imagination.  It also seems to be imbued with magical powers."
+        description: "The purpose behind the design of this protective device is a baffling mystery.  I'll leave it to your imagination.  It also seems to be imbued with magical powers.",
+        vulnerability: ""
     },
     {
         category: "clothing",
@@ -392,7 +397,8 @@ const characterDefence = [
         playerImage: "assets/images/character-profiles/player-plate.webp",
         chance: 100,
         score: 40,
-        description: "The armor of a noble ancient knight.  It's amazing what you can find lying about in a dungeon, really. This shold keep out all but the most determined foe."
+        description: "The armor of a noble ancient knight.  It's amazing what you can find lying about in a dungeon, really. This shold keep out all but the most determined foe.",
+        vulnerability: "ice"
     },
 ];
 //potions
@@ -566,7 +572,8 @@ const currentDefence = {
     name: "",
     defence: 0,
     magic: "",
-    image: ""
+    image: "",
+    vulnerability: ""
 }
 
 const currentPotion = {
@@ -597,7 +604,8 @@ const foundItemInfo = {
     attack: 0,
     defence: 0,
     score: 0,
-    description: ""
+    description: "",
+    vulnerability: ""
 }
 
 //Object logging player actions
@@ -691,12 +699,12 @@ function thingsReset() {
 //object for initial location (cavern, Ragnar, search)
 const firstCavern = {
     // bsic details
-    backgroundOne: "url('assets/images/backgrounds/cavern-dark.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/cavern.webp') no-repeat left center",
+    backgroundOne: "url('assets/images/backgrounds/cavern-dark.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/cavern.webp')",
     //initial options
     openEyes: function openEyes(){
         mainCharacter.score +=1;   
-        document.getElementById('game-section').style.background = this.backgroundOne;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundOne;
         document.getElementById('choices-section').innerHTML = this.optionsTwoFirst + mainCharacter.name + this.optionsTwoSecond;
         document.getElementById('game-text').innerHTML = this.pageTwo;  
     },
@@ -742,7 +750,7 @@ const firstCavern = {
     `,
     knowMyName: function knowMyName(){   
         mainCharacter.score +=3;
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.pageThreeFirst + this.pageThreeCommon;
         document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
         document.getElementById('choices-section').innerHTML = this.optionsThree;   
@@ -758,7 +766,7 @@ const firstCavern = {
         thingsWhatYouveDone.catCaptureChance -= 10;
         thingsWhatYouveDone.catFightChance += 10;
 
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.pageThreeSecondOne + mainCharacter.name + this.pageThreeSecondTwo + this.pageThreeCommon;
         document.getElementById('character-sheet-name').innerHTML = mainCharacter.name;
         document.getElementById('choices-section').innerHTML = this.optionsThree;  
@@ -772,7 +780,7 @@ const firstCavern = {
     `,
     nameUnknown: function nameUnknown(){
         mainCharacter.score +=5;
-        document.getElementById('game-section').style.background = this.backgroundTwo;  
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;  
         document.getElementById('game-text').innerHTML = this.pageThreeThird + this.pageThreeCommon;
         document.getElementById('character-sheet-name').innerHTML = mainCharacter.name + "<br><em>(provisional)</em>";
         document.getElementById('choices-section').innerHTML = this.optionsThree;    
@@ -953,7 +961,7 @@ const firstCavern = {
 }
 //object for corridor with slime encounter.
 const slimeCorridor = {
-    background: "url('assets/images/backgrounds/corridorv3.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/corridorv3.webp')",
     //corridor navigation
     slimeEncounter: function slimeEncounter() {
         changeModeToMainWindow();
@@ -962,12 +970,12 @@ const slimeCorridor = {
         if (thingsWhatYouveDone.slimeCollect || (thingsWhatYouveDone.slimeKill && specialObject.name === "Glowing Orb")) {
             catCavern.catCavern();
         } else if (thingsWhatYouveDone.slimeKill) {
-            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-section').style.backgroundImage = this.background;
             document.getElementById('game-text').innerHTML = this.pageSevenSlimed;
             document.getElementById('choices-section').innerHTML = this.optionsSevenTwo;
         } else {
         mainCharacter.score += 1;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         document.getElementById('game-text').innerHTML = this.pageSeven;
         document.getElementById('choices-section').innerHTML = this.optionsSeven;
         }
@@ -1138,12 +1146,12 @@ const slimeCorridor = {
 }
 //object for room where cats are encountered.
 const catCavern = {
-    background: "url('assets/images/backgrounds/cat-cavern.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/cat-cavern.webp')",
     catImage: `<img src="assets/images/enemies/cat-warriors.webp">`,
     catCavern: function catCavern() {
         changeModeToMainWindow();
         mainCharacter.score += 2;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         if (thingsWhatYouveDone.catsKilled === 5){
             document.getElementById('game-text').innerHTML = this.catCavernTextOne + this.catsGoneText;
             document.getElementById('choices-section').innerHTML = this.catsGoneOptions;
@@ -1520,13 +1528,13 @@ const catCavern = {
     }
 }
 const mysteryRoom = {
-    background: "url('assets/images/backgrounds/mystery-room.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/mystery-room-golden.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/mystery-room.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/mystery-room-golden.webp')",
 
     mysteryRoom: function mysteryRoom() {
         changeModeToMainWindow();
         mainCharacter.score += 5;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         if (specialObject.name === "Glowing Orb") {
             document.getElementById('game-text').innerHTML = this.mysteryRoomText + this.mysteryRoomOrbText;
             document.getElementById('choices-section').innerHTML = this.mysteryRoomOptionsTwo;
@@ -1558,7 +1566,7 @@ const mysteryRoom = {
         document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
         document.getElementById('object-item-name').innerHTML = "";
         document.getElementById('object-list-item-one').innerHTML = "";
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.orbPlaceText;
         document.getElementById('choices-section').innerHTML = this.orbPlaceOptions;
     },
@@ -1647,12 +1655,12 @@ const endingScene = {
     `
 }
 const dangerStairs = {
-    background: "url('assets/images/backgrounds/danger-stairs.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/top-stairs.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/danger-stairs.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/top-stairs.webp')",
     dangerStairsUp: function dangerStairsUp() {
         changeModeToMainWindow();
         mainCharacter.score += 5;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         document.getElementById('game-text').innerHTML = this.stairsText;
         document.getElementById('choices-section').innerHTML = this.stairsChoices;
     },
@@ -1663,7 +1671,7 @@ const dangerStairs = {
     dangerStairsDown: function dangerStairsDown() {
         changeModeToMainWindow();
         mainCharacter.score += 5;
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.stairsDownText;
         document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
     },
@@ -1693,7 +1701,7 @@ const dangerStairs = {
         
         if (getLucky()) {
             mainCharacter.score +=5;
-            document.getElementById('game-section').style.background = this.backgroundTwo;
+            document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
             document.getElementById('game-text').innerHTML = this.stairsClimbedText;
             document.getElementById('choices-section').innerHTML = this.stairsClimbedChoices;
         } else {
@@ -1742,7 +1750,7 @@ const dangerStairs = {
     <li><button class="choice-button" id="choice-thirty-two">Bugger this for a game of skittles.</button></li>
     `,
     descendStairs: function descendStairs() {
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         if (getLucky()) {
             mainCharacter.score +=5;
             document.getElementById('game-text').innerHTML = this.stairsDescendedText + this.stairsDescendedTextCommon;
@@ -1797,15 +1805,15 @@ const dangerStairs = {
     `
 }
 const spiderRoom = {
-    background: "url('assets/images/backgrounds/spider-cave.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/cave-drop.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/spider-cave.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/cave-drop.webp')",
     spiderRoom: function spiderRoom() {
         changeModeToMainWindow();
         if (thingsWhatYouveDone.spiderKill) {
             this.noSpider();
         } else {
         mainCharacter.score += 5;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         document.getElementById('game-text').innerHTML = this.caveText;
         document.getElementById('choices-section').innerHTML = this.caveChoices;
         }
@@ -1862,7 +1870,7 @@ const spiderRoom = {
     },
     noSpider: function nospider() {
         changeModeToMainWindow();
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         if (thingsWhatYouveDone.rearEntry === true) {
             document.getElementById('game-text').innerHTML = this.noSpiderRearText;
             document.getElementById('choices-section').innerHTML = this.noSpiderRearChoices;
@@ -1987,7 +1995,7 @@ const spiderRoom = {
     `,
     caveRearEntry: function caveRearEntry() {
         thingsWhatYouveDone.rearEntry = true;
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         if (thingsWhatYouveDone.caveExplore) {
             document.getElementById('game-text').innerHTML = this.rearEntryText;
             document.getElementById('choices-section').innerHTML = this.rearEntryChoices;
@@ -2015,7 +2023,7 @@ const spiderRoom = {
     rearOfCaveRearEntry: function rearOfCaveRearEntry() {
         thingsWhatYouveDone.caveExplore = true;
         thingsWhatYouveDone.rearEntry = true;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         if (thingsWhatYouveDone.spiderKill) {
             if (currentObject.name === "Frayed Rope") {
                 document.getElementById('game-text').innerHTML = this.rearRearText + this.rearRearTextTwo;
@@ -2054,12 +2062,12 @@ const spiderRoom = {
     `
 }
 const catDining = {
-    background: "url('assets/images/backgrounds/cat-dining-full.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/cat-dining-empty.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/cat-dining-full.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/cat-dining-empty.webp')",
     catDining: function catDining() {
         changeModeToMainWindow();
         if (thingsWhatYouveDone.catGod === true) {
-            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-section').style.backgroundImage = this.background;
             mainCharacter.score += 5;
             if (specialObject.name === "Glowing Orb") {
                 document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningGodTextTwo;
@@ -2070,7 +2078,7 @@ const catDining = {
             }
         } else if (thingsWhatYouveDone.catsKilled<5) {
             mainCharacter.score += 5;
-            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-section').style.backgroundImage = this.background;
             document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningCaptureText;
             document.getElementById('choices-section').innerHTML = this.diningCaptureChoices;
         } else {
@@ -2082,7 +2090,7 @@ const catDining = {
             for(let item of Object.keys(currentObject)) {
                 currentObject[item] = "";
             }
-            document.getElementById('game-section').style.background = this.backgroundTwo;
+            document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
             document.getElementById('game-text').innerHTML = this.diningEmptyTextOne + catCourt.orbImage + this.diningEmptyTextTwo;
             document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
         }
@@ -2130,13 +2138,13 @@ const catDining = {
     `
 }
 const catCourt = {
-    background: "url('assets/images/backgrounds/cat-court.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/cat-court.webp')",
     orbImage: `<img src="assets/images/items/orb-cusion-wide.webp">`,
     catCourt: function catCourt(){
         changeModeToMainWindow();
         thingsWhatYouveDone.catCourtVisits +=1
         mainCharacter.score += 5;
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         document.getElementById('game-text').innerHTML = this.catCourtText;
         document.getElementById('choices-section').innerHTML = this.catCourtChoices;
     },
@@ -2292,12 +2300,12 @@ const catCourt = {
     catPrisonChoices: `<li><button class="choice-button" id="choice-fifty-eight">Things could be worse, I guess...</button></li>`
 }
 const catCorridor = {
-    background: "url('assets/images/backgrounds/cat-corridor-one.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/cat-corridor-two.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/cat-corridor-one.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/cat-corridor-two.webp')",
     catCorridor: function catCorridor() {
         mainCharacter.score += 5;
         if (thingsWhatYouveDone.catsKilled === 5) {
-            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-section').style.backgroundImage = this.background;
             document.getElementById('choices-section').innerHTML = this.catCorridorChoicesTwo;
                 if  (thingsWhatYouveDone.prisonVisits === 0) {
             document.getElementById('game-text').innerHTML = this.catCorridorTextOne + this.catCorridorTextFour;
@@ -2306,7 +2314,7 @@ const catCorridor = {
             } 
 
         } else {
-            document.getElementById('game-section').style.background = this.background;
+            document.getElementById('game-section').style.backgroundImage = this.background;
             document.getElementById('choices-section').innerHTML = this.catCorridorChoicesOne;
                 if  (thingsWhatYouveDone.prisonVisits === 0) {
             document.getElementById('game-text').innerHTML = this.catCorridorTextOne + this.catCorridorTextThree;
@@ -2341,7 +2349,7 @@ const catCorridor = {
     <li><button class="choice-button" id="choice-sixty">Head into the gloom.</button></li>
     `,
     catCorridorTwo: function catCorridorTwo() {
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.catCorridorTwoText;
         document.getElementById('choices-section').innerHTML = this.catCorridorTwoChoices;
     },
@@ -2355,8 +2363,8 @@ const catCorridor = {
     `
 }
 const catPrison = {
-    background: "url('assets/images/backgrounds/cat-prison.webp') no-repeat left center",
-    backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp') no-repeat left center",
+    background: "url('assets/images/backgrounds/cat-prison.webp')",
+    backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp')",
     prisonSearchOptions: function prisonSearchOptions() {
         if (thingsWhatYouveDone.prisonerSearched) {
             if (thingsWhatYouveDone.cellOneSearched && thingsWhatYouveDone.cellTwoSearched) {
@@ -2384,7 +2392,7 @@ const catPrison = {
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         changeModeToMainWindow();
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage = this.background;
         if (thingsWhatYouveDone.prisonVisits === 0) {
             document.getElementById('game-text').innerHTML = this.catPrisonTextOne;
         } else {
@@ -2444,7 +2452,7 @@ const catPrison = {
     `,
     searchCorpse: function searchCorpse() {
         changeModeToItemWindow();
-        document.getElementById('game-section').style.background = this.background;
+        document.getElementById('game-section').style.backgroundImage= this.background;
         thingsWhatYouveDone.prisonerSearched = true;
         foundItemInfo.category = characterDefence[0].category;
         foundItemInfo.adjective = characterDefence[0].adjective;
@@ -2497,11 +2505,11 @@ const catPrison = {
         }
     },
     firstCellSearch: function firstCellSearch() {
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         changeModeToItemWindow();
         if (!thingsWhatYouveDone.bugKill) {
             if (this.bugChance()) {
-                document.getElementById('game-section').style.background = this.backgroundTwo;
+                document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
                 document.getElementById('lower-text').style.display = "none";
                 document.getElementById('upper-text').innerHTML = this.bigBugText;
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
@@ -2521,11 +2529,11 @@ const catPrison = {
         }
     },
     secondCellSearch: function secondCellSearch() {
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         changeModeToItemWindow();
         if (!thingsWhatYouveDone.bugKill) {
             if (this.bugChance()) {
-                document.getElementById('game-section').style.background = this.backgroundTwo;
+                document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
                 document.getElementById('lower-text').style.display = "none";
                 document.getElementById('upper-text').innerHTML = this.bigBugText;
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
@@ -2608,7 +2616,7 @@ const catPrison = {
     },
     insectRepellentBug: function insectRepellantBug() {
         changeModeToMainWindow();
-        document.getElementById('game-section').style.background = this.backgroundTwo;
+        document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.insectRepellantBugText;
         this.prisonSearchOptions();
     },
@@ -2745,6 +2753,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                 foundItemInfo.defence = i.defence,
                 foundItemInfo.score = i.score,
                 foundItemInfo.description = i.description
+                foundItemInfo.vulnerability = i.vulnerability
             }
         }
     }
@@ -2796,6 +2805,7 @@ function itemStorage() {
         currentDefence.resist = foundItemInfo.resist;
         currentDefence.image = foundItemInfo.image;
         currentDefence.playerImage = foundItemInfo.playerImage;
+        currentDefence.vulnerability = foundItemInfo.vulnerability;
     } else if (foundItemInfo.category === "potion") {
         currentPotion.category = foundItemInfo.category;
         currentPotion.name = foundItemInfo.name;
@@ -2809,9 +2819,6 @@ function itemStorage() {
     }
     if (foundItemInfo.name === "Four Leaf Clover") {
         mainCharacterCurrent.luck = mainCharacter.luck + 3;
-    }
-    if (foundItemInfo.name === "Furry Gilet and Shorts") {
-        mainCharacterCurrent.vulnerability = "fire";
     }
     if (foundItemInfo.name === "Oathbringer") {
         characterWeapons[0].chance = 0;
@@ -2932,11 +2939,11 @@ function playerTestResistances(enemy) {
     }
 }
 function enemyTestResistances(enemy) {
-    if (enemy.magic ==="fire" && mainCharacterCurrent.vulnerability === "fire") {
+    if (enemy.magic ==="fire" && currentDefence.vulnerability === "fire") {
         return 2;
     } else if (enemy.magic ==="fire" && currentDefence.resist === "fire") {
         return 0.5;
-    } else if (enemy.magic ==="ice" && mainCharacterCurrent.vulnerability === "ice") {
+    } else if (enemy.magic ==="ice" && currentDefence.vulnerability === "ice") {
         return 2;
     } else if (enemy.magic ==="ice" && currentDefence.resist === "ice") {
         return 0.5;
