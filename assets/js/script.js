@@ -36,14 +36,14 @@ const ragnarTheHorrible = {
     resist: "",
     magic:"",
     score:30,
-    initialText: "<p>The near-corpse circles warily around you.  It seems to be your move.</p>",
-    successTextOne: "<p>You smash Ragnar with your ",
-    successTextTwo: "<br>He dances away, and then forces you to defend again.</p>",
-    deathText: "<p>The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists.<br>Perhaps this time he'll stay dead.</p>",
-    failText: "<p>The wily little fellow ducks away from your blow, grumbling to himself, before striking back at you.</p>",
-    hitText: "<p>Squealing with delight, Ragnar lands a solid blow, sending you reeling,",
+    initialText: "The near-corpse circles warily around you.  It seems to be your move.",
+    successTextOne: "You smash Ragnar with your ",
+    successTextTwo: " He dances away, and then forces you to defend again.",
+    deathText: "The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists.<br>Perhaps this time he'll stay dead.",
+    failText: "The wily little fellow ducks away from your blow, grumbling to himself, before striking back at you.",
+    hitText: "Squealing with delight, Ragnar lands a solid blow, sending you reeling,",
     killedYouText: "<p>You stumble and, in that instant, the little felon lands the killing blow, cleaving your aching skull.<br>YOU ARE DEAD</p>",
-    missedText: "<p>Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.</p>",
+    missedText: "Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.",
     choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
 }
 const sentientSlime = {
@@ -59,14 +59,14 @@ const sentientSlime = {
     resist: "",
     magic:"",
     score:40,
-    initialText: "<p>The strange ball of goo seems to rotate about the limited space of the corridor, occasionally reaching out tendrils as if in search of prey.</p>",
-    successTextOne: "<p>You strike the sentient slime with your ",
-    successTextTwo: "<br>It rolls around in a half circle, but seems undeterred from your destruction.</p>",
-    deathText: "<p>The goo seems to lose all form, collapsing into itself and leaving trails of gelatious liquid across the stone floor of the corridor.<br>You think that it is finally dead.</p>",
-    failText: "<p>The slime seems to re-arrange its form to avoid your attack, and your attempted strike cannot find its target.</p>",
-    hitText: "<p>The slime lashes out with a solid tendril of goo, taking you by surprise,",
+    initialText: "The strange ball of goo seems to rotate about the limited space of the corridor, occasionally reaching out tendrils as if in search of prey.",
+    successTextOne: "You strike the sentient slime with your ",
+    successTextTwo: " It rolls around in a half circle, but seems undeterred from your destruction.",
+    deathText: "The goo seems to lose all form, collapsing into itself and leaving trails of gelatinous liquid across the stone floor of the corridor. You think that it is finally dead.",
+    failText: "The slime seems to re-arrange its form to avoid your attack, and your attempted strike cannot find its target.",
+    hitText: "The slime lashes out with a solid tendril of goo, taking you by surprise,",
     killedYouText: "<p>Exhausted from the encounter, the slime senses your weakness and takes its chance to envelop and suffocate you.<br>YOU ARE DEAD</p>",
-    missedText: "<p>The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.</p>",
+    missedText: "The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.",
     choices: `<li><button class="choice-button" id="choice-seventy-one">What a gross and annoying creature.</button></li>`
 }
 const catWarrior = {
@@ -82,14 +82,14 @@ const catWarrior = {
     resist: "",
     magic:"",
     score: 20,
-    initialText: "<p>The car warrior stalks you, every muscle tensed and its tail gently wagging as it looks for the opportinity to strike<br>You do not intend to give it one.</p>",
-    successTextOne: "<p>You strike the Cat Warrior with your ",
-    successTextTwo: "<br>The cat lands on its feet, as they are prone to do, and comes at you again.</p>",
-    hitText: "<p>The cat does a sort of triple-salco, tail flailing and sword flashing before landing an accurate strike,",
-    deathText: "<p>At the killing blow the kitty slumps to the ground, all curled up in a little ball, its sword skittering.  Something inside you dies.</p>",
-    failText: "<p>The Cat Warrior arcs its body in an impossible shape, deftly avoiding your attack. Before returning to the perfect fighting stance like still water</p>",
+    initialText: "The cat warrior stalks you, every muscle tensed and its tail gently wagging as it looks for the opportinity to strike. You do not intend to give it one.",
+    successTextOne: "You strike the Cat Warrior with your ",
+    successTextTwo: " The cat lands on its feet, as they are prone to do, and comes at you again.",
+    hitText: "The cat does a sort of triple-salco, tail flailing and sword flashing before landing an accurate strike,",
+    deathText: "At the killing blow the kitty slumps to the ground, all curled up in a little ball, its sword skittering.  Something inside you dies.",
+    failText: "The Cat Warrior arcs its body in an impossible shape, deftly avoiding your attack. Before returning to the perfect fighting stance like still water.",
     killedYouText: "<p>You are babmoozled by the speed of the furry warriors attacks, and unable to do anything to defend yourself as it lands the killing blow.<br>YOU ARE DEAD</p>",
-    missedText: "<p>The Cat Sword moves like lightning, but the warrior's accuracy did not match it's speed, and the attack whistles past your ear.</p>",
+    missedText: "The Cat Sword moves like lightning, but the warrior's accuracy did not match its speed, and the attack whistles past your ear.",
     choices: `
     <li><button class="choice-button" id="choice-twenty-six">He should never have challenged me.</button></li>
     `
@@ -110,18 +110,18 @@ const iceQueen = {
     resist: "ice",
     magic:"ice",
     score: 70,
-    initialText: "<p>As you scream the quesnion that's been haunting you the Ice Queen just laughs in your face. As you stalk forward, baying for her blood, she just laughs harder.</p>",
-    successTextOne: "<p>You strike the Ice Queen with your ",
-    successTextTwo: "<br>She take a step back, a rictus grin on her face, ice crystals flying from the spot where you struck her.</p>",
-    hitText: "<p>With the barest motion of her fingers a pillar of ice strikes you square in the chest, winding you, ",
-    deathText: "<p>Finally you land a killing blow.  A column of ice rises up to consume her, and then she is gone, leaving no trace she ever existed but a few shards of ice tinkling on the hard floor.</p>",
-    failText: "<p>You move to strike confidently, but an icy shield forms between you, deflecting the blow.</p>",
+    initialText: "As you scream the question that's been haunting you the Ice Queen just laughs in your face. As you stalk forward, baying for her blood, she laughs even harder.",
+    successTextOne: "You strike the Ice Queen with your ",
+    successTextTwo: " She takes a step back, a fixed grin on her face, ice crystals flying from the spot where you struck her.",
+    hitText: "With the barest motion of her fingers a pillar of ice strikes you square in the chest, winding you, ",
+    deathText: "Finally you land a killing blow.  A column of ice rises up to consume her, and then she is gone, leaving no trace she ever existed but a few shards of ice tinkling on the hard floor.",
+    failText: "You move to strike confidently, but an icy shield forms between you, deflecting the blow.",
     killedYouText: `
-    <p>Frost is forming in your beard and your breathing has become laboured.  She knows she has you</p>
+    <p>Frost is forming in your beard and your breathing has become laboured.  She knows she has you.</p>
     <p>"DIEEEEEEE!!!!"</p>
     <p>She clearly relishes your death, and you never found out why.<br>YOU ARE DEAD</p>
     `,
-    missedText: "<p>You manage to roll under another sheet of ice as it rolls towards you, avoiding the attack.</p>",
+    missedText: "You manage to roll under another sheet of ice as it rolls towards you, avoiding the attack.",
     choices: `
     <li><button class="choice-button" id="choice-thirty-nine">What is my name?</button></li>
     `
@@ -142,19 +142,19 @@ const fireMage = {
     magic:"fire",
     score: 70,
     initialText: `
-    <p>"You ask me your name, yet I do not think you really want to know."
+    "You ask me your name, yet I do not think you really want to know."</p>
     <p>You have no choice but to attack the wizard as blazing orbs of fire build in both his hands.
-    <p>He just looks serenely back at you, as if it was nothing.</p>
+    <p>He just looks serenely back at you, as if it was nothing.
     `,
-    successTextOne: "<p>You strike the Fire Mage with your ",
-    successTextTwo: "<br>As you strike the mage he stands as if rooted, eyes closed, softly chanting some kind of mantra.  Your aim though is true, </p>",
-    hitText: "<p>The mage launches an orb of fire which arcs into your groin like a blazing fastball,",
-    deathText: "<p>Finally, the mage's chants can keep him upright no more.  As he crumples to the floor, his corpse burns with a bright phosphorescent flame, leaving nothing but ashes.</p>",
-    failText: "<p>The mage's form seems to flicker like a flame, and somehow you miss him.</p>",
+    successTextOne: "You strike the Fire Mage with your ",
+    successTextTwo: "As you strike the mage he stands as if rooted, eyes closed, softly chanting some kind of mantra.",
+    hitText: "The mage launches an orb of fire which arcs into your groin like a blazing fastball,",
+    deathText: "Finally, the mage's chants can keep him upright no more.  As he crumples to the floor, his corpse burns with a bright phosphorescent flame, leaving nothing but ashes.",
+    failText: "The mage's form seems to flicker like a flame, and somehow you miss him.",
     killedYouText: `<p>The final ball of burning fire was too much for you, and you collapse to your knees, helpless to avoid your destruction.</p>
     As your vision fills with flame and you black out from the pain, you can only think of one thing.<p>"What was my name?"</p><br>YOU ARE DEAD</p>
     `,
-    missedText: "<p>You dodge at the last second and the fireball blazes past you, leaving a dark charcoal graze on your clothing.</p>",
+    missedText: "You dodge at the last second and the fireball blazes past you, leaving a dark charcoal graze on your clothing.",
     choices: `
     <li><button class="choice-button" id="choice-thirty-nine">What. Is. My. Name.</button></li>
     `
@@ -173,22 +173,21 @@ const giantSpider = {
     vulnerability:"sharp",
     score: 20,
     initialText: `
-    <p>The spider hisses and chatters at you, and actually appears to be salivating.
-    <br>You do not intend to be its next meal.</p>
+    The spider hisses and chatters at you, and actually appears to be salivating.
+    You do not intend to be its next meal.
     `,
-    successTextOne: "<p>You whack the Giant Spider in its soft underbelly with your ",
-    successTextTwo: "<br>It chatters, as if surprised it could be hurt, before coming at you again.</p>",
-    hitText: "<p>The spider strikes out a spiny limb with incredible speed which catches you off guard,",
-    deathText: `<p>With one last thrust you disembowel the creature; its innards spill across the cave floor in front of you.
-    <br>This smells really bad.</p>
+    successTextOne: "You whack the Giant Spider in its soft underbelly with your ",
+    successTextTwo: " It chatters, as if surprised it could be hurt, before coming at you again.",
+    hitText: "The spider strikes out a spiny limb with incredible speed which catches you off guard,",
+    deathText: `With one last thrust you disembowel the creature; its innards spill across the cave floor in front of you. This smells really bad.
     `,
-    failText: "<p>The giant sagging form of the spider side-steps with surprising speed, causing you to miss.</p>",
+    failText: "The giant sagging form of the spider side-steps with surprising speed, causing you to miss.",
     killedYouText: `<p>As you reel from the latest blow the spider lurches forwards and sinks its fangs into your neck, completely incapacitating you</p>
     <p>The next few days are spent in agony, immobilised in a cocoon of silk yet still fully conscious, as your innards slowly dissolve.</p>
     <p>As you die half mad from the burning pain, you still don't remember who you once were.
     <br>YOU ARE DEAD</p>
     `,
-    missedText: "<p>As the spider strikes, you pirouette in a half circle, narrowly avoiding its trailing claw.</p>",
+    missedText: "As the spider strikes, you pirouette in a half circle, narrowly avoiding its trailing claw.",
     choices: `
     <li><button class="choice-button" id="choice-fourty-seven">That's probably the least fun I've had so far.</button></li>
     `
@@ -207,18 +206,18 @@ const bigBug = {
     image: "assets/images/enemies/giant-bug.webp",
     vulnerability:"",
     score: 10,
-    initialText: "<p>The bug scuttles towards you with aggressive intent.  It is alarming.</p>",
-    successTextOne: "<p>Hoping desperately to discourage it, you thwhack the cockroach with your ",
-    successTextTwo: "<br>It skids away, right itself, then comes at you again, unperturbed.</p>",
-    hitText: "<p>The cockroach lashes at you with its foreleg,",
-    deathText: `<p>Finally, after your most recent blow, the cursed creature finally stops moving.  A growing pool of green ooze from it's midsection suggests this situation may be permanent.</p>
+    initialText: "The bug scuttles towards you with aggressive intent.  It is alarming.",
+    successTextOne: "Hoping desperately to discourage it, you thwack the cockroach with your ",
+    successTextTwo: " It skids away, right itself, then comes at you again, unperturbed.",
+    hitText: "The cockroach lashes at you with its foreleg,",
+    deathText: `Finally, after your most recent blow, the cursed creature finally stops moving.  A growing pool of green ooze from it's midsection suggests this situation may be permanent.
     `,
-    failText: "<p>You strike at the beast but it is a weary blow, and it is able to evade you.</p>",
+    failText: "You strike at the beast but it is a weary blow, and it is able to evade you.",
     killedYouText: `<p>The pace of the fight and the concentration required is taking its toll - the relentless creature will not die.</p>
     <p>Finally, as you stumble to your knees, it crushes your skull with its mandibles, putting you out of your misery.
     <br>YOU ARE DEAD</p>
     `,
-    missedText: "<p>The roach reaches out with its legs to strike you again, but you are able to move to evade it.</p>",
+    missedText: "The roach reaches out with its legs to strike you again, but you are able to move to evade it.",
     choices: `
     <li><button class="choice-button" id="choice-fifty-eight">I hate those things.</button></li>
     `
@@ -888,9 +887,11 @@ const firstCavern = {
         changeModeToItemWindow();
         mainCharacter.score += 3;
         if (getLucky()) {
+            document.getElementById('lower-text').style.display = "none";
             document.getElementById('upper-text').innerHTML = this.pageSixFirst + this.pageSixCommon;
             mainCharacter.score += 3;
         } else {
+            document.getElementById('lower-text').style.display = "none";
             document.getElementById('upper-text').innerHTML = this.pageSixSecond + this.pageSixCommon;
             mainCharacterCurrent.health -= 7;
             mainCharacter.score -= 3;
@@ -1031,7 +1032,7 @@ const slimeCorridor = {
     //Page nine
     slimeLuck: function slimeLuck() {
         changeModeToItemWindow();
-        document.getElementById('lower-text').style.display = "none";
+        document.getElementById('upper-text').style.display = "none";
         thingsWhatYouveDone.slimeKill = true;
         if (getLucky()) {
             mainCharacter.score += 3;
@@ -1269,7 +1270,7 @@ const catCavern = {
     `,
     catAttackChoices: `
     <li><button class="choice-button" id="choice-twenty-eight">Stand your ground and meet the challenge.</button></li>
-    <li><button class="choice-button" id="choice-twenty-nine">Make a run for it to avoid the slaughter.</button></li>
+    <li><button class="choice-button" id="choice-twenty-nine">TEST YOUR LUCK: Make a run for it to avoid the slaughter.</button></li>
     `,
     runAway: function runAway() {
         changeModeToMainWindow();
@@ -1333,7 +1334,7 @@ const catCavern = {
         } else {
             mainCharacterCurrent.health = mainCharacter.health
         }
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>You crunch down the cat biscuits, restoring <span class='green'>20</span> health.<br>Fortunately they taste much better than they smell.</p><p>The cats look on with much displeasure - that was a bit cruel to be fair.</p>";
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "<p>You crunch down the cat biscuits, restoring <span class='green'>20</span> health.<br>Fortunately they taste much better than they smell.</p><p>The cats look on with much displeasure - that was a bit cruel to be fair.</p>";
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('potion-item-name').innerHTML = "";
         document.getElementById('potion-list-item-one').innerHTML = "";
@@ -1681,7 +1682,7 @@ const dangerStairs = {
     <p>It doesn't look like there are many other options though.</p>
     `,
     stairsChoices: `
-    <li><button class="choice-button" id="choice-fourty-two">Of course, it's a flight of stairs not the darn Ice Queen!</button></li>
+    <li><button class="choice-button" id="choice-fourty-two">TEST YOUR LUCK: It's a flight of stairs not the evil Ice Queen!</button></li>
     <li><button class="choice-button" id="choice-thirty-two">No thank you, I'm scared.</button></li>
     `,
     stairsFallOutcome: function stairsFallOutcome() {
@@ -1732,7 +1733,7 @@ const dangerStairs = {
     `,
     stairsClimbedChoices:`
     <li><button class="choice-button" id="choice-fourty-three">Enter the cave.</button></li>
-    <li><button class="choice-button" id="choice-fourty-four">Go down the stairs.</button></li>
+    <li><button class="choice-button" id="choice-fourty-four">TEST YOUR LUCK: Go down the stairs.</button></li>
     `,
     stairsInjuryTextOne: `
     <p>Just as you put your foot down the step beneath you crumbles, sending you tumbling off balance back down to the floor of the cavern</p>
@@ -1746,7 +1747,7 @@ const dangerStairs = {
     <p>Fortunately you hadn't got very far up the flight, so no harm was done</p>
     `,
     stairsFellChoices: `
-    <li><button class="choice-button" id="choice-fourty-two">If at first you don't succeed...</button></li>
+    <li><button class="choice-button" id="choice-fourty-two">TEST YOUR LUCK: If at first you don't succeed...</button></li>
     <li><button class="choice-button" id="choice-thirty-two">Bugger this for a game of skittles.</button></li>
     `,
     descendStairs: function descendStairs() {
@@ -1789,7 +1790,7 @@ const dangerStairs = {
     <p>Fortunately you'd got most of the way down, so no harm was done</p>
     `,
     stairsDescendedChoices:`
-    <li><button class="choice-button" id="choice-fourty-two">Go back up the stairs again.</button></li>
+    <li><button class="choice-button" id="choice-fourty-two">TEST YOUR LUCK: Go back up the stairs again.</button></li>
     <li><button class="choice-button" id="choice-twenty-one">Enter the cavern.</button></li>
     `,
     deathStairs: function deathStairs() {
@@ -1859,7 +1860,7 @@ const spiderRoom = {
     },
     insectRepellant: function insectRepellant(enemy, weapon) {
         mainCharacter.score -=10;
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + `<p>You spray the Insect Repellent at the spider, emptying the bottle. It just blinks its eyes and looks at you incredulously, if a spider can even do that.<br>It was unlikely to work on a 6 ft high cat-eating spider.  Plus, you know, a spider isn't even an insect.`;
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + `You spray the Insect Repellent at the spider, emptying the bottle. It just blinks its eyes and looks at you incredulously, if a spider can even do that.<br>It was unlikely to work on a 6ft high cat-eating spider.  Plus, you know, a spider isn't even an insect.`;
         document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('object-item-name').innerHTML = "";
         document.getElementById('object-list-item-one').innerHTML = "";
@@ -2644,8 +2645,7 @@ function changeModeToMainWindow() {
     document.getElementById('image-section').style.display = "none";
     document.getElementById('upper-text').style.display = "none";
     document.getElementById('lower-text').style.display = "none";    
-    document.getElementById('battle-text-player').style.display = "none";
-    document.getElementById('battle-text-enemy').style.display = "none";
+    document.getElementById('battle-text').style.display = "none";
     document.getElementById('game-text').style.display = "block";
 }
 function changeModeToItemWindow() {
@@ -2657,14 +2657,12 @@ function changeModeToItemWindow() {
     document.getElementById('lower-text').style.display = "block";
     document.getElementById('image-section').style.display = "flex";
     document.getElementById('game-text').style.display = "none";
-    document.getElementById('battle-text-player').style.display = "none";
-    document.getElementById('battle-text-enemy').style.display = "none";
+    document.getElementById('battle-text').style.display = "none";
 }
 function changeToBattleWindow(enemy) {
     document.getElementById('upper-text').style.display = "none";
     document.getElementById('lower-text').style.display = "none";
-    document.getElementById('battle-text-player').style.display = "block";
-    document.getElementById('battle-text-enemy').style.display = "none";
+    document.getElementById('battle-text').style.display = "block";
     document.getElementById('battle-text-player').innerHTML = enemy.initialText;
     document.getElementById('choices-section').style.display = "none";
     document.getElementById('battles-section').style.display = "block";
@@ -2894,6 +2892,7 @@ function leaveBattle(enemy) {
     document.getElementById('choices-section').style.display = "block";
     document.getElementById('battles-section').style.display = "none";
     document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+    document.getElementById("battle-text").style.textAlign = "center";
     document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
     document.getElementById('battle-text-enemy').innerHTML ="";            
     //sets odds changes in cat cavern and cat court.  Logs presence of weapon item too.
@@ -3012,9 +3011,10 @@ function nextRound(enemy, weapon) {
     }
 }
 function playerTurn(enemy, weapon) {
+    document.getElementById('battle-text').style.textAlign = "left";
     let roundResult = nextRound(enemy, weapon);
     if (roundResult === "fail") {
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.failText;
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.failText;
         enemyTurn(enemy, "enemy");
     } else {
         let roundDamage = Math.floor(roundResult * playerTestResistances(enemy));
@@ -3022,26 +3022,26 @@ function playerTurn(enemy, weapon) {
         if (enemy.health > 0) {
             if (weapon === "fists") {
                 if (roundDamage > 0){
-                    document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                    document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + `bare hands, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
                 } else {
-                    document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
+                    document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + `bare hands, but the blow glances off them.` + enemy.successTextTwo;
                 }
             } else {
                 if (roundDamage > 0){
                     if (playerTestResistances(enemy) < 1) {
-                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo + weaponIneffective;
+                        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo + weaponIneffective;
                     } else if (playerTestResistances(enemy) > 1) {
-                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo + weaponEffective;
+                        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo + weaponEffective;
                     } else { 
-                    document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
+                    document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + currentWeapon.name + `, causing <span class="green">` + roundDamage + `</span>` +` health points of damage.` + enemy.successTextTwo;
                     }
                 } else {
                     if (playerTestResistances(enemy) < 1) {
-                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo + weaponIneffective;
+                        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo + weaponIneffective;
                     } else if (playerTestResistances(enemy) > 1) {
-                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo + weaponEffective;
+                        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo + weaponEffective;
                     } else { 
-                        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
+                        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + enemy.successTextOne + currentWeapon.name + `, but the blow glances off them.` + enemy.successTextTwo;
                     }
                 }
             }
@@ -3058,7 +3058,7 @@ function potionRound(enemy, weapon) {
         if (enemy.name === "Cat Warrior") {
             catCavern.catnipWarrior();
         } else {
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You rub on some of the catnip potion, but it doesn't seem to do anything right now.";
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You rub on some of the catnip potion, but it doesn't seem to do anything right now.";
         mainCharacter.score -=3;
         enemyTurn(enemy, weapon);
         }
@@ -3068,7 +3068,7 @@ function potionRound(enemy, weapon) {
         } else {
             mainCharacterCurrent.health = mainCharacter.health
         }
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You drink down the restorative balm, and feel instantly re-invigorated";
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You drink down the restorative balm, and feel instantly re-invigorated";
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
         document.getElementById('potion-item-name').innerHTML = "";
         document.getElementById('potion-list-item-one').innerHTML = "";
@@ -3099,7 +3099,7 @@ function potionRound(enemy, weapon) {
             document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>You hurl the vial at your opponent, and watch as they are consumed by flames.</p><p>They slump to the ground, their still smouldering flesh charred and blackened beyond recognition. <br>You almost feel sorry for them... almost.</p>";
             mainCharacter.score += 10;
         } else {
-            document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>You hurl the vial at your opponent, and watch as they are consumed by flames. <br>They lose <span class='orange'>" + roundDamage + "</span> health points of damage.</p>";
+            document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You hurl the vial at your opponent, and watch as they are consumed by flames. They lose <span class='orange'>" + roundDamage + "</span> health points of damage.";
             mainCharacter.score +=10;
             enemyTurn(enemy, weapon);
         }
@@ -3119,16 +3119,16 @@ function potionRound(enemy, weapon) {
         }
         if (enemy.health<=0) {
             leaveBattle(enemy);
-            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.</p><p>They slump to the ground, their skin raked from their flesh by your icy attack. <br>You almost feel sorry for them... almost.</p>";
+            document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3><p>As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.</p><p>They slump to the ground, their flesh flayed from their form by your icy attack. <br>You almost feel sorry for them... almost.</p>";
             mainCharacter.score += 10;   
         } else {
-            document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "<p>As the vial smashes and the contents cover your opponent, you see them flinch and then scream as their skin burns with cold.</p><br>They lose <span class='lightblue'>" + roundDamage + "</span> health points of damage.</p>";
+            document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "As the vial smashes and the contents cover your opponent, you see them flinch and then scream as they burn with cold. They lose <span class='lightblue'>" + roundDamage + "</span> health points of damage.";
             mainCharacter.score +=10;
             enemyTurn(enemy, weapon);
         }
     } else if (potionName === "Potion of Defence") {
         mainCharacterCurrent.defence += 10;
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "On drinking the potion a cool aura of invincibility gives you a sense of unusual calm.";
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "On drinking the potion a cool aura of invincibility gives you a sense of unusual calm.";
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('potion-item-name').innerHTML = "";
         document.getElementById('potion-list-item-one').innerHTML = "";
@@ -3139,7 +3139,7 @@ function potionRound(enemy, weapon) {
         enemyTurn(enemy);
     } else if (potionName === "Potion of Power") {
         mainCharacterCurrent.strength += 10;
-        document.getElementById('battle-text-player').innerHTML = battleHeadingYou + "You drink the potion and then stare down at your bicep, which is visibly bulging in all the right places.<br>You feel POWERFUL!!!";
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You drink the potion and then stare down at your bicep, which is visibly bulging in all the right places. You feel POWERFUL!!!";
         document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
         document.getElementById('potion-item-name').innerHTML = "";
         document.getElementById('potion-list-item-one').innerHTML = "";
@@ -3156,16 +3156,16 @@ function enemyTurn(enemy, weapon) {
         document.getElementById('battle-text-enemy').style.display = "block";
     }
     if (roundResult === "fail") {
-        document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.missedText;
+        document.getElementById('battle-text-enemy').innerHTML = `<span class="red">` + enemy.name + `: </span>` + enemy.missedText;
         continueFight(enemy);
     } else {
         let roundDamage = Math.floor(roundResult * enemyTestResistances(enemy))
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {
-                document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.hitText + ` and causing <span class="red"> ` + roundDamage + `</span> health points of damage.`;
+                document.getElementById('battle-text-enemy').innerHTML = `<span class="red">` + enemy.name + `: </span>` + enemy.hitText + ` and causing <span class="red"> ` + roundDamage + `</span> health points of damage.`;
             } else {
-                document.getElementById('battle-text-enemy').innerHTML = battleHeadingThem + enemy.hitText + ` but fortunately it does you no harm.`;
+                document.getElementById('battle-text-enemy').innerHTML = `<span class="red">` + enemy.name + `: </span>` + enemy.hitText + ` but fortunately it does you no harm.`;
             }
             continueFight(enemy);
         } else {
@@ -3995,12 +3995,11 @@ const optionsOne = `
 
 // GENERIC - text for battles
 
-// turn indicators
-const battleHeadingYou = `<h3 class="green">Your Turn</h3>`;
-const battleHeadingThem = `<h3 class="red">Enemy Turn</h3>`;
 
-const weaponEffective = `<p>Your weapon appears to have a devastating effect on this foe.</p>`;
-const weaponIneffective = `<p>Your weapon appears to be particularly ineffective against this foe.</p>`;
+// turn indicators
+
+const weaponEffective = `<br>Your weapon appears to have a devastating effect on this foe.`;
+const weaponIneffective = `<br>Your weapon appears to be particularly ineffective against this foe.`;
 
 
 

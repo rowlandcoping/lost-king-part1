@@ -171,12 +171,16 @@ ul {
 }
 
 
-#game-text, #upper-text, #lower-text, #image-section, #battle-text-player, #battle-text-enemy{
+#game-text, #upper-text, #lower-text, #image-section, #battle-text{
     border: ridge rgb(94, 61, 0) 3px;
     background-color: #00000080;
     width:70%;
-    margin:auto;
+    margin:10px auto;
     padding:0 5px 0 5px;
+}
+
+#battle-text {
+    text-align: center;
 }
 
 #choices-section, #battles-section {
@@ -227,7 +231,7 @@ ul {
 #character-section {
     display:flex;
     flex-flow: column;
-    border: 2px solid green;
+    border: ridge rgb(94, 61, 0) 3px;
     padding:5px;
     flex:1;
     justify-content: center;
@@ -259,7 +263,7 @@ ul {
     margin-left: auto;
     margin-right: auto;
     padding:5px;
-    border: 2px solid red;
+    border: ridge rgb(94, 61, 0) 3px;
 }
 
 #battle-text {
@@ -312,7 +316,7 @@ ul {
     border: 2px solid blue;
     margin: 10px;
     padding: 3px;
-    height: 140px;
+    height: 160px;
 }
 
 .item-image img {
