@@ -3257,6 +3257,8 @@ function writeInitialToDom() {
     document.getElementById('game-section').style.backgroundImage = "";
 }
 
+
+
 //START GAME EVENT HANDLERS
 
 //start-game-button
