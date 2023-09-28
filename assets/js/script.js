@@ -39,7 +39,7 @@ const ragnarTheHorrible = {
     initialText: "The near-corpse circles warily around you.  It seems to be your move.",
     successTextOne: "You smash Ragnar with your ",
     successTextTwo: " He dances away, and then forces you to defend again.",
-    deathText: "The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists.<br>Perhaps this time he'll stay dead.",
+    deathText: "The little warrior crumples back to the floor, and this time you take no chances, beating his corpse with your fists. </p><p>Perhaps this time he'll stay dead.",
     failText: "The wily little fellow ducks away from your blow, grumbling to himself, before striking back at you.",
     hitText: "Squealing with delight, Ragnar lands a solid blow, sending you reeling,",
     killedYouText: "<p>You stumble and, in that instant, the little felon lands the killing blow, cleaving your aching skull.<br>YOU ARE DEAD</p>",
@@ -299,7 +299,7 @@ const characterWeapons = [
         attack: 4,
         skill: 1,
         magic: "fire",
-        type: "magical",
+        type: "",
         image: "assets/images/items/fire-staff.webp",
         chance: 95,
         score: 30,
@@ -312,7 +312,7 @@ const characterWeapons = [
         attack: 4,
         skill: 1,
         magic: "ice",
-        type: "magical",
+        type: "",
         image: "assets/images/items/frozen-staff.webp",
         chance: 100,
         score: 30,
@@ -624,6 +624,8 @@ const thingsWhatYouveDone = {
     cellTwoSearched: false,
     bugFight: false,
     prisonerSearched: false,
+    potionDefence: false,
+    potionPower: false,
     prisonVisits: 0,
     catCourtVisits: 0,
     catsKilled: 0,
@@ -652,6 +654,8 @@ const thingsWhatYouveDoneInitial = {
     cellTwoSearched: false,
     bugFight: false,
     prisonerSearched: false,
+    potionDefence: false,
+    potionPower: false,
     prisonVisits: 0,
     catCourtVisits: 0,
     catsKilled: 0,
@@ -679,6 +683,8 @@ function thingsReset() {
     thingsWhatYouveDone.cellTwoSearched = thingsWhatYouveDoneInitial.cellTwoSearched;
     thingsWhatYouveDone.bugFight = thingsWhatYouveDoneInitial.bugFight;
     thingsWhatYouveDone.prisonerSearched =thingsWhatYouveDoneInitial.prisonerSearched
+    thingsWhatYouveDone.potionDefence = thingsWhatYouveDoneInitial.potionDefence
+    thingsWhatYouveDone.potionPower = thingsWhatYouveDoneInitial.potionPower
 
     thingsWhatYouveDone.prisonVisits = thingsWhatYouveDoneInitial.prisonVisits;
     thingsWhatYouveDone.catCourtVisits = thingsWhatYouveDoneInitial.catCourtVisits;
@@ -739,7 +745,7 @@ const firstCavern = {
     `,
     // name options
     pageThreeCommon:`
-    <p>You appear to be in a small cave. A dark,rough-hewn apeture forms a the only visible exit on the opposite wall.</p>
+    <p>You appear to be in a small cave. A dark, rough-hewn apeture forms the only visible exit on the opposite wall.</p>
     <p>To your left, you see the dark bulk of... something...</p>
     <p>It is time to act.</p>
     `,
@@ -865,7 +871,7 @@ const firstCavern = {
         }
     },
     pageFiveCommon: `
-    <p>As you walk away from the corpse you give it a healthy punt with your boot</p>
+    <p>As you walk away from the corpse you give it an affectionate punt with your boot.</p>
     <p>The flesh is firmer than you expected it to be, and you freeze, awaiting a response...</p>
     `,
     pageFiveFirst: `
@@ -901,6 +907,7 @@ const firstCavern = {
                 document.getElementById('game-outcome').innerHTML = ragnarTheHorrible.killedYouText;
             }
             document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+            document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
         }
         document.getElementById('choices-section').innerHTML = this.optionsSix;
         setEnemyStats(ragnarTheHorrible, 8,12,20,30);
@@ -911,6 +918,7 @@ const firstCavern = {
         document.getElementById('upper-text').innerHTML = this.pageSixThird + this.pageSixCommon;
         mainCharacterCurrent.health -= 4;
         document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+        document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
         document.getElementById('choices-section').innerHTML = this.optionsSix;
         setEnemyStats(ragnarTheHorrible, 8,12,20,30);
     },
@@ -919,7 +927,7 @@ const firstCavern = {
     <p>The pile of rags on the floor has metamorphasised, like a corpse-stench ridden butterfly, into a furious looking warrior with a filthy straggly beard. </p>
     `,
     pageSixFirst: `
-    <p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh</p>
+    <p>Stumbling to your knees as the gnarly hand grips your ankle, you narrowly avoid the blade, sensing it flash inches past your thigh.</p>
     `,
     pageSixSecond: `
     <p>You try to dodge but with your ankle caught fast there is no way of avoiding the blade.  <br>It plunges into your thigh for <span class="red">7</span> health points of damage.</p>
@@ -1060,6 +1068,7 @@ const slimeCorridor = {
             document.getElementById('game-outcome').innerHTML = sentientSlime.killedYouText;
         }
         document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+        document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
         document.getElementById('choices-section').innerHTML = this.optionsNine;
         setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
     },
@@ -1289,6 +1298,7 @@ const catCavern = {
                 this.deathRunAway();
             } else {
                 document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
                 document.getElementById('game-text').innerHTML = this.runAwayTextTwo + injuryRunAway + this.runAwayTextThree;
                 document.getElementById('choices-section').innerHTML = this.runAwayChoices;
             }
@@ -1334,10 +1344,11 @@ const catCavern = {
         } else {
             mainCharacterCurrent.health = mainCharacter.health
         }
-        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "<p>You crunch down the cat biscuits, restoring <span class='green'>20</span> health.<br>Fortunately they taste much better than they smell.</p><p>The cats look on with much displeasure - that was a bit cruel to be fair.</p>";
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You crunch down the cat biscuits, restoring <span class='green'>20</span> health. Fortunately they taste much better than they smell. The cats look displeased, and a little sad.";
+        document.getElementById('object-outline').style.display = "block";
+        document.getElementById('object-item-image').style.display = "none";
+        document.getElementById('object-item-text').style.display = "none";
+        document.getElementById('object-line').style.display = "none";
         for(let item of Object.keys(currentObject)) {
             currentObject[item] = "";
         }
@@ -1352,9 +1363,10 @@ const catCavern = {
         thingsWhatYouveDone.courtGodChance +=10;
         mainCharacter.score += 20;
         //remove cat biscuits from inventory
-        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
-        document.getElementById('object-item-name').innerHTML = "";
-        document.getElementById('object-list-item-one').innerHTML = "";
+        document.getElementById('object-outline').style.display = "block";
+        document.getElementById('object-item-image').style.display = "none";
+        document.getElementById('object-item-text').style.display = "none";
+        document.getElementById('object-line').style.display = "none";
         for(let item of Object.keys(currentObject)) {
             currentObject[item] = "";
         }        
@@ -1378,9 +1390,10 @@ const catCavern = {
         thingsWhatYouveDone.courtGodChance +=20;
         mainCharacter.score += 30;
         //remove catnip biscuits from inventory
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('potion-outline').style.display = "block";
+        document.getElementById('potion-item-image').style.display = "none";
+        document.getElementById('potion-item-text').style.display = "none";
+        document.getElementById('potion-line').style.display = "none";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
         }        
@@ -1564,9 +1577,10 @@ const mysteryRoom = {
     `,
     orbPlace: function orbPlace() {
         mainCharacter.score += 100;
-        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
-        document.getElementById('object-item-name').innerHTML = "";
-        document.getElementById('object-list-item-one').innerHTML = "";
+        document.getElementById('object-outline').style.display = "block";
+        document.getElementById('object-item-image').style.display = "none";
+        document.getElementById('object-item-text').style.display = "none";
+        document.getElementById('object-line').style.display = "none";
         document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.orbPlaceText;
         document.getElementById('choices-section').innerHTML = this.orbPlaceOptions;
@@ -1717,6 +1731,7 @@ const dangerStairs = {
                     this.deathStairs();
                 } else {
                     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                    document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
                     document.getElementById('game-text').innerHTML = this.stairsInjuryTextOne + injuryStair + this.stairsInjuryTextTwo;
                     document.getElementById('choices-section').innerHTML = this.stairsFellChoices;
                 }
@@ -1768,6 +1783,7 @@ const dangerStairs = {
                     this.deathStairs();
                 } else {
                     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                    document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
                     document.getElementById('game-text').innerHTML = this.stairsInjuryTextOne + injuryStair + this.stairsInjuryTextTwo + this.stairsDescendedTextCommon;
                     document.getElementById('choices-section').innerHTML = this.stairsDescendedChoices;
                 }
@@ -1860,10 +1876,12 @@ const spiderRoom = {
     },
     insectRepellant: function insectRepellant(enemy, weapon) {
         mainCharacter.score -=10;
+        document.getElementById('battle-text').style.textAlign = "left";
         document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + `You spray the Insect Repellent at the spider, emptying the bottle. It just blinks its eyes and looks at you incredulously, if a spider can even do that.<br>It was unlikely to work on a 6ft high cat-eating spider.  Plus, you know, a spider isn't even an insect.`;
-        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('object-item-name').innerHTML = "";
-        document.getElementById('object-list-item-one').innerHTML = "";
+        document.getElementById('object-outline').style.display = "block";
+        document.getElementById('object-item-image').style.display = "none";
+        document.getElementById('object-item-text').style.display = "none";
+        document.getElementById('object-line').style.display = "none";
         for(let item of Object.keys(currentObject)) {
             currentObject[item] = "";
         }
@@ -1937,9 +1955,10 @@ const spiderRoom = {
         }
     },
     ropeBroke: function ropeBroke() {
-        document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('object-item-name').innerHTML = "";
-        document.getElementById('object-list-item-one').innerHTML = "";
+        document.getElementById('object-outline').style.display = "block";
+        document.getElementById('object-item-image').style.display = "none";
+        document.getElementById('object-item-text').style.display = "none";
+        document.getElementById('object-line').style.display = "none";
         for(let item of Object.keys(currentObject)) {
             currentObject[item] = "";
         }
@@ -1955,6 +1974,7 @@ const spiderRoom = {
                     this.deathRope();
                 } else {
                     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+                    document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
                     document.getElementById('game-text').innerHTML = this.ropeBrokeCommon + this.ropeInjury + injuryRope + this.ropeInjuryTwo + this.ropeBrokeCommonTwo;
                     document.getElementById('choices-section').innerHTML = this.ropeFallChoices;
                 }
@@ -2036,6 +2056,7 @@ const spiderRoom = {
         } else {
             changeModeToItemWindow();
             document.getElementById('upper-text').innerHTML = this.spiderRearText;
+            document.getElementById('lower-text').style.display = "none";
             document.getElementById('choices-section').innerHTML = this.spiderRearChoices;
             setEnemyStats(giantSpider, 12,15,25,30);
         }
@@ -2254,9 +2275,14 @@ const catCourt = {
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         specialObject.name = "Glowing Orb";
+        document.getElementById('object-item-image').style.display = "block";
+        document.getElementById('object-item-text').style.display = "block";
+        document.getElementById('object-line').style.display = "block";
+        document.getElementById('object-outline').style.display = "none";
         document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
         document.getElementById('object-item-name').innerHTML = "Glowing Orb";
-        document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
+        document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
+        document.getElementById('object-list-stat-one').innerHTML = "This probably does something important.";
         mainCharacter.score += 50;
         document.getElementById('game-text').innerHTML = this.catExitTextOne + this.orbImage + this.catExitTextTwo;
         document.getElementById('choices-section').innerHTML = this.catExitChoices;
@@ -2464,6 +2490,7 @@ const catPrison = {
         foundItemInfo.playerImage = characterDefence[0].playerImage
         foundItemInfo.score = characterDefence[0].score;
         foundItemInfo.description = characterDefence[0].description;
+        foundItemInfo.vulnerability = characterDefence[0].vulnerability;
         displayItem();
         document.getElementById('lower-text').innerHTML = this.corpseSearchText;
         document.getElementById('choices-section').innerHTML = this.corpseSearchOptions;    
@@ -2617,6 +2644,13 @@ const catPrison = {
     },
     insectRepellentBug: function insectRepellantBug() {
         changeModeToMainWindow();
+        document.getElementById('object-outline').style.display = "block";
+        document.getElementById('object-item-image').style.display = "none";
+        document.getElementById('object-item-text').style.display = "none";
+        document.getElementById('object-line').style.display = "none";
+        for(let item of Object.keys(currentObject)) {
+            currentObject[item] = "";
+        }
         document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
         document.getElementById('game-text').innerHTML = this.insectRepellantBugText;
         this.prisonSearchOptions();
@@ -2810,13 +2844,19 @@ function itemStorage() {
         currentPotion.effect = foundItemInfo.effect;
         currentPotion.image = foundItemInfo.image;
     } else if (foundItemInfo.category === "object") {
-        currentObject.category = foundItemInfo.category;
-        currentObject.name = foundItemInfo.name;
-        currentObject.effect = foundItemInfo.effect;
-        currentObject.image = foundItemInfo.image;
-    }
-    if (foundItemInfo.name === "Four Leaf Clover") {
-        mainCharacterCurrent.luck = mainCharacter.luck + 3;
+        if (foundItemInfo.name === "Four Leaf Clover") {
+            mainCharacterCurrent.luck = mainCharacter.luck + 3;
+            currentObject.category = foundItemInfo.category;
+            currentObject.name = foundItemInfo.name;
+            currentObject.effect = foundItemInfo.effect;
+            currentObject.image = foundItemInfo.image;
+        } else {
+            mainCharacterCurrent.luck = mainCharacter.luck
+            currentObject.category = foundItemInfo.category;
+            currentObject.name = foundItemInfo.name;
+            currentObject.effect = foundItemInfo.effect;
+            currentObject.image = foundItemInfo.image;
+        }
     }
     if (foundItemInfo.name === "Oathbringer") {
         characterWeapons[0].chance = 0;
@@ -2829,26 +2869,96 @@ function itemStorage() {
 function storeItem() {
     itemStorage();
     if (foundItemInfo.category === "weapon") {
+        document.getElementById('weapon-item-image').style.display = "block";
+        document.getElementById('weapon-item-text').style.display = "flex";
+        document.getElementById('weapon-line').style.display = "block";
+        document.getElementById('weapon-line-two').style.display = "block";
+        document.getElementById('weapon-outline').style.display = "none";
         document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `">`;
         document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
-        document.getElementById('weapon-list-item-one').innerHTML = "ATT: " + currentWeapon.attack;
-        document.getElementById('weapon-list-item-two').innerHTML = "SKL: " + currentWeapon.skill;
-        if (currentWeapon.magic) {document.getElementById('weapon-list-item-three').innerHTML = "MGC: " + currentWeapon.magic;}
-        document.getElementById('weapon-list-item-four').innerHTML = "TYP: " + currentWeapon.type;
+        document.getElementById('weapon-list-item-one').innerHTML = "ATT:"
+        document.getElementById('weapon-list-stat-one').innerHTML = currentWeapon.attack;
+        document.getElementById('main-strength').innerHTML = mainCharacter.strength + currentWeapon.attack;
+        document.getElementById('strength-modify').innerHTML = "(+" + currentWeapon.attack + ")";
+        document.getElementById('weapon-list-item-two').innerHTML = "SKL:"
+        document.getElementById('weapon-list-stat-two').innerHTML = currentWeapon.skill;
+        document.getElementById('main-skill').innerHTML = mainCharacter.skill + currentWeapon.skill;
+        if (currentWeapon.name === "Oathbringer") {
+            document.getElementById('skill-modify').innerHTML = `<span class="red">(` + currentWeapon.skill + ")</span>";
+        } else {
+            document.getElementById('skill-modify').innerHTML = "(+" + currentWeapon.skill + ")";
+        }
+        if (currentWeapon.magic) {
+            document.getElementById('weapon-list-item-three').innerHTML = "MGC:";
+            document.getElementById('weapon-list-stat-three').innerHTML = currentWeapon.magic;
+        } else {
+            document.getElementById('weapon-list-item-three').innerHTML = "";
+            document.getElementById('weapon-list-stat-three').innerHTML = "";
+        }
+        if (currentWeapon.type) {
+            document.getElementById('weapon-list-item-four').innerHTML = "TYP:";
+            document.getElementById('weapon-list-stat-four').innerHTML = currentWeapon.type;
+        } else {
+            document.getElementById('weapon-list-item-four').innerHTML = "";
+            document.getElementById('weapon-list-stat-four').innerHTML = "";
+        }
     } else if (foundItemInfo.category === "clothing") {
+        document.getElementById('defence-item-image').style.display = "block";
+        document.getElementById('defence-item-text').style.display = "flex";
+        document.getElementById('defence-line').style.display = "block";
+        document.getElementById('defence-line-two').style.display = "block";
+        document.getElementById('defence-outline').style.display = "none";
         document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `">`;
         document.getElementById('character-image').innerHTML = `<img src="` + currentDefence.playerImage + `">`;
         document.getElementById('defence-item-name').innerHTML = currentDefence.name;
-        document.getElementById('clothing-list-item-one').innerHTML = "DEF: " + currentDefence.defence;
-        if (currentDefence.resist) {document.getElementById('clothing-list-item-two').innerHTML = "RST: " + currentDefence.resist;}
+        document.getElementById('main-defence').innerHTML = mainCharacter.defence + currentDefence.defence;
+        document.getElementById('defence-modify').innerHTML = "(+" + currentDefence.defence + ")";
+        document.getElementById('clothing-list-item-one').innerHTML = "DEF:";
+        document.getElementById('clothing-list-stat-one').innerHTML = currentDefence.defence;
+        if (currentDefence.resist) {
+            document.getElementById('clothing-list-item-two').innerHTML = "RST:";
+            document.getElementById('clothing-list-stat-two').innerHTML = currentDefence.resist;
+        } else {
+            document.getElementById('clothing-list-item-two').innerHTML = "";
+            document.getElementById('clothing-list-stat-two').innerHTML = "";
+        }
+        if (currentDefence.vulnerability) {
+            document.getElementById('clothing-list-item-three').innerHTML = "VLN:";
+            document.getElementById('clothing-list-stat-three').innerHTML = currentDefence.vulnerability;
+        } else {
+            document.getElementById('clothing-list-item-three').innerHTML = "";
+            document.getElementById('clothing-list-stat-three').innerHTML = "";
+        }
     } else if (foundItemInfo.category === "potion") {
+        document.getElementById('potion-item-image').style.display = "block";
+        document.getElementById('potion-item-text').style.display = "block";
+        document.getElementById('potion-line').style.display = "block";
+        document.getElementById('potion-outline').style.display = "none";
+
         document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `">`;
         document.getElementById('potion-item-name').innerHTML = currentPotion.name;
-        document.getElementById('potion-list-item-one').innerHTML = "EFFECT:<br>" + currentPotion.effect;
+        document.getElementById('potion-list-item-one').innerHTML = "EFFECT:";
+        document.getElementById('potion-list-stat-one').innerHTML = currentPotion.effect;
     } else if (foundItemInfo.category === "object") {
-        document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
-        document.getElementById('object-item-name').innerHTML = currentObject.name;
-        document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>" + currentObject.effect;
+        document.getElementById('object-item-image').style.display = "block";
+        document.getElementById('object-item-text').style.display = "block";
+        document.getElementById('object-line').style.display = "block";
+        document.getElementById('object-outline').style.display = "none";
+        if (foundItemInfo.name === "Four Leaf Clover") {
+            document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
+            document.getElementById('luck-modify').innerHTML = "(+3)";
+            document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
+            document.getElementById('object-item-name').innerHTML = currentObject.name;
+            document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
+            document.getElementById('object-list-stat-one').innerHTML = currentObject.effect;
+
+        } else {
+            document.getElementById('main-defence').innerHTML = mainCharacterCurrent.luck;
+            document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
+            document.getElementById('object-item-name').innerHTML = currentObject.name;
+            document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
+            document.getElementById('object-list-stat-one').innerHTML = currentObject.effect;
+        }
     }
     for(let item of Object.keys(foundItemInfo)) {
         foundItemInfo[item] = "";
@@ -2886,6 +2996,11 @@ function testForWeapons(enemy) {
 function continueFight(enemy) {
     document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
+    if (mainCharacterCurrent.health != mainCharacter.health) {
+        document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
+    } else {
+        document.getElementById('health-modify').innerHTML = "";
+    }
     testForWeapons(enemy);
 }
 function leaveBattle(enemy) {
@@ -2909,8 +3024,26 @@ function leaveBattle(enemy) {
         }
     }
     //resets values to remove potion effects
-    mainCharacterCurrent.strength = mainCharacter.strength;
-    mainCharacterCurrent.defence = mainCharacter.defence;
+    if (thingsWhatYouveDone.potionPower) {
+        mainCharacterCurrent.strength = mainCharacter.strength;
+        thingsWhatYouveDone.potionPower = false;
+        document.getElementById('main-strength').innerHTML = mainCharacter.strength + currentWeapon.attack;
+        if (currentWeapon.name) {
+            document.getElementById('strength-modify').innerHTML = "(+" + currentWeapon.attack + ")";
+        } else {
+            document.getElementById('strength-modify').innerHTML = "";
+        }
+    }
+    if (thingsWhatYouveDone.potionDefence) {
+        mainCharacterCurrent.defence = mainCharacter.defence;
+        thingsWhatYouveDone.potionDefence = false;
+        document.getElementById('main-defence').innerHTML = mainCharacter.defence + currentDefence.defence;
+        if (currentDefence.name) {
+            document.getElementById('defence-modify').innerHTML = "(+" + currentDefence.defence + ")";
+        } else {
+            document.getElementById('defence-modify').innerHTML = "";
+        }
+    }
     mainCharacter.score += enemy.score;
     document.getElementById('choices-section').innerHTML = enemy.choices;
 }
@@ -3052,6 +3185,7 @@ function playerTurn(enemy, weapon) {
     }
 }
 function potionRound(enemy, weapon) {
+    document.getElementById('battle-text').style.textAlign = "left";
     let roundDamage;
     let potionName = currentPotion.name;
     if (potionName === "Potion of Catnip") {
@@ -3069,9 +3203,10 @@ function potionRound(enemy, weapon) {
             mainCharacterCurrent.health = mainCharacter.health
         }
         document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You drink down the restorative balm, and feel instantly re-invigorated";
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`;
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('potion-outline').style.display = "block";
+        document.getElementById('potion-item-image').style.display = "none";
+        document.getElementById('potion-item-text').style.display = "none";
+        document.getElementById('potion-line').style.display = "none";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
         }
@@ -3087,9 +3222,10 @@ function potionRound(enemy, weapon) {
             roundDamage = 20;
         }
         enemy.health -= roundDamage;
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('potion-outline').style.display = "block";
+        document.getElementById('potion-item-image').style.display = "none";
+        document.getElementById('potion-item-text').style.display = "none";
+        document.getElementById('potion-line').style.display = "none";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
         }
@@ -3111,9 +3247,10 @@ function potionRound(enemy, weapon) {
             roundDamage = 40;
         }
         enemy.health -= roundDamage;
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('potion-outline').style.display = "block";
+        document.getElementById('potion-item-image').style.display = "none";
+        document.getElementById('potion-item-text').style.display = "none";
+        document.getElementById('potion-line').style.display = "none";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
         }
@@ -3128,10 +3265,14 @@ function potionRound(enemy, weapon) {
         }
     } else if (potionName === "Potion of Defence") {
         mainCharacterCurrent.defence += 10;
+        thingsWhatYouveDone.potionDefence = true;
+        document.getElementById('main-defence').innerHTML = mainCharacterCurrent.defence + currentDefence.defence;
+        document.getElementById('defence-modify').innerHTML = "(+" + (currentDefence.defence + 10) + ")";
         document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "On drinking the potion a cool aura of invincibility gives you a sense of unusual calm.";
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('potion-outline').style.display = "block";
+        document.getElementById('potion-item-image').style.display = "none";
+        document.getElementById('potion-item-text').style.display = "none";
+        document.getElementById('potion-line').style.display = "none";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
         }
@@ -3139,10 +3280,14 @@ function potionRound(enemy, weapon) {
         enemyTurn(enemy);
     } else if (potionName === "Potion of Power") {
         mainCharacterCurrent.strength += 10;
+        thingsWhatYouveDone.potionPower = true;
+        document.getElementById('main-strength').innerHTML = mainCharacterCurrent.strength + currentWeapon.attack;
+        document.getElementById('strength-modify').innerHTML = "(+" + (currentWeapon.attack + 10) + ")";
         document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You drink the potion and then stare down at your bicep, which is visibly bulging in all the right places. You feel POWERFUL!!!";
-        document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png"></img>`
-        document.getElementById('potion-item-name').innerHTML = "";
-        document.getElementById('potion-list-item-one').innerHTML = "";
+        document.getElementById('potion-outline').style.display = "block";
+        document.getElementById('potion-item-image').style.display = "none";
+        document.getElementById('potion-item-text').style.display = "none";
+        document.getElementById('potion-line').style.display = "none";
         for(let item of Object.keys(currentPotion)) {
             currentPotion[item] = "";
         }
@@ -3234,10 +3379,16 @@ function writeInitialToDom() {
     for (let i = 0; i < resetElements.length; i++) {
         resetElements[i].innerHTML = "";
     }
-    document.getElementById('weapon-item-image').innerHTML = `<img src="assets/images/items/box.png">`;
-    document.getElementById('defence-item-image').innerHTML = `<img src="assets/images/items/box.png">`;
-    document.getElementById('potion-item-image').innerHTML = `<img src="assets/images/items/box.png">`;
-    document.getElementById('object-item-image').innerHTML = `<img src="assets/images/items/box.png">`;
+    const hideItemElements = document.getElementsByClassName('item-hide');
+    for (let i = 0; i < hideItemElements.length; i++) {
+        hideItemElements[i].style.display = "none";
+    }
+
+    const showItemElements = document.getElementsByClassName('item-show');
+    for (let i = 0; i < showItemElements.length; i++) {
+        showItemElements[i].style.display = "block";
+    }
+
     document.getElementById('landing-page').style.display = "none";
     document.getElementById('gameover-page').style.display = "none";
     document.getElementById('image-section').style.display = "none";

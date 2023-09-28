@@ -1,32 +1,3 @@
-
-
-
-
-
-
-
-
-/*no (maybe title?)*/
-
-
-/*maybe*/
-
-/*maybe*/
-
-/*maybe*/
-
-
-
-@font-face {
-    font-family: goblin;
-    src: url("../fonts/Cardo-e5zg.ttf");
-}
-
-@font-face {
-    font-family: goblin;
-    src: url("../fonts/LibreFranklinRegular-qvP6.ttf");
-}
-
 @font-face {
     font-family: title;
     src: url("../fonts/FaunaOne-DB4D.ttf");
@@ -36,12 +7,18 @@
     font-family: mainfont;
     src: url("../fonts/LibreFranklinRegular-qvP6.ttf");
 }
+@font-face {
+    font-family: mainfont;
+    src: url("../fonts/LibreFranklinBold-exBe.ttf");
+    font-weight: bold;
+}
 
 
 body {
     font-family: mainfont;
     background-color: #000;
-    color: #fff;  
+    color: #fff;
+    font-size: 95%;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -189,7 +166,7 @@ ul {
 
 .choice-button, .choice-button:visited {
     background-color: #33170480;
-    font-size: 100%;
+    font-size: 95%;
     color: white;
     margin: 3px 0;
     width:70%;
@@ -220,6 +197,13 @@ ul {
     margin:0px 200px;
 }
 
+.spiral {
+    height: 20px;
+    background: url("../images/custom/spiral-white.svg");
+    background-size: auto 100%;
+    margin:10px 200px;
+}
+
 /*main body of page*/
 #centre-section {
     display:flex;
@@ -231,10 +215,9 @@ ul {
 #character-section {
     display:flex;
     flex-flow: column;
-    border: ridge rgb(94, 61, 0) 3px;
-    padding:5px;
     flex:1;
     justify-content: center;
+    margin: 10px;
 }
 
 #character-image {
@@ -242,6 +225,39 @@ ul {
 }
 #character-image img {
     width:220px;
+}
+
+#character-stats {
+    display:flex;
+    flex-flow: column;
+    align-items:center;
+}
+
+#character-stats-table {
+    border-collapse: collapse;
+    line-height: 100%;
+}
+
+.stat-name {
+    text-align: right;
+    padding: 3px;
+}
+
+.stat-stat {
+    text-align: left;
+    padding-left: 3px;
+}
+.stat-modify {
+    padding: 3px;
+}
+
+
+#strength-modify, #skill-modify, #defence-modify, #luck-modify {
+    color: green;
+}
+
+#health-modify {
+    color: red;
 }
 /* Main game-play area */
 #game-section {
@@ -313,10 +329,21 @@ ul {
 .item-display {
     display:flex;
     align-items: center;
-    border: 2px solid blue;
-    margin: 10px;
+    justify-content:center;
+    background-image:url("../images/backgrounds/stone.jpg");
+    background-size: auto 100% ;
+    margin: 5px;
     padding: 3px;
     height: 160px;
+    width: 220px;
+}
+
+
+
+.item-table {
+   border-collapse: collapse;
+   line-height: 100%; 
+   text-align: center;
 }
 
 .item-image img {
@@ -325,8 +352,12 @@ ul {
 }
 
 .item-text {
+    display:flex;
+    flex-flow: column;
     width: 105px;
-    text-align: center;
+    justify-content:center;
+    align-items: center;
+    text-align:center;
 }
 .item-text h4 {
     margin:0;
@@ -335,6 +366,11 @@ ul {
 
 .item-text hr {
     width:75%;
+}
+.stat-paragraph {
+    margin: 0;
+    border: 0;
+    padding: 0;
 }
 
 
@@ -434,6 +470,10 @@ ul {
 .item-text, .item-image img {
     width: 95px; 
 }
+
+.title-section, #centre-section, #bottom-game-section {
+    margin:0px 45px;
+}
 #game-section {
     background-position:  -175px center !important;
 }
@@ -448,14 +488,11 @@ ul {
         flex-flow: column;
         justify-content: center;
         height:275px;
+        width: 150px;
         margin-top:20px;
     }
     .item-text, .item-image img {
         width: 120px; 
-    }
-
-    .title-section, #centre-section, #bottom-game-section {
-        margin:0px 50px;
     }
 
     #centre-section {
@@ -499,6 +536,13 @@ ul {
     }
     #character-section {
         flex-flow: row;
+        align-items:center;
+    }
+    #character-image {
+        flex:1;
+    }
+    #character-stats {
+        flex:1;
     }
 /*game section*/
 #game-section {
@@ -517,8 +561,10 @@ ul {
 #player-items{
     width:100%;
 }
+
 .player-items-switch {
     flex-flow:column;
+    align-items: center;
 }
 #alert-page {
     left: 0;
@@ -534,6 +580,9 @@ ul {
     #game-section {
         background-position:  -275px center !important;
     }
+    .title-section, #centre-section, #bottom-game-section {
+        margin:0px 5px;
+    }
 
 }
 @media screen and (max-width:400px) {
@@ -541,11 +590,18 @@ ul {
         background-size: auto 100% !important;
         background-position:  -150px center !important;
     }
+    .item-display {
+        width: 135px;
+        margin-top:20px;
+    }
+    .item-text, .item-image img {
+        width: 110px; 
+    }
 
 }
 
 /* smaller screen heights */
-@media screen and (max-height:800px) {
+@media screen and (max-height:900px) {
 
     #character-section {
         height: 100%;
@@ -558,7 +614,7 @@ ul {
         padding: 5px;
         width: 125px;
     }
-    #game-page {
-        font-size: 85%;
+    #game-page, .choice-button, .choice-button:visited {
+        font-size: 90%;
     }
 }

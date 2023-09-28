@@ -59,7 +59,9 @@
                             </ul>
                         </nav>
                     </div>
+                    
                 </div>
+                <div class="spiral"></div>
                 <div id="centre-section">
                     <section id="character-section">
                         <div id="character-image">
@@ -67,13 +69,33 @@
                         </div>
                         <div id="character-stats">
                             <h3 id="character-sheet-name"></h3>
-                            <ul>
-                                <li>Strength: <span id="main-strength"></span></li>
-                                <li>Skill: <span id="main-skill"></span></li>
-                                <li>Defence: <span id="main-defence"></span></li>
-                                <li>Luck: <span id="main-luck"></span></li>
-                                <li>Health: <span id="main-health"></span></li>
-                            </ul>
+                            <table id="character-stats-table">
+                                <tr>
+                                    <td class="stat-name">Attack:</td>
+                                    <td class="stat-stat" id="main-strength"></td>
+                                    <td class="stat-modify reset" id="strength-modify"></td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Skill:</td>
+                                    <td class="stat-stat" id="main-skill"></td>
+                                    <td class="stat-modify reset" id="skill-modify"></td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Defence:</td>
+                                    <td class="stat-stat" id="main-defence"></td>
+                                    <td class="stat-modify reset" id="defence-modify"></td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Luck:</td>
+                                    <td class="stat-stat" id="main-luck"></td>
+                                    <td class="stat-modify reset" id="luck-modify"></td>
+                                </tr>
+                                <tr>
+                                    <td class="stat-name">Health:</td>
+                                    <td class="stat-stat" id="main-health"></td>
+                                    <td class="stat-modify reset" id="health-modify"></td>
+                                </tr>
+                            </table>
                         </div>
                     </section>
                     
@@ -126,62 +148,108 @@
                         </div>                    
                     </section>
                 </div>
+                <div class="spiral"></div>
                 <div id="bottom-game-section">
                     <section id="player-items">
                         <div class = "player-items-switch">
                             <div class="item-display" id="weapon-item">
-                                <div class="item-image" id="weapon-item-image">
-                                    <img src="assets/images/items/box.png">
+                                <div class="item-show" id="weapon-outline">
+                                    <img src = "assets/images/items/weapon-outline.svg">
                                 </div>
-                                <div class="item-text">
-                                    <h4 class="reset" id="weapon-item-name">Weapon Slot</h4>
-                                    <hr>
-                                    <ul>
-                                        <li class="reset" id="weapon-list-item-one"></li>
-                                        <li class="reset" id="weapon-list-item-two"></li>
-                                        <li class="reset" id="weapon-list-item-three"></li>
-                                        <li class="reset" id="weapon-list-item-four"></li>
-                                    </ul>
+                                <div class="item-image item-hide" id="weapon-item-image">
                                 </div>
+                                <div class="item-text item-hide" id="weapon-item-text">
+                                    <h4 class="reset" id="weapon-item-name"></h4>
+                                    <hr class="item-hide" id="weapon-line">
+                                    <table class="item-table">
+                                        <tr>
+                                            <td class="reset stat-name" id="weapon-list-item-one"></td>
+                                            <td class="reset stat-stat" id="weapon-list-stat-one"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="reset stat-name" id="weapon-list-item-two"></td>
+                                            <td class="reset stat-stat" id="weapon-list-stat-two"></td>
+                                        </tr>
+                                    </table>
+                                    <hr class="item-hide" id="weapon-line-two">
+                                    <table class="item-table">
+                                        <tr>
+                                            <td class="reset stat-name" id="weapon-list-item-three"></td>
+                                            <td class="reset stat-name" id="weapon-list-stat-three"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="reset stat-name" id="weapon-list-item-four"></td>
+                                            <td class="reset stat-name" id="weapon-list-stat-four"></td>     
+                                        </tr>
+                                    </table>
+                                </div>                                
                             </div>
                             <div class="item-display" id="defence-item">
-                                <div class="item-image" id="defence-item-image">
-                                    <img src="assets/images/items/box.png">
+                                <div class="item-show" id="defence-outline">
+                                    <img src = "assets/images/items/defence-outline.svg">
                                 </div>
-                                <div class="item-text" >
-                                    <h4 class="reset" id="defence-item-name">Clothing Slot</h4>
-                                    <hr>
-                                    <ul>
-                                        <li class="reset" id="clothing-list-item-one"></li>
-                                        <li class="reset" id="clothing-list-item-two"></li>
-                                    </ul>
+                                <div class="item-image item-hide" id="defence-item-image">
+                                </div>
+                                <div class="item-text item-hide" id="defence-item-text">
+                                    <h4 class="reset" id="defence-item-name"></h4>
+                                    <hr class="item-hide" id="defence-line">
+                                    <table class="item-table">
+                                        <tr>
+                                            <td class="reset stat-name" id="clothing-list-item-one"></td>
+                                            <td class="reset stat-stat" id="clothing-list-stat-one"></td>
+                                        </tr>
+                                    </table>
+                                    <hr class="item-hide" id="defence-line-two">
+                                    <table class="item-table">
+                                        <tr>
+                                            <td class="reset stat-name" id="clothing-list-item-two"></td>
+                                            <td class="reset stat-stat" id="clothing-list-stat-two"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="reset stat-name" id="clothing-list-item-three"></td>
+                                            <td class="reset stat-stat" id="clothing-list-stat-three"></td>
+                                        </tr>
+                                    </table>
                                  </div>
                             </div>
                         </div>
                         <div class = "player-items-switch">
                             <div class="item-display">
-                                <div class="item-image" id="potion-item-image">
-                                    <img src="assets/images/items/box.png">
+                                <div class="item-show" id="potion-outline">
+                                    <img src = "assets/images/items/potion-outline.svg">
                                 </div>
-                                <div class="item-text">
-                                    <h4 class="reset" id="potion-item-name">Potion Slot</h4>
-                                    <hr>
-                                    <ul>
-                                        <li class="reset" id="potion-list-item-one"></li>
-                                    </ul>
+                                <div class="item-image item-hide" id="potion-item-image">
+                                </div>
+                                <div class="item-text item-hide" id="potion-item-text">
+                                    <h4 class="reset" id="potion-item-name"></h4>
+                                    <hr class="item-hide" id="potion-line">
+                                    <table class="item-table">
+                                        <tr>
+                                            <td class="reset" id="potion-list-item-one"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="reset" id="potion-list-stat-one"></td>
+                                        </tr>
+                                    </table>
                                 </div>
                             </div>
                             <div class="item-display">
-                                <div class="item-image" id="object-item-image">
-                        
-                                    <img src="assets/images/items/box.png">
+                                <div class="item-show" id="object-outline">
+                                    <img src = "assets/images/items/object-outline.svg">
                                 </div>
-                                <div class="item-text" >
-                                    <h4 class="reset" id="object-item-name">Object Slot</h4>
-                                    <hr>
-                                    <ul>
-                                        <li class="reset" id="object-list-item-one"></li>
-                                    </ul>
+                                <div class="item-image item-hide" id="object-item-image">
+                                </div>
+                                <div class="item-text item-hide" id="object-item-text">
+                                    <h4 class="reset" id="object-item-name"></h4>
+                                    <hr class="item-hide" id="object-line">
+                                    <table class="item-table">
+                                        <tr>
+                                            <td class="reset" id="object-list-item-one"></td>
+                                        </tr>
+                                        <tr>
+                                            <td class="reset" id="object-list-stat-one"></td>
+                                        </tr>                                        
+                                    </table>
                                 </div>
                             </div>
                         </div>
