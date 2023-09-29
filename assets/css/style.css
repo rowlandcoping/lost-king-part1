@@ -663,11 +663,22 @@ ul {
     align-items: center;
 }
 #alert-page {
-    left: 0;
-    right: 0;
-    width: 200px;
-    height: 400px;
+    width: 275px;
+    height: 330px;
 }
+
+.alert-new-image img, .alert-old-image img {
+    max-width: 120px; 
+}
+
+.alert-result {
+    top:7px;
+}
+
+.alert-result img {
+    width: 100px;
+}
+
 #alert-page button {
     width: 100%;
 }

@@ -801,7 +801,7 @@ const firstCavern = {
             searchForItem(30, 35, 100, 100);
             searchForItem(30, 35, 50, 100);
         } else {
-            searchForItem(0, 0, 0, 100);
+            searchForItem(100,100,100,100);
         }
         document.getElementById('lower-text').innerHTML = this.pageFour;
         document.getElementById('choices-section').innerHTML = this.optionsFour;
@@ -815,36 +815,79 @@ const firstCavern = {
     `,
     // keep or leave the item
     checkFirstItem: function checkFirstItem() {
-        if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
-        if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
-        let oldImage = document.createElement("img");
-        oldImage.id = "tempOld"
-        oldImage.src = currentObject.image;
-        let newImage = document.createElement("img");
-        newImage.id = "tempNew"
-        newImage.src = foundItemInfo.image;
-        document.getElementById('alert-category').innerHTML = foundItemInfo.category;
-        document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
-        document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
-        document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
-        document.getElementsByClassName('alert-old-image')[0].id = "lose-search";
-        document.getElementsByClassName('alert-new-image')[0].id = "keep-search";
+        
         if (foundItemInfo.category === currentWeapon.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld"
+            oldImage.src = currentWeapon.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew"
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-old-title').innerHTML = currentWeapon.name; 
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementById('alert-old-title').innerHTML = currentWeapon.name;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-search";
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-search";     
         } else if (foundItemInfo.category === currentDefence.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld"
+            oldImage.src = currentDefence.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew"
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-old-title').innerHTML =  currentDefence.name; 
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementById('alert-old-title').innerHTML = currentDefence.name;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-search";
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-search";     
         } else if (foundItemInfo.category === currentPotion.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld"
+            oldImage.src = currentPotion.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew"
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-old-title').innerHTML =  currentPotion.name;
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementById('alert-old-title').innerHTML = currentPotion.name;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-search";
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-search";     
         } else if (foundItemInfo.category == currentObject.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld"
+            oldImage.src = currentObject.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew"
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
-            document.getElementById('alert-page').style.display = "block";  
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentObject.name;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-search";
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-search";            
         } else {
             this.keepFirstItem();
         }
@@ -1454,11 +1497,23 @@ const catCavern = {
     `,
     checkCatSword: function checkCatSword() {
         if (currentWeapon.name) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentWeapon.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = catSword.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentWeapon.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cat"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cat");
+            document.getElementById('alert-category').innerHTML = catSword.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentWeapon.name;
+            document.getElementById('alert-new-title').innerHTML = catSword.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-cat";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-cat"; 
         } else {
             this.keepCatSword();
         }
@@ -2273,11 +2328,23 @@ const catCourt = {
     `,
     checkGiftItem: function checkGiftItem() {
         if (currentDefence.name) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentDefence.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentDefence.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-gift"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-gift");
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentDefence.name;
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-gift";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-gift"; 
         } else {
             this.keepGiftItem();
         }
@@ -2524,11 +2591,23 @@ const catPrison = {
     `,
     checkGilet: function checkGilet() {
         if (currentDefence.name) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentDefence.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentDefence.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-gilet"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-gilet");
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentDefence.name;
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-gilet";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-gilet";
         } else {
             this.keepGilet();
         }
@@ -2609,29 +2688,77 @@ const catPrison = {
     `,
     checkCellItem: function checkCellItem() {
         if (foundItemInfo.category === currentWeapon.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentWeapon.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentWeapon.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentWeapon.name;
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-cell";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-cell";
         } else if (foundItemInfo.category === currentDefence.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentDefence.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentDefence.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentDefence.name;
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-cell";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-cell";
         } else if (foundItemInfo.category === currentPotion.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentPotion.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentPotion.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentPotion.name;
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-cell";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-cell"; 
         } else if (foundItemInfo.category == currentObject.category) {
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentObject.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentObject.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-cell"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-cell"); 
+            document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentObject.name;
+            document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-cell";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-cell";
         } else {
             this.keepCellItem();
         }
