@@ -2727,13 +2727,22 @@ function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem,
 }
 function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
     generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic);
+    document.getElementById('item-row-five').style.display="none";
     document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
     document.getElementById('image-title').innerHTML = enemy.name;
     document.getElementById('item-description').innerHTML = enemy.description;
-    document.getElementById('list-item-one').innerHTML = "Strength: " + enemy.strength;
-    document.getElementById('list-item-two').innerHTML = "Skill: " + enemy.skill;
-    document.getElementById('list-item-three').innerHTML = "Defence: " + enemy.defence;
-    document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
+    document.getElementById('item-row-one').style.display = "table-row";
+    document.getElementById('list-item-one').innerHTML = "Attack:";
+    document.getElementById('list-item-stat-one').innerHTML = enemy.strength;
+    document.getElementById('item-row-two').style.display = "table-row";
+    document.getElementById('list-item-two').innerHTML = "Skill:";
+    document.getElementById('list-item-stat-two').innerHTML = enemy.skill;
+    document.getElementById('item-row-three').style.display = "table-row";
+    document.getElementById('list-item-three').innerHTML = "Defence:";
+    document.getElementById('list-item-stat-three').innerHTML = enemy.defence;
+    document.getElementById('item-row-four').style.display = "table-row";
+    document.getElementById('list-item-four').innerHTML = "Health:";
+    document.getElementById('list-item-stat-four').innerHTML = enemy.health;
 }
 
 // ITEM FUNCTIONS
@@ -2793,6 +2802,11 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
 }
 //displays found item on screen
 function displayItem() {
+    document.getElementById('item-row-one').style.display = "none";
+    document.getElementById('item-row-two').style.display = "none";
+    document.getElementById('item-row-three').style.display = "none";
+    document.getElementById('item-row-four').style.display = "none";
+    document.getElementById('item-row-five').style.display = "none";
     document.getElementById('image-section').style.display = "flex";
     document.getElementById('upper-text').style.display = "block";
     document.getElementById('lower-text').style.display = "block";
@@ -2802,21 +2816,39 @@ function displayItem() {
     document.getElementById('image-title').innerHTML = foundItemInfo.name;
     document.getElementById('item-description').innerHTML = foundItemInfo.description;
     if (foundItemInfo.category =="weapon") {
-        document.getElementById('list-item-one').innerHTML = "Attack: " + foundItemInfo.attack;
-        document.getElementById('list-item-two').innerHTML = "Skill: " + foundItemInfo.skill;
-        document.getElementById('list-item-three').innerHTML = "Type: " + foundItemInfo.type;
+        document.getElementById('item-row-one').style.display = "table-row";
+        document.getElementById('list-item-one').innerHTML = "Attack:";
+        document.getElementById('list-item-stat-one').innerHTML = foundItemInfo.attack;
+        document.getElementById('item-row-two').style.display = "table-row";
+        document.getElementById('list-item-two').innerHTML = "Skill:";
+        document.getElementById('list-item-stat-two').innerHTML = foundItemInfo.skill;
+        if (foundItemInfo.type){
+            document.getElementById('item-row-three').style.display = "table-row";
+            document.getElementById('list-item-three').innerHTML = "Type:";
+            document.getElementById('list-item-stat-three').innerHTML = foundItemInfo.type;
+        }
         if (foundItemInfo.magic){
-            document.getElementById('list-item-four').innerHTML = "Magic: " + foundItemInfo.magic;
-        } else { document.getElementById('list-item-four').innerHTML = "Magic: " + "None";  
+            document.getElementById('item-row-four').style.display = "table-row";
+            document.getElementById('list-item-four').innerHTML = "Magic:";
+            document.getElementById('list-item-stat-four').innerHTML = foundItemInfo.magic;
         }
     } else if (foundItemInfo.category =="clothing") {
-        document.getElementById('list-item-one').innerHTML = "Defence: " + foundItemInfo.defence;
-        if (foundItemInfo.magic){
-            document.getElementById('list-item-two').innerHTML = "Magic: " + foundItemInfo.magic;
-        } else { document.getElementById('list-item-two').innerHTML = "Magic: " + "None";  
+        document.getElementById('item-row-one').style.display = "table-row";
+        document.getElementById('list-item-one').innerHTML = "Defence:";
+        document.getElementById('list-item-stat-one').innerHTML = foundItemInfo.defence;
+        if (foundItemInfo.resist){
+            document.getElementById('item-row-two').style.display = "table-row";
+            document.getElementById('list-item-two').innerHTML = "Resist:";
+            document.getElementById('list-item-stat-two').innerHTML = foundItemInfo.resist;
+        }
+        if (foundItemInfo.vulnerability){
+            document.getElementById('item-row-three').style.display = "table-row";
+            document.getElementById('list-item-three').innerHTML = "Vulnerability:";
+            document.getElementById('list-item-stat-three').innerHTML = foundItemInfo.vulnerability;
         }
     } else {
-        document.getElementById('list-item-one').innerHTML = "Effect: " + foundItemInfo.effect;
+        document.getElementById('item-row-five').style.display = "table-row";
+        document.getElementById('list-item-five').innerHTML = "Effect: &nbsp" + foundItemInfo.effect;
     }
 }
 //Store Item as current, place item in current inventory
@@ -2994,7 +3026,8 @@ function testForWeapons(enemy) {
     }
 }
 function continueFight(enemy) {
-    document.getElementById('list-item-four').innerHTML = "Health: " + enemy.health;
+    document.getElementById('list-item-four').innerHTML = "Health:";
+    document.getElementById('list-item-stat-four').innerHTML = enemy.health;
     document.getElementById('main-health').innerHTML = mainCharacterCurrent.health;
     if (mainCharacterCurrent.health != mainCharacter.health) {
         document.getElementById('health-modify').innerHTML = " (-" + (mainCharacter.health - mainCharacterCurrent.health) + ")";
@@ -3006,7 +3039,8 @@ function continueFight(enemy) {
 function leaveBattle(enemy) {
     document.getElementById('choices-section').style.display = "block";
     document.getElementById('battles-section').style.display = "none";
-    document.getElementById('list-item-four').innerHTML = '<span class="red">Health: ' + "0</span>";
+    document.getElementById('list-item-four').innerHTML = '<span class="red">Health:';
+    document.getElementById('list-item-stat-four').innerHTML = "0</span>";
     document.getElementById("battle-text").style.textAlign = "center";
     document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
     document.getElementById('battle-text-enemy').innerHTML ="";            

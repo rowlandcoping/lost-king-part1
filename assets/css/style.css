@@ -204,6 +204,10 @@ ul {
     margin:10px 200px;
 }
 
+#character-spiral {
+    display:none;
+}
+
 /*main body of page*/
 #centre-section {
     display:flex;
@@ -276,10 +280,27 @@ ul {
     display: none;
     flex-flow: row;
     justify-content: space-around;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
     padding:5px;
     border: ridge rgb(94, 61, 0) 3px;
+}
+
+#image-section table {
+    border-collapse:collapse;
+    line-height:100%;
+}
+
+
+#image-image {
+ flex:2;
+}
+#image-text {
+    display:flex;
+    flex-flow:column;
+    align-items: center;
+    flex:4;
 }
 
 #battle-text {
@@ -290,6 +311,21 @@ ul {
     padding: 5px;
     width: 200px;
 }
+
+
+#image-section h3 {
+ margin-top: 5px;
+ margin-bottom: 0;
+}
+
+#image-section p {
+    margin-top: 10px;
+}
+
+#image-section table {
+    margin-bottom: 5px;
+}
+
 
 
 
@@ -419,11 +455,17 @@ ul {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 300px;
     }
+    .spiral {
+        margin:10px 300px;
+    }
 
 }
 @media screen and (min-width:2100px) {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 500px;
+    }
+    .spiral {
+        margin:10px 500px;
     }
 
 }
@@ -431,17 +473,26 @@ ul {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 750px;
     }
+    .spiral {
+        margin:10px 750px;
+    }
 
 }
 @media screen and (min-width:3050px) {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 1000px;
     }
+    .spiral {
+        margin:10px 1000px;
+    }
 
 }
 @media screen and (min-width:3400px) {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 1200px;
+    }
+    .spiral {
+        margin:10px 1200px;
     }
 
 }
@@ -464,6 +515,9 @@ ul {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 100px;
     }
+    .spiral {
+        margin:10px 100px;
+    }
     
 }
 @media screen and (max-width:1200px) {
@@ -474,6 +528,9 @@ ul {
 .title-section, #centre-section, #bottom-game-section {
     margin:0px 45px;
 }
+.spiral {
+    margin:10px 45px;
+}
 #game-section {
     background-position:  -175px center !important;
 }
@@ -481,7 +538,9 @@ ul {
 @media screen and (max-width:1080px) {
 
     #game-section {
-        background-position:  -225px center !important;
+        background-size: auto 100% !important;
+        background-position:  0px center !important;
+        height: 100%;
     }
 
     .item-display {
@@ -502,11 +561,6 @@ ul {
        .item-text, .item-image img  {
         width: 75;
     }
-    #game-section {
-        min-height: 40vh;
-        max-height: 100%;
-    }
-
 }
 @media screen and (max-width:768px) {
     #game-section {
@@ -515,6 +569,14 @@ ul {
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 10px;
     }
+    #character-spiral {
+        display: block;
+        width:100%;
+    }
+    .spiral {
+        margin:5px 10px;
+    }
+    
     #landing-image-left, #landing-image-right {
         display:none;
         justify-content:space-around;
@@ -578,17 +640,21 @@ ul {
 }
 @media screen and (max-width:576px) {
     #game-section {
-        background-position:  -275px center !important;
+        background-size: auto 100% !important;
+        background-position:  0px center !important;
     }
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 5px;
+    }
+    .spiral {
+        margin:5px 5px;
     }
 
 }
 @media screen and (max-width:400px) {
     #game-section {
         background-size: auto 100% !important;
-        background-position:  -150px center !important;
+        background-position:  -125px center !important;
     }
     .item-display {
         width: 135px;
@@ -601,7 +667,7 @@ ul {
 }
 
 /* smaller screen heights */
-@media screen and (max-height:900px) {
+@media screen and (max-height:1000px) {
 
     #character-section {
         height: 100%;
