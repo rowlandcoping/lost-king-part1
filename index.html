@@ -38,15 +38,28 @@
 
         <div id="game-page">
             <div id ="alert-page">
-                <h3 id="alert-title"> Warning</h3>
-                <p>This action will item will replace the item:</p>
-                <p id = "item-details"></p>
-                <p>What would you like to do?</p>
-                <ul>
-                    <li id="keep-new"><button >Keep the new item, it's clearly better!</button></li>
-                    <li id="keep-old"><button >I'd like to keep hold of what I've got.</button></li>
-                </ul>
-
+                <h3 id="alert-title">You may only carry one <span id="alert-category"></span>!</h3>
+                <h4>Please click the item you would like to keep:</h4>
+                <div id="alert-item-pick">
+                    <div id="keep-new">
+                        <h3 id="alert-new-title"></h3>
+                        <div class="alert-image-container">              
+                            <div class="alert-new-image">
+                            <div class="alert-result" id="new-alert-tick"><img src="assets/images/custom/green-tick.svg"></div>
+                            <div class="alert-result" id="new-alert-cross"><img src="assets/images/custom/red-cross.svg"></div>
+                            </div>   
+                        </div>
+                    </div>
+                    <div id="keep-old">
+                        <h3 id="alert-old-title"></h3>
+                        <div class="alert-image-container">
+                            <div class="alert-old-image">
+                            <div class="alert-result" id="old-alert-tick"><img src="assets/images/custom/green-tick.svg"></div>
+                            <div class="alert-result" id="old-alert-cross"><img src="assets/images/custom/red-cross.svg"></div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
             </div>
             <div id = "transparency">
                 <div class="title-section">

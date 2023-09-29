@@ -799,8 +799,9 @@ const firstCavern = {
     firstSearch: function firstSearch() {
         if (specialObject.name === "Glowing Orb") {
             searchForItem(30, 35, 100, 100);
-        } else {
             searchForItem(30, 35, 50, 100);
+        } else {
+            searchForItem(0, 0, 0, 100);
         }
         document.getElementById('lower-text').innerHTML = this.pageFour;
         document.getElementById('choices-section').innerHTML = this.optionsFour;
@@ -814,30 +815,36 @@ const firstCavern = {
     `,
     // keep or leave the item
     checkFirstItem: function checkFirstItem() {
+        if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+        if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+        let oldImage = document.createElement("img");
+        oldImage.id = "tempOld"
+        oldImage.src = currentObject.image;
+        let newImage = document.createElement("img");
+        newImage.id = "tempNew"
+        newImage.src = foundItemInfo.image;
+        document.getElementById('alert-category').innerHTML = foundItemInfo.category;
+        document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+        document.getElementById('alert-new-title').innerHTML = foundItemInfo.name;
+        document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+        document.getElementsByClassName('alert-old-image')[0].id = "lose-search";
+        document.getElementsByClassName('alert-new-image')[0].id = "keep-search";
         if (foundItemInfo.category === currentWeapon.category) {
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentWeapon.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-search"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-search"); 
+            document.getElementById('alert-old-title').innerHTML = currentWeapon.name; 
         } else if (foundItemInfo.category === currentDefence.category) {
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentDefence.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-search"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-search"); 
+            document.getElementById('alert-old-title').innerHTML =  currentDefence.name; 
         } else if (foundItemInfo.category === currentPotion.category) {
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentPotion.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-search"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-search"); 
+            document.getElementById('alert-old-title').innerHTML =  currentPotion.name;
         } else if (foundItemInfo.category == currentObject.category) {
             document.getElementById('transparency').style.opacity = 0.3;
-            document.getElementById('alert-page').style.display = "block";
-            document.getElementById('item-details').innerHTML = currentObject.name;
-            document.getElementById('keep-new').firstChild.setAttribute("id", "keep-search"); 
-            document.getElementById('keep-old').firstChild.setAttribute("id", "lose-search"); 
+            document.getElementById('alert-page').style.display = "block";  
+            document.getElementById('alert-old-title').innerHTML = currentObject.name;
         } else {
             this.keepFirstItem();
         }
@@ -1119,11 +1126,23 @@ const slimeCorridor = {
     // Pickup slime
     checkSlime: function checkSlime() {
         if (currentObject.name) {
-        document.getElementById('transparency').style.opacity = 0.3;
-        document.getElementById('alert-page').style.display = "block";
-        document.getElementById('item-details').innerHTML = currentObject.name;
-        document.getElementById('keep-new').firstChild.setAttribute("id", "keep-slime"); 
-        document.getElementById('keep-old').firstChild.setAttribute("id", "lose-slime"); 
+            if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
+            if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
+            let oldImage = document.createElement("img");
+            oldImage.id = "tempOld";
+            oldImage.src = currentObject.image;
+            let newImage = document.createElement("img");
+            newImage.id = "tempNew";
+            newImage.src = slime.image;
+            document.getElementById('transparency').style.opacity = 0.3;
+            document.getElementById('alert-page').style.display = "block";
+            document.getElementById('alert-category').innerHTML = slime.category;
+            document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
+            document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
+            document.getElementById('alert-old-title').innerHTML = currentObject.name;
+            document.getElementById('alert-new-title').innerHTML = slime.name;
+            document.getElementsByClassName('alert-old-image')[0].id = "lose-slime";   
+            document.getElementsByClassName('alert-new-image')[0].id = "keep-slime"; 
         } else {
             this.getSlime();
         }
@@ -3442,6 +3461,28 @@ function writeInitialToDom() {
     document.getElementById('game-section').style.backgroundImage = "";
 }
 
+//ALERT FUNCTIONS
+
+function alertNewImageIn() {
+    document.getElementById('new-alert-tick').style.display = "block";
+    document.getElementById('old-alert-cross').style.display = "block";
+};
+
+function alertNewImageOut() {
+    document.getElementById('new-alert-tick').style.display = "none";
+    document.getElementById('old-alert-cross').style.display = "none";
+};
+
+function alertOldImageIn() {
+    document.getElementById('old-alert-tick').style.display = "block";
+    document.getElementById('new-alert-cross').style.display = "block";
+};
+
+function alertOldImageOut() {
+    document.getElementById('old-alert-tick').style.display = "none";
+    document.getElementById('new-alert-cross').style.display = "none";
+};
+
 
 
 //START GAME EVENT HANDLERS
@@ -4163,6 +4204,37 @@ document.addEventListener("click", function(e){
         catPrison.insectRepellentBug();
     }
 });
+
+//MOUSEOVER LISTENERS
+
+
+
+document.addEventListener("mouseover", function(e){
+    const target = e.target.closest(".alert-new-image"); 
+    if(target){
+        alertNewImageIn();
+    }
+});
+document.addEventListener("mouseout", function(e){
+    const target = e.target.closest(".alert-new-image"); 
+    if(target){
+        alertNewImageOut();
+    }
+});
+document.addEventListener("mouseover", function(e){
+    const target = e.target.closest(".alert-old-image"); 
+    if(target){
+        alertOldImageIn();
+    }
+});
+document.addEventListener("mouseout", function(e){
+    const target = e.target.closest(".alert-old-image"); 
+    if(target){
+        alertOldImageOut();
+    }
+});
+
+
 /* GAME TEXT */
 
 /*page one (open eyes)*/
