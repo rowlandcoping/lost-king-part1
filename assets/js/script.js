@@ -799,9 +799,8 @@ const firstCavern = {
     firstSearch: function firstSearch() {
         if (specialObject.name === "Glowing Orb") {
             searchForItem(30, 35, 100, 100);
-            searchForItem(30, 35, 50, 100);
         } else {
-            searchForItem(100,100,100,100);
+            searchForItem(30, 35, 50, 100);
         }
         document.getElementById('lower-text').innerHTML = this.pageFour;
         document.getElementById('choices-section').innerHTML = this.optionsFour;
@@ -815,8 +814,12 @@ const firstCavern = {
     `,
     // keep or leave the item
     checkFirstItem: function checkFirstItem() {
-        
-        if (foundItemInfo.category === currentWeapon.category) {
+        document.removeEventListener("click", eight);
+        document.removeEventListener("click", nine);
+        document.removeEventListener("click", resetGameButton);
+        document.removeEventListener("click", restartGameButton);
+        document.getElementById("alert-page").focus();
+        if (foundItemInfo.category === currentWeapon.category) {       
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
@@ -827,6 +830,7 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentWeapon.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -845,6 +849,7 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentDefence.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -863,6 +868,7 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentPotion.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -881,6 +887,7 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentObject.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -893,6 +900,10 @@ const firstCavern = {
         }
     },
     keepFirstItem: function keepFirstItem() {
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", eight);
+        document.addEventListener("click", nine);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -900,6 +911,10 @@ const firstCavern = {
         this.rangarFightChance();
     },
     ignoreFirstItem: function ignoreFirstItem() {
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", eight);
+        document.addEventListener("click", nine);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         changeModeToMainWindow();
@@ -1024,6 +1039,10 @@ const slimeCorridor = {
     //corridor navigation
     slimeEncounter: function slimeEncounter() {
         changeModeToMainWindow();
+        document.addEventListener("click", twenty);
+        document.addEventListener("click", twentyOne);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         if (thingsWhatYouveDone.slimeCollect || (thingsWhatYouveDone.slimeKill && specialObject.name === "Glowing Orb")) {
@@ -1177,6 +1196,12 @@ const slimeCorridor = {
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
             newImage.src = slime.image;
+            document.removeEventListener("click", twenty);
+            document.removeEventListener("click", twentyOne);
+            document.removeEventListener("click", twentyTwo);
+            document.removeEventListener("click", resetGameButton);
+            document.removeEventListener("click", restartGameButton);
+            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = slime.category;
@@ -1191,7 +1216,11 @@ const slimeCorridor = {
         }
     },
     getSlime: function getSlime() {  
-        changeModeToItemWindow();      
+        changeModeToItemWindow();
+        document.addEventListener("click", twenty);
+        document.addEventListener("click", twentyOne);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);  
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         thingsWhatYouveDone.slimeCollect = true;
@@ -1505,6 +1534,11 @@ const catCavern = {
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
             newImage.src = catSword.image;
+            document.removeEventListener("click", thirtyOne);
+            document.removeEventListener("click", thirtyTwo);
+            document.removeEventListener("click", resetGameButton);
+            document.removeEventListener("click", restartGameButton);
+            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = catSword.category;
@@ -1520,6 +1554,10 @@ const catCavern = {
     },
     keepCatSword: function keepCatSword() {
         thingsWhatYouveDone.getCatSword = true;
+        document.addEventListener("click", thirtyOne);
+        document.addEventListener("click", thirtyTwo);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -1554,6 +1592,10 @@ const catCavern = {
     `,
     catExitOptions: function catExitOptions() {
         changeModeToMainWindow();
+        document.addEventListener("click", thirtyOne);
+        document.addEventListener("click", thirtyTwo);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('game-section').style.background = this.background;
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
@@ -2336,6 +2378,11 @@ const catCourt = {
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
             newImage.src = foundItemInfo.image;
+            document.removeEventListener("click", fiftyFive);
+            document.removeEventListener("click", fiftySix);
+            document.removeEventListener("click", resetGameButton);
+            document.removeEventListener("click", restartGameButton);
+            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
@@ -2350,6 +2397,10 @@ const catCourt = {
         }
     },
     keepGiftItem: function keepGiftItem() {
+        document.addEventListener("click", fiftyFive);
+        document.addEventListener("click", fiftySix);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -2358,6 +2409,10 @@ const catCourt = {
     },
     catCourtGodExit: function catCourtGodExit() {
         changeModeToMainWindow();
+        document.addEventListener("click", fiftyFive);
+        document.addEventListener("click", fiftySix);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         specialObject.name = "Glowing Orb";
@@ -2502,6 +2557,11 @@ const catPrison = {
         }
     },
     catPrison: function catPrison() {
+        document.addEventListener("click", sixtyNine);
+        document.addEventListener("click", fiftyEight);
+        document.addEventListener("click", seventy);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         changeModeToMainWindow();
@@ -2599,6 +2659,11 @@ const catPrison = {
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
             newImage.src = foundItemInfo.image;
+            document.removeEventListener("click", sixtyNine);
+            document.removeEventListener("click", fiftyEight);
+            document.removeEventListener("click", resetGameButton);
+            document.removeEventListener("click", restartGameButton);
+            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
@@ -2613,6 +2678,10 @@ const catPrison = {
         }
     },
     keepGilet: function keepGilet() {
+        document.addEventListener("click", sixtyNine);
+        document.addEventListener("click", fiftyEight);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -2687,6 +2756,10 @@ const catPrison = {
     <li><button class="choice-button" id="choice-fifty-eight">Discard the item.</button></li>
     `,
     checkCellItem: function checkCellItem() {
+        document.removeEventListener("click", seventy);
+        document.removeEventListener("click", fiftyEight);
+        document.removeEventListener("click", resetGameButton);
+        document.removeEventListener("click", restartGameButton);
         if (foundItemInfo.category === currentWeapon.category) {
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
@@ -2698,6 +2771,7 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2716,6 +2790,7 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2734,6 +2809,7 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2752,6 +2828,7 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
+            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2764,6 +2841,10 @@ const catPrison = {
         }
     },
     keepCellItem: function keepCellItem() {
+        document.addEventListener("click", seventy);
+        document.addEventListener("click", fiftyEight);
+        document.addEventListener("click", resetGameButton);
+        document.addEventListener("click", restartGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -3146,6 +3227,7 @@ function storeItem() {
 //BATTLE FUNCTIONS
 //fight state change
 function testForWeapons(enemy) {
+    document.getElementById("battles-section").focus();
     if (enemy.name === "Cat Warrior" && currentObject.name === "Cat Biscuits") {    
         document.getElementById('object-button-one').style.display = "block";
         document.getElementById('object-button-two').style.display = "block";
@@ -3619,16 +3701,29 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('start-game-button').addEventListener('click', startGame);
 });
 //restart game event handlers
-document.addEventListener('DOMContentLoaded', function () {  
-    document.getElementById('restart-game-button').addEventListener('click', startGame);
-});
+//in-game restart game button
+const restartGameButton = function(e) {
+    const target = e.target.closest("#restart-game-button"); 
+    if(target){ 
+        startGame();
+    }
+}
+document.addEventListener("click", restartGameButton);
+//end game restart game button
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('restart-game-button-end').addEventListener('click', startGame);
 });
 //reset character button event handlers
-document.addEventListener('DOMContentLoaded', function () {  
-    document.getElementById('reset-game-button').addEventListener('click', resetGame);
-});
+
+//in-game reset character button
+const resetGameButton = function(e) {
+    const target = e.target.closest("#reset-game-button"); 
+    if(target){ 
+        resetGame();
+    }
+}
+document.addEventListener("click", resetGameButton);
+//end game reset character button
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('reset-game-button-end').addEventListener('click', resetGame);
 });
@@ -3694,24 +3789,30 @@ document.addEventListener("click", function(e){
 });
 
 // page four event handlers (decide whether to keep item)
-document.addEventListener("click", function(e){
+//keep first item (item check)
+const eight = function(e) {
     const target = e.target.closest("#choice-eight"); 
     if(target){ 
         firstCavern.checkFirstItem();
     }
-});
-document.addEventListener("click", function(e){
+}
+document.addEventListener("click", eight);
+//ignore first item (move on)
+const nine = function(e) {
     const target = e.target.closest("#choice-nine"); 
-    if(target){
+    if(target){ 
         firstCavern.ignoreFirstItem();
     }
-});
+}
+document.addEventListener("click", nine);
+//keep item (if slot full)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#keep-search"); 
     if(target){ 
         firstCavern.keepFirstItem();
     }
 });
+//ignore item (if slot full)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#lose-search"); 
     if(target){
@@ -3841,24 +3942,31 @@ document.addEventListener("click", function(e){
         slimeCorridor.slimeDead();
     }
 });
-document.addEventListener("click", function(e){
+//return to first room
+const twenty = function(e){
     const target = e.target.closest("#choice-twenty"); 
     if(target){ 
         firstCavern.caveReturn();
     }
-});
-document.addEventListener("click", function(e){
+}
+document.addEventListener("click", twenty );
+//continue alone corridor
+const twentyOne = function(e){
     const target = e.target.closest("#choice-twenty-one"); 
     if(target){
         catCavern.catCavern();
     }
-});
-document.addEventListener("click", function(e){
+}
+document.addEventListener("click", twentyOne);
+//pick up slime
+const twentyTwo = function(e){
     const target = e.target.closest("#choice-twenty-two"); 
     if(target){
         slimeCorridor.checkSlime();
     }
-});
+}
+document.addEventListener("click",twentyTwo);
+// alert event handlers
 document.addEventListener("click", function(e){
     const target = e.target.closest("#keep-slime"); 
     if(target){ 
@@ -3946,18 +4054,23 @@ document.addEventListener("click", function(e){
         catCavern.catExitOptions();
 }
 });
-document.addEventListener("click", function(e){
+// keep cat sword
+const thirtyOne = function(e){
     const target = e.target.closest("#choice-thirty-one"); 
     if(target){ 
         catCavern.checkCatSword();
     }
-});
-document.addEventListener("click", function(e){
+}
+document.addEventListener("click", thirtyOne);
+//go to exit options page
+const thirtyTwo = function(e){
     const target = e.target.closest("#choice-thirty-two"); 
     if(target){
         catCavern.catExitOptions();
+    }
 }
-});
+document.addEventListener("click", thirtyTwo);
+//sword alert options
 document.addEventListener("click", function(e){
     const target = e.target.closest("#keep-cat"); 
     if(target){ 
@@ -4185,38 +4298,43 @@ document.addEventListener("click", function(e){
         catCourt.keepGiftItem();
     }
 });
-document.addEventListener("click", function(e){
+//opt to keep gifted item
+const fiftyFive = function(e){
     const target = e.target.closest("#choice-fifty-five"); 
     if(target){
         catCourt.checkGiftItem();
     }
-});
-document.addEventListener("click", function(e){
+}
+document.addEventListener("click", fiftyFive);
+//opt to leave gifted item
+const fiftySix = function(e){
     const target = e.target.closest("#choice-fifty-six"); 
     if(target){
         catCourt.catCourtGodExit();
     }
-});
+}
+document.addEventListener("click", fiftySix);
+//leave cat court as a God
 document.addEventListener("click", function(e){
     const target = e.target.closest("#lose-gift"); 
     if(target){
         catCourt.catCourtGodExit();
     }
 });
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifty-seven"); 
     if(target){
         catCorridor.catCorridor();
     }
 });
-document.addEventListener("click", function(e){
+//get sent to cat prison
+const fiftyEight = function(e){
     const target = e.target.closest("#choice-fifty-eight"); 
     if(target){
         catPrison.catPrison();
     }
-});
-
+}
+document.addEventListener("click" ,fiftyEight);
 
 // ROOM 8 - CAT CORRIDOR
 document.addEventListener("click", function(e){
@@ -4257,12 +4375,15 @@ document.addEventListener("click", function(e){
         catPrison.climbOutWindow();
     }
 });
-document.addEventListener("click", function(e){
+//opt to keep furry gilet
+const sixtyNine = function(e){
     const target = e.target.closest("#choice-sixty-nine"); 
     if(target){ 
         catPrison.checkGilet();
     }
-});
+}
+document.addEventListener("click", sixtyNine);
+//gilet alert options
 document.addEventListener("click", function(e){
     const target = e.target.closest("#keep-gilet"); 
     if(target){ 
@@ -4276,23 +4397,20 @@ document.addEventListener("click", function(e){
     }
 });
 document.addEventListener("click", function(e){
-    const target = e.target.closest("#choice-sixty-six"); 
-    if(target){
-        catPrison.keepGilet();
-    }
-});
-document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-sixty-seven"); 
     if(target){
         catPrison.bigBugFight(bigBug);
     }
 });
-document.addEventListener("click", function(e){
+//opt to keep item found in cell
+const seventy = function(e){
     const target = e.target.closest("#choice-seventy"); 
     if(target){ 
         catPrison.checkCellItem();
     }
-});
+}
+document.addEventListener("click", seventy);
+//alert cell item options
 document.addEventListener("click", function(e){
     const target = e.target.closest("#keep-cell"); 
     if(target){ 

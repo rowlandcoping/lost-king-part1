@@ -257,7 +257,10 @@ ul {
     justify-content: center;
     margin: 10px;
 }
-
+#character-sheet-name {
+    margin-top:0;
+    margin-bottom:10px;
+}
 #character-image {
     padding: 10px;
 }
