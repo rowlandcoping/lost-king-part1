@@ -818,6 +818,7 @@ const firstCavern = {
         document.removeEventListener("click", nine);
         document.removeEventListener("click", resetGameButton);
         document.removeEventListener("click", restartGameButton);
+        document.removeEventListener("click", giveUpGameButton);
         document.getElementById("alert-page").focus();
         if (foundItemInfo.category === currentWeapon.category) {       
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
@@ -902,6 +903,7 @@ const firstCavern = {
     keepFirstItem: function keepFirstItem() {
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.addEventListener("click", eight);
         document.addEventListener("click", nine);
         document.getElementById('transparency').style.opacity = 1;
@@ -913,6 +915,7 @@ const firstCavern = {
     ignoreFirstItem: function ignoreFirstItem() {
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.addEventListener("click", eight);
         document.addEventListener("click", nine);
         document.getElementById('transparency').style.opacity = 1;
@@ -1043,6 +1046,7 @@ const slimeCorridor = {
         document.addEventListener("click", twentyOne);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         if (thingsWhatYouveDone.slimeCollect || (thingsWhatYouveDone.slimeKill && specialObject.name === "Glowing Orb")) {
@@ -1201,6 +1205,7 @@ const slimeCorridor = {
             document.removeEventListener("click", twentyTwo);
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
+            document.removeEventListener("click", giveUpGameButton);
             document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -1220,7 +1225,8 @@ const slimeCorridor = {
         document.addEventListener("click", twenty);
         document.addEventListener("click", twentyOne);
         document.addEventListener("click", resetGameButton);
-        document.addEventListener("click", restartGameButton);  
+        document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton); 
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         thingsWhatYouveDone.slimeCollect = true;
@@ -1257,7 +1263,7 @@ const catCavern = {
             document.getElementById('game-text').innerHTML = this.catCavernTextOne + this.catsGoneText;
             document.getElementById('choices-section').innerHTML = this.catsGoneOptions;
         } else {
-            document.getElementById('game-text').innerHTML = this.catCavernTextOne + this.catCavernTextTwo + this.catImage;
+            document.getElementById('game-text').innerHTML = this.catCavernTextOne + this.catCavernTextTwo + this.catImage + this.catCavernTextThree;
             if (thingsWhatYouveDone.cavernVisits === 0){
                 document.getElementById('choices-section').innerHTML = this.catCavernOptionsFirst;
             } else if (thingsWhatYouveDone.cavernVisits === 1){
@@ -1274,11 +1280,13 @@ const catCavern = {
     },
     catCavernTextOne: `
     <p>You emerge into a large cavernous space enclosed by sheer rock cliffs. Lanterns have been placed sparsely about the room, barely illuminating the vast space.</p>
-    <p>It is clear this area is often frequented.</p>
     `,
     catCavernTextTwo: `
-    <p>Before you can assess your options, a loud noise startles you.  It sound like... feet?  Not quite.  Claws?  You hope not.
-    <br>You have little time to react before a small group of cat-like warriors charge into the room.</p>
+    <p>Before you can assess your options, a loud noise startles you. <br>It sounds like... feet? Not quite. Claws? You sincerely hope not.</p>
+    <p>You have little time to react before a small group of cat-like warriors charge into the room.</p>
+    `,
+    catCavernTextThree: `
+    <p>It's alarming, but all things considered a much cuter, fluffier outcome than you were expecting...</p>
     `,
     catCavernOptionsFirst: `
     <li><button class="choice-button" id="choice-twenty-four">I can scarcely wait to see what happens next.</li>
@@ -1365,7 +1373,7 @@ const catCavern = {
         setEnemyStats(catWarrior, 8,10,20,30,2,5,0, 0, "fire");
     },
     catAttackText: `
-    <p>The cats draw to a swift halt, glance at each other, then step back and allow the largest of them centre-stage</p>
+    <p>The cats draw to a swift halt, before drawing back to allow the largest of them centre-stage.</p>
     <p>It seems like they wish you to fight this Cat Warrior.</p>
     `,
     catAttackChoices: `
@@ -1538,6 +1546,7 @@ const catCavern = {
             document.removeEventListener("click", thirtyTwo);
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
+            document.removeEventListener("click", giveUpGameButton);
             document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -1558,6 +1567,7 @@ const catCavern = {
         document.addEventListener("click", thirtyTwo);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -1596,6 +1606,7 @@ const catCavern = {
         document.addEventListener("click", thirtyTwo);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('game-section').style.background = this.background;
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
@@ -1773,7 +1784,6 @@ const endingScene = {
         document.getElementById('gameover-page').style.display="flex";
         document.getElementById('game-page').style.display="none";
         document.getElementById('game-outcome').innerHTML = this.endingText;
-        
     },
     endingText: `
     <p>You pass through the secret door, and beyond it a short flight of stairs.
@@ -2382,6 +2392,7 @@ const catCourt = {
             document.removeEventListener("click", fiftySix);
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
+            document.removeEventListener("click", giveUpGameButton);
             document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -2401,6 +2412,7 @@ const catCourt = {
         document.addEventListener("click", fiftySix);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -2413,6 +2425,7 @@ const catCourt = {
         document.addEventListener("click", fiftySix);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         specialObject.name = "Glowing Orb";
@@ -2562,6 +2575,7 @@ const catPrison = {
         document.addEventListener("click", seventy);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         changeModeToMainWindow();
@@ -2663,6 +2677,7 @@ const catPrison = {
             document.removeEventListener("click", fiftyEight);
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
+            document.removeEventListener("click", giveUpGameButton);
             document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -2682,6 +2697,7 @@ const catPrison = {
         document.addEventListener("click", fiftyEight);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -2760,6 +2776,7 @@ const catPrison = {
         document.removeEventListener("click", fiftyEight);
         document.removeEventListener("click", resetGameButton);
         document.removeEventListener("click", restartGameButton);
+        document.removeEventListener("click", giveUpGameButton);
         if (foundItemInfo.category === currentWeapon.category) {
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
@@ -2845,6 +2862,7 @@ const catPrison = {
         document.addEventListener("click", fiftyEight);
         document.addEventListener("click", resetGameButton);
         document.addEventListener("click", restartGameButton);
+        document.addEventListener("click", giveUpGameButton);
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         mainCharacter.score += foundItemInfo.score;
@@ -2889,6 +2907,24 @@ const catPrison = {
     <p>Confident there will be no more bugs in the area, you can continue your search.</p>
     `
 }
+const giveUpGame = {
+    giveUpGame: function giveUpGame() {
+        mainCharacter.score -= 20;
+        document.getElementById('final-score').innerHTML = mainCharacter.score;
+        document.getElementById('gameover-page').style.display="flex";
+        document.getElementById('game-page').style.display="none";
+        document.getElementById('game-outcome').innerHTML = this.givingUpText;
+    },
+    givingUpText: `
+    <p>You curl up in a tight ball on the floor, whimpering.</p>
+    <p>You no longer care who you are, where you are going, or what creatures want to kill you.</p>
+    <p>You don't even really care what your score is, although you'd sort of like to know.</p>
+    <p>No, all you want to do is dream of better times.  <br>Try to reach out to a childhood and a life you can't quite remember.  <br>All you want is the warmth of darkness, and the blissful kiss of eternal sleep.
+    <br>Sweet nothingness.</p>
+    <p>YOU ARE DEAD</p>
+    `
+}
+
 
 // HELPER FUNCTIONS
 // Random number generator
@@ -3700,7 +3736,16 @@ function alertOldImageOut() {
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('start-game-button').addEventListener('click', startGame);
 });
-//restart game event handlers
+//in game give-up button
+const giveUpGameButton = function(e) {
+    const target = e.target.closest("#giveup-game-button"); 
+    if(target){ 
+        giveUpGame.giveUpGame();
+    }
+}
+document.addEventListener("click", giveUpGameButton);
+    
+
 //in-game restart game button
 const restartGameButton = function(e) {
     const target = e.target.closest("#restart-game-button"); 
@@ -3713,8 +3758,6 @@ document.addEventListener("click", restartGameButton);
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('restart-game-button-end').addEventListener('click', startGame);
 });
-//reset character button event handlers
-
 //in-game reset character button
 const resetGameButton = function(e) {
     const target = e.target.closest("#reset-game-button"); 
@@ -4451,8 +4494,6 @@ document.addEventListener("click", function(e){
 });
 
 //MOUSEOVER LISTENERS
-
-
 
 document.addEventListener("mouseover", function(e){
     const target = e.target.closest(".alert-new-image"); 
