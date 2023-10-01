@@ -64,6 +64,10 @@ ul {
     height:98vh;
 }
 
+#landing-title h1 {
+    font-size: 200%;
+}
+
 #landing-image-container {
     position: relative;
     text-align: center;
@@ -91,22 +95,54 @@ ul {
 }
 
 #landing-image-right img, #landing-image-left img {
-    padding:0 20px;
+    border: ridge rgb(94, 61, 0) 3px;
+    padding:0;
     width: 175px;
 }
 
 #start-game-section {
     flex:1;
 }
-
-#start-game-section form input, #start-game-section button {
-    width: 75%;
-    margin: 5px;
-    text-align:center;
+#start-game-section h2 {
+    margin:0 0 10px 0;
+    padding:0;
+    font-size:170%;
 }
 
-#start-game-section form input placeholder {
-    color:lightslategray;
+
+#start-game-section form input {
+    outline: none;
+    margin-bottom:30px;
+    padding:5px 0 5px 0;
+    background-color: #331704B3;
+    border: ridge rgb(94, 61, 0) 3px;
+    color:white;    
+}
+
+#start-game-section form input:focus {
+    outline:none;
+}
+#start-game-button {
+    border: ridge rgb(94, 61, 0) 3px;
+    background-color: #524b2a;
+    color:white;
+    padding-bottom: 5px;
+}
+
+#start-game-button:hover {
+    background-color: black;
+}
+
+
+#start-game-section form input, #start-game-section button {
+    width: 100%;
+    text-align:center;
+    font-size:190%;
+
+}
+
+#start-game-section form input::placeholder {
+    color:darkslategrey;
 }
 
 /*Game Page*/
@@ -263,6 +299,10 @@ ul {
     height:40px;
     border: ridge rgb(94, 61, 0) 3px;
     color: white;
+}
+
+#game-navigation button:hover {
+    background-color: black;
 }
 
 #giveup-game-button {
@@ -650,7 +690,9 @@ ul {
     .spiral {
         margin:5px 10px;
     }
-    
+    #start-game-section {
+        margin: 0 75px
+    }    
     #landing-image-left, #landing-image-right {
         display:none;
         justify-content:space-around;
@@ -730,6 +772,10 @@ ul {
         background-size: auto 100% !important;
         background-position:  0px center !important;
     }
+
+    #start-game-section {
+        margin: 0 40px
+    }  
     .title-section, #centre-section, #bottom-game-section {
         margin:0px 5px;
     }
@@ -739,6 +785,10 @@ ul {
 
 }
 @media screen and (max-width:400px) {
+    #start-game-section {
+        margin: 0 20px;
+    }
+
     #game-section {
         background-size: auto 100% !important;
         background-position:  -125px center !important;

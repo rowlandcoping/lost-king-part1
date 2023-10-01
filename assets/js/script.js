@@ -819,7 +819,6 @@ const firstCavern = {
         document.removeEventListener("click", resetGameButton);
         document.removeEventListener("click", restartGameButton);
         document.removeEventListener("click", giveUpGameButton);
-        document.getElementById("alert-page").focus();
         if (foundItemInfo.category === currentWeapon.category) {       
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
@@ -831,7 +830,6 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentWeapon.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -850,7 +848,6 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentDefence.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -869,7 +866,6 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentPotion.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -888,7 +884,6 @@ const firstCavern = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById("alert-page").focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementById('alert-old-title').innerHTML = currentObject.name;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
@@ -1206,7 +1201,6 @@ const slimeCorridor = {
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
             document.removeEventListener("click", giveUpGameButton);
-            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = slime.category;
@@ -1547,7 +1541,6 @@ const catCavern = {
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
             document.removeEventListener("click", giveUpGameButton);
-            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = catSword.category;
@@ -2393,7 +2386,6 @@ const catCourt = {
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
             document.removeEventListener("click", giveUpGameButton);
-            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
@@ -2678,7 +2670,6 @@ const catPrison = {
             document.removeEventListener("click", resetGameButton);
             document.removeEventListener("click", restartGameButton);
             document.removeEventListener("click", giveUpGameButton);
-            document.getElementById('alert-page').focus();
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
@@ -2788,7 +2779,6 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2807,7 +2797,6 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2826,7 +2815,6 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -2845,7 +2833,6 @@ const catPrison = {
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
-            document.getElementById('alert-page').focus();
             document.getElementById('alert-category').innerHTML = foundItemInfo.category;
             document.getElementsByClassName('alert-old-image')[0].appendChild(oldImage);
             document.getElementsByClassName('alert-new-image')[0].appendChild(newImage);
@@ -3263,7 +3250,6 @@ function storeItem() {
 //BATTLE FUNCTIONS
 //fight state change
 function testForWeapons(enemy) {
-    document.getElementById("battles-section").focus();
     if (enemy.name === "Cat Warrior" && currentObject.name === "Cat Biscuits") {    
         document.getElementById('object-button-one').style.display = "block";
         document.getElementById('object-button-two').style.display = "block";
@@ -3736,6 +3722,14 @@ function alertOldImageOut() {
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById('start-game-button').addEventListener('click', startGame);
 });
+//prevent enter key from submitting
+document.addEventListener('DOMContentLoaded', function () {  
+    document.getElementById("character-name").addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault();
+        }
+    });
+});
 //in game give-up button
 const giveUpGameButton = function(e) {
     const target = e.target.closest("#giveup-game-button"); 
@@ -3744,6 +3738,7 @@ const giveUpGameButton = function(e) {
     }
 }
 document.addEventListener("click", giveUpGameButton);
+
     
 
 //in-game restart game button
@@ -4520,7 +4515,6 @@ document.addEventListener("mouseout", function(e){
     }
 });
 
-
 /* GAME TEXT */
 
 /*page one (open eyes)*/
@@ -4538,11 +4532,43 @@ const optionsOne = `
 
 // GENERIC - text for battles
 
-
-// turn indicators
-
 const weaponEffective = `<br>Your weapon appears to have a devastating effect on this foe.`;
 const weaponIneffective = `<br>Your weapon appears to be particularly ineffective against this foe.`;
+
+//LANDING PAGE IMAGE SHUFFLE
+
+function shuffleImage() {
+    let allImages = [];
+    for (let i of characterWeapons) {
+        allImages.push(i.image);
+    }
+    for (let i of characterDefence) {
+        allImages.push(i.image);
+    }
+    for (let i of characterPotions) {
+        allImages.push(i.image);
+    }
+    for (let i of characterObjects) {
+        allImages.push(i.image);
+    }
+    allImages.push(ragnarTheHorrible.image);
+    allImages.push(sentientSlime.image);
+    allImages.push(catWarrior.image);
+    allImages.push(giantSpider.image);
+    allImages.push(bigBug.image);
+    allImages.push(fireMage.image);
+    allImages.push(iceQueen.image);
+    allImages.push(slime.image);
+    allImages.push(catSword.image);
+    allImages.push(specialObject.image);
+    let imageMax = allImages.length;
+    let selection = getRandomNumber(0,imageMax)-1;
+    let selectionTwo = getRandomNumber(0,imageMax)-1;
+    document.getElementById("landing-image-right").innerHTML='<img src="' + allImages[selection] + '">';
+    document.getElementById("landing-image-left").innerHTML='<img src="' + allImages[selectionTwo] + '">';
+    console.log(allImages);
+}
+window.onload = shuffleImage();
 
 
 
