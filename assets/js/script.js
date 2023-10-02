@@ -2,30 +2,30 @@
 
 //player objects
 const mainCharacter = {
+    defence: 0,
+    health: 0,
+    luck: 0,
     name: 0,
     score: 0,
-    strength: 0,
     skill: 0,
-    defence: 0,
-    luck: 0,
-    health: 0
+    strength: 0
 };
 
 const mainCharacterCurrent = {
-    luck: 0,
-    health: 0,
-    strength: 0,
     defence: 0,
+    health: 0,
+    luck: 0,
     magic:"",
     resist:"",
-    vulnerability:"",
+    strength: 0,
+    vulnerability:""
 };
 
 //enemy objects
 
 const ragnarTheHorrible = {
     name: "Ragnar the Horrible",
-    description: "Ragnar will eat mud.  Ragnar will sleep with your sister.  Ragnar drinks a lot of tea.  Ragnar has seen better days.",
+    description: "Ragnar will eat mud.  Ragnar will sleep with your sister. Ragnar drinks a lot of tea.  Ragnar has seen better days.",
     strength: 0,
     strItem: 0,
     skill: 0,
@@ -46,7 +46,7 @@ const ragnarTheHorrible = {
     killedYouText: "<p>You stumble and, in that instant, the little felon lands the killing blow, cleaving your aching skull.<br>YOU ARE DEAD</p>",
     missedText: "Clearly stiff and sore from decades of misuse, Rangar swings clumsily, and it is an easy matter to evade him.",
     choices: `<li><button class="choice-button" id="choice-twelve">It's probably time to leave.</button></li>`
-}
+};
 const sentientSlime = {
     name: "Sentient Slime",
     description: "This sentient pool of goo is a mystery; whether it be the product of some bizarre evolutionary process or a magic spell gone wrong it seems to mean you harm.",
@@ -70,7 +70,7 @@ const sentientSlime = {
     killedYouText: "<p>Exhausted from the encounter, the slime senses your weakness and takes its chance to envelop and suffocate you.<br>YOU ARE DEAD</p>",
     missedText: "The slime lashes out with a solid tendril of goo, but fortunately its aim is not true and you are able to evade the blow.",
     choices: `<li><button class="choice-button" id="choice-seventy-one">What a gross and annoying creature.</button></li>`
-}
+};
 const catWarrior = {
     name: "Cat Warrior",
     description: "This fearsome fluffy warrior is the most potent of his clan. He moves fast, and has a devilishly pointy looking little sword.  He is also very cute.  Awwww. ",
@@ -96,12 +96,11 @@ const catWarrior = {
     choices: `
     <li><button class="choice-button" id="choice-twenty-six">He should never have challenged me.</button></li>
     `
-}
+};
 const iceQueen = {
     name: "Ice Queen",
     description: `
-    She is tall, and dreadful, and thinks herself invincible because she was born to power.  
-    Invicible she is not, but you wouldn't like to meet her in a dark cave at night.
+    She is tall, and dreadful, and thinks herself invincible because she was born to power. Invicible she is not, but you wouldn't like to meet her in a dark cave at night.
     `,
     strength: 0,
     strItem: 0,
@@ -129,7 +128,7 @@ const iceQueen = {
     choices: `
     <li><button class="choice-button" id="choice-thirty-nine">What is my name?</button></li>
     `
-}
+};
 const fireMage = {
     name: "Fire Mage",
     description: `The majesty and prowess of the Fire Mages is well known. For their mercy, their humanity? Less so, for they have none. 
@@ -1495,7 +1494,7 @@ const catCavern = {
         document.getElementById('object-item-image').style.display = "none";
         document.getElementById('object-item-text').style.display = "none";
         document.getElementById('object-line').style.display = "none";
-        for(let item of Object.keys(currentObject)) {
+        for (let item of Object.keys(currentObject)) {
             currentObject[item] = "";
         }
         mainCharacter.score +=10;
@@ -3094,7 +3093,7 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
         let likelihoods = itemType.map(i => i.chance);
         let itemSelection = getRandomNumber(0, 100);
         let valueSelector = [];
-        const filterItems = likelihoods.filter((value) => {  
+        likelihoods.filter((value) => {  
             if (itemSelection <= value) {
                valueSelector.push(value);
             }
@@ -3791,22 +3790,22 @@ function calculateTimeSpent() {
 function alertNewImageIn() {
     document.getElementById('new-alert-tick').style.display = "block";
     document.getElementById('old-alert-cross').style.display = "block";
-};
+}
 
 function alertNewImageOut() {
     document.getElementById('new-alert-tick').style.display = "none";
     document.getElementById('old-alert-cross').style.display = "none";
-};
+}
 
 function alertOldImageIn() {
     document.getElementById('old-alert-tick').style.display = "block";
     document.getElementById('new-alert-cross').style.display = "block";
-};
+}
 
 function alertOldImageOut() {
     document.getElementById('old-alert-tick').style.display = "none";
     document.getElementById('new-alert-cross').style.display = "none";
-};
+}
 
 //LANDING PAGE FUNCTIONS
 
@@ -3818,15 +3817,6 @@ function aboutGameAlert() {
     document.removeEventListener("click", aboutAlertButton);
     document.removeEventListener("click", playAlertButton);
 }
-function closeLandingAlert() {
-    document.getElementById('landing-transparency').style.opacity = 1;
-    document.getElementById('about-alert').style.display = "none";
-    document.getElementById('playing-alert').style.display = "none";
-    document.removeEventListener("click", startGameButton);
-    document.removeEventListener("click", aboutAlertButton);
-    document.removeEventListener("click", playAlertButton);
-}
-
 function playGameAlert() {
     document.getElementById('landing-transparency').style.opacity = 0.3;
     document.getElementById('playing-alert').style.display = "block";
@@ -4762,12 +4752,16 @@ const weaponIneffective = `<br>Your weapon appears to be particularly ineffectiv
 
 
 // OBJECT EXPORTS FOR AUTOMATED TESTING
-var module = module || {};
-module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
+
+document.addEventListener('DOMContentLoaded', function () {  
+    var module = module || {};
+    module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
     pageOne, optionsOne, findItemType, characterWeapons,characterDefence, characterPotions, 
     characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
     currentDefence, currentPotion, currentObject, itemStorage, thingsWhatYouveDone, playerTestResistances, 
     enemyTestResistances, continueFight, potionRound, hitSuccess, initialDamage,
     damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, displayItem, getLucky, changeToBattleWindow, testForWeapons, 
     changeToGameOver, leaveBattle, sentientSlime };
+});
+
 

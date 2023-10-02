@@ -45,6 +45,18 @@ The issues that needed resolving were as follows:
 I have completed a final validation of my 'style.css' file using the [W3C CSS validator](https://jigsaw.w3.org/css-validator/).\
 There was one error caused by a likely copy and paste error, which was easily fixed.
 
+### JavaScript Validation
+
+I initially used JSLint but found it was overly strict.. Not only did I have hundreds of warnings concerned with alphabetical order, it also refused to recognise 'for' loops as legitimate JavaScript.
+The reading I subsequently did suggests that the use of 'for' loops is a matter of preference, and it's certainly a method I have been taught on the course as standard practice!
+Faced with the choice of either re-configuring JS Lint or refactoring more or less every line of my code I decided to look for an alternative.
+After some research I decided that ESlint would be the most appropriate linter to use for this project.
+
+On testing my JavaScipt file for errors, I found six using ES lint:
+   - multiple errant semi-colons.
+   - A duplicate function to close alerts on the homepage.
+   - I had wrongly assigned my item filter function to a constant.  I'm not actually sure how it was working before amending it!
+
 ### Lighthouse Audit
 
 ([back to top](#testing-documentation))
