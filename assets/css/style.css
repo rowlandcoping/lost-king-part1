@@ -1,16 +1,19 @@
 @font-face {
     font-family: title;
     src: url("../fonts/FaunaOne-DB4D.ttf");
+    font-display: swap;
 }
 
 @font-face {
     font-family: mainfont;
     src: url("../fonts/LibreFranklinRegular-qvP6.ttf");
+    font-display: swap;
 }
 @font-face {
     font-family: mainfont;
     src: url("../fonts/LibreFranklinBold-exBe.ttf");
     font-weight: bold;
+    font-display: swap;
 }
 
 
@@ -73,7 +76,7 @@ ul {
     text-align: center;
     display: flex;
     flex-flow: column;
-    background-image: url("../images/backgrounds/corridor2.jpeg");
+    background-image: url("../images/backgrounds/corridor2.webp");
     background-repeat: no-repeat;
     background-size: auto 100%; 
     width: 100vh;
@@ -540,7 +543,7 @@ ul {
     display:flex;
     align-items: center;
     justify-content:center;
-    background-image:url("../images/backgrounds/stone.jpg");
+    background-image:url("../images/backgrounds/stone.webp");
     background-size: auto 100% ;
     margin: 5px;
     padding: 3px;
@@ -597,7 +600,7 @@ ul {
     display: flex;
     flex-flow: column;
     margin:0 200px;
-    background: url("../images/backgrounds/corridor2.jpeg") no-repeat left center;
+    background: url("../images/backgrounds/corridor2.webp") no-repeat left center;
     background-size: 100% auto;
     min-height:80vh;
     max-height:100%;

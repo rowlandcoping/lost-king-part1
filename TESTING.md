@@ -43,7 +43,7 @@ The issues that needed resolving were as follows:
 ![image](assets/images/testing/css-validation.jpg)
 
 I have completed a final validation of my 'style.css' file using the [W3C CSS validator](https://jigsaw.w3.org/css-validator/).\
-There was one error, which was easily fixed.
+There was one error caused by a likely copy and paste error, which was easily fixed.
 
 ### Lighthouse Audit
 

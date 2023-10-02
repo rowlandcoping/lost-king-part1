@@ -31,7 +31,7 @@ const ragnarTheHorrible = {
     skill: 0,
     defence: 0,
     health: 0,
-    image: "assets/images/enemies/ragnar.jpeg",
+    image: "assets/images/enemies/ragnar.webp",
     alt: "A ragged, dishevelled and desperate warrior with a ragged beard and blood dripping from his face.",
     vulnerability:"",
     resist: "",
