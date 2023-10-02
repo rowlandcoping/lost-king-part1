@@ -610,7 +610,6 @@ ul {
     text-align:center;
     justify-content:center;
     margin-bottom:0;
-    
 }
 #end-game-navigation li{
     display:inline-block;
@@ -624,6 +623,12 @@ ul {
     height:40px;
     border: ridge rgb(94, 61, 0) 3px;
     color: white;
+    font-family: title;
+    font-size: 130%;
+    font-weight: bold;
+}
+#end-game-navigation button:hover {
+    background-color: black;
 }
 
 #end-title-left, #end-title-right {
