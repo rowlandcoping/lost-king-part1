@@ -776,12 +776,6 @@ ul {
     #centre-section {
         align-items: center;
     }
-
-       .item-text, .item-image img  {
-        width: 75;
-    }
-
-
 }
 @media screen and (max-width:768px) {
 

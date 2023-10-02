@@ -27,20 +27,23 @@
 
 ([back to top](#testing-documentation))
 
-I have completed a final validation of all HTML pages using the [W3C HTML validator](https://validator.w3.org/).\
-I found two errors on the 'book.html' page:
+I have completed a final validation of all HTML pages using the [W3C HTML validator](https://validator.w3.org/).
 
-- The empty option element did not have a label for screen-readers.
-- There was a stray end tag for an anchor element on the page.
+![image](assets/images/testing/html-validation.jpg)
 
-Both errors were easily rectified; all other pages showed no errors.
+The issues that needed resolving were as follows:
+ - There were a number of empty elements that were to be populated by Javascript which needed holding text
+ - There were duplicate IDs on some buttons that were used in seperate game states, which needed changing to a class.
+ - Images needed alt tags.  This was no small task, as it required adding alt tags to 40 game objects and updating the JavaScript accordingly in order to display the text.  There were also a number of default alt tags that needed adding in html.
 
 ### CSS Validation
 
 ([back to top](#testing-documentation))
 
+![image](assets/images/testing/css-validation.jpg)
+
 I have completed a final validation of my 'style.css' file using the [W3C CSS validator](https://jigsaw.w3.org/css-validator/).\
-No errors were found.
+There was one error, which was easily fixed.
 
 ### Lighthouse Audit
 
