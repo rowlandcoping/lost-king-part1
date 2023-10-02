@@ -77,7 +77,8 @@ ul {
     background-repeat: no-repeat;
     background-size: auto 100%; 
     width: 100vh;
-    height: 85vh;
+    min-height: 85vh;
+    max-height: 100%;
     justify-content: space-between;
     align-items: center;
 }
@@ -207,8 +208,7 @@ ul {
     position: relative;
     display:none;
     flex-flow: column;
-    width: 100%;  
-    
+    width: 100%;    
 }
 .alert-transparency {
     opacity: 1;
@@ -323,7 +323,7 @@ ul {
     margin:0px 200px;
 }
 
-.title-section h1 {
+.title-section h1{
     margin: 0;
     padding: 0;
     font-size:200%;
@@ -444,6 +444,7 @@ ul {
 }
 /* Main game-play area */
 #game-section {
+    overflow:hidden;
     display: flex;
     flex-direction: column;
     flex:3;
@@ -582,43 +583,68 @@ ul {
     display:none;
     flex-flow: column;
     width: 100%;
-    text-align:center;
-    margin: auto;
-    
+    text-align:center;  
 }
 
 #gameover-image-container {
     display: flex;
     flex-flow: column;
-    margin-left:50px;
+    margin:0 200px;
     background: url("../images/backgrounds/corridor2.jpeg") no-repeat left center;
-    background-size: 100% 100%;
-    margin: auto;
-    width: 80vw;
-    height:80vh;
+    background-size: 100% auto;
+    min-height:80vh;
+    max-height:100%;
     justify-content: space-between; 
     align-items: center;
+}
+
+#end-title-section, #end-spiral {
+    margin:0 200px;
+    margin-bottom: 5px;
 }
 
 #stats-container {
     margin-top: 75px;
 }
-
 #end-game-navigation {
-    width: 50%;
-    margin-bottom: 75px; 
+    text-align:center;
+    justify-content:center;
+    margin-bottom:0;
+    
+}
+#end-game-navigation li{
+    display:inline-block;
+    width:160px;
+    height:40px;
+    margin-bottom: 50px;
 }
 
 #end-game-navigation button {
-    width:75%;
-    margin-top:10px;
+    width:150px;
+    height:40px;
+    border: ridge rgb(94, 61, 0) 3px;
+    color: white;
 }
+
+#end-title-left, #end-title-right {
+    display:flex;
+    align-items:center;
+    height: 45px;
+    margin:0;
+    padding:0;
+}
+
+.title-section h2 {
+    margin:0;
+    padding:0;
+}
+
 
 /* MEDIA QUERIES */
 
 /* larger screens */
 @media screen and (min-width:1975px) {
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 300px;
     }
     .spiral {
@@ -627,7 +653,7 @@ ul {
 
 }
 @media screen and (min-width:2100px) {
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 500px;
     }
     .spiral {
@@ -636,7 +662,7 @@ ul {
 
 }
 @media screen and (min-width:2500px) {
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section,#gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 750px;
     }
     .spiral {
@@ -645,7 +671,7 @@ ul {
 
 }
 @media screen and (min-width:3050px) {
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 1000px;
     }
     .spiral {
@@ -654,7 +680,7 @@ ul {
 
 }
 @media screen and (min-width:3400px) {
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 1200px;
     }
     .spiral {
@@ -681,12 +707,18 @@ ul {
     
 
 }
+@media screen and (max-width:1600px) {
+    #gameover-image-container {
+        background-size:auto 100%;
+    }
+
+}
 @media screen and (max-width:1500px) {
     #game-section {
         min-height:75vh;
         max-height: 100%;
     }
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section,#gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 100px;
     }
     .spiral {
@@ -699,7 +731,7 @@ ul {
     width: 95px; 
 }
 
-.title-section, #centre-section, #bottom-game-section {
+.title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
     margin:0px 45px;
 }
 .spiral {
@@ -711,6 +743,7 @@ ul {
 }
 @media screen and (max-width:1080px) {
 
+   
     #game-section {
         background-size: auto 100% !important;
         background-position:  0px center !important;
@@ -735,6 +768,8 @@ ul {
        .item-text, .item-image img  {
         width: 75;
     }
+
+
 }
 @media screen and (max-width:768px) {
 
@@ -750,7 +785,7 @@ ul {
     #game-section {
     margin-left:0;
     }
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 10px;
     }
 
@@ -774,6 +809,9 @@ ul {
     #landing-image-container {
         width:100%;
     }
+
+    /* end section */
+
 /*Title Section */
 
 .title-section {
@@ -854,6 +892,8 @@ ul {
 }
 
 
+
+
 }
 @media screen and (max-width:576px) {
     #game-section {
@@ -864,7 +904,7 @@ ul {
     #start-game-section {
         margin: 0 40px
     }  
-    .title-section, #centre-section, #bottom-game-section {
+    .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 5px;
     }
     .spiral {
@@ -904,6 +944,25 @@ ul {
     }
     .item-text, .item-image img {
         width: 110px; 
+    }
+
+    /*end game section */
+
+    #end-title-left {
+        height:90px;
+    }
+    #end-game-navigation li{
+        display:inline-block;
+        width:120px;
+        height:40px;
+        margin-bottom: 50px;
+    }
+    
+    #end-game-navigation button {
+        width:110px;
+        height:40px;
+        border: ridge rgb(94, 61, 0) 3px;
+        color: white;
     }
 
 }
@@ -956,6 +1015,16 @@ ul {
 
 @media screen and (max-height:700px) {
 
+    #game-section {
+        
+        background-size: auto !important;
+        background-position:  left center !important;
+        background-repeat: no-repeat !important;
+        min-height:100%;
+        max-height:100%;
+        
+    }
+
     #middle-left-container, #middle-right-container {
         width: 100px;
     }
@@ -977,11 +1046,5 @@ ul {
     #start-game-button {
         font-size:100%;
     }
-
-
-    #game-section {
-        background-size: auto 100% !important;
-        background-position:  0px center !important;
-        height: 100%;
-    }
 }
+

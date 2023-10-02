@@ -636,7 +636,9 @@ const thingsWhatYouveDone = {
     catGodChance: 1,
     courtGodChance: 15,
     courtHangChance: 15,
-    courtPrisonChance: 70
+    courtPrisonChance: 70,
+    startTime:0,
+    endTime:0
 }
 const thingsWhatYouveDoneInitial = {
     firstRoomSearch: false,
@@ -731,9 +733,7 @@ const firstCavern = {
     //give up (death)
     gameOverGiveUp: function gameOverGiveUp() {
         mainCharacter.score -=5;
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
+        changeToGameOver();
         document.getElementById('game-outcome').innerHTML = this.giveUp;
     },
     giveUp:`
@@ -1079,10 +1079,8 @@ const slimeCorridor = {
     `,
     //Goo initial interactions
     gameOverDrink: function gameOverDrink() {
+        changeToGameOver();
         mainCharacter.score -=10;
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
         document.getElementById('game-outcome').innerHTML = this.drinkSlime;
     },
     slimeAttack: function slimeAttack() {
@@ -1117,9 +1115,7 @@ const slimeCorridor = {
             setEnemyStats(sentientSlime, 4,8,30,40,0,0,8, 0, undefined, "sharp");
         } else {
             mainCharacter.score -=10;
-            document.getElementById('final-score').innerHTML = mainCharacter.score;
-            document.getElementById('gameover-page').style.display="flex";
-            document.getElementById('game-page').style.display="none";
+            changeToGameOver();
             document.getElementById('game-outcome').innerHTML = this.strangledSlime;
         }
     },
@@ -1773,9 +1769,7 @@ const mysteryRoom = {
 const endingScene = {
     endingScene: function endingScene() {
         mainCharacter.score += 10;
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
+        changeToGameOver();
         document.getElementById('game-outcome').innerHTML = this.endingText;
     },
     endingText: `
@@ -2104,9 +2098,7 @@ const spiderRoom = {
             }
     },
     deathRope: function deathRope() {
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
+        changeToGameOver();
         document.getElementById('game-outcome').innerHTML = this.ropeBrokeCommon + this.deathRopeText;
     },
     ropeBrokeCommon: `
@@ -2224,7 +2216,9 @@ const catDining = {
             document.getElementById('choices-section').innerHTML = this.diningCaptureChoices;
         } else {
             mainCharacter.score += 50;
-            specialObject.name = "Glowing Orb";
+            document.getElementById('main-luck').innerHTML = mainCharacter.luck;
+            document.getElementById('luck-modify').innerHTML = "";
+            specialObject.name = "Glowing Orb";            
             document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
             document.getElementById('object-item-name').innerHTML = "Glowing Orb";
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
@@ -2421,6 +2415,8 @@ const catCourt = {
         document.getElementById('transparency').style.opacity = 1;
         document.getElementById('alert-page').style.display = "none";
         specialObject.name = "Glowing Orb";
+        document.getElementById('main-luck').innerHTML = mainCharacter.luck;
+        document.getElementById('luck-modify').innerHTML = "";
         document.getElementById('object-item-image').style.display = "block";
         document.getElementById('object-item-text').style.display = "block";
         document.getElementById('object-line').style.display = "block";
@@ -2897,9 +2893,7 @@ const catPrison = {
 const giveUpGame = {
     giveUpGame: function giveUpGame() {
         mainCharacter.score -= 20;
-        document.getElementById('final-score').innerHTML = mainCharacter.score;
-        document.getElementById('gameover-page').style.display="flex";
-        document.getElementById('game-page').style.display="none";
+        changeToGameOver();
         document.getElementById('game-outcome').innerHTML = this.givingUpText;
     },
     givingUpText: `
@@ -2952,7 +2946,9 @@ function changeToBattleWindow(enemy) {
     document.getElementById('battles-section').style.display = "block";
     document.getElementById('game-text').style.display = "none";
 }
-function changeToGameOver() {   
+function changeToGameOver() {
+    thingsWhatYouveDone.endTime = new Date().getTime();
+    calculateTimeSpent();
     document.getElementById('final-score').innerHTML = mainCharacter.score;
     document.getElementById('gameover-page').style.display="flex";
     document.getElementById('game-page').style.display="none";
@@ -3233,9 +3229,8 @@ function storeItem() {
             document.getElementById('object-item-name').innerHTML = currentObject.name;
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
             document.getElementById('object-list-stat-one').innerHTML = currentObject.effect;
-
         } else {
-            document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
+            document.getElementById('main-luck').innerHTML = mainCharacter.luck;
             document.getElementById('luck-modify').innerHTML = "";
             document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
             document.getElementById('object-item-name').innerHTML = currentObject.name;
@@ -3599,8 +3594,8 @@ function enemyTurn(enemy, weapon) {
             }
             continueFight(enemy);
         } else {
-            changeToGameOver();
-            mainCharacter.score -= 10;            
+            mainCharacter.score -= 10;
+            changeToGameOver();          
             document.getElementById('game-outcome').innerHTML = enemy.killedYouText;            
         } 
     }  
@@ -3624,7 +3619,8 @@ function resetGame() {
     document.getElementById('gameover-page').style.display = "none";
     document.getElementById('final-score').innerHTML = ""; 
 }
-function startGame(event) {
+function startGame() {
+    thingsWhatYouveDone.startTime = new Date().getTime();
     if (!mainCharacter.name) {        
         if (document.getElementById('character-name').value) {
         mainCharacter.name = document.getElementById('character-name').value;
@@ -3691,6 +3687,18 @@ function writeInitialToDom() {
     document.getElementById('game-text').innerHTML = pageOne;
     document.getElementById('choices-section').innerHTML = optionsOne;
     document.getElementById('game-section').style.backgroundImage = "";
+}
+//Timer functions
+
+function calculateTimeSpent() {
+    const timeSpent = thingsWhatYouveDone.endTime - thingsWhatYouveDone.startTime;
+    let timeHundredths = Math.floor(timeSpent / 10);
+    let timeSeconds = Math.floor(timeHundredths / 100);
+    let timeMinutes = Math.floor(timeSeconds / 60);
+    timeHundredths = (timeHundredths < 10 ) ? "0" + timeHundredths % 100 : timeHundredths % 100;
+    timeSeconds = (timeSeconds < 10 ) ? "0" + timeSeconds % 60: timeSeconds % 60;
+    timeMinutes = timeMinutes % 60;
+    document.getElementById("time-played").innerHTML = timeMinutes + "m " + timeSeconds + "." + timeHundredths + "s";
 }
 
 //ALERT FUNCTIONS

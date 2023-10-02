@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="15.99999mm"
+   height="16.000004mm"
+   viewBox="0 0 15.99999 16.000002"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="spiral.ico.svg">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="6.5711541"
+     inkscape:cx="15.546783"
+     inkscape:cy="5.4113682"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="1912"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-14.331787,-103.85798)">
+    <g
+       style="fill:none;fill-opacity:1;stroke:#000000;stroke-opacity:1"
+       id="g876"
+       transform="translate(-14.174107,-7.1106826)" />
+    <g
+       id="g848"
+       inkscape:export-xdpi="26.805519"
+       inkscape:export-ydpi="26.805519"
+       transform="matrix(1.0333793,0,0,1.0553357,-0.47767469,-6.6316946)">
+      <rect
+         y="104.76196"
+         x="14.396829"
+         height="15.029598"
+         width="15.351715"
+         id="rect838"
+         style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:0.13145787;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+      <path
+         d="m 21.676743,112.83591 c -0.303218,-0.13266 0.02922,-0.47418 0.220486,-0.50397 0.518311,-0.0807 0.833989,0.5001 0.78745,0.94494 -0.08325,0.79571 -0.941567,1.22098 -1.669396,1.07093 -1.068118,-0.2202 -1.6162,-1.38785 -1.354413,-2.39385 0.348921,-1.34084 1.835696,-2.01474 3.118305,-1.63789 1.614034,0.47422 2.414953,2.28424 1.921376,3.84276 -0.597788,1.88757 -2.733181,2.81613 -4.567214,2.20485 -2.161345,-0.72036 -3.21791,-3.18236 -2.488339,-5.29167 0.842318,-2.43528 3.631702,-3.62009 6.016124,-2.77182 2.709331,0.96386 4.022557,4.08116 3.055302,6.74058 -1.085115,2.98347 -4.530695,4.42523 -7.465034,3.33879 -3.257671,-1.20616 -4.82805,-4.9803 -3.622265,-8.18949 1.327046,-3.53193 5.429946,-5.23099 8.913943,-3.90575 2.43738,0.92713 4.203984,3.16357 4.607396,5.73169"
+         sodipodi:t0="0"
+         sodipodi:argument="-21.578737"
+         sodipodi:radius="7.518559"
+         sodipodi:revolution="3.4169724"
+         sodipodi:expansion="1"
+         sodipodi:cy="112.83591"
+         sodipodi:cx="21.676743"
+         id="path817-1-7"
+         style="fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#ffffff;stroke-width:0.26458332;stroke-opacity:1"
+         sodipodi:type="spiral" />
+    </g>
+  </g>
+</svg>

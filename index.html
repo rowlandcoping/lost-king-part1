@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Lost King of Catland - Part 1</title>
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
+    <link rel="icon" href="assets/images/custom/favicon.svg">
 </head>
 <body>
     <div id="container">
@@ -344,10 +345,11 @@
 
 <!-- Game-over page (end game state) -->
         <div id="gameover-page">
-            <header class="title-section">
-                <div id="title-left"><h1>The Lost King of Catland</h1></div>
-                <div id="title-right"><h2>Part 1 - Amnesia</h2></div>
+            <header class="title-section" id="end-title-section">
+                <div id="end-title-left"><h1>The Lost King of Catland</h1></div>
+                <div id="end-title-right"><h2>Part 1 - Amnesia</h2></div>
             </header>
+            <div class="spiral" id="end-spiral"></div>
             <div id="gameover-image-container">
                 <section id="stats-container">
                     <div>
@@ -360,10 +362,10 @@
                 <section id="game-outcome">
                 </section>
             
-                <nav id="end-game-navigation">
-                    <ul>
-                        <li><button id="restart-game-button-end">Restart Game</button></li>
-                        <li><button id="reset-game-button-end">Reset Character</button></li>
+                <nav>
+                    <ul id="end-game-navigation">
+                        <li><button id="restart-game-button">Restart</button></li>
+                        <li><button id="reset-game-button">Reset</button></li>
                     </ul>
                 </nav>
             </div>
