@@ -269,18 +269,49 @@ Please find the wireframes [HERE](WIREFRAMES.md).
 ## UX - Surface
 ([back to top](#the-lost-king-of-catland))
 
-### Colour Palate
+### Color Palate
 
-On account of the setting of the game (ie a dungeon), I have opted for overall background evocative of a stone dungeon. 
-I have chosen to emulate the effect of inlaid wood panels for the title and item sections, using transparencies for the 'inlaid' effect.
-I have also used a parchment style background for the character sheet (evocative of D&D roleplay).
-These colors also balance very well against the main game display.
+#### Background colors
+
+#000000 - overall background, alert background.\
+#00000080 - game text background (includes transparency).\
+#331704B3 - player selection background (includes transparency).\
+#FFFFFF80 - player selection background on hover (includes transparency).\
+#564040 - give up element background (plus the about section).\
+#7a5111 - restart game element background (plus 'playing the game' section).\
+#3C1006 - reset game element background (and start game form input).\
+#524b2a - start game button background.\
+#ffffff - mouseover background color for navigation and landing page elements.\
+
+#### Text colors
+
+#ffffff - text color.\
+#000000 - text color (mouse-over in-game options).\
+#008000 (green) - text color, positive events or effects.\
+#ff0000 (red) - text-color, negative events or effects, Item alert title.\
+
+#### Other
+
+#5E3D00 - borders.\
+#ff0000 - outline for table in 'playing the game' section (for contrast).
+
+### Main Page
+
+On account of the setting of the game (ie a dungeon), I have opted for overall theme evocative of being trapped underground. As such I retained the plain black background for the page; I am able to do this because the images for each location very much speak for themselves and would not respond well to too much clutter.
+I tried wood panelled or canvas backgrounds for various areas of the screen, but in doing so I lost a lot of semantic and visual clarity - the in-game atmosphere was badly compromised.
+As such I very much went for a less is more approach, adding custom borders around the game area and consistent borders within it, and across the site.
+I used stone backgrounds with very clear icons in the item section, to make it obvious what each slot is for prior to being filled with an item.
 
 In the main game window the backgrounds vary so I have used a dark transparency to overlay with white text for contrast.
 In combat and other situations where character health is effected I have used red and green text for positive or negative effects, and orance and ice blue to indicate fire or ice damage.
 Again this is meant to evoke RPG games past and is fairly standard in the genre - users will know exactly what is going on.
 
+During the battle sections I reduced the overall footprint of the text by adopting a similar approach to Baldur's Gate and other similar games - just showing the character name and then the combat text/outcome.
+
 ### Fonts
+
+I wanted a strong retro feel for the title fonts, but many of those I found were close to unreadable so I scaled down my ambitions on that front, finding a clear and easy to read font that nevertheless is evocative of the genre.
+The font for the main text was chosen for its clarity, as well as a similarity in style to the title font.
 
 ### Images
 
@@ -293,16 +324,23 @@ All images and backgrounds have been created using AI, specifically Bing Image C
 
 ### Navigation / player options
 
- - Baldur's gate for navigation?  Definite retro throwback.
- - errr
+ - The player options section uses a brown background in order to stand out from the main text on the page, with white highlights on mouseover.
+ - The navigation buttons throughout the site use a similar color scheme and mouseover effects, for user familiarity.  This is important since they are not always sited in the same location.  All the same the site is intended to be intuitive to use.
+ - The various brown shades are intended to mirror the overall feel of the page, and also an indication of a button's intention. Warm golden shades were used for the restart option, reds for the reset option, and a blue shade for giving up indicating death.
+  
+### Alerts
+
+I created custom alert code which I used on the homepage and for any item conflicts, mainly because it would have been very difficult to use built in alerts to the same effect.  It consisted of a simple box centred on the screen, with a black background and white text.
+For item conflicts (ie picking up an item of a sort already in the inventory) I included a very visual process of selecting, with a tick or a cross indicating the item retained.
+Although this mouse-over effect does not work on mobile, it is still very clear and simple to select the item you wish to keep.
 
 ### Responsiveness
 
 The game was designed for 1980px screen width - anything below uses a 'max-size' media query, anything above a 'min-size'
 From wireframe up the CSS flexbox page structure was designed to be easily adjusted to other screen widths.
 
-The main difficulty is that the backgrounds are not designed for mobiles of for larger screens. This is partly a product of Bing image creator, which only produces widths of 1024 pixels.
-The main problem however is that the backgrounds are called by Javascript, which makes it a problem replacing them using conventional media queries.
+The main difficulty was that the backgrounds are not designed for mobiles of for larger screens. This is partly a product of Bing image creator, which only produces widths of 1024 pixels.
+Additionally, the backgrounds are called by Javascript, which makes it a problem replacing them using conventional media queries.
 This has been addressed by:
  - adjusting margins of the game area for larger screens.  It means more blank space but the backgrounds display correctly.
  - Adjusting zoom and positioning of backgrounds for smaller screen sizes.  It's not an ideal solution but helps ensure a player has a broadly similar experience.
@@ -314,6 +352,9 @@ Overall I have limited the number of break points to avoid an overload of CSS mi
  - max-height 800px (for smaller laptops and similar)
  - default (designed for standard HD displays)
  - min width 2000 (for larger screen sizes)
+
+Further to this I eventually discovered I needed to extend the break-points for larger screen sizes and also include one for smaller screens.
+There are also a few tweaks for intermediate screen sizes, particularly regarding background management, but nothing major.
 
 ## Testing Documentation
 ([back to top](#the-lost-king-of-catland))
@@ -396,6 +437,9 @@ Although I have not used Linux on this occasion, I have done in the past. I set 
 ([back to top](#the-lost-king-of-catland))
 
 ### Fonts
+
+Fauna One: [font space](https://www.fontspace.com/fauna-one-font-f17441)
+Libre Franklin: [font space](https://www.fontspace.com/libre-franklin-font-f39605)
 
 ### Images
 

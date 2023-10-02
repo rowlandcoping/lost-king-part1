@@ -73,17 +73,15 @@
                     </div>
                     <div id="bottom-landing-section">
                         <div id="landing-image-right">
-                            <img src="assets/images/character-profiles/player-default.webp">
                         </div>
                         <section id="start-game-section">
                             <h2>What Is Your Name?</h2>
-                            <form id="enter-name-form" action="" method="POST">
+                            <form id="enter-name-form" action="index.html" method="POST">
                                 <input type="text" id="character-name" name="character-name" placeholder="Enter Name">
                             </form>
                             <button id="start-game-button">Start Game!</button>
                         </section>
                         <div id="landing-image-left">
-                            <img src="assets/images/character-profiles/player-gilet.webp">
                         </div>              
                     </div>               
                 </div>            
@@ -98,7 +96,7 @@
                 <h4>Please click the item you would like to keep:</h4>
                 <div id="alert-item-pick">
                     <div id="keep-new">
-                        <h3 id="alert-new-title"></h3>
+                        <h3 id="alert-new-title">This is an alert</h3>
                         <div class="alert-image-container">              
                             <div class="alert-new-image">
                             <div class="alert-result" id="new-alert-tick"><img src="assets/images/custom/green-tick.svg"></div>
@@ -137,7 +135,7 @@
                             <img src="assets/images/character-profiles/player-default.webp">
                         </div>
                         <div id="character-stats">
-                            <h3 id="character-sheet-name"></h3>
+                            <h3 id="character-sheet-name">Identity Unknown</h3>
                             <table id="character-stats-table">
                                 <tr>
                                     <td class="stat-name">Attack:</td>
@@ -177,10 +175,9 @@
                         </div>
                         <div id="image-section">
                             <div id="image-image">
-                                <img src="">
                             </div>
                             <div id="image-text">
-                                <h3 class="reset change-mode" id="image-title"></h3>
+                                <h3 class="reset change-mode" id="image-title">Image Title</h3>
                                 <p class="reset change-mode" id="item-description"></p>
                                 <table>
                                     <tr id="item-row-one">
@@ -243,7 +240,7 @@
                                 <div class="item-image item-hide" id="weapon-item-image">
                                 </div>
                                 <div class="item-text item-hide" id="weapon-item-text">
-                                    <h4 class="reset" id="weapon-item-name"></h4>
+                                    <h4 class="reset" id="weapon-item-name">Weapon Name</h4>
                                     <hr class="item-hide" id="weapon-line">
                                     <table class="item-table">
                                         <tr>
@@ -275,7 +272,7 @@
                                 <div class="item-image item-hide" id="defence-item-image">
                                 </div>
                                 <div class="item-text item-hide" id="defence-item-text">
-                                    <h4 class="reset" id="defence-item-name"></h4>
+                                    <h4 class="reset" id="defence-item-name">Clothing Name</h4>
                                     <hr class="item-hide" id="defence-line">
                                     <table class="item-table">
                                         <tr>
@@ -305,7 +302,7 @@
                                 <div class="item-image item-hide" id="potion-item-image">
                                 </div>
                                 <div class="item-text item-hide" id="potion-item-text">
-                                    <h4 class="reset" id="potion-item-name"></h4>
+                                    <h4 class="reset" id="potion-item-name">Potion Name</h4>
                                     <hr class="item-hide" id="potion-line">
                                     <table class="item-table">
                                         <tr>
@@ -324,7 +321,7 @@
                                 <div class="item-image item-hide" id="object-item-image">
                                 </div>
                                 <div class="item-text item-hide" id="object-item-text">
-                                    <h4 class="reset" id="object-item-name"></h4>
+                                    <h4 class="reset" id="object-item-name">Object Name</h4>
                                     <hr class="item-hide" id="object-line">
                                     <table class="item-table">
                                         <tr>
@@ -359,13 +356,13 @@
                         <h2>Score: <span id="final-score"></span></h2>
                     </div>
                 </section>
-                <section id="game-outcome">
-                </section>
+                <div id="game-outcome">
+                </div>
             
                 <nav>
                     <ul id="end-game-navigation">
-                        <li><button id="restart-game-button">Restart</button></li>
-                        <li><button id="reset-game-button">Reset</button></li>
+                        <li><button id="restart-game-end-button">Restart</button></li>
+                        <li><button id="reset-game-end-button">Reset</button></li>
                     </ul>
                 </nav>
             </div>

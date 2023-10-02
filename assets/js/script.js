@@ -32,6 +32,7 @@ const ragnarTheHorrible = {
     defence: 0,
     health: 0,
     image: "assets/images/enemies/ragnar.jpeg",
+    alt: "A ragged, dishevelled and desperate warrior with a ragged beard and blood dripping from his face.",
     vulnerability:"",
     resist: "",
     magic:"",
@@ -55,6 +56,7 @@ const sentientSlime = {
     defence: 0,
     health: 0,
     image: "assets/images/enemies/slime.webp",
+    alt: "A strange and formless sentient slime creature, comprising a mis-shapen blob of blue goo.",
     vulnerability:"",
     resist: "",
     magic:"",
@@ -78,6 +80,7 @@ const catWarrior = {
     defence: 0,
     health: 0,
     image: "assets/images/enemies/cat-warrior.webp",
+    alt: "A cute cat warrior - it has a furry, realistic cat face, but it is walking on its hind legs, wearing armor and carrying a very pointy sword.",
     vulnerability:"",
     resist: "",
     magic:"",
@@ -106,6 +109,7 @@ const iceQueen = {
     defence: 0,
     health: 0,
     image: "assets/images/enemies/ice-queen.webp",
+    alt: "A tall and terrible ice queen with a face that looks as if it's etched in stone, wearing a pale blue dress and a silver crown.",
     vulnerability:"",
     resist: "ice",
     magic:"ice",
@@ -137,6 +141,7 @@ const fireMage = {
     defence: 0,
     health: 0,
     image: "assets/images/enemies/fire-mage.webp",
+    alt: "A mage in a red cloak with a flaming ball of fire in each hand.",
     vulnerability:"",
     resist: "fire",
     magic:"fire",
@@ -170,6 +175,7 @@ const giantSpider = {
     defence: 0,
     health: 0,
     image: "assets/images/enemies/giant-spider.webp",
+    alt: "A terrifying spider the height of a man, in posession of an alarming number of eyes.",
     vulnerability:"sharp",
     score: 20,
     initialText: `
@@ -195,7 +201,7 @@ const giantSpider = {
 const bigBug = {
     name: "Giant Cockroach",
     description: `
-    <p>Although the Giant Cockroach is not particularly dangerous, it is extremely alarming to come across.  Dog-sized and extremely difficult to kill, they are more than just a pest.</p>
+    <p>Although the Giant Cockroach is not particularly dangerous, it is alarming to come across.  Dog-sized and extremely difficult to kill, they are more than just a pest.</p>
     `,
     strength: 0,
     strItem: 0,
@@ -204,13 +210,14 @@ const bigBug = {
     health: 0,
     dItem: 0,
     image: "assets/images/enemies/giant-bug.webp",
+    alt: "A gigantic cockroach the size of a medium-sized dog.",
     vulnerability:"",
     score: 10,
     initialText: "The bug scuttles towards you with aggressive intent.  It is alarming.",
     successTextOne: "Hoping desperately to discourage it, you thwack the cockroach with your ",
     successTextTwo: " It skids away, right itself, then comes at you again, unperturbed.",
     hitText: "The cockroach lashes at you with its foreleg,",
-    deathText: `Finally, after your most recent blow, the cursed creature finally stops moving.  A growing pool of green ooze from it's midsection suggests this situation may be permanent.
+    deathText: `Finally, after your most recent blow, the cursed creature finally stops moving.  A growing pool of green ooze from its midsection suggests this situation may be permanent.
     `,
     failText: "You strike at the beast but it is a weary blow, and it is able to evade you.",
     killedYouText: `<p>The pace of the fight and the concentration required is taking its toll - the relentless creature will not die.</p>
@@ -236,6 +243,7 @@ const characterWeapons = [
         magic: "",
         type: "sharp",
         image: "assets/images/items/oathbringer.jpeg",
+        alt: "Imagine a huge two-handed sword, with a bejewelled pommel, an enourmous shining honed blade, and an elaborate golden hilt. This image does not depict that at all, because Bing Image Creator is terrible at swords, but it's what I REALLY would have liked so I hope you enjoy the description!",
         chance: 3,
         score: 50,
         description: "The Oathbringer, long thought consigned to fanciful legends and bar talk.  A razor's edge and lore so endless that Tolkien would think his work thin by comparison."
@@ -249,6 +257,7 @@ const characterWeapons = [
         magic: "",
         type: "sharp",
         image: "assets/images/items/short-sword.webp",
+        alt: "An image of a bog standard sword, as found in every fantasy game ever.",
         chance: 20,
         score: 10,
         description: "This is the kind of weapon that pretty much everyone carries, everywhere.  It's the Ford Mondeo of weaponary. You wouldn't want to be stabbed by it though."
@@ -262,6 +271,7 @@ const characterWeapons = [
         magic: "",
         type: "sharp",
         image: "assets/images/items/rusty-dagger.webp",
+        alt: "A very rusty dagger.  More rust than dagger in fact.",
         chance: 50,
         score: 3,
         description: "To say this weapon is blunt would be an understatement.  It weighs practically nothing though, and you are able to wield it with considerable grace."
@@ -275,6 +285,7 @@ const characterWeapons = [
         magic: "",
         type: "blunt",
         image: "assets/images/items/club.webp",
+        alt: "A rough looking wooden club as might be hefted by a barbarian.  It's better not seeing this one, Bing image creator had no idea what a warrior's club might look like.  It seemed to think they played a lot of golf.",
         chance: 80,
         score: 3,
         description: "The dubious stains and what appear to be lumps of scalp adhering to this weapon speak of its purpose.  It is, essentially, little more than a club-sized piece of tree."
@@ -288,6 +299,7 @@ const characterWeapons = [
         magic: "",
         type: "blunt",
         image: "assets/images/items/mace.webp",
+        alt: "A gleaming silver mace with menacing spikes on the end.",
         chance: 90,
         score: 15,
         description: "Not as heavy as its heft would imply, this thing practically whirrs though the air.  This and the pointy spikes on the end mean it is most unfriendly towards skulls."
@@ -301,6 +313,7 @@ const characterWeapons = [
         magic: "fire",
         type: "",
         image: "assets/images/items/fire-staff.webp",
+        alt: "A fiery red trident staff, once owned by a Fire Mage.",
         chance: 95,
         score: 30,
         description: "A blazing wand of fire, it can shoot blazing pillars of fire at your opponents... who knows how such a weapon ended up here - I'd imagine whoever it belongs to will want it back!"
@@ -314,6 +327,7 @@ const characterWeapons = [
         magic: "ice",
         type: "",
         image: "assets/images/items/frozen-staff.webp",
+        alt: "A pale blue shiny staff suitible for projecting icy bolts of death.",
         chance: 100,
         score: 30,
         description: "A fearsome wand of ice, formerly of the Ice Princess from the far frozen North.  How it got here you could not say, but you wouldn't like to meet her if she's looking for it!"
@@ -328,7 +342,9 @@ const characterDefence = [
         defence: 1,
         resist: "",
         image: "assets/images/items/gilet.webp",
+        alt: "A Primark-looking furry gilet and some very odd shorts.",
         playerImage: "assets/images/character-profiles/player-gilet.webp",
+        playerAlt: "A warrior wearing nothing but a flimsy looking furry gilet, along with shorts which have yet more fur randomly bursting from the crotch area. Thanks Bing image creator.",
         chance: 15,
         score: 3,
         description: "This natty combination looks like something Jane Fonda might have worn on the set of Barbarella.  It's unlikely her outfit would have smelt quite so much of excrement, or have been quite so vulnerable to naked flames.",
@@ -341,7 +357,9 @@ const characterDefence = [
         defence: 1,
         resist: "fire",
         image: "assets/images/items/loincloth.webp",
+        alt: "A shiny golden loincloth",
         playerImage: "assets/images/character-profiles/player-loincloth.webp",
+        playerAlt: "A bearded and muscled warrior wearing nothing but a skimpy shiny golden loin-cloth, looking slightly too pleased with himself.",
         chance: 30,
         score: 5,
         description: "If you want to go and tear up the gay scene in 80s New York, this outfit is ideal.  Meandering about through dangerous dungeons with a serious head injury? Not so much.",
@@ -354,7 +372,9 @@ const characterDefence = [
         defence: 2,
         resist: "",
         image: "assets/images/items/jerkin.webp",
+        alt: "A shabby leather jerkin",
         playerImage: "assets/images/character-profiles/player-jerkin.webp",
+        playerAlt: "A bearded warrior wearing a shabby looking leather jerkin.",
         chance: 75,
         score: 1,
         description: "This foul leather jerkin shows signs of having once contained a decomposing corpse.  Where it came from, you really don't want to know.",
@@ -367,6 +387,7 @@ const characterDefence = [
         defence: 4,
         resist: "",
         image: "assets/images/items/chainmail.webp",
+        alt: "A silver shirt and greaves of chain-link mail.",
         playerImage: "assets/images/character-profiles/player-chainmail.webp",
         chance: 85,
         score: 10,
@@ -380,6 +401,7 @@ const characterDefence = [
         defence: 3,
         resist: "ice",
         image: "assets/images/items/helmet.webp",
+        alt: "A domed purple helmet, casting a bright glow upon the face of a bearded warrior. Yes, really.",
         playerImage: "assets/images/character-profiles/player-helmet.webp",
         chance: 95,
         score: 30,
@@ -393,6 +415,7 @@ const characterDefence = [
         defence: 5,
         resist: "",
         image: "assets/images/items/plate.webp",
+        alt: "A shining silver suit of plate mail armor.",
         playerImage: "assets/images/character-profiles/player-plate.webp",
         chance: 100,
         score: 40,
@@ -408,6 +431,7 @@ const characterPotions = [
         name: "Potion of Catnip",
         effect: "Cats likely to be more friendly",
         image: "assets/images/items/catnip.webp",
+        alt: "A bright green liquid in a potion bottle with a wooden stopper.",
         chance: 15,
         score: 10,
         description:"Cats seem to find this potion particularly delightful. You decide it might be best to wear it like after-shave.  What could possibly go wrong?"
@@ -418,6 +442,7 @@ const characterPotions = [
         name: "Potion of Healing",
         effect:"Restores 50 Health",
         image: "assets/images/items/healing.webp",
+        alt: "A light-blue liquid in a potion bottle with a wooden stopper. If you've collected any of the potions in this game before, you may notice a theme here.",
         chance: 30,
         score: 10,
         description: "There is not much to say about a potion of healing.  It's a pretty standard fantasy trope, and speaks of a chronic lack of imagination."
@@ -428,6 +453,7 @@ const characterPotions = [
         name: "Potion of Fire",
         effect:"Causes Fire Damage",
         image: "assets/images/items/fire.webp",
+        alt: "A bright red fiery liquid in a potion bottle with a wooden stopper. I'm not sure the wooden stopper is the best idea come to think of it.",
         chance: 50,
         score: 15,
         description:"If you are lucky enough to find this along with the golden loincloth and the wand of fire, you better hope you come across enemies with a fire vulnerability."
@@ -438,6 +464,7 @@ const characterPotions = [
         name: "Potion of Ice",
         effect:"Causes Ice Damage",
         image: "assets/images/items/ice.webp",
+        alt: "A light blue liquid containing lumps of ice in a potion bottle with a wooden stopper.",
         chance: 70,
         score: 10,
         description:"If the Ice Queen is coming down here after her lost staff, then this potion will be useless against her.  I'm sure you'll find something to do with it though."
@@ -448,6 +475,7 @@ const characterPotions = [
         name: "Potion of Defence",
         effect:"Increases Defence for rest of the fight",
         image: "assets/images/items/defence.webp",
+        alt: "A vibrant yellow liquid in a potion bottle with a wooden stopper.",
         chance: 85,
         score: 10,
         description:"If you're on your last legs and facing down a furious furry furore of feline fencers, then this might draw the game out for another couple of minues."
@@ -458,6 +486,7 @@ const characterPotions = [
         name: "Potion of Power",
         effect:"Increases attack for rest of the fight",
         image: "assets/images/items/power.webp",
+        alt: "A deep purple liquid in a potion bottle with a wooden stopper - as you can imagine I had to stop adding potions when I ran out of obvious colors.",
         chance: 100,
         score: 10,
         description:"One swig of this, nothing and no-one will be able to stand before you!  But only briefly, because it will have run out - there's not that much left in the bottle."
@@ -471,6 +500,7 @@ const characterObjects = [
         name: "Bag of Cables",
         effect: "May help plugging something in.",
         image: "assets/images/items/cables.webp",
+        alt: "A large carrier bag full of various types of cabling for obsolete electronic devices.",
         chance: 20,
         score: 1,
         description: "It's not quite clear how, but I'm sure if you keep hold of this big bag of obsolete cables for long enough it will come in useful.  Right?  Right??"
@@ -481,6 +511,7 @@ const characterObjects = [
         name: "Cat Biscuits",
         effect:"Cats really like these.",
         image: "assets/images/items/cat-biscuits.webp",
+        alt: "A box of cat biscuits with an image of a cute furry cat warrior on the front, standing on its hind legs and dressed in armor.",
         chance: 35,
         score: 10,
         description: "Whilst it's clear your furry adversaries love these things, you can't help but be put off by the strong smell of fish."
@@ -491,6 +522,7 @@ const characterObjects = [
         name: "Insect Repellent",
         effect:"Scares off bugs.",
         image: "assets/images/items/insect-repellent.webp",
+        alt: "A stoppered brown bottle of insect repellent with a picture of a giant creepy-crawly on the front.",
         chance: 50,
         score: 10,
         description: "There may come a point in this adventure where you reach bug-infested climes, and you will be grateful for the day you decided to keep hold of this.  Orrrr... perhaps not."
@@ -501,6 +533,7 @@ const characterObjects = [
         name: "Four Leaf Clover",
         effect:"Said to bring good fortune.",
         image: "assets/images/items/clover.webp",
+        alt: "A lucky four-leafed clover, seemingly discarded on the floor of a cave.",
         chance: 65,
         score: 15,
         description:"Less gruesome than a rabbit's foot, and less effective than a gypsy's blessing, this item nevertheless is handy if you need to take your chances.  Which might actually happen a lot."
@@ -511,9 +544,10 @@ const characterObjects = [
         name: "Stress Balls",
         effect:"Relieves anxiety.",
         image: "assets/images/items/balls.webp",
+        alt: "A presentation box containing a pair of Chinese Worry-Balls, with an image of an oriental dragon on each.",
         chance: 80,
         score: 4,
-        description: "There's nothing more stressful than playing a browser-based game, stuck in an endless and seemingly inescapable gameplay loop, wondering where it all might end. On reflection, you may need these."
+        description: "There's nothing more stressful than playing a browser-based game, stuck in an endless and seemingly inescapable gameplay loop, wondering where it all might end. On reflection, you may need these.",
     },
     {
         category: "object",
@@ -521,6 +555,7 @@ const characterObjects = [
         name: "Frayed Rope",
         effect:"A rope in name only.",
         image: "assets/images/items/rope.webp",
+        alt: "A rope with frayed edges hanging off of it, and looking every bit like it wouldn't be very much use in a situation where a rope might be required.",
         chance: 100,
         score: 7,
         description:"It's a rope, but it's not really a rope, is it.  It seems unlikely to take your weight, even in your emaciated state.  In fact, it's hard to see the purpose of this object.  We'll see."
@@ -533,24 +568,27 @@ const slime = {
     name: "Slime",
     effect: "This object may make things slimy.",
     image: "assets/images/items/slime-hand.webp",
+    alt: "The battered hand of a warrior holding a handful of blue slime.",
     score: 5,
     description: "This slime is no longer sentient, but it still retains some key properties of the dangerous monstrosity, in that it is slimy. As you might expect."
 }
 const catSword = {
     category: "weapon",
-        adjective: "a nifty",
-        name: "Cat Sword",
-        attack: 2,
-        skill: 3,
-        magic: "",
-        type: "sharp",
-        image: "assets/images/items/cat-sword.webp",
-        score: 10,
-        description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
+    adjective: "a nifty",
+    name: "Cat Sword",
+    attack: 2,
+    skill: 3,
+    magic: "",
+    type: "sharp",
+    image: "assets/images/items/cat-sword.webp",
+    alt: "A small pointy sword, suitable for use by a cat.",
+    score: 10,
+    description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
 }
 const specialObject = {
     name: "",
     image: "assets/images/items/orb-cusion.webp",
+    alt: "A glowing golden orb on a cusion. It looks very special."
 }
 
 
@@ -563,7 +601,8 @@ const currentWeapon = {
     skill: 0,
     magic: "",
     type: "",
-    image: ""
+    image: "", 
+    alt: ""
 }
 
 const currentDefence = {
@@ -571,7 +610,9 @@ const currentDefence = {
     name: "",
     defence: 0,
     magic: "",
-    image: "",
+    image: "", 
+    alt: "",
+    playerAlt: "",
     vulnerability: ""
 }
 
@@ -579,14 +620,16 @@ const currentPotion = {
     category: "",
     name: "",
     effect: "",
-    image: ""
+    image: "", 
+    alt: ""
 }
 
 const currentObject = {
     category: "",
     name: "",
     effect: "",
-    image: ""
+    image: "", 
+    alt: ""
 }
 
 //Object temporarily containing item found
@@ -597,7 +640,9 @@ const foundItemInfo = {
     magic: "",
     resist: "",
     type: "",
-    image: "",
+    image: "", 
+    alt: "",
+    playerAlt: "",
     playerImage:"",
     effect: "",
     attack: 0,
@@ -705,9 +750,10 @@ function thingsReset() {
 
 //object for initial location (cavern, Ragnar, search)
 const firstCavern = {
-    // bsic details
+    // backgrounds
     backgroundOne: "url('assets/images/backgrounds/cavern-dark.webp')",
     backgroundTwo: "url('assets/images/backgrounds/cavern.webp')",
+
     //initial options
     openEyes: function openEyes(){
         mainCharacter.score +=1;   
@@ -823,10 +869,12 @@ const firstCavern = {
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
-            oldImage.id = "tempOld"
+            oldImage.id = "tempOld";
+            oldImage.alt = currentWeapon.alt;
             oldImage.src = currentWeapon.image;
             let newImage = document.createElement("img");
-            newImage.id = "tempNew"
+            newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -841,10 +889,12 @@ const firstCavern = {
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
-            oldImage.id = "tempOld"
+            oldImage.id = "tempOld";
+            oldImage.alt = currentDefence.alt;
             oldImage.src = currentDefence.image;
             let newImage = document.createElement("img");
-            newImage.id = "tempNew"
+            newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -859,10 +909,12 @@ const firstCavern = {
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
-            oldImage.id = "tempOld"
+            oldImage.id = "tempOld";
+            oldImage.alt = currentPotion.alt;
             oldImage.src = currentPotion.image;
             let newImage = document.createElement("img");
-            newImage.id = "tempNew"
+            newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -877,10 +929,12 @@ const firstCavern = {
             if (document.getElementById("tempOld")){document.getElementById("tempOld").remove();}
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
-            oldImage.id = "tempOld"
+            oldImage.id = "tempOld";
+            oldImage.alt = currentObject.alt;
             oldImage.src = currentObject.image;
             let newImage = document.createElement("img");
-            newImage.id = "tempNew"
+            newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -1187,9 +1241,11 @@ const slimeCorridor = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentObject.alt;
             oldImage.src = currentObject.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = slime.alt;
             newImage.src = slime.image;
             document.removeEventListener("click", twenty);
             document.removeEventListener("click", twentyOne);
@@ -1225,6 +1281,7 @@ const slimeCorridor = {
         foundItemInfo.name = slime.name;
         foundItemInfo.effect = slime.effect;
         foundItemInfo.image = slime.image;
+        foundItemInfo.image = slime.alt;
         foundItemInfo.score = slime.score;
         foundItemInfo.description = slime.description;
         document.getElementById('lower-text').innerHTML = this.slimeGet;
@@ -1244,7 +1301,7 @@ const slimeCorridor = {
 //object for room where cats are encountered.
 const catCavern = {
     background: "url('assets/images/backgrounds/cat-cavern.webp')",
-    catImage: `<img src="assets/images/enemies/cat-warriors.webp">`,
+    catImage: `<img src="assets/images/enemies/cat-warriors.webp" alt = "A dangerous looking band of cat warriors carrying swords and wearing armor, rendered a lot less dangerous-looking by their overall cuteness.">`,
     catCavern: function catCavern() {
         changeModeToMainWindow();
         mainCharacter.score += 2;
@@ -1269,7 +1326,7 @@ const catCavern = {
         thingsWhatYouveDone.cavernVisits +=1;
     },
     catCavernTextOne: `
-    <p>You emerge into a large cavernous space enclosed by sheer rock cliffs. Lanterns have been placed sparsely about the room, barely illuminating the vast space.</p>
+    <p>You emerge into a large cavern enclosed by sheer rock cliffs. Lanterns have been placed sparsely about the room, barely illuminating the vast space.</p>
     `,
     catCavernTextTwo: `
     <p>Before you can assess your options, a loud noise startles you. <br>It sounds like... feet? Not quite. Claws? You sincerely hope not.</p>
@@ -1398,7 +1455,7 @@ const catCavern = {
     <p>The furry creatures all manage to fall over one another in a scene reminiscent of Back to The Future, and as the sounds of pursuit fade you slow to a trot, breathing hard.</p>
     `,
     runAwayTextTwo: `
-    <p>As you try to dodge past the Cat Warrior, he catches you with the tip of his blade - you lose <span class = "red">
+    <p>Although you try to dodge past the Cat Warrior, he catches you with the tip of his blade - you lose <span class = "red">
     `,
     runAwayTextThree: `
     </span> health.</p>
@@ -1508,6 +1565,7 @@ const catCavern = {
         foundItemInfo.type = catSword.type;
         foundItemInfo.magic = catSword.magic;
         foundItemInfo.image = catSword.image;
+        foundItemInfo.alt = catSword.alt;
         foundItemInfo.score = catSword.score;
         foundItemInfo.description = catSword.description;
         document.getElementById('lower-text').innerHTML = this.catSwordGet;
@@ -1528,9 +1586,11 @@ const catCavern = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentWeapon.alt;
             oldImage.src = currentWeapon.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = catSword.alt;
             newImage.src = catSword.image;
             document.removeEventListener("click", thirtyOne);
             document.removeEventListener("click", thirtyTwo);
@@ -1582,7 +1642,7 @@ const catCavern = {
         document.getElementById('choices-section').innerHTML = this.optionsGod;
     },
     catGodText: `
-    <p>The cats slowly approach you, and you see both fear and wonder in their eyes.  Falling to their knees, they bow and grovel for as long as they dare, before melting away into the gloom</p>
+    <p>The cats slowly approach you, and you see both fear and wonder in their eyes.  Falling to their knees, they bow and grovel for as long as they dare, before melting away into the gloom.</p>
     <p>Strange as this seemed, it is preferable to many of the alternatives you might have imagined.</p>
     <p>Quite apart from that, although your memory is still hazy, this also feels like the exact way you SHOULD be treated.</p>
     `,
@@ -1864,7 +1924,7 @@ const dangerStairs = {
     <li><button class="choice-button" id="choice-fourty-four">TEST YOUR LUCK: Go down the stairs.</button></li>
     `,
     stairsInjuryTextOne: `
-    <p>Just as you put your foot down the step beneath you crumbles, sending you tumbling off balance back down to the floor of the cavern</p>
+    <p>Just as you put your foot down the step beneath you crumbles, sending you tumbling off-balance back down to the floor of the cavern.</p>
     <p>Fortunately, you get off lightly, losing <span class="red"> 
     `,
     stairsInjuryTextTwo: `
@@ -1908,15 +1968,15 @@ const dangerStairs = {
         }
     },
     stairsDescendedText: `
-    <p>There were a few slips and scares on the way, but you just about make it to the bottom unscathed</p>
+    <p>There were a few slips and scares on the way, but you just about make it to the bottom unscathed.</p>
     <p>Regardless, these are probably the worst stairs ever.</p>
     `,
     stairsDescendedTextCommon: `
     <p>You find yourself at the fringes of the large cavern where you encountered the cat warriors.</p>
     `,
     stairsFellDescendedText: `
-    <p>No matter how tentatively you approach the stairs, you can't stop yourself from slipping and falling on the treacherous surface</p>
-    <p>Fortunately you'd got most of the way down, so no harm was done</p>
+    <p>No matter how tentatively you approach the stairs, you can't stop yourself from slipping and falling on the treacherous surface.</p>
+    <p>Fortunately you'd got most of the way down, so no harm was done.</p>
     `,
     stairsDescendedChoices:`
     <li><button class="choice-button" id="choice-fourty-two">TEST YOUR LUCK: Go back up the stairs again.</button></li>
@@ -2219,7 +2279,7 @@ const catDining = {
             document.getElementById('main-luck').innerHTML = mainCharacter.luck;
             document.getElementById('luck-modify').innerHTML = "";
             specialObject.name = "Glowing Orb";            
-            document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
+            document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `" alt = "` + specialObject.alt + `">`;
             document.getElementById('object-item-name').innerHTML = "Glowing Orb";
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
             for(let item of Object.keys(currentObject)) {
@@ -2231,8 +2291,7 @@ const catDining = {
         }
     },
     diningCommonText: `
-    <p>After following the corridor for a short time, you abruptly stumble out into a large open space.</p>
-    <p>The room is full of the cat warriors in full armor, seemingly engaged in a grand banquet</p>
+    <p>After following the corridor for a short time, you abruptly stumble out into a large open space. The room is full of the cat warriors in full armor, seemingly engaged in a grand banquet</p>
     `,
     diningGodTextOne: `
     <p>Immidiately on spotting you, the nearest warriors drop to their knees; before long the entire room is prostrate in supplication.
@@ -2252,9 +2311,8 @@ const catDining = {
     <li><button class="choice-button" id="choice-twenty-three">Return to the Cat Cavern.</button></li>
     `,
     diningCaptureText: `
-    <p>When the nearest cat senses your presence, they sound a general alarm</p>
-    <p>Within seconds, the bristling points of multiple cat swords are being held at your through.</p>
-    <p>A guard is arranged, and soon you are being frogmarched towards the hall's grand entrance.</p>
+    <p>When the nearest cat senses your presence, they sound a general alarm; within seconds the bristling points of multiple cat swords are being held at your throat.</p>
+    <p>Amidst much urgent mewling a guard is swiftly arranged, and soon you are being frogmarched towards the Cat Dining Hall's grand entrance.</p>
     `,
     diningCaptureChoices: `
     <li><button class="choice-button" id="choice-thirty">This surely cannot be good.</button></li>
@@ -2274,7 +2332,7 @@ const catDining = {
 }
 const catCourt = {
     background: "url('assets/images/backgrounds/cat-court.webp')",
-    orbImage: `<img src="assets/images/items/orb-cusion-wide.webp">`,
+    orbImage: `<img src="assets/images/items/orb-cusion-wide.webp" alt="` + specialObject.alt + `">`,
     catCourt: function catCourt(){
         changeModeToMainWindow();
         thingsWhatYouveDone.catCourtVisits +=1
@@ -2371,9 +2429,11 @@ const catCourt = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentDefence.alt;
             oldImage.src = currentDefence.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.removeEventListener("click", fiftyFive);
             document.removeEventListener("click", fiftySix);
@@ -2421,7 +2481,7 @@ const catCourt = {
         document.getElementById('object-item-text').style.display = "block";
         document.getElementById('object-line').style.display = "block";
         document.getElementById('object-outline').style.display = "none";
-        document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `">`;
+        document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image  + `" alt = "` + specialObject.alt + `">`;
         document.getElementById('object-item-name').innerHTML = "Glowing Orb";
         document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
         document.getElementById('object-list-stat-one').innerHTML = "This probably does something important.";
@@ -2635,6 +2695,8 @@ const catPrison = {
         foundItemInfo.defence = characterDefence[0].defence;
         foundItemInfo.resist = characterDefence[0].resist;
         foundItemInfo.image = characterDefence[0].image;
+        foundItemInfo.alt = characterDefence[0].alt;
+        foundItemInfo.playerAlt = characterDefence[0].playerAlt;
         foundItemInfo.playerImage = characterDefence[0].playerImage
         foundItemInfo.score = characterDefence[0].score;
         foundItemInfo.description = characterDefence[0].description;
@@ -2657,9 +2719,11 @@ const catPrison = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentDefence.alt;
             oldImage.src = currentDefence.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.removeEventListener("click", sixtyNine);
             document.removeEventListener("click", fiftyEight);
@@ -2751,7 +2815,7 @@ const catPrison = {
         }
     },
     cellSearch: `
-    <p>Although you didn't hold out much hope, you eventually manage to find a discarded item worth keeping in the corner of the cell</p>
+    <p>Although you didn't hold out much hope, you eventually manage to find a discarded item worth keeping in the corner of the cell.</p>
     <p>These cats really aren't ones for housekeeping.</p>    
     `,
     cellSearchOptions: `
@@ -2769,9 +2833,11 @@ const catPrison = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentWeapon.alt;
             oldImage.src = currentWeapon.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -2787,9 +2853,11 @@ const catPrison = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentDefence.alt;
             oldImage.src = currentDefence.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -2805,9 +2873,11 @@ const catPrison = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentPotion.alt;
             oldImage.src = currentPotion.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -2823,9 +2893,11 @@ const catPrison = {
             if (document.getElementById("tempNew")){document.getElementById("tempNew").remove();}
             let oldImage = document.createElement("img");
             oldImage.id = "tempOld";
+            oldImage.alt = currentObject.alt;
             oldImage.src = currentObject.image;
             let newImage = document.createElement("img");
             newImage.id = "tempNew";
+            newImage.alt = foundItemInfo.alt;
             newImage.src = foundItemInfo.image;
             document.getElementById('transparency').style.opacity = 0.3;
             document.getElementById('alert-page').style.display = "block";
@@ -2974,7 +3046,7 @@ function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem,
 function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
     generateStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic);
     document.getElementById('item-row-five').style.display="none";
-    document.getElementById('image-image').innerHTML = `<img src="` + enemy.image + `">`;
+    document.getElementById('image-image').innerHTML = `<img src="` + enemy.image  + `" alt = "` + enemy.alt + `">`;
     document.getElementById('image-title').innerHTML = enemy.name;
     document.getElementById('item-description').innerHTML = enemy.description;
     document.getElementById('item-row-one').style.display = "table-row";
@@ -3035,6 +3107,8 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                 foundItemInfo.magic = i.magic,
                 foundItemInfo.type = i.type,
                 foundItemInfo.image = i.image,
+                foundItemInfo.alt = i.alt,
+                foundItemInfo.playerAlt = i.playerAlt,
                 foundItemInfo.playerImage = i.playerImage,
                 foundItemInfo.effect = i.effect,
                 foundItemInfo.defence = i.defence,
@@ -3058,7 +3132,7 @@ function displayItem() {
     document.getElementById('lower-text').style.display = "block";
     document.getElementById('game-text').style.display = "none";
     document.getElementById('upper-text').innerHTML = "<h3>You have found " + foundItemInfo.adjective + " " + foundItemInfo.category + "!!!</h3>";
-    document.getElementById('image-image').innerHTML = `<img src="` + foundItemInfo.image + `">`;
+    document.getElementById('image-image').innerHTML = `<img src="` + foundItemInfo.image  + `" alt = "` + foundItemInfo.alt + `">`;
     document.getElementById('image-title').innerHTML = foundItemInfo.name;
     document.getElementById('item-description').innerHTML = foundItemInfo.description;
     if (foundItemInfo.category =="weapon") {
@@ -3107,6 +3181,7 @@ function itemStorage() {
         currentWeapon.magic = foundItemInfo.magic;
         currentWeapon.type = foundItemInfo.type;
         currentWeapon.image = foundItemInfo.image;
+        currentWeapon.alt = foundItemInfo.alt;
         
     } else if (foundItemInfo.category === "clothing") {
         currentDefence.category = foundItemInfo.category;
@@ -3114,6 +3189,8 @@ function itemStorage() {
         currentDefence.defence = foundItemInfo.defence;
         currentDefence.resist = foundItemInfo.resist;
         currentDefence.image = foundItemInfo.image;
+        currentDefence.alt = foundItemInfo.alt;
+        currentDefence.playerAlt = foundItemInfo.playerAlt;
         currentDefence.playerImage = foundItemInfo.playerImage;
         currentDefence.vulnerability = foundItemInfo.vulnerability;
     } else if (foundItemInfo.category === "potion") {
@@ -3121,6 +3198,7 @@ function itemStorage() {
         currentPotion.name = foundItemInfo.name;
         currentPotion.effect = foundItemInfo.effect;
         currentPotion.image = foundItemInfo.image;
+        currentPotion.alt = foundItemInfo.alt;
     } else if (foundItemInfo.category === "object") {
         if (foundItemInfo.name === "Four Leaf Clover") {
             mainCharacterCurrent.luck = mainCharacter.luck + 3;
@@ -3128,12 +3206,14 @@ function itemStorage() {
             currentObject.name = foundItemInfo.name;
             currentObject.effect = foundItemInfo.effect;
             currentObject.image = foundItemInfo.image;
+            currentObject.alt = foundItemInfo.alt;
         } else {
             mainCharacterCurrent.luck = mainCharacter.luck
             currentObject.category = foundItemInfo.category;
             currentObject.name = foundItemInfo.name;
             currentObject.effect = foundItemInfo.effect;
             currentObject.image = foundItemInfo.image;
+            currentObject.alt = foundItemInfo.alt;
         }
     }
     if (foundItemInfo.name === "Oathbringer") {
@@ -3152,7 +3232,7 @@ function storeItem() {
         document.getElementById('weapon-line').style.display = "block";
         document.getElementById('weapon-line-two').style.display = "block";
         document.getElementById('weapon-outline').style.display = "none";
-        document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `">`;
+        document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `" alt = "` + currentWeapon.alt + `">`;
         document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
         document.getElementById('weapon-list-item-one').innerHTML = "ATT:"
         document.getElementById('weapon-list-stat-one').innerHTML = currentWeapon.attack;
@@ -3186,8 +3266,8 @@ function storeItem() {
         document.getElementById('defence-line').style.display = "block";
         document.getElementById('defence-line-two').style.display = "block";
         document.getElementById('defence-outline').style.display = "none";
-        document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `">`;
-        document.getElementById('character-image').innerHTML = `<img src="` + currentDefence.playerImage + `">`;
+        document.getElementById('defence-item-image').innerHTML = `<img src="` + currentDefence.image + `" alt = "` + currentDefence.alt + `">`;
+        document.getElementById('character-image').innerHTML = `<img src="` + currentDefence.playerImage + `" alt = "` + currentDefence.playerAlt + `">`;
         document.getElementById('defence-item-name').innerHTML = currentDefence.name;
         document.getElementById('main-defence').innerHTML = mainCharacter.defence + currentDefence.defence;
         document.getElementById('defence-modify').innerHTML = "(+" + currentDefence.defence + ")";
@@ -3213,7 +3293,7 @@ function storeItem() {
         document.getElementById('potion-line').style.display = "block";
         document.getElementById('potion-outline').style.display = "none";
 
-        document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `">`;
+        document.getElementById('potion-item-image').innerHTML = `<img src="` + currentPotion.image + `" alt = "` + currentPotion.alt + `">`;
         document.getElementById('potion-item-name').innerHTML = currentPotion.name;
         document.getElementById('potion-list-item-one').innerHTML = "EFFECT:";
         document.getElementById('potion-list-stat-one').innerHTML = currentPotion.effect;
@@ -3225,14 +3305,14 @@ function storeItem() {
         if (foundItemInfo.name === "Four Leaf Clover") {
             document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
             document.getElementById('luck-modify').innerHTML = "(+3)";
-            document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
+            document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `" alt = "` + currentObject.alt + `">`;
             document.getElementById('object-item-name').innerHTML = currentObject.name;
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
             document.getElementById('object-list-stat-one').innerHTML = currentObject.effect;
         } else {
             document.getElementById('main-luck').innerHTML = mainCharacter.luck;
             document.getElementById('luck-modify').innerHTML = "";
-            document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
+            document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `" alt = "` + currentObject.alt + `">`;
             document.getElementById('object-item-name').innerHTML = currentObject.name;
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
             document.getElementById('object-list-stat-one').innerHTML = currentObject.effect;
@@ -3678,7 +3758,7 @@ function writeInitialToDom() {
     document.getElementById('game-page').style.display = "flex";
     document.getElementById('final-score').innerHTML = "";
     document.getElementById('character-sheet-name').innerHTML = "Identity Unknown";
-    document.getElementById('character-image').innerHTML = `<img src="assets/images/character-profiles/player-default.webp">`;
+    document.getElementById('character-image').innerHTML = `<img src="assets/images/character-profiles/player-default.webp" alt="A weary looking warrior wearing extremely ragged clothing.  This person is you!">`;
     document.getElementById('main-strength').innerHTML = mainCharacter.strength;
     document.getElementById('main-skill').innerHTML = mainCharacter.skill;
     document.getElementById('main-defence').innerHTML = mainCharacter.defence;
@@ -3787,8 +3867,33 @@ function shuffleImage() {
     let imageMax = allImages.length;
     let selection = getRandomNumber(0,imageMax)-1;
     let selectionTwo = getRandomNumber(0,imageMax)-1;
-    document.getElementById("landing-image-right").innerHTML='<img src="' + allImages[selection] + '">';
-    document.getElementById("landing-image-left").innerHTML='<img src="' + allImages[selectionTwo] + '">';
+    //shuffle alts
+    let allAlts = [];
+    for (let i of characterWeapons) {
+        allAlts.push(i.alt);
+    }
+    for (let i of characterDefence) {
+        allAlts.push(i.alt);
+    }
+    for (let i of characterPotions) {
+        allAlts.push(i.alt);
+    }
+    for (let i of characterObjects) {
+        allAlts.push(i.alt);
+    }
+    allAlts.push(ragnarTheHorrible.alt);
+    allAlts.push(sentientSlime.alt);
+    allAlts.push(catWarrior.alt);
+    allAlts.push(giantSpider.alt);
+    allAlts.push(bigBug.alt);
+    allAlts.push(fireMage.alt);
+    allAlts.push(iceQueen.alt);
+    allAlts.push(slime.alt);
+    allAlts.push(catSword.alt);
+    allAlts.push(specialObject.alt);
+
+    document.getElementById("landing-image-right").innerHTML='<img src="' + allImages[selection] + '" alt = "' + allAlts[selection] +'">';
+    document.getElementById("landing-image-left").innerHTML='<img src="' + allImages[selectionTwo] + '" alt = "' + allAlts[selectionTwo] +'">';
 }
 window.onload = shuffleImage();
 
@@ -3864,7 +3969,7 @@ const restartGameButton = function(e) {
 document.addEventListener("click", restartGameButton);
 //end game restart game button
 document.addEventListener('DOMContentLoaded', function () {  
-    document.getElementById('restart-game-button-end').addEventListener('click', startGame);
+    document.getElementById('restart-game-end-button').addEventListener('click', startGame);
 });
 //in-game reset character button
 const resetGameButton = function(e) {
@@ -3876,7 +3981,7 @@ const resetGameButton = function(e) {
 document.addEventListener("click", resetGameButton);
 //end game reset character button
 document.addEventListener('DOMContentLoaded', function () {  
-    document.getElementById('reset-game-button-end').addEventListener('click', resetGame);
+    document.getElementById('reset-game-end-button').addEventListener('click', resetGame);
 });
 
 // IN-GAME EVENT HANDLERS

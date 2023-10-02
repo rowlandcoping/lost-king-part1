@@ -1,3 +1,51 @@
+# Testing Documentation
+
+([return to README](README.md))
+
+## Contents
+
+### Audit and Validation
+
+[HTML Validation](#html-validation)\
+[CSS Validation](#css-validation)\
+[Lighthouse Audit](#lighthouse-audit)
+
+### User Story Validation
+
+[Restauranteur User Stories](#restauranteur-user-stories)\
+[Customer User Stories](#customer-user-stories)
+
+### Testing
+
+[Autonated Testing](#error-testing)\
+[Manual Testing](#manual-testing)\
+[Unresolved Bugs](#unresolved-bugs)
+
+## Code Validation
+
+### HTML Validation
+
+([back to top](#testing-documentation))
+
+I have completed a final validation of all HTML pages using the [W3C HTML validator](https://validator.w3.org/).\
+I found two errors on the 'book.html' page:
+
+- The empty option element did not have a label for screen-readers.
+- There was a stray end tag for an anchor element on the page.
+
+Both errors were easily rectified; all other pages showed no errors.
+
+### CSS Validation
+
+([back to top](#testing-documentation))
+
+I have completed a final validation of my 'style.css' file using the [W3C CSS validator](https://jigsaw.w3.org/css-validator/).\
+No errors were found.
+
+### Lighthouse Audit
+
+([back to top](#testing-documentation))
+
 ## Write up automated testing including setup
 
 ## issue with for loops

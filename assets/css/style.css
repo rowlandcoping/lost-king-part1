@@ -90,7 +90,7 @@ ul {
     width: 100%;
 }
 #middle-left-container, #middle-right-container {
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     width: 150px;
     padding: 5px;
 }
@@ -118,7 +118,7 @@ ul {
 }
 
 #landing-image-right img, #landing-image-left img {
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     padding:0;
     max-width: 175px;
 }
@@ -138,7 +138,7 @@ ul {
     margin-bottom:20px;
     padding:2px 0 2px 0;
     background-color: #331704B3;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     color:white;
     font-size:160%;
 }
@@ -148,7 +148,7 @@ ul {
 }
 
 #start-game-button {
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     background-color: #524b2a;
     color:white;
     padding-bottom: 3px;
@@ -180,7 +180,7 @@ ul {
     text-align:center;
     background-color:#000000;
     align-items:center;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     padding:10px;
     color: white;
 }
@@ -227,7 +227,7 @@ ul {
     z-index: 1000;
     text-align:center;
     background-color:black;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     color: white;
 }
 #alert-page button {
@@ -250,7 +250,7 @@ ul {
 .alert-new-image, .alert-old-image {
     padding:0;
     margin:0;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
 }
 .alert-image-container {
     position: relative;
@@ -274,7 +274,7 @@ ul {
 
 
 #game-text, #upper-text, #lower-text, #image-section, #battle-text{
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     background-color: #00000080;
     width:70%;
     margin:10px auto;
@@ -295,12 +295,12 @@ ul {
     color: white;
     margin: 3px 0;
     width:70%;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     padding: 2px 0 4px 0;
 }
 
 .choice-button:hover, .choice-button:active {
-    background-color: rgba(255, 255, 255, 0.507);
+    background-color: #FFFFFF80;
     color: black;    
     font-weight: bold;
 }
@@ -353,7 +353,7 @@ ul {
 #game-navigation button {
     width:85px;
     height:40px;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     color: white;
 }
 
@@ -368,6 +368,13 @@ ul {
     background-color: #7a5111;
 }
 #reset-game-button {
+    background-color: #3C1006;
+}
+
+#restart-game-end-button {
+    background-color: #7a5111;
+}
+#reset-game-end-button {
     background-color: #3C1006;
 }
 
@@ -464,7 +471,7 @@ ul {
     margin-left: auto;
     margin-right: auto;
     padding:5px;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
 }
 
 #image-section table {
@@ -621,7 +628,7 @@ ul {
 #end-game-navigation button {
     width:150px;
     height:40px;
-    border: ridge rgb(94, 61, 0) 3px;
+    border: ridge #5E3D00 3px;
     color: white;
     font-family: title;
     font-size: 130%;
@@ -966,7 +973,7 @@ ul {
     #end-game-navigation button {
         width:110px;
         height:40px;
-        border: ridge rgb(94, 61, 0) 3px;
+        border: ridge #5E3D00 3px;
         color: white;
     }
 
