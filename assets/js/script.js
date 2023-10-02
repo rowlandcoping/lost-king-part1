@@ -3235,7 +3235,8 @@ function storeItem() {
             document.getElementById('object-list-stat-one').innerHTML = currentObject.effect;
 
         } else {
-            document.getElementById('main-defence').innerHTML = mainCharacterCurrent.luck;
+            document.getElementById('main-luck').innerHTML = mainCharacterCurrent.luck;
+            document.getElementById('luck-modify').innerHTML = "";
             document.getElementById('object-item-image').innerHTML = `<img src="` + currentObject.image + `">`;
             document.getElementById('object-item-name').innerHTML = currentObject.name;
             document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
@@ -3694,6 +3695,7 @@ function writeInitialToDom() {
 
 //ALERT FUNCTIONS
 
+//Item duplicate alerts
 function alertNewImageIn() {
     document.getElementById('new-alert-tick').style.display = "block";
     document.getElementById('old-alert-cross').style.display = "block";
@@ -3714,14 +3716,117 @@ function alertOldImageOut() {
     document.getElementById('new-alert-cross').style.display = "none";
 };
 
+//LANDING PAGE FUNCTIONS
+
+//alerts
+function aboutGameAlert() {
+    document.getElementById('landing-transparency').style.opacity = 0.3;
+    document.getElementById('about-alert').style.display = "block";
+    document.removeEventListener("click", startGameButton);
+    document.removeEventListener("click", aboutAlertButton);
+    document.removeEventListener("click", playAlertButton);
+}
+function closeLandingAlert() {
+    document.getElementById('landing-transparency').style.opacity = 1;
+    document.getElementById('about-alert').style.display = "none";
+    document.getElementById('playing-alert').style.display = "none";
+    document.removeEventListener("click", startGameButton);
+    document.removeEventListener("click", aboutAlertButton);
+    document.removeEventListener("click", playAlertButton);
+}
+
+function playGameAlert() {
+    document.getElementById('landing-transparency').style.opacity = 0.3;
+    document.getElementById('playing-alert').style.display = "block";
+    document.removeEventListener("click", startGameButton);
+    document.removeEventListener("click", aboutAlertButton);
+    document.removeEventListener("click", playAlertButton);
+}
+
+function closeLandingAlert() {
+    document.getElementById('landing-transparency').style.opacity = 1;
+    document.getElementById('about-alert').style.display = "none";
+    document.getElementById('playing-alert').style.display = "none";
+    document.addEventListener("click", startGameButton);
+    document.addEventListener("click", aboutAlertButton);
+    document.addEventListener("click", playAlertButton);
+}
+//image shuffle
+function shuffleImage() {
+    let allImages = [];
+    for (let i of characterWeapons) {
+        allImages.push(i.image);
+    }
+    for (let i of characterDefence) {
+        allImages.push(i.image);
+    }
+    for (let i of characterPotions) {
+        allImages.push(i.image);
+    }
+    for (let i of characterObjects) {
+        allImages.push(i.image);
+    }
+    allImages.push(ragnarTheHorrible.image);
+    allImages.push(sentientSlime.image);
+    allImages.push(catWarrior.image);
+    allImages.push(giantSpider.image);
+    allImages.push(bigBug.image);
+    allImages.push(fireMage.image);
+    allImages.push(iceQueen.image);
+    allImages.push(slime.image);
+    allImages.push(catSword.image);
+    allImages.push(specialObject.image);
+    let imageMax = allImages.length;
+    let selection = getRandomNumber(0,imageMax)-1;
+    let selectionTwo = getRandomNumber(0,imageMax)-1;
+    document.getElementById("landing-image-right").innerHTML='<img src="' + allImages[selection] + '">';
+    document.getElementById("landing-image-left").innerHTML='<img src="' + allImages[selectionTwo] + '">';
+}
+window.onload = shuffleImage();
 
 
-//START GAME EVENT HANDLERS
+
+//LANDING PAGE EVENT HANDLERS
+
+//About page alert
+const aboutAlertButton = function(e) {
+    const target = e.target.closest("#middle-left-container"); 
+    if(target){ 
+        aboutGameAlert();
+    }
+}
+document.addEventListener("click", aboutAlertButton);
+
+//Playing game page alert
+const playAlertButton = function(e) {
+    const target = e.target.closest("#middle-right-container"); 
+    if(target){ 
+        playGameAlert();
+    }
+}
+document.addEventListener("click", playAlertButton);
+//Close landing page alert
+document.addEventListener("click", function(e){
+    const target = e.target.closest("#about-alert-option");
+    if(target){
+        closeLandingAlert();     
+    }
+ });
+ document.addEventListener("click", function(e){
+    const target = e.target.closest("#play-alert-option");
+    if(target){
+        closeLandingAlert();     
+    }
+ });
 
 //start-game-button
-document.addEventListener('DOMContentLoaded', function () {  
-    document.getElementById('start-game-button').addEventListener('click', startGame);
-});
+const startGameButton = function(e) {
+    const target = e.target.closest("#start-game-button"); 
+    if(target){ 
+        startGame();
+    }
+}
+document.addEventListener("click", startGameButton);
 //prevent enter key from submitting
 document.addEventListener('DOMContentLoaded', function () {  
     document.getElementById("character-name").addEventListener("keydown", (event) => {
@@ -3730,6 +3835,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 });
+
+
+//GAME PAGE EVENT HANDLERS
 //in game give-up button
 const giveUpGameButton = function(e) {
     const target = e.target.closest("#giveup-game-button"); 
@@ -3738,9 +3846,6 @@ const giveUpGameButton = function(e) {
     }
 }
 document.addEventListener("click", giveUpGameButton);
-
-    
-
 //in-game restart game button
 const restartGameButton = function(e) {
     const target = e.target.closest("#restart-game-button"); 
@@ -4535,40 +4640,7 @@ const optionsOne = `
 const weaponEffective = `<br>Your weapon appears to have a devastating effect on this foe.`;
 const weaponIneffective = `<br>Your weapon appears to be particularly ineffective against this foe.`;
 
-//LANDING PAGE IMAGE SHUFFLE
 
-function shuffleImage() {
-    let allImages = [];
-    for (let i of characterWeapons) {
-        allImages.push(i.image);
-    }
-    for (let i of characterDefence) {
-        allImages.push(i.image);
-    }
-    for (let i of characterPotions) {
-        allImages.push(i.image);
-    }
-    for (let i of characterObjects) {
-        allImages.push(i.image);
-    }
-    allImages.push(ragnarTheHorrible.image);
-    allImages.push(sentientSlime.image);
-    allImages.push(catWarrior.image);
-    allImages.push(giantSpider.image);
-    allImages.push(bigBug.image);
-    allImages.push(fireMage.image);
-    allImages.push(iceQueen.image);
-    allImages.push(slime.image);
-    allImages.push(catSword.image);
-    allImages.push(specialObject.image);
-    let imageMax = allImages.length;
-    let selection = getRandomNumber(0,imageMax)-1;
-    let selectionTwo = getRandomNumber(0,imageMax)-1;
-    document.getElementById("landing-image-right").innerHTML='<img src="' + allImages[selection] + '">';
-    document.getElementById("landing-image-left").innerHTML='<img src="' + allImages[selectionTwo] + '">';
-    console.log(allImages);
-}
-window.onload = shuffleImage();
 
 
 
