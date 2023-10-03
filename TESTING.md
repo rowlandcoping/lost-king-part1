@@ -197,6 +197,9 @@ ROOM ONE (Ragnar Cave):
 | Character stats generation | stats display correctly on screen | Success |
 | Default item images | Default item images displayed on initialisation | Success |
 | navigation area | Correct navigation buttons displayed | Success |
+| Restart button | resets game to initial game state with existing character and all other updates to game state cleared | Success |
+| Reset button | resets game to landing page with all relevant data cleared | Success |
+| Give up button | loads end game state with correct message displayed | Success |
 | Initial game page load | correct background, player options and text displayed | Success |
 | Initial player options | initial options load correct game states | Success |
 | 'Open Eyes' game page load | correct player options and text displayed | Success |
@@ -369,6 +372,15 @@ ROOM TEN (Cat Prison):
 | discard found item | returns to prison game state | Success |
 | climb through window | player is presented with climb through window option | Success |
 | climb through window option | player is returned to cat corridor game state | Success |
+
+ENDING PAGE:
+
+| Feature Tested                        | Expected Outcome                 | Result  |
+| ------------------------------------- | -------------------------------- | ------- |
+| End page initial state | game state loaded with appropriate ending, timer and score | Success |
+| Restart button | resets game to initial game state with existing character and all other updates to game state cleared | Success |
+| Reset button | resets game to landing page with all relevant data cleared | Success |
+
 
 ITEM SEARCH TESTING
 
