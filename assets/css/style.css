@@ -654,6 +654,10 @@ ul {
     padding:0;
 }
 
+#hundredths {
+    font-size:small;
+}
+
 
 /* MEDIA QUERIES */
 

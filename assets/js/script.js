@@ -3368,8 +3368,8 @@ function continueFight(enemy) {
 function leaveBattle(enemy) {
     document.getElementById('choices-section').style.display = "block";
     document.getElementById('battles-section').style.display = "none";
-    document.getElementById('list-item-four').innerHTML = '<span class="red">Health:';
-    document.getElementById('list-item-stat-four').innerHTML = "0</span>";
+    document.getElementById('list-item-four').innerHTML = '<span class="red">Health: </span>';
+    document.getElementById('list-item-stat-four').innerHTML = '<span class="red">0</span>';
     document.getElementById("battle-text").style.textAlign = "center";
     document.getElementById('battle-text-player').innerHTML = '<h3 class="green">' + enemy.name + " Is Dead.</h3>" + enemy.deathText;
     document.getElementById('battle-text-enemy').innerHTML ="";            
@@ -3778,10 +3778,12 @@ function calculateTimeSpent() {
     let timeHundredths = Math.floor(timeSpent / 10);
     let timeSeconds = Math.floor(timeHundredths / 100);
     let timeMinutes = Math.floor(timeSeconds / 60);
-    timeHundredths = (timeHundredths < 10 ) ? "0" + timeHundredths % 100 : timeHundredths % 100;
+    timeHundredths = (timeHundredths < 10 ) ? " 0" + timeHundredths % 100 : timeHundredths % 100;
     timeSeconds = (timeSeconds < 10 ) ? "0" + timeSeconds % 60: timeSeconds % 60;
     timeMinutes = timeMinutes % 60;
-    document.getElementById("time-played").innerHTML = timeMinutes + "m " + timeSeconds + "." + timeHundredths + "s";
+    document.getElementById("time-played").innerHTML = timeMinutes + "." + timeSeconds + ".";
+    document.getElementById("hundredths").innerHTML = timeHundredths;
+
 }
 
 //ALERT FUNCTIONS
@@ -3889,7 +3891,7 @@ function shuffleImage() {
     document.getElementById("landing-image-right").innerHTML='<img src="' + allImages[selection] + '" alt = "' + allAlts[selection] +'">';
     document.getElementById("landing-image-left").innerHTML='<img src="' + allImages[selectionTwo] + '" alt = "' + allAlts[selectionTwo] +'">';
 }
-window.onload = shuffleImage();
+shuffleImage();
 
 
 
@@ -4746,22 +4748,5 @@ const optionsOne = `
 
 const weaponEffective = `<br>Your weapon appears to have a devastating effect on this foe.`;
 const weaponIneffective = `<br>Your weapon appears to be particularly ineffective against this foe.`;
-
-
-
-
-
-// OBJECT EXPORTS FOR AUTOMATED TESTING
-
-document.addEventListener('DOMContentLoaded', function () {  
-    var module = module || {};
-    module.exports = { mainCharacter, startGame, getRandomNumber, writeInitialToDom, generateStats, resetGame, 
-    pageOne, optionsOne, findItemType, characterWeapons,characterDefence, characterPotions, 
-    characterObjects, searchForItem, foundItemInfo, setEnemyStats, ragnarTheHorrible, mainCharacterCurrent,currentWeapon,
-    currentDefence, currentPotion, currentObject, itemStorage, thingsWhatYouveDone, playerTestResistances, 
-    enemyTestResistances, continueFight, potionRound, hitSuccess, initialDamage,
-    damageResist, storeItem, changeModeToMainWindow, changeModeToItemWindow, displayItem, getLucky, changeToBattleWindow, testForWeapons, 
-    changeToGameOver, leaveBattle, sentientSlime };
-});
 
 
