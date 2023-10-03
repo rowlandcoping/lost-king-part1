@@ -81,8 +81,88 @@ I also conducted a test on the game state itself.  Some issues were identified w
 ## User Stories
 ([back to top](#testing-documentation))
 
+### Site Owner User Stories
+
+As a developer and the ultimate site owner, I have a clear vision of what I want this project to achieve and who is likely to be using the website.
+
+_"Initial Engagement: On landing there has to be a strong theme, engaging visuals and an intuitive UI to encourage users to stay and play the game."_\
+The theme of the pages is established immediately, and carried througout the site, with the atmomspheric background, style of buttons and images.
+
+![image](assets/images/testing/homepage.jpg)
+
+_"Story Led:  There needs to be a well written branching narrative which keeps people engaged to the end of the story."_\
+The story covers 10 locations and multiple enemies with more than one way of completing the game, depending on playstyle and the items the player is able to collect.
+
+![image](assets/images/testing/story.jpg)
+
+_"Humour and the 4th Wall:  Because of the audience I would like to keep the tone quite light (particularly when things go wrong) and introduce moments of humour as well as 4th wall comments."_\
+Although dry, there is plenty of humour hidden in the game, via the prose, the images, some of the more unfortunate ways of dying, and even the image alts!
+
+![image](assets/images/testing/humour-fourthwall.jpg)
+
+_"Interactive decisions:  This does not just mean offering decisions, but also that the decisions need to have a genuine impact on gameplay."_\
+The judgment made by the cat king and queen in the cat court is weighted dependent on actions that the player takes - it's up to the player to work out what those actions are!
+
+![image](assets/images/testing/judgment.jpg)
+
+_"Replayability:  This comes from two facets - one is multiple possible outcomes derived from user decisions, and the other is in making the gameplay fair."_\
+Although there are some deaths that are unavoidable and influenced by chance (normally humourously), for the most part the player should be able to work out the best course of action, and how those actions might influence the game..."
+
+![image](assets/images/testing/outcomes.jpg)
+
+_"User friendly interface... The user should have full control over their journey in the medium the have chosen to access it (ie the browser windwow)."_\
+Each decision or scene transition invites player input, and where players are forced to make decisions (eg choosing an item to retain) the system is intuitive and in keeping with the overall styling.
+
+![image](assets/images/testing/interface.jpg)
+
+_"Interactive combat: Combat should be balanced where it occurs, and led by player decisions."_\
+Combat is turn-based which gives the player full control over every attack.  They choose which, if any, of the items in their inventory to use.
+
+![image](assets/images/testing/combat.jpg)
 
 
+### Site Visitor User Stories
+
+_"Instant Access:  Office users in particular want to be able to click a button and get stuck in during their lunchbreak, without lots of interim steps."_\
+The option to start the game is immediately available and obvious - the player doesn't even need to enter a name! Once in the game state it is very clear and intuitive how the game should be played.
+
+![image](assets/images/testing/quick-start.jpg)
+
+_"Character Creation:  Conversely, those with an interest in RPG games generally might like to have some input in this side of things - at the very least featuring their own choice of name."_\
+A player can enter whatever name they wish which is used displayed throughout in combat and on the character sheet. The player image is adjusted depending on what the player chooses to wear.
+
+![image](assets/images/testing/custom.jpg)
+
+_"Attractive/retro visuals: People want a visual and user engagement experience that adds value from the off. There is a huge appetite for retro gaming these days."_\
+The game has a very clear identity which is consitent throughout.  There are lots of nods to retro games in both content and presentation, for example the Baldur's Gate inspired combat display.
+
+![image](assets/images/testing/baldurs.jpg)
+
+_"Low attention span:  It's unlikely the majority of users will have time for a wall of text. Things will have to be to the point. There are so many other things they could be wasting their time on!"_\
+As a text adventure text is unavoidable, however it is cut down wherever possible, and with the other facets to the game it is enjoyable even if users don't read every word.  The imagery and backgrounds make for a rich experience that will keep people playing until they win!
+
+![image](assets/images/testing/word-economy.jpg)
+
+_"Make a difference:  users will want plenty of opportunities to influence gameplay, without having to micromanage.  They are lazy, but they like to be in control."_\
+Players are frequently presented with simple to access choices which directly influence how the game will play out. When in combat they can decide how they use their resources, and in situations where they might use objects use their intuition to decide whether it is a good idea or not.
+
+![image](assets/images/testing/fight-option.jpg)
+
+_"Be treated like adults:  It's unlikely to be teenagers playing this game.  So there does not need to be too much hand-holding."_\
+Although there is a brief guide to playing the game, it contains very basic information, and none of the workings of game mechanics are revealed.  For example, players have to work out for themselves that spiders are vulnerable to sharp weapons or that slime is resistant to them, and there are cues in battle to help them to do that.
+
+![image](assets/images/testing/player-cues.jpg)
+
+_"This time next Tuesday: Provide replayability, through a process of discovery and through dividing paths.  Offer new and amusing ways to die."_\
+Of course, there are a number of choices about how to get through the game, but in respect of the latter there are some quite innovative ways in which the main character meets their demise, along with tips of the hat to classics such as the Fighting Fantasy book Creature of Havoc.
+
+![image](assets/images/testing/death.jpg)
+
+
+_"Brief but glorious:  This is a lunchbreak/codebreak thing, and there will be no save game function, so it needs to be over relatively quickly."_\
+A full game ought to take ten minutes or less to play.  It takes a lot longer to master, however...
+
+![image](assets/images/testing/complete.jpg)
 
 
 

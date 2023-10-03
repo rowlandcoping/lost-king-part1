@@ -2121,7 +2121,7 @@ const spiderRoom = {
         if (currentDefence.name ==="Purple Helmet") {
             randomChance += 10;
         }
-        if (randomChance <= 5) {
+        if (randomChance <= 10) {
             return "death";
         } else if (randomChance>5<=60) {
             return "injury";

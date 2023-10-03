@@ -1,6 +1,7 @@
 # The Lost King of Catland
 
 Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/RPG story built in HTML, CSS, and JavaScript.
+![image](assets/images/character-profiles/player-loincloth.webp)
 
 ## Contents:
 
