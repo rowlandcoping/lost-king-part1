@@ -2777,7 +2777,7 @@ const catPrison = {
         this.catPrison();
     },
     bugChance: function bugChance() {
-        let bugLikelihood = getRandomNumber(100,200);
+        let bugLikelihood = getRandomNumber(0, 100);
         if(thingsWhatYouveDone.encounterLikelihood) {
             bugLikelihood -= 20;
         }
@@ -2798,9 +2798,8 @@ const catPrison = {
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
                 setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
-                searchForItem(20, 30, 50, 100);
             } else {
-                searchForItem(0,0,0,100);
+                searchForItem(20, 30, 50, 100);
                 document.getElementById('lower-text').innerHTML = this.cellSearch;
                 document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
                 thingsWhatYouveDone.cellOneSearched = true;

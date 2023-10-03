@@ -756,6 +756,13 @@ ul {
 }
 }
 @media screen and (max-width:1080px) {
+    #gameover-image-container {
+        justify-content: space-evenly;
+        background-size: auto 100%;
+    }
+
+}
+@media screen and (max-width:1080px) {
     #game-section {
         background-size: auto 100% !important;
         background-position:  0 center !important;
@@ -779,6 +786,9 @@ ul {
 }
 
 @media screen and (max-width:768px) {
+    #gameover-image-container {
+        background-position:  -150px center !important;
+    }
 
     /*landing page*/
     .landing-alert {
@@ -794,7 +804,7 @@ ul {
     #game-section {
         background-size: auto 100% !important;
         background-position:  -75px center !important;
-        min-height:40dvh;
+        min-height:50vh;
         height: 100%;
         margin-left:0;
     }
@@ -1054,3 +1064,12 @@ ul {
     }
 }
 
+@media screen and (min-height:1500px) {
+    #game-section {
+        justify-content: space-evenly;
+    }
+    #gameover-image-container {
+        justify-content: space-evenly;
+    }
+
+}

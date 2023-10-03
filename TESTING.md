@@ -120,6 +120,7 @@ Due to the size of the project there have been many challenges and bugs that hav
  - Typos.  A lot of typos.
  - There was one bug where the character would be anointed a god by the cat people(which would normally ive them the object they need to complete the game), but under certain circumstances would not be given the object.  I belive my girlfriend spend a considerable period of time trapped in the resultant endless gameplay loop with me telling her it was her fault!
  - There were a lot of bugs involving cat biscuits, one of which provided an endless supply.  It was a similar story for insect repellent, albeit a less useful one.
+ - Developer tools bugs where it does not display dynamic mouseover effects (FireFox's developer tools does this fine).  It also sometimes has real zoom issues in responsive mode.  Whilst I much prefer Firefox for its stability and functionality I do recognise Chrome is the tool used for the course and have therefore tested using chrome developer tools. When marking keep this in mind for the alert pages - outside of developer tools this mechanic works on any other platform I've tried (bar mobile, for obvious reasons!)
 
 #### Coding Issues
 
@@ -409,7 +410,7 @@ BATTLE MECHANIC TESTING
 
 This game mechanic requires console.log output to identify values within the various functions.  I have broken expected behaviour down according to each phase of the fight in the table below.
 
-| Method                       | stat values  | Roll Result | Expected Outcome | Success |
+| Method                       | stat values  | Roll Result | Expected Outcome | Result |
 | ------------------------------------- | -------------------------------- | ------- | ------- | ------- |
 | Hit success | 12 | 15 | False | Success |
 | Hit success | 12 | 1 | True | Success |
@@ -438,7 +439,7 @@ Alert Testing
 
 I have introduced custom alerts for when multiple items of the same type are picked up.  Each item search has a seperate trigger, tested here.
 
-| Alert Trigger                | screen locked?  | Image mouseover works? | Alert closed & item stored? | Result |
+| Alert Trigger                | screen locked?  | Image mouseover works? | Alert closes & item stored? | Result |
 | -----------------------------| ----------------| ------- | ------- | ------- |
 | First search (weapon) | Yes | Yes | Yes | Success |
 | First search (defence) | Yes | Yes | Yes | Success |
@@ -453,11 +454,36 @@ I have introduced custom alerts for when multiple items of the same type are pic
 | Prison search (potion) | Yes | Yes | Yes | Success |
 | Prison search (object) | Yes | Yes | Yes | Success |
 
+
+
+
 #### Responsiveness Testing
 
-I have tested at (in descending order) 3080px, 1920px (default), 1080px, 768px, 400px, 320px.  This is reflective of the major break points.  
-Please note that even beyond these key break points the game has been tested to look good with pretty much any screen size.
+I have tested at (in descending order) 3072px, 1920px (default), 1080px, 768px, 400px, 320px.  This is reflective of the major break points.  
+Please note that even beyond these key break points the game has been tested to look good with pretty much any screen size up to a screen height of around 2700px (beyond which is rare!).
 
+This has been tested in Chrome and Firefox in Windows on a 1920 x 1080 HD monitor, and on a Samsung Galaxy S8.
+
+| Game state tested | Screen width tested | Result |
+| -----------------------------| ----------------| ------- | 
+| Landing Page | 3072px | Success |
+| Landing Page | 1920px | Success |
+| Landing Page | 1080px | Success |
+| Landing Page | 768px | Success |
+| Landing Page | 400px | Success |
+| Landing Page | 320px | Success |
+| Game Page | 3072px | Success |
+| Game Page | 1920px | Success |
+| Game Page | 1080px | Success |
+| Game Page | 768px | Success |
+| Game Page | 400px | Success |
+| Game Page | 320px | Success |
+| Ending Page | 3072px | Success |
+| Ending Page | 1920px | Success |
+| Ending Page | 1080px | Success |
+| Ending Page | 768px | Success |
+| Ending Page | 400px | Success |
+| Ending Page | 320px | Success |
 
 #### Issues found during manual testing
 
@@ -468,5 +494,6 @@ It should be noted that the orb issues in particular are never encountered durin
  - Glowing Orb did not populate item slot if found in dining room.
  - Glowing Orb could be discovered multiple times in abandoned dining room
  - In battle a weapon with an attack value of 0 would actually reduce your minimum attack, and a weapon with a value of 1 did nothig to improve it.  Updated code so this was no longer the case.
+ - This is not a bug, but after testing I believe the vulnerability buff may be somewhat overpowered.
 
 
