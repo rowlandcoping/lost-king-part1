@@ -726,12 +726,7 @@ ul {
     
 
 }
-@media screen and (max-width:1600px) {
-    #gameover-image-container {
-        background-size:auto 100%;
-    }
 
-}
 @media screen and (max-width:1500px) {
     #game-section {
         min-height:75vh;
@@ -761,14 +756,12 @@ ul {
 }
 }
 @media screen and (max-width:1080px) {
-
-   
     #game-section {
         background-size: auto 100% !important;
-        background-position:  0px center !important;
+        background-position:  0 center !important;
         height: 100%;
     }
-
+   
     .item-display {
         flex-flow: column;
         justify-content: center;
@@ -784,6 +777,7 @@ ul {
         align-items: center;
     }
 }
+
 @media screen and (max-width:768px) {
 
     /*landing page*/
@@ -795,8 +789,14 @@ ul {
     #playing-alert {
         height:550px;
     }
+
+    /* game page */
     #game-section {
-    margin-left:0;
+        background-size: auto 100% !important;
+        background-position:  -75px center !important;
+        min-height:40dvh;
+        height: 100%;
+        margin-left:0;
     }
     .title-section, #centre-section, #bottom-game-section, #gameover-image-container, #end-title-section, #end-spiral {
         margin:0px 10px;
@@ -910,8 +910,7 @@ ul {
 }
 @media screen and (max-width:576px) {
     #game-section {
-        background-size: auto 100% !important;
-        background-position:  0px center !important;
+        background-position:  -125px center !important;
     }
 
     #start-game-section {
@@ -949,7 +948,7 @@ ul {
 
     #game-section {
         background-size: auto 100% !important;
-        background-position:  -125px center !important;
+        background-position:  -175px center !important;
     }
     .item-display {
         width: 135px;
@@ -1029,13 +1028,7 @@ ul {
 @media screen and (max-height:700px) {
 
     #game-section {
-        
-        background-size: auto !important;
-        background-position:  left center !important;
-        background-repeat: no-repeat !important;
-        min-height:100%;
         max-height:100%;
-        
     }
 
     #middle-left-container, #middle-right-container {

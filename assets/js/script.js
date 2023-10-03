@@ -670,6 +670,7 @@ const thingsWhatYouveDone = {
     prisonerSearched: false,
     potionDefence: false,
     potionPower: false,
+    catsGoneDiningVisit:false,
     prisonVisits: 0,
     catCourtVisits: 0,
     catsKilled: 0,
@@ -702,6 +703,7 @@ const thingsWhatYouveDoneInitial = {
     prisonerSearched: false,
     potionDefence: false,
     potionPower: false,
+    catsGoneDiningVisit:false,
     prisonVisits: 0,
     catCourtVisits: 0,
     catsKilled: 0,
@@ -731,6 +733,7 @@ function thingsReset() {
     thingsWhatYouveDone.prisonerSearched =thingsWhatYouveDoneInitial.prisonerSearched
     thingsWhatYouveDone.potionDefence = thingsWhatYouveDoneInitial.potionDefence
     thingsWhatYouveDone.potionPower = thingsWhatYouveDoneInitial.potionPower
+    thingsWhatYouveDone.catsGoneDiningVisit = thingsWhatYouveDoneInitial.catsGoneDiningVisit
 
     thingsWhatYouveDone.prisonVisits = thingsWhatYouveDoneInitial.prisonVisits;
     thingsWhatYouveDone.catCourtVisits = thingsWhatYouveDoneInitial.catCourtVisits;
@@ -843,7 +846,7 @@ const firstCavern = {
     // search for an item
     firstSearch: function firstSearch() {
         if (specialObject.name === "Glowing Orb") {
-            searchForItem(30, 35, 100, 100);
+            searchForItem(30, 35, 100, 100);  
         } else {
             searchForItem(30, 35, 50, 100);
         }
@@ -1280,7 +1283,7 @@ const slimeCorridor = {
         foundItemInfo.name = slime.name;
         foundItemInfo.effect = slime.effect;
         foundItemInfo.image = slime.image;
-        foundItemInfo.image = slime.alt;
+        foundItemInfo.alt = slime.alt;
         foundItemInfo.score = slime.score;
         foundItemInfo.description = slime.description;
         document.getElementById('lower-text').innerHTML = this.slimeGet;
@@ -2274,19 +2277,32 @@ const catDining = {
             document.getElementById('game-text').innerHTML = this.diningCommonText + this.diningCaptureText;
             document.getElementById('choices-section').innerHTML = this.diningCaptureChoices;
         } else {
-            mainCharacter.score += 50;
-            document.getElementById('main-luck').innerHTML = mainCharacter.luck;
-            document.getElementById('luck-modify').innerHTML = "";
-            specialObject.name = "Glowing Orb";            
-            document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image + `" alt = "` + specialObject.alt + `">`;
-            document.getElementById('object-item-name').innerHTML = "Glowing Orb";
-            document.getElementById('object-list-item-one').innerHTML = "EFFECT:<br>This probably does something important";
-            for(let item of Object.keys(currentObject)) {
-                currentObject[item] = "";
+            if (thingsWhatYouveDone.catsGoneDiningVisit) {
+                document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
+                document.getElementById('game-text').innerHTML = this.diningEmptyTextOne;
+                document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
+            } else {
+                thingsWhatYouveDone.catsGoneDiningVisit = true;
+                mainCharacter.score += 50;
+                document.getElementById('main-luck').innerHTML = mainCharacter.luck;
+                document.getElementById('luck-modify').innerHTML = "";
+                specialObject.name = "Glowing Orb";            
+                for(let item of Object.keys(currentObject)) {
+                    currentObject[item] = "";
+                }
+                specialObject.name = "Glowing Orb";
+                document.getElementById('object-item-image').style.display = "block";
+                document.getElementById('object-item-text').style.display = "block";
+                document.getElementById('object-line').style.display = "block";
+                document.getElementById('object-outline').style.display = "none";
+                document.getElementById('object-item-image').innerHTML = `<img src="` + specialObject.image  + `" alt = "` + specialObject.alt + `">`;
+                document.getElementById('object-item-name').innerHTML = "Glowing Orb";
+                document.getElementById('object-list-item-one').innerHTML = "EFFECT:";
+                document.getElementById('object-list-stat-one').innerHTML = "This probably does something important.";
+                document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
+                document.getElementById('game-text').innerHTML = this.diningEmptyTextOne + this.diningEmptyTextTwo + catCourt.orbImage + this.diningEmptyTextTwo;
+                document.getElementById('choices-section').innerHTML = this.diningEmptyChoices;   
             }
-            document.getElementById('game-section').style.backgroundImage = this.backgroundTwo;
-            document.getElementById('game-text').innerHTML = this.diningEmptyTextOne + catCourt.orbImage + this.diningEmptyTextTwo;
-            document.getElementById('choices-section').innerHTML = this.diningEmptyChoices; 
         }
     },
     diningCommonText: `
@@ -2320,9 +2336,11 @@ const catDining = {
     <p>You have not been following the corridor for long before you stumble into a room where it looks like a great feast has been taking place...
     <br>...but there is nobody feasting.  Have the cats abandoned their home, or just locked themselves away?</p>
     <p>What seems to be the hall's grand entrance is closed, the door locked tight.</p>
+    `,
+    diningEmptyTextTwo: `
     <p>In the middle of the room, among the detruitis, is a glowing golden orb. Lost in the melee?</p>
     `,
-    diningEmptyTextTwo: `<p>Without a second's pause for debate, you grab it tight.  You feel like you will be needing this.</p>
+    diningEmptyTextThree: `<p>Without a second's pause for debate, you grab it tight.  You feel like you will be needing this.</p>
     `,
     diningEmptyChoices: `
     <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
@@ -3171,7 +3189,7 @@ function displayItem() {
         }
     } else {
         document.getElementById('item-row-five').style.display = "table-row";
-        document.getElementById('list-item-five').innerHTML = "Effect: &nbsp" + foundItemInfo.effect;
+        document.getElementById('list-item-five').innerHTML = "Effect: " + foundItemInfo.effect;
     }
 }
 //Store Item as current, place item in current inventory

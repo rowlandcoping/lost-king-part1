@@ -336,7 +336,7 @@ Although this mouse-over effect does not work on mobile, it is still very clear 
 
 ### Responsiveness
 
-The game was designed for 1980px screen width - anything below uses a 'max-size' media query, anything above a 'min-size'
+The game was designed for 1920px screen width - anything below uses a 'max-size' media query, anything above a 'min-size'
 From wireframe up the CSS flexbox page structure was designed to be easily adjusted to other screen widths.
 
 The main difficulty was that the backgrounds are not designed for mobiles of for larger screens. This is partly a product of Bing image creator, which only produces widths of 1024 pixels.
@@ -381,7 +381,7 @@ If you wish to deploy this website yourself, here is how to go about it.
 
 1:  Using github pages
 
-- Log in to or create your own github account [HERE](https://github.com/).
+- Log in to or create your own Github account [HERE](https://github.com/).
 - Go to the lost-king-part1 repository [HERE](https://github.com/rowlandcoping/lost-king-part1/) and select 'Fork' to create your own snapshot of the repository.
 - From the forked repository select 'Settings'
 - From the settings page select 'Pages' from the 'Code and automation' section of the left menu.
@@ -390,7 +390,7 @@ If you wish to deploy this website yourself, here is how to go about it.
 
 2:  Using source files
 
-Because this website is built using nothing but html and css you can deploy it in any web browser from local files.
+Because this website is built using nothing but HTML, CSS and JavaScript you can deploy it in any web browser from local files.
 
 - Go to the lost-king-part1 repository [HERE](https://github.com/rowlandcoping/lost-king-part1/) 
 - Download all the files in the repository to a folder on your local machine.  You may exclude the 'node_modules' folder and the package-lock.json and package.json files if you don't wish to deploy the files necessary for Jest testing.
@@ -438,7 +438,7 @@ Although I have not used Linux on this occasion, I have done in the past. I set 
 
 ### Fonts
 
-Fauna One: [font space](https://www.fontspace.com/fauna-one-font-f17441)
+Fauna One: [font space](https://www.fontspace.com/fauna-one-font-f17441)\
 Libre Franklin: [font space](https://www.fontspace.com/libre-franklin-font-f39605)
 
 ### Images
@@ -448,12 +448,6 @@ All images created using [Bing Image Creator](https://www.bing.com/create) and a
 ### Content
 
 © 2023 John Hall, all rights reserved.  I don't mind imitators, but this content belongs to me!
-
-### Code
-
-I used this method to ensure the Jest module doesn't throw errors in devtools that I might be marked down on:
-
-https://stackoverflow.com/questions/66349868/jest-unit-testing-module-export-error-in-browser-console
 
 ### Acknowledgments
 
