@@ -405,6 +405,53 @@ Although testing of these functions was included in Automated testing, it is jus
 | (0,0,0,100), 66-80 | Stress Balls | Success |
 | (0,0,0,100), 81-100 | Frayed Rope | Success |
 
+BATTLE MECHANIC TESTING
+
+This game mechanic requires console.log output to identify values within the various functions.  I have broken expected behaviour down according to each phase of the fight in the table below.
+
+| Method                       | stat values  | Roll Result | Expected Outcome | Success |
+| ------------------------------------- | -------------------------------- | ------- | ------- | ------- |
+| Hit success | 12 | 15 | False | Success |
+| Hit success | 12 | 1 | True | Success |
+| Hit success | 12 | 4 | True | Success |
+| Damage roll | 0-13 | 7 | Value between 0 and 13 | Success |
+| Damage roll | 0-9 | 7 | Value between 0 and 9 | Success |
+| Damage roll | 2-12 | 8 | Value between 2 and 12 | Success |
+| Resist roll (player turn) | 10 defence, 2 damage | 2 | 8 resisted (10-2), 0 net damage (2-8) | Success |
+| Resist roll (player turn) | 10 defence, 3 damage | 15 | 0 resisted (10-15, 0 is the floor), 3 net damage | Success |
+| Resist roll (player turn) | 10 defence, 6 damage | 12 | 0 resisted (10-12, 0 is the floor), 6 net damage | Success |
+| Resist roll (enemy turn) | 15 defence, 11 damage | 7 | 8 resisted (15-7), 3 net damage (11-8) | Success |
+| fire resistance (enemy) | weapon magic: fire | 8 damage | 4 (damage x 0.5) | Success |
+| fire vulnerability (enemy) | weapon magic: fire | 7 damage | 14 (damage x 2) | Success |
+| ice resistance  (enemy) | weapon magic: ice | 6 damage | 3 (damage x 0.5) | Success |
+| ice vulnerability  (enemy) | weapon magic: ice | 15 damage | 30 (damage x 2) | Success |
+| blunt resistance (enemy) | weapon type: blunt | 2 damage | 1 (damage x 0.5) | Success |
+| blunt vulnerability (enemy) | weapon type: blunt | 5 damage | 10 (damage x 2) | Success |
+| sharp resistance (enemy) | weapon type: sharp | 10 damage | 5 (damage x 0.5) | Success |
+| sharp vulnerability (enemy) | weapon type: sharp | 3 damage | 6 (damage x 2) | Success |
+| fire resistance (player) | weapon magic: fire | 12 damage | 6 (damage x 0.5) | Success |
+| fire vulnerability (player) | weapon magic: fire | 3 damage | 6 (damage x 2) | Success |
+| ice resistance (player) | weapon magic: ice | 3 damage | 1 (damage x 0.5) | Success |
+| ice vulnerability (player) | weapon magic: ice | 6 damage | 12 (damage x 2) | Success |
+
+Alert Testing
+
+I have introduced custom alerts for when multiple items of the same type are picked up.  Each item search has a seperate trigger, tested here.
+
+| Alert Trigger                | screen locked?  | Image mouseover works? | Alert closed & item stored? | Result |
+| -----------------------------| ----------------| ------- | ------- | ------- |
+| First search (weapon) | Yes | Yes | Yes | Success |
+| First search (defence) | Yes | Yes | Yes | Success |
+| First search (potion) | Yes | Yes | Yes | Success |
+| First search (object) | Yes | Yes | Yes | Success |
+| Slime pickup | Yes | Yes | Yes | Success |
+| Cat Sword pickup | Yes | Yes | Yes | Success |
+| God defence item acquired | Yes | Yes | Yes | Success |
+| Gilet pickup | Yes | Yes | Yes | Success |
+| Prison search (weapon) | Yes | Yes | Yes | Success |
+| Prison search (defence) | Yes | Yes | Yes | Success |
+| Prison search (potion) | Yes | Yes | Yes | Success |
+| Prison search (object) | Yes | Yes | Yes | Success |
 
 #### Responsiveness Testing
 
@@ -420,5 +467,6 @@ It should be noted that the orb issues in particular are never encountered durin
  - Slime object image was not displaying due to typographical error.
  - Glowing Orb did not populate item slot if found in dining room.
  - Glowing Orb could be discovered multiple times in abandoned dining room
+ - In battle a weapon with an attack value of 0 would actually reduce your minimum attack, and a weapon with a value of 1 did nothig to improve it.  Updated code so this was no longer the case.
 
 

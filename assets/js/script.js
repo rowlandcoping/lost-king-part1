@@ -846,7 +846,7 @@ const firstCavern = {
     // search for an item
     firstSearch: function firstSearch() {
         if (specialObject.name === "Glowing Orb") {
-            searchForItem(30, 35, 100, 100);  
+            searchForItem(30, 35, 100, 100);
         } else {
             searchForItem(30, 35, 50, 100);
         }
@@ -2777,7 +2777,7 @@ const catPrison = {
         this.catPrison();
     },
     bugChance: function bugChance() {
-        let bugLikelihood = getRandomNumber(0,100);
+        let bugLikelihood = getRandomNumber(100,200);
         if(thingsWhatYouveDone.encounterLikelihood) {
             bugLikelihood -= 20;
         }
@@ -2798,8 +2798,9 @@ const catPrison = {
                 document.getElementById('choices-section').innerHTML = this.bigBugChoices;
                 setEnemyStats(bigBug, 8,10,25,30,0,0,5,0,"fire");
                 thingsWhatYouveDone.bugKill = true;
-            } else {
                 searchForItem(20, 30, 50, 100);
+            } else {
+                searchForItem(0,0,0,100);
                 document.getElementById('lower-text').innerHTML = this.cellSearch;
                 document.getElementById('choices-section').innerHTML = this.cellSearchOptions;
                 thingsWhatYouveDone.cellOneSearched = true;
@@ -3485,14 +3486,14 @@ function initialDamage (enemy, weapon) {
     let maxStrength;
     if (weapon === "enemy") {
         if (enemy.strItem > 0) {
-            minStrength = enemy.strItem;
+            minStrength = 1 + enemy.strItem;
             maxStrength = enemy.strength;
         } else {
             minStrength = 1;
             maxStrength = enemy.strength;
         }
     } else if (weapon === "weapon") {
-        minStrength = currentWeapon.attack;
+        minStrength = 1 + currentWeapon.attack;
         maxStrength = mainCharacterCurrent.strength + currentWeapon.attack;
     } else {
         minStrength = 1;
@@ -3517,7 +3518,7 @@ function damageResist (enemy, weapon) {
 }
 function nextRound(enemy, weapon) {
     if (hitSuccess(enemy, weapon)) {
-        let roundDamage = initialDamage(enemy, weapon);      
+        let roundDamage = initialDamage(enemy, weapon);
         roundDamage -= damageResist (enemy, weapon);
         return roundDamage;
     } else {
@@ -3532,7 +3533,9 @@ function playerTurn(enemy, weapon) {
         enemyTurn(enemy, "enemy");
     } else {
         let roundDamage = Math.floor(roundResult * playerTestResistances(enemy));
-        if (roundDamage > 0) {enemy.health -= roundDamage;}
+        if (roundDamage > 0) {
+            enemy.health -= roundDamage;
+        }
         if (enemy.health > 0) {
             if (weapon === "fists") {
                 if (roundDamage > 0){
