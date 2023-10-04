@@ -662,19 +662,7 @@ ul {
     margin: 0 10px;
 }
 /* 404 page */
-#lost-button {
-    border: ridge #5E3D00 3px;
-    background-color: #524b2a;
-    color:white;
-    padding-bottom: 3px;
-    font-family: title;
-    font-weight:bold;
-    font-size: 160%;
-}
 
-#lost-button:hover {
-    background-color: #3C1006;
-}
 
 /* MEDIA QUERIES */
 
