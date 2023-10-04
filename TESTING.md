@@ -32,7 +32,7 @@ I have completed a final validation of all HTML pages using the [W3C HTML valida
 ![image](assets/images/testing/html-validation.jpg)
 
 The issues that needed resolving were as follows:
- - There were a number of empty elements that were to be populated by Javascript which needed holding text
+ - There were a number of empty elements that were to be populated by Javascript which needed holding text. 
  - There were duplicate IDs on some buttons that were used in seperate game states, which needed changing to a class.
  - Images needed alt tags.  This was no small task, as it required adding alt tags to 40 game objects and updating the JavaScript accordingly in order to display the text.  There were also a number of default alt tags that needed adding in html.
 
