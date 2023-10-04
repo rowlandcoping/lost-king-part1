@@ -49,15 +49,15 @@ There was one error caused by a likely copy and paste error, which was easily fi
 
 ![image](assets/images/testing/eslint-linter.jpg)
 
-I initially used JSLint but found it was overly strict.. Not only did I have hundreds of warnings concerned with alphabetical order, it also refused to recognise 'for' loops as legitimate JavaScript.
-The reading I subsequently did suggests that the use of 'for' loops is a matter of preference, and it's certainly a method I have been taught on the course as standard practice!
-Faced with the choice of either re-configuring JS Lint or refactoring more or less every line of my code I decided to look for an alternative.
+I initially used JSLint but found it was overly strict. Not only did I have hundreds of warnings concerned with alphabetical order in objects, it also refused to recognise 'for' loops as legitimate JavaScript.
+The research I subsequently did suggests that the use of 'for' loops is a matter of preference, and it's certainly a method I have been taught on the course as standard practice!
+Faced with the choice of either re-configuring JSlint or refactoring more or less every line of my code I decided to look for an alternative.
 After some research I decided that ESlint would be the most appropriate linter to use for this project.
 
 On testing my JavaScipt file for errors, I found six using ES lint:
-   - multiple errant semi-colons.
+   - Multiple errant semi-colons.
    - A duplicate function to close alerts on the homepage.
-   - I had wrongly assigned my item filter function to a constant.  I'm not actually sure how it was working before amending it!
+   - I had wrongly assigned my item filter function to a constant.  I'm not actually sure how or why it was working at all prior to amending it!
 
 ### Lighthouse Audit
 
@@ -65,17 +65,17 @@ On testing my JavaScipt file for errors, I found six using ES lint:
 
 ![image](assets/images/testing/lighthouse-validation.jpg)
 
-The initial lighthouse audit made only a couple of suggestions:
- - add a meta description for SEO purposes, which although not that relevant to this project feels like best practice!
- - convert any remaining jpegs to webp format to help load times.
+The initial Lighthouse audit made the following suggestions:
+ - Add a meta description for SEO purposes, which although not that relevant to this project feels like best practice!
+ - Convert any remaining jpegs to webp format to help load times.
 
 #### Game State
 
 ![image](assets/images/testing/lighthouse-state.jpg)
 
 I also conducted a test on the game state itself.  Some issues were identified which I have not addressed for reasons outlined below:
- - Table does not have headers:  The character stats section is in tablular form for very specific reasons - one is in order to properly align it with minimal code, and the other is because semantically it is tabular data.  The information in the table is self explanatory, indeed the left hand column is effectively a header for the data alongside it.  As such I do not believe the lack of table headers should pose a semantic problem or a readability issue for screen readers.
- - Headers out of sequence: I have jumped straight from h2 to h3 tags for a couple of reasons - one practical legacy reason is there used to be an h2 tag at the right side of the title bar until I reconfigured the page, therefore the issue did not exist.  The other is for other accessibility reasons, ie responsiveness.  If I set H2 tags it would require manually setting the font sizes which would be extremely problematic as the screen sizes changed.  It's a nice to have for the future when I have a lot more time, but at present I do not believe it causes any semantic difficulties.
+ - Table does not have headers:  The character stats section is in tablular form for very specific reasons - one is in order to properly align it with minimal code, and the other is because semantically it is tabular data.  The information in the table is self explanatory, indeed the left hand column is effectively a header for the data alongside it.  As such I do not believe the lack of table headers should pose a semantic problem or a readability issue for screen readers. Indeed the headers would cause major layout headaches and reduce clarity for regular users of the page.  It is rare such headers are used anywhere in the genre.
+ - Headings out of sequence: I have jumped straight from h2 to h3 tags for a couple of reasons - one practical legacy reason is there used to be an h2 tag at the right side of the title bar until I reconfigured the page, therefore the issue did not exist.  The reason I have not changed it is due to responsiveness.  If I set H2 tags it would require manually reducing the font sizes across the site which would be extremely problematic as the screen sizes changed, and a massive time sink.  Because of the nature of the site (ie it is not an article), and because headings are not out of sequence (ie there are no h2 tags below the h3 tags) I do not believe it to be an accessibliity concern.
  - Images sized by their containing elements: because I was setting image elements which did not previously exist as innerHTML it did not occur to me to style the image elements themselves prior to them existing.  It would require a lot of work now to rectify, refactoring a lot of the CSS. Whilst the site is not experiencing any notable performance issues and given my current time constraints I believe it is something that can be addressed in future iterations of the site.
 
 ## User Stories

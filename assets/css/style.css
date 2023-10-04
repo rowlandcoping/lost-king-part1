@@ -663,6 +663,13 @@ ul {
 }
 /* 404 page */
 
+#lost-page {
+    display:flex;
+    flex-flow: column;
+    width: 100%;
+    text-align:center;  
+}
+
 
 /* MEDIA QUERIES */
 
