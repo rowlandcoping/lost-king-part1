@@ -49,13 +49,13 @@ The goal of The Lost King is to provide users with an immersive and interactive 
 it is anticipated that the decisions the player makes will matter and extend beyond simple choices (eg go left, go right) to decisions that also have a moral dimension, influencing other aspects of the game.
 
 These decisions will lead to different story paths, encounters and ultimate game outcomes. 
-Athough the MVP will be driven to a large degree by random chance, it is anticipated that the way player actions influence these odds could have a decisive effect on their journey through the game.  
+Although the MVP will be driven to a large degree by random chance, it is anticipated that the way player actions influence these odds could have a decisive effect on their journey through the game.  
 As the first game (and indeed the series) develops it is envisaged that additional layers of interactivity can be added for deeper player engagement and replayability; 
 ultimately there is the potential for social sharing and perhaps even monetisation.
 
 ### 3) Developer Goals
 
-- Build portfolio: I want this project to display originality which will make it stand out from the crowd and proide value for users.
+- Build portfolio: I want this project to display originality which will make it stand out from the crowd and provide value for users.
 - Enjoy the process: Part of the reason I chose this project is I think it will be a lot of fun to build.
 - Develop technical skills:  As my first project using JavaScript, I want to deploy range of techniques to further my skills.
 - Extensibility:  The MVP for this project could potentially be very simple, but there is also a great deal of scope to add extra features, either as part of this project or in the future.
@@ -81,7 +81,7 @@ It is envisaged that the game will be played by either gamers, particularly thos
 - Attractive/retro visuals: People want a visual and user engagement experience that adds value from the off. I am mindful that there is a huge appetite for retro gaming these days. 
 - Low attention span:  It's unlikely the majority of users will have a lot of time, so the text will have to be to the point.
 - Make a difference:  Users will want plenty of opportunities to influence gameplay, without having to micromanage.
-- Be treated like adults:  I do want there to be be too much hand-holding in this game - users should be free to discover for themselves their own path to completing the game.
+- Be treated like adults:  Users of games like this want be free to discover for themselves how their choices influence gameplay and find their own path to completing the game.
 - Same time next Tuesday: Provide replayability, through a process of discovery and through dividing paths.  Offer new and amusing ways to die.
 - Brief but glorious:  This is a lunchbreak/codebreak thing, and there will be no save game function, so it needs to be over relatively quickly.
 
@@ -209,7 +209,7 @@ Even games like Minecraft which have notably bridged the gap have a completely d
 I have kept all this in mind when thinking about my design choices:
 
 - Whilst the game will configured to display responsively, it will be designed to display optimally on full size screens, ideally 1920px wide, and played with a keyboard and mouse.
-- To enable instant user engagement and stickiness, there is intented to be zero learning curve to play (although there will be nuances to be found).
+- To enable instant user engagement and stickiness, there is intended to be zero learning curve to play (although there will be nuances to be found).
 - Although it is a dynamic site, key elements of the page will be sited consistently.
 - The dynamic content will display consistently and logically, and the in-game locations where user input is required will not vary.
 
@@ -226,7 +226,7 @@ The flowchart is [HERE](assets/images/documentation/lost-king-flowchart.jpg).
 
 My initial task was to build a toolbox of functions covering the main functionality of a game, along with the basic structure of the pages. 
 I have identified 3 main activities that take place in-game and built and tested a suite of functions to support it. 
-From this point building out the content around the flow chart should be straighfoward; at that point I can move on to refining the look and feel around the site template.
+From this point building out the content around the flow chart should be straightfoward; at that point I can move on to refining the look and feel around the site template.
 
 1) Exploration:
     - Change mode to main window.
