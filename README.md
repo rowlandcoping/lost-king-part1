@@ -387,7 +387,7 @@ If you wish to deploy this website yourself, here is how to go about it.
 Because this website is built using nothing but HTML, CSS and JavaScript you can deploy it in any web browser from local files.
 
 - Go to the lost-king-part1 repository [HERE](https://github.com/rowlandcoping/lost-king-part1/) 
-- Download all the files in the repository to a folder on your local machine.  You may exclude the 'node_modules' folder and the package-lock.json and package.json files if you don't wish to deploy the files necessary for Jest testing.
+- Download all the files in the repository to a folder on your local machine.  You may exclude the 'node_modules' folder and the '.eslint.js' file if you do not wish to use the linter.
 - In your local folder, right click the 'index.html', select 'Open With' and then select any web browser.
 
 NB If you wish you could also deploy these files by copying and pasting them to the 'www' folder of your own web host, but keep in mind that the method of deployment will vary depending on the web hosting package you use.
@@ -409,7 +409,7 @@ If you are a developer and wish to extend this project further, there are a numb
 
 The simplest method is to use a basic text editor.  I use notepad++ on Windows or Geany on Linux, but even something as simple as Windows Notepad will do.
 
- - Download all files from your forked repository except for the '.devcontainer' folder and the '.gitignore' file to a folder on your local machine.
+ - Download all the files in the repository to a folder on your local machine.  You may exclude the 'node_modules' folder and the '.eslint.js' file if you do not wish to use the linter.
  - Right click the file you wish to edit, select 'Open With' and then select your text editor of choice.
 
  2: VS Code in Windows
@@ -432,8 +432,8 @@ Although I have not used Linux on this occasion, I have done in the past. I set 
 
 ### Fonts
 
-Fauna One: [font space](https://www.fontspace.com/fauna-one-font-f17441)\
-Libre Franklin: [font space](https://www.fontspace.com/libre-franklin-font-f39605)
+Fauna One: [font space](https://www.fontspace.com/fauna-one-font-f17441).\
+Libre Franklin: [font space](https://www.fontspace.com/libre-franklin-font-f39605).
 
 ### Images
 
@@ -450,10 +450,11 @@ Thanks once again to Mitko and also Iris for your infinite patience.  Also thank
 ## Technical Information
 ([back to top](#the-lost-king-of-catland))
 
-Version Control: Git and Github\
-Testing: Jest\
-Languages: HTML, CSS, JavaScript\
-Development Environment: VS Code on Windows\
-Wireframes: Balsamiq\
-Image Creation: Bing Image Creator\
-Image Editing: GIMP
+Version Control: Git and Github.\
+Linter: ESlint.\
+Languages: HTML, CSS, JavaScript.\
+Development Environment: VS Code on Windows.\
+Wireframes: Balsamiq.\
+Image Creation: Bing Image Creator.\
+Image Editing: GIMP.\
+Image Creation: Inkscape.
