@@ -10,7 +10,6 @@ const mainCharacter = {
     skill: 0,
     strength: 0
 };
-
 const mainCharacterCurrent = {
     defence: 0,
     health: 0,
@@ -20,9 +19,7 @@ const mainCharacterCurrent = {
     strength: 0,
     vulnerability:""
 };
-
 //enemy objects
-
 const ragnarTheHorrible = {
     name: "Ragnar the Horrible",
     description: "Ragnar will eat mud.  Ragnar will sleep with your sister. Ragnar drinks a lot of tea.  Ragnar has seen better days.",
@@ -229,8 +226,8 @@ const bigBug = {
     `
 }
 
-
 //ITEM OBJECTS
+
 //weapons
 const characterWeapons = [
     {
@@ -560,7 +557,7 @@ const characterObjects = [
         description:"It's a rope, but it's not really a rope, is it.  It seems unlikely to take your weight, even in your emaciated state.  In fact, it's hard to see the purpose of this object.  We'll see."
     },
 ];
-//unique objects = 
+//unique objects
 const slime = {
     category: "object",
     adjective: "a slimy",
@@ -590,7 +587,6 @@ const specialObject = {
     alt: "A glowing golden orb on a cusion. It looks very special."
 }
 
-
 // CHARACTER INFO STORAGE
 
 const currentWeapon = {
@@ -603,7 +599,6 @@ const currentWeapon = {
     image: "", 
     alt: ""
 }
-
 const currentDefence = {
     category: "",
     name: "",
@@ -614,7 +609,6 @@ const currentDefence = {
     playerAlt: "",
     vulnerability: ""
 }
-
 const currentPotion = {
     category: "",
     name: "",
@@ -622,7 +616,6 @@ const currentPotion = {
     image: "", 
     alt: ""
 }
-
 const currentObject = {
     category: "",
     name: "",
@@ -630,7 +623,6 @@ const currentObject = {
     image: "", 
     alt: ""
 }
-
 //Object temporarily containing item found
 const foundItemInfo = {
     category: "",
@@ -650,9 +642,7 @@ const foundItemInfo = {
     description: "",
     vulnerability: ""
 }
-
 //Object logging player actions
-
 const thingsWhatYouveDone = {
     firstRoomSearch: false,
     slimeKill: false,
@@ -1719,6 +1709,7 @@ const catCavern = {
         }
     }
 }
+//object for game end room.
 const mysteryRoom = {
     background: "url('assets/images/backgrounds/mystery-room.webp')",
     backgroundTwo: "url('assets/images/backgrounds/mystery-room-golden.webp')",
@@ -1828,6 +1819,7 @@ const mysteryRoom = {
         testForWeapons(enemy);
     },
 }
+//object with details for ending scene.
 const endingScene = {
     endingScene: function endingScene() {
         mainCharacter.score += 10;
@@ -1844,6 +1836,7 @@ const endingScene = {
     <p>VENGEANCE.</p>
     `
 }
+//object for going up and down the stairs.
 const dangerStairs = {
     background: "url('assets/images/backgrounds/danger-stairs.webp')",
     backgroundTwo: "url('assets/images/backgrounds/top-stairs.webp')",
@@ -1996,6 +1989,7 @@ const dangerStairs = {
     <br>YOU ARE DEAD</p>
     `
 }
+//object for the spider cave and back section.
 const spiderRoom = {
     background: "url('assets/images/backgrounds/spider-cave.webp')",
     backgroundTwo: "url('assets/images/backgrounds/cave-drop.webp')",
@@ -2256,6 +2250,7 @@ const spiderRoom = {
     <li><button class="choice-button" id="choice-fifty">And so it continues.</button></li>
     `
 }
+//object for the cat dining room.
 const catDining = {
     background: "url('assets/images/backgrounds/cat-dining-full.webp')",
     backgroundTwo: "url('assets/images/backgrounds/cat-dining-empty.webp')",
@@ -2347,6 +2342,7 @@ const catDining = {
     <li><button class="choice-button" id="choice-twenty-three">Go back to the cat cavern.</button></li>
     `
 }
+//object for the court of the cat king and queen.
 const catCourt = {
     background: "url('assets/images/backgrounds/cat-court.webp')",
     orbImage: `<img src="assets/images/items/orb-cusion-wide.webp" alt="` + specialObject.alt + `">`,
@@ -2549,6 +2545,7 @@ const catCourt = {
     `,
     catPrisonChoices: `<li><button class="choice-button" id="choice-fifty-eight">Things could be worse, I guess...</button></li>`
 }
+//object for the cat corridor.
 const catCorridor = {
     background: "url('assets/images/backgrounds/cat-corridor-one.webp')",
     backgroundTwo: "url('assets/images/backgrounds/cat-corridor-two.webp')",
@@ -2612,6 +2609,7 @@ const catCorridor = {
     <li><button class="choice-button" id="choice-thirty-four">Turn around and head back the other way, towards the dining hall.</button></li>
     `
 }
+//object for the cat prison.
 const catPrison = {
     background: "url('assets/images/backgrounds/cat-prison.webp')",
     backgroundTwo: "url('assets/images/backgrounds/prison-cells.webp')",
@@ -2983,6 +2981,7 @@ const catPrison = {
     <p>Confident there will be no more bugs in the area, you can continue your search.</p>
     `
 }
+//object if the player presses the give up button.
 const giveUpGame = {
     giveUpGame: function giveUpGame() {
         mainCharacter.score -= 20;
@@ -3001,9 +3000,10 @@ const giveUpGame = {
 
 
 // HELPER FUNCTIONS
-// Random number generator
+
+//Random number generator
 const getRandomNumber = (min, max) => Math.ceil(Math.random() * (max - min)) + min;
-//luck tested
+//luck tester
 const getLucky = () => getRandomNumber(0,20) <= mainCharacterCurrent.luck;
 //game state switchers
 function changeModeToMainWindow() {
@@ -3046,7 +3046,9 @@ function changeToGameOver() {
     document.getElementById('gameover-page').style.display="flex";
     document.getElementById('game-page').style.display="none";
 }
+
 //CHARACTER GENERATION
+
 function generateStats(character, min, max, hMin, hMax, strItem, sklItem, dItem, hlthItem, vuln, resist, magic) {
     character.strength = getRandomNumber(min-1, max);
     character.skill = getRandomNumber(min-1, max);
@@ -3084,7 +3086,8 @@ function setEnemyStats(enemy, min, max, hMin, hMax, strItem, sklItem, dItem, hlt
     document.getElementById('list-item-stat-four').innerHTML = enemy.health;
 }
 
-// ITEM FUNCTIONS
+//ITEM FUNCTIONS
+
 //select category
 function findItemType (chanceOne, chanceTwo, chanceThree, chanceFour) {
     let randomChance = getRandomNumber(0, 100);
@@ -3345,6 +3348,7 @@ function storeItem() {
 }
 
 //BATTLE FUNCTIONS
+
 //fight state change
 function testForWeapons(enemy) {
     if (enemy.name === "Cat Warrior" && currentObject.name === "Cat Biscuits") {    
@@ -3705,6 +3709,7 @@ function enemyTurn(enemy, weapon) {
 }
 
 //GAMEPLAY FUNCTIONS
+
 // Game restart and reset functions
 function resetGame() {
     window.localStorage.clear();
@@ -3791,8 +3796,7 @@ function writeInitialToDom() {
     document.getElementById('choices-section').innerHTML = optionsOne;
     document.getElementById('game-section').style.backgroundImage = "";
 }
-//Timer functions
-
+//Timer function
 function calculateTimeSpent() {
     const timeSpent = thingsWhatYouveDone.endTime - thingsWhatYouveDone.startTime;
     let timeHundredths = Math.floor(timeSpent / 10);
@@ -3813,17 +3817,14 @@ function alertNewImageIn() {
     document.getElementById('new-alert-tick').style.display = "block";
     document.getElementById('old-alert-cross').style.display = "block";
 }
-
 function alertNewImageOut() {
     document.getElementById('new-alert-tick').style.display = "none";
     document.getElementById('old-alert-cross').style.display = "none";
 }
-
 function alertOldImageIn() {
     document.getElementById('old-alert-tick').style.display = "block";
     document.getElementById('new-alert-cross').style.display = "block";
 }
-
 function alertOldImageOut() {
     document.getElementById('old-alert-tick').style.display = "none";
     document.getElementById('new-alert-cross').style.display = "none";
@@ -3846,7 +3847,6 @@ function playGameAlert() {
     document.removeEventListener("click", aboutAlertButton);
     document.removeEventListener("click", playAlertButton);
 }
-
 function closeLandingAlert() {
     document.getElementById('landing-transparency').style.opacity = 1;
     document.getElementById('about-alert').style.display = "none";
@@ -3913,8 +3913,6 @@ function shuffleImage() {
 }
 shuffleImage();
 
-
-
 //LANDING PAGE EVENT HANDLERS
 
 //About page alert
@@ -3925,7 +3923,6 @@ const aboutAlertButton = function(e) {
     }
 }
 document.addEventListener("click", aboutAlertButton);
-
 //Playing game page alert
 const playAlertButton = function(e) {
     const target = e.target.closest("#middle-right-container"); 
@@ -3947,7 +3944,6 @@ document.addEventListener("click", function(e){
         closeLandingAlert();     
     }
  });
-
 //start-game-button
 const startGameButton = function(e) {
     const target = e.target.closest("#start-game-button"); 
@@ -3965,8 +3961,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-
 //GAME PAGE EVENT HANDLERS
+
 //in game give-up button
 const giveUpGameButton = function(e) {
     const target = e.target.closest("#giveup-game-button"); 
@@ -4000,11 +3996,9 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('reset-game-end-button').addEventListener('click', resetGame);
 });
 
-// IN-GAME EVENT HANDLERS
+//ROOM ONE EVENT HANDLERS (Ragnar cavern)
 
-//FIRST ROOM EVENT HANDLERS (Cavern)
 // open eyes / give up
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-one");
     if(target){
@@ -4017,9 +4011,7 @@ document.addEventListener("click", function(e){
         firstCavern.gameOverGiveUp();     
     }
  });
-
 //name decision
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-three");
     if(target){
@@ -4038,8 +4030,7 @@ document.addEventListener("click", function(e){
         firstCavern.nameUnknown();
     }
 });
-// page three event handlers (decide whether to search or leave area)
-
+//decide whether to search or leave area
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-six"); 
     if(target){
@@ -4059,8 +4050,6 @@ document.addEventListener("click", function(e){
         catCavern.catCavern();
     }
 });
-
-// page four event handlers (decide whether to keep item)
 //keep first item (item check)
 const eight = function(e) {
     const target = e.target.closest("#choice-eight"); 
@@ -4091,10 +4080,7 @@ document.addEventListener("click", function(e){
         firstCavern.ignoreFirstItem();
     }
 });
-
-
-//page five event handlers (possible fight / leave area)
-
+//possible fight / leave area
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-ten"); 
     if(target){ 
@@ -4113,7 +4099,6 @@ document.addEventListener("click", function(e){
         slimeCorridor.slimeEncounter();
     }
 });
-
 //Page 6 event handler (begin fight with Ragnar)
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-thirteen"); 
@@ -4121,9 +4106,7 @@ document.addEventListener("click", function(e){
         firstCavern.ragnarFight(ragnarTheHorrible);
     }
 });
-
 //Ragnar fight event handlers
-
 document.addEventListener("click", function(e){
     const target = e.target.closest("#ragnar-one"); 
     if(target){ 
@@ -4143,8 +4126,8 @@ document.addEventListener("click", function(e){
     }
 });
 
-
 // ROOM 2- SLIME CORRIDOR
+
 //Slime Corridor event handlers
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fourteen"); 
@@ -4252,7 +4235,8 @@ document.addEventListener("click", function(e){
     }
 });
 
-// ROOM 3 - cat cavern.
+//ROOM 3 - cat cavern.
+
 //initial cat decision
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-twenty-four"); 
@@ -4326,7 +4310,7 @@ document.addEventListener("click", function(e){
         catCavern.catExitOptions();
 }
 });
-// keep cat sword
+//keep cat sword
 const thirtyOne = function(e){
     const target = e.target.closest("#choice-thirty-one"); 
     if(target){ 
@@ -4381,7 +4365,8 @@ document.addEventListener("click", function(e){
     }
 });
 
-// ROOM 4- MYSTERY ROOM
+//ROOM 4- MYSTERY ROOM
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-thirty-seven"); 
     if(target){
@@ -4452,7 +4437,9 @@ document.addEventListener("click", function(e){
         endingScene.endingScene();
     }
 });
-// ROOM 5- DANGER STAIRS
+
+//ROOM 5- DANGER STAIRS
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fourty-two"); 
     if(target){
@@ -4471,6 +4458,7 @@ document.addEventListener("click", function(e){
         dangerStairs.descendStairs();
     }
 });
+
 //ROOM 6 - SPIDER ROOM
 
 document.addEventListener("click", function(e){
@@ -4551,6 +4539,7 @@ document.addEventListener("click", function(e){
 });
 
 //ROOM 6 - CAT DINING ROOM
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifty-three"); 
     if(target){
@@ -4558,6 +4547,7 @@ document.addEventListener("click", function(e){
     }
 });
 //ROOM 7 - CAT COURT
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-fifty-four"); 
     if(target){
@@ -4608,7 +4598,8 @@ const fiftyEight = function(e){
 }
 document.addEventListener("click" ,fiftyEight);
 
-// ROOM 8 - CAT CORRIDOR
+//ROOM 8 - CAT CORRIDOR
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-sixty"); 
     if(target){
@@ -4622,7 +4613,8 @@ document.addEventListener("click", function(e){
     }
 });
 
-// ROOM 9 - CAT PRISON
+//ROOM 9 - CAT PRISON
+
 document.addEventListener("click", function(e){
     const target = e.target.closest("#choice-sixty-two"); 
     if(target){
@@ -4749,14 +4741,12 @@ document.addEventListener("mouseout", function(e){
     }
 });
 
-/* GAME TEXT */
+// GAME TEXT 
 
-/*page one (open eyes)*/
+// page one (open eyes)
 const pageOne = `
     <p>You awaken.  You become aware of something.  It is pain.</p>  
-    
     <p>You try to open your eyes.  You cannot. It feels like they are welded together.</p>
-    
     <p>You reach for them, find a thin crust of blood. You try to prise them open.  The pain grows.</p>    
 `;
 const optionsOne = `
