@@ -25,7 +25,6 @@
 ## Code Validation
 
 ### HTML Validation
-
 ([back to top](#testing-documentation))
 
 I have completed a final validation of all HTML pages using the [W3C HTML validator](https://validator.w3.org/).
@@ -38,17 +37,17 @@ The issues that needed resolving were as follows:
  - Images needed alt tags.  This was no small task, as it required adding alt tags to 40 game objects and updating the JavaScript accordingly in order to display the text.  There were also a number of default alt tags that needed adding in html.
 
 ### CSS Validation
-
 ([back to top](#testing-documentation))
-
-![image](assets/images/testing/css-validation.jpg)
 
 I have completed a final validation of my 'style.css' file using the [W3C CSS validator](https://jigsaw.w3.org/css-validator/).\
 There was one error caused by a likely copy and paste error, which was easily fixed.
 
-### JavaScript Validation
+![image](assets/images/testing/css-validation.jpg)
 
-![image](assets/images/testing/eslint-linter.jpg)
+
+
+### JavaScript Validation
+([back to top](#testing-documentation))
 
 I initially used JSLint but found it was overly strict. Not only did I have hundreds of warnings concerned with alphabetical order in objects, it also refused to recognise 'for' loops as legitimate JavaScript.
 The research I subsequently did suggests that the use of 'for' loops is a matter of preference, and it's certainly a method I have been taught on the course as standard practice!
@@ -60,12 +59,15 @@ On testing my JavaScipt file for errors, I found six using ES lint:
    - A duplicate function to close alerts on the homepage.
    - I had wrongly assigned my item filter function to a constant.  I'm not actually sure how or why it was working at all prior to amending it!
 
+![image](assets/images/testing/eslint-linter.jpg)
+
 Following my final meeting with my mentor, he recommended I pass the file through jshint.  
 It turned up a number of errors, mostly involving missing semicolons, but now the code passes through cleanly:
 
 ![image](assets/images/testing/jshint.jpg)
 
 ### Lighthouse Audit
+([back to top](#testing-documentation))
 
 #### Homepage
 
@@ -88,6 +90,7 @@ I also conducted a test on the game state itself.  Some issues were identified w
 ([back to top](#testing-documentation))
 
 ### Site Owner User Stories
+([back to top](#testing-documentation))
 
 _"Initial Engagement: On landing there has to be a strong theme, engaging visuals and an intuitive UI to encourage users to stay and play the game."_\
 The theme of the page is established immediately and carried througout the site, with the atmomspheric background, style of buttons and images.
@@ -126,6 +129,7 @@ Combat is turn-based which gives the player full control over every attack.  The
 
 
 ### Site Visitor User Stories
+([back to top](#testing-documentation))
 
 _"Instant Access:  Office users in particular want to be able to click a button and get stuck in during their lunchbreak, without lots of interim steps."_\
 The option to start the game is immediately available and obvious - the player doesn't even need to enter a name! Once in the game state it is very clear and intuitive how the game should be played.
