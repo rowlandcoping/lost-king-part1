@@ -25,7 +25,7 @@ Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/
 [Technical Information](#technical-information)
 
 ## UX - Strategy 
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### 1) Research
 
@@ -86,7 +86,7 @@ It is envisaged that the game will be played by either gamers, particularly thos
 - Brief but glorious:  This is a lunchbreak/codebreak thing, and there will be no save game function, so it needs to be over relatively quickly.
 
 ## UX - Scope
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### Technology
 
@@ -128,7 +128,7 @@ It is envisaged that the game will be played by either gamers, particularly thos
 - Storyline: An extended storyline with escalating difficulty and more varied choices with multiple end points (leading into the second part of the story, which would be beyond the scope of this project).
 
 ## UX - Structure
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### Navigation
 
@@ -195,7 +195,7 @@ Once the game has ended - more than likely this will resemble the landing page, 
 - Options to share / receive game data via APIs.
 
 ## UX - Skeleton
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### Design Choices
 
@@ -261,7 +261,7 @@ From this point building out the content around the flow chart should be straigh
 Please find the wireframes [HERE](WIREFRAMES.md).
 
 ## UX - Surface
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### Color Palate
 
@@ -351,12 +351,12 @@ Overall I have limited the number of break points to avoid an overload of CSS mi
 There are also a few tweaks for intermediate screen sizes, particularly regarding background management.
 
 ## Testing Documentation
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 Please find all testing documentation [HERE](TESTING.md).
   
 ## Deployment
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### Initial Deployment
 
@@ -428,7 +428,7 @@ Although I have not used Linux on this occasion, I have done in the past. I set 
   - Once you have followed the guide you will have your own local development environment!
 
 ## Credits
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 ### Fonts
 
@@ -448,7 +448,7 @@ All images created using [Bing Image Creator](https://www.bing.com/create) and a
 Thanks once again to Mitko and also Iris for your infinite patience.  Also thanks to everyone who playtested, and at least pretended to enjoy the journey!
 
 ## Technical Information
-([back to top](#the-lost-king-of-catland))
+([back to top](#contents))
 
 Version Control: Git and Github.\
 Linter: ESlint.\

@@ -8,12 +8,13 @@
 
 [HTML Validation](#html-validation)\
 [CSS Validation](#css-validation)\
+[JavaScript Validation](#javascript-validation)
 [Lighthouse Audit](#lighthouse-audit)
 
 ### User Story Validation
 
-[Restauranteur User Stories](#restauranteur-user-stories)\
-[Customer User Stories](#customer-user-stories)
+[Site Owner User Stories](#site-owner-user-stories)\
+[Site Visitor User Stories](#site-visitor-user-stories)
 
 ### Testing
 
@@ -176,7 +177,7 @@ A significant chunk of code has been tested automatically, including the item se
 With certain phases of the project, the value was quite clear - for example automated testing uncovered a number of issues with the item search algorithms.
 
 However as the project has progressed the limitations of Jest and in particular my proficiency at using it has been exposed.  There are a number of reasons why I have removed automated testing from the project:
- - Personal knowledge: It became clear to me that in order to perform testing of some of the more complex functions, I needed knowledge of Jest way beyond what had been taught on the course, or that I had time to learn whislt working on this project (eg mock functions).  If I'm honest, it seems Jest is not straightforward to use effectively (outside the scope of the CI Jest module, in any case).
+ - Personal knowledge: It became clear to me that in order to perform testing of some of the more complex functions, I needed knowledge of Jest way beyond what had been taught on the course, or that I had time to learn whilst working on this project (eg mock functions).  If I'm honest, it seems Jest is not straightforward to use effectively (outside the scope of the CI Jest module, in any case).
  - Time: towards The end of the first week I spent many hours attempting to properly configure Jest and use it for complete coverage.  It soon became clear with the amount of code that would need testing that this was impractical.
  - Effectiveness:  At the end of the first week working on the project, I found a major bug with the battle code, which hadn't been uncovered by Jest.  It was actually down to an error in my logic that persisted in my testing procedure delivering false positives - and therefore only manual testing was able to uncover the inconsistencies it created.  I quickly decided that my limited testing time would be better spent in that direction.
  - Project Scope: As a solo project mainly concerned with events in the DOM, the usefulness of automated testing was limited.  The sheer amount of code that needed testing and the simplicity of much of it turned testing into a purely academic exercise.
@@ -202,9 +203,9 @@ Due to the size of the project there have been many challenges and bugs that hav
 
 #### Coding Issues
 
- - A frustrating initial issue was a failure to load buttons on the page prior to the content I wanted on the buttons being applied to them, which meant blank text.  I resolved it by changing the way I coded event listeners.
- - I had further issues removing event listeners to freeze the screen for custom alerts, which I could only resolve by refactoring the event listeners as constants so that I could add or remove them in JavaScript.
- - When it comes to MHTL and CSS, I have discovered there are few issues that cannot be overcome by judicious use of flexbox.  It's been a revelation for me.
+ - A frustrating initial issue was the buttons on the page loading prior to the content I wanted to display on them, which meant the text would not display.  I resolved it by changing the way I coded event listeners to ensure events fired in the intended order.
+ - I had further issues removing event listeners from buttons so that they would not be active if an alert appeared. I could only resolve this issue by refactoring the event listeners as constants so that I could add or remove them in JavaScript.
+ - When it comes to HHTL and CSS, I have discovered there are few issues that cannot be overcome by judicious use of flexbox.  It's been a revelation for me.
 
 #### Item Search Mechanic Bugs
 
