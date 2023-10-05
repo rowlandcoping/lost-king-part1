@@ -563,7 +563,7 @@ Thanks once again to Mitko and also Iris for your infinite patience.  Also thank
 ([back to top](#contents))
 
 Version Control: Git and Github.\
-Linter: ESlint.\
+JavaScript validation: ESlint and jshint\
 Languages: HTML, CSS, JavaScript.\
 Development Environment: VS Code on Windows.\
 Wireframes: Balsamiq.\
