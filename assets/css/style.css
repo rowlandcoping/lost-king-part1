@@ -594,6 +594,9 @@ ul {
 #lost-page nav {
     margin-bottom: 100px;
 }
+#lost-page button {
+    padding:5px;
+}
 
 /********** MEDIA QUERIES **********/
 
