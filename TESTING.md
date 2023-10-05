@@ -8,7 +8,7 @@
 
 [HTML Validation](#html-validation)\
 [CSS Validation](#css-validation)\
-[JavaScript Validation](#javascript-validation)
+[JavaScript Validation](#javascript-validation)\
 [Lighthouse Audit](#lighthouse-audit)
 
 ### User Story Validation
