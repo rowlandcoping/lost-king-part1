@@ -16,6 +16,7 @@ Welcome to the documentation for The Lost King - Part 1, an interactive fantasy/
 
 ### Testing and Deployment
 
+[Game Features](#game-features)\
 [Testing Documentation](#testing-documentation)\
 [Deployment](#deployment)
 
@@ -349,6 +350,117 @@ Overall I have limited the number of break points to avoid an overload of CSS mi
  - min width 3072px (for larger screen sizes).
 
 There are also a few tweaks for intermediate screen sizes, particularly regarding background management.
+
+## Game Features
+([back to top](#contents))
+
+I have outlined below the key features in the submitted version of the game along with screenshots:
+
+### Landing Page Game State
+
+ - 'About Game' and 'How to Play' sections trigger alerts with the appropriate information.
+
+![image](assets/images/features/home-buttons.jpg)
+
+ - Player can enter a name then start the game (or choose not to enter a name which will use a default).
+
+![image](assets/images/features/start-game.jpg)
+
+ - Custom alerts provide the player with information about the game.
+
+![image](assets/images/features/home-alerts.jpg)
+
+ - Images on homepage are shuffled from an array of all in-game images on page load.
+
+![image](assets/images/features/shuffle.jpg)
+
+### Game Page Game State
+
+Navigation at the top right of the page is in a traditional location - options to give up (progress to end page game state), restart (revert to initial game state with same character) or reset (revert to landing page game state).
+
+![image](assets/images/features/game-nav.jpg)
+
+Dynamic character image with changes depending on the defence (clothing) item a player has acquired.  Screengrab is the default.
+
+![image](assets/images/features/character-image.jpg)
+
+On game start character stats randomly generated, and name dynamically populated as game progresses (depending on what options character selects).
+
+![image](assets/images/features/initial-stats.jpg)
+
+Game text appears in the centre of the page, and will be reflective of the character's location, the actions they have taken and the choices they have made.
+
+![image](assets/images/features/game-text.jpg)
+
+Game choices appear in the lower portion of this central element and are conistently sited in all game modes.
+
+![image](assets/images/features/choices.jpg)
+
+Backgrounds of the game text section vary depending on the location and actions the player has taken.
+
+![image](assets/images/features/backgrounds.jpg)
+
+On occasions where a player tests their luck it is clearly indicated in the option.
+
+![image](assets/images/features/luck-test.jpg)
+
+Items acquired and enemies encountered appear in the central area of the page in their own screen mode.
+
+![image](assets/images/features/item-section.jpg)
+
+Once battle has been entered a seperate screen mode is triggered.
+
+![image](assets/images/features/battle-section.jpg)
+
+Player options for each battle round vary depending on the items or weapons carried.  This also applies to some locations.
+
+![image](assets/images/features/battle-options.jpg)
+
+Player health is visibly updated after each battle round or negative event.
+
+![image](assets/images/features/health-update.jpg)
+
+Outcomes of each fight round are clearly indicated depending on weapon used, and enemy health updated after each round to indicate progress.
+
+![image](assets/images/features/battle-outcomes.jpg)
+
+The battle text also provides indicators of which weapons are most effective against which enemy.
+
+![image](assets/images/features/type-clues.jpg)
+
+If a potion is used in battle it updates character stats temporarily, which is reflected on the character sheet.
+
+![image](assets/images/features/potion-stat.jpg)
+
+Items section initially has clear icons reflecting empty item slots for various item categories
+
+![image](assets/images/features/items-section.jpg)
+
+When items are acquired this is reflected in the UI.
+
+![image](assets/images/features/item-acquired.jpg)
+
+Item stats also update the charater's skills which is reflected in the character sheet.
+
+![image](assets/images/features/item-sheet.jpg)
+
+If a player acquires an item whose category slot is already occupied, they are presented with a choice of which item they would like to keep.
+
+![image](assets/images/features/item-alert.jpg)
+
+### Gameover Game State
+
+The gameover page displays an indication of time spent in game and the player's score.
+
+![image](assets/images/features/time-score.jpg)
+
+The player is presented with text indicating how their game ended.
+
+![image](assets/images/features/death-news.jpg)
+
+The navigation at the bottom of the page offers the options to restart from the initial game state as the same character or reset to the homepage.
+
+![image](assets/images/features/gameover-buttons.jpg)
 
 ## Testing Documentation
 ([back to top](#contents))

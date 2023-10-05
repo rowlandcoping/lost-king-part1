@@ -60,6 +60,11 @@ On testing my JavaScipt file for errors, I found six using ES lint:
    - A duplicate function to close alerts on the homepage.
    - I had wrongly assigned my item filter function to a constant.  I'm not actually sure how or why it was working at all prior to amending it!
 
+Following my final meeting with my mentor, he recommended I pass the file through jshint.  
+It turned up a number of errors, mostly involving missing semicolons, but now the code passes through cleanly:
+
+![image](assets/images/testing/jshint.jpg)
+
 ### Lighthouse Audit
 
 #### Homepage

@@ -1,3 +1,19 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //CHARACTER OBJECTS
 
 //player objects
@@ -159,7 +175,7 @@ const fireMage = {
     choices: `
     <li><button class="choice-button" id="choice-thirty-nine">What. Is. My. Name.</button></li>
     `
-}
+};
 const giantSpider = {
     name: "Giant Spider",
     description: `
@@ -193,7 +209,7 @@ const giantSpider = {
     choices: `
     <li><button class="choice-button" id="choice-fourty-seven">That's probably the least fun I've had so far.</button></li>
     `
-}
+};
 const bigBug = {
     name: "Giant Cockroach",
     description: `
@@ -224,7 +240,7 @@ const bigBug = {
     choices: `
     <li><button class="choice-button" id="choice-fifty-eight">I hate those things.</button></li>
     `
-}
+};
 
 //ITEM OBJECTS
 
@@ -567,7 +583,7 @@ const slime = {
     alt: "The battered hand of a warrior holding a handful of blue slime.",
     score: 5,
     description: "This slime is no longer sentient, but it still retains some key properties of the dangerous monstrosity, in that it is slimy. As you might expect."
-}
+};
 const catSword = {
     category: "weapon",
     adjective: "a nifty",
@@ -580,12 +596,12 @@ const catSword = {
     alt: "A small pointy sword, suitable for use by a cat.",
     score: 10,
     description: "This seems to be the primary weapon of the cat warriors you have encountered.  It's small, light and perilously pointy."
-}
+};
 const specialObject = {
     name: "",
     image: "assets/images/items/orb-cusion.webp",
     alt: "A glowing golden orb on a cusion. It looks very special."
-}
+};
 
 // CHARACTER INFO STORAGE
 
@@ -598,7 +614,7 @@ const currentWeapon = {
     type: "",
     image: "", 
     alt: ""
-}
+};
 const currentDefence = {
     category: "",
     name: "",
@@ -608,21 +624,21 @@ const currentDefence = {
     alt: "",
     playerAlt: "",
     vulnerability: ""
-}
+};
 const currentPotion = {
     category: "",
     name: "",
     effect: "",
     image: "", 
     alt: ""
-}
+};
 const currentObject = {
     category: "",
     name: "",
     effect: "",
     image: "", 
     alt: ""
-}
+};
 //Object temporarily containing item found
 const foundItemInfo = {
     category: "",
@@ -641,7 +657,7 @@ const foundItemInfo = {
     score: 0,
     description: "",
     vulnerability: ""
-}
+};
 //Object logging player actions
 const thingsWhatYouveDone = {
     firstRoomSearch: false,
@@ -674,7 +690,7 @@ const thingsWhatYouveDone = {
     courtPrisonChance: 70,
     startTime:0,
     endTime:0
-}
+};
 const thingsWhatYouveDoneInitial = {
     firstRoomSearch: false,
     slimeKill: false,
@@ -705,7 +721,7 @@ const thingsWhatYouveDoneInitial = {
     courtGodChance: 15,
     courtHangChance: 15,
     courtPrisonChance: 70
-}
+};
 function thingsReset() {
     thingsWhatYouveDone.firstRoomSearch = thingsWhatYouveDoneInitial.firstRoomSearch;
     thingsWhatYouveDone.slimeKill = thingsWhatYouveDoneInitial.slimeKill;
@@ -720,11 +736,10 @@ function thingsReset() {
     thingsWhatYouveDone.cellOneSearched = thingsWhatYouveDoneInitial.cellOneSearched;
     thingsWhatYouveDone.cellTwoSearched = thingsWhatYouveDoneInitial.cellTwoSearched;
     thingsWhatYouveDone.bugFight = thingsWhatYouveDoneInitial.bugFight;
-    thingsWhatYouveDone.prisonerSearched =thingsWhatYouveDoneInitial.prisonerSearched
-    thingsWhatYouveDone.potionDefence = thingsWhatYouveDoneInitial.potionDefence
-    thingsWhatYouveDone.potionPower = thingsWhatYouveDoneInitial.potionPower
-    thingsWhatYouveDone.catsGoneDiningVisit = thingsWhatYouveDoneInitial.catsGoneDiningVisit
-
+    thingsWhatYouveDone.prisonerSearched =thingsWhatYouveDoneInitial.prisonerSearched;
+    thingsWhatYouveDone.potionDefence = thingsWhatYouveDoneInitial.potionDefence;
+    thingsWhatYouveDone.potionPower = thingsWhatYouveDoneInitial.potionPower;
+    thingsWhatYouveDone.catsGoneDiningVisit = thingsWhatYouveDoneInitial.catsGoneDiningVisit;
     thingsWhatYouveDone.prisonVisits = thingsWhatYouveDoneInitial.prisonVisits;
     thingsWhatYouveDone.catCourtVisits = thingsWhatYouveDoneInitial.catCourtVisits;
     thingsWhatYouveDone.catsKilled = thingsWhatYouveDoneInitial.catsKilled;
@@ -1076,7 +1091,7 @@ const firstCavern = {
     optionsThreeSearchedTwo:`
     <li><button class="choice-button" id="choice-twenty-three">I think we've exhausted all the fun in this room.  Let's move on!</button></li>
     `
-}
+};
 //object for corridor with slime encounter.
 const slimeCorridor = {
     background: "url('assets/images/backgrounds/corridorv3.webp')",
@@ -1269,7 +1284,7 @@ const slimeCorridor = {
         document.getElementById('alert-page').style.display = "none";
         thingsWhatYouveDone.slimeCollect = true;
         foundItemInfo.category = slime.category;
-        foundItemInfo.adjective = slime.adjective
+        foundItemInfo.adjective = slime.adjective;
         foundItemInfo.name = slime.name;
         foundItemInfo.effect = slime.effect;
         foundItemInfo.image = slime.image;
@@ -1289,7 +1304,7 @@ const slimeCorridor = {
     <li><button class="choice-button" id="choice-twenty">Leave the area, by returning the way you came from.</button></li>
     <li><button class="choice-button" id="choice-twenty-one">Leave the area, by rounding the bend in the passageway.</button></li>
     `
-}
+};
 //object for room where cats are encountered.
 const catCavern = {
     background: "url('assets/images/backgrounds/cat-cavern.webp')",
@@ -1480,7 +1495,7 @@ const catCavern = {
         if (mainCharacterCurrent.health + 20 <= mainCharacter.health) {
             mainCharacterCurrent.health += 20;
         } else {
-            mainCharacterCurrent.health = mainCharacter.health
+            mainCharacterCurrent.health = mainCharacter.health;
         }
         document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You crunch down the cat biscuits, restoring <span class='green'>20</span> health. Fortunately they taste much better than they smell. The cats look displeased, and a little sad.";
         document.getElementById('object-outline').style.display = "block";
@@ -1550,7 +1565,7 @@ const catCavern = {
     getCatSword: function getCatSword() {
         changeModeToItemWindow();
         foundItemInfo.category = catSword.category;
-        foundItemInfo.adjective = catSword.adjective
+        foundItemInfo.adjective = catSword.adjective;
         foundItemInfo.name = catSword.name;
         foundItemInfo.attack = catSword.attack;
         foundItemInfo.skill = catSword.skill;
@@ -1653,20 +1668,16 @@ const catCavern = {
         document.getElementById('alert-page').style.display = "none";
         if (thingsWhatYouveDone.firstCatKilled && thingsWhatYouveDone.getCatSword) {
             if (thingsWhatYouveDone.catsKilled === 1) {
-            document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A cat corpse is" 
-            + this.catCavernExitTextThree + this.catCavernExitTextExits;
+            document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A cat corpse is" + this.catCavernExitTextThree + this.catCavernExitTextExits;
             } else {
-                document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A small pile of cat corpses are" 
-                + this.catCavernExitTextThree + this.catCavernExitTextExits;
+                document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A small pile of cat corpses are" + this.catCavernExitTextThree + this.catCavernExitTextExits;
             }
             document.getElementById('choices-section').innerHTML = this.exitOptionsOne;
         } else if (thingsWhatYouveDone.firstCatKilled) {
             if (thingsWhatYouveDone.catsKilled === 1) {
-                document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A cat corpse is" 
-                + this.catCavernExitTextThree + this.catCavernExitTextFour + this.catCavernExitTextExits;
+                document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A cat corpse is" + this.catCavernExitTextThree + this.catCavernExitTextFour + this.catCavernExitTextExits;
             } else {
-                document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A small pile of cat corpses are" 
-                + this.catCavernExitTextThree + this.catCavernExitTextFour + this.catCavernExitTextExits;
+                document.getElementById('game-text').innerHTML = this.catCavernExitTextOne + this.catCavernExitTextTwo + "A small pile of cat corpses are" + this.catCavernExitTextThree + this.catCavernExitTextFour + this.catCavernExitTextExits;
             }
             document.getElementById('choices-section').innerHTML = this.exitOptionsOne + this.exitOptionsTwo;
         } else {
@@ -1708,7 +1719,7 @@ const catCavern = {
             slimeCorridor.slimeEncounter();
         }
     }
-}
+};
 //object for game end room.
 const mysteryRoom = {
     background: "url('assets/images/backgrounds/mystery-room.webp')",
@@ -1764,7 +1775,7 @@ const mysteryRoom = {
     <li><button class="choice-button" id="choice-thirty-eight">Well of course... but... yeah well this can't be good...</button></li>
     `,
     sorcererFight: function sorcererFight() {
-        let mageChance = getRandomNumber(0,100)
+        let mageChance = getRandomNumber(0,100);
         if (mageChance <= 50) {
             changeModeToItemWindow();
             document.getElementById('lower-text').style.display = "none";
@@ -1818,7 +1829,7 @@ const mysteryRoom = {
         document.getElementById('potion-button').firstChild.setAttribute("id", "mage-three");
         testForWeapons(enemy);
     },
-}
+};
 //object with details for ending scene.
 const endingScene = {
     endingScene: function endingScene() {
@@ -1835,7 +1846,7 @@ const endingScene = {
     <p>Now is the time to find out who you REALLY are. And when the time is right?</p>
     <p>VENGEANCE.</p>
     `
-}
+};
 //object for going up and down the stairs.
 const dangerStairs = {
     background: "url('assets/images/backgrounds/danger-stairs.webp')",
@@ -1945,7 +1956,7 @@ const dangerStairs = {
                 this.deathStairs();
             } else if (fallOutcome === "injury") {
                 mainCharacter.score -=5;
-                let injuryStair = getRandomNumber(0,7)
+                let injuryStair = getRandomNumber(0,7);
                 mainCharacterCurrent.health -= injuryStair;
                 if (mainCharacterCurrent.health<=0) {
                     this.deathStairs();
@@ -1988,7 +1999,7 @@ const dangerStairs = {
     <p>You have little time to think before your brains are dashed out on the rocks below.
     <br>YOU ARE DEAD</p>
     `
-}
+};
 //object for the spider cave and back section.
 const spiderRoom = {
     background: "url('assets/images/backgrounds/spider-cave.webp')",
@@ -2137,7 +2148,7 @@ const spiderRoom = {
                 this.deathRope();
             } else if (fallOutcome === "injury") {
                 mainCharacter.score -=10;
-                let injuryRope = getRandomNumber(0,7)
+                let injuryRope = getRandomNumber(0,7);
                 mainCharacterCurrent.health -= injuryRope;
                 if (mainCharacterCurrent.health<=0) {
                     this.deathRope();
@@ -2249,7 +2260,7 @@ const spiderRoom = {
     spiderRearChoices: `
     <li><button class="choice-button" id="choice-fifty">And so it continues.</button></li>
     `
-}
+};
 //object for the cat dining room.
 const catDining = {
     background: "url('assets/images/backgrounds/cat-dining-full.webp')",
@@ -2341,14 +2352,14 @@ const catDining = {
     <li><button class="choice-button" id="choice-fifty-three">Continue along the corridor.</button></li>
     <li><button class="choice-button" id="choice-twenty-three">Go back to the cat cavern.</button></li>
     `
-}
+};
 //object for the court of the cat king and queen.
 const catCourt = {
     background: "url('assets/images/backgrounds/cat-court.webp')",
     orbImage: `<img src="assets/images/items/orb-cusion-wide.webp" alt="` + specialObject.alt + `">`,
     catCourt: function catCourt(){
         changeModeToMainWindow();
-        thingsWhatYouveDone.catCourtVisits +=1
+        thingsWhatYouveDone.catCourtVisits +=1;
         mainCharacter.score += 5;
         document.getElementById('game-section').style.backgroundImage = this.background;
         document.getElementById('game-text').innerHTML = this.catCourtText;
@@ -2409,7 +2420,7 @@ const catCourt = {
             foundItemInfo.image = characterDefence[1].image;
             foundItemInfo.alt = characterDefence[1].alt;
             foundItemInfo.playerAlt = characterDefence[1].playerAlt;
-            foundItemInfo.playerImage = characterDefence[1].playerImage
+            foundItemInfo.playerImage = characterDefence[1].playerImage;
             foundItemInfo.score = characterDefence[1].score;
             foundItemInfo.description = characterDefence[1].description;
             displayItem();
@@ -2422,7 +2433,7 @@ const catCourt = {
             foundItemInfo.image = characterDefence[4].image;
             foundItemInfo.alt = characterDefence[4].alt;
             foundItemInfo.playerAlt = characterDefence[4].playerAlt;
-            foundItemInfo.playerImage = characterDefence[4].playerImage
+            foundItemInfo.playerImage = characterDefence[4].playerImage;
             foundItemInfo.score = characterDefence[4].score;
             foundItemInfo.description = characterDefence[4].description;
             displayItem();
@@ -2544,7 +2555,7 @@ const catCourt = {
     <p>Finally he gestures toward the guards, and they gather around and begin escorting you towards the back of the Great Hall.</p>
     `,
     catPrisonChoices: `<li><button class="choice-button" id="choice-fifty-eight">Things could be worse, I guess...</button></li>`
-}
+};
 //object for the cat corridor.
 const catCorridor = {
     background: "url('assets/images/backgrounds/cat-corridor-one.webp')",
@@ -2608,7 +2619,7 @@ const catCorridor = {
     <li><button class="choice-button" id="choice-sixty-one">Investigate the doorway.</button></li>
     <li><button class="choice-button" id="choice-thirty-four">Turn around and head back the other way, towards the dining hall.</button></li>
     `
-}
+};
 //object for the cat prison.
 const catPrison = {
     background: "url('assets/images/backgrounds/cat-prison.webp')",
@@ -2716,7 +2727,7 @@ const catPrison = {
         foundItemInfo.image = characterDefence[0].image;
         foundItemInfo.alt = characterDefence[0].alt;
         foundItemInfo.playerAlt = characterDefence[0].playerAlt;
-        foundItemInfo.playerImage = characterDefence[0].playerImage
+        foundItemInfo.playerImage = characterDefence[0].playerImage;
         foundItemInfo.score = characterDefence[0].score;
         foundItemInfo.description = characterDefence[0].description;
         foundItemInfo.vulnerability = characterDefence[0].vulnerability;
@@ -2980,7 +2991,7 @@ const catPrison = {
     <br>You HAVE to find more of this stuff.</p>
     <p>Confident there will be no more bugs in the area, you can continue your search.</p>
     `
-}
+};
 //object if the player presses the give up button.
 const giveUpGame = {
     giveUpGame: function giveUpGame() {
@@ -2996,7 +3007,7 @@ const giveUpGame = {
     <br>Sweet nothingness.</p>
     <p>YOU ARE DEAD</p>
     `
-}
+};
 
 
 // HELPER FUNCTIONS
@@ -3127,18 +3138,18 @@ function searchForItem(chanceWeapon, chanceDefence, chancePotion, chanceObject) 
                 foundItemInfo.name = i.name;
                 foundItemInfo.attack = i.attack;
                 foundItemInfo.skill = i.skill;
-                foundItemInfo.resist = i.resist,
-                foundItemInfo.magic = i.magic,
-                foundItemInfo.type = i.type,
-                foundItemInfo.image = i.image,
-                foundItemInfo.alt = i.alt,
-                foundItemInfo.playerAlt = i.playerAlt,
-                foundItemInfo.playerImage = i.playerImage,
-                foundItemInfo.effect = i.effect,
-                foundItemInfo.defence = i.defence,
-                foundItemInfo.score = i.score,
-                foundItemInfo.description = i.description
-                foundItemInfo.vulnerability = i.vulnerability
+                foundItemInfo.resist = i.resist;
+                foundItemInfo.magic = i.magic;
+                foundItemInfo.type = i.type;
+                foundItemInfo.image = i.image;
+                foundItemInfo.alt = i.alt;
+                foundItemInfo.playerAlt = i.playerAlt;
+                foundItemInfo.playerImage = i.playerImage;
+                foundItemInfo.effect = i.effect;
+                foundItemInfo.defence = i.defence;
+                foundItemInfo.score = i.score;
+                foundItemInfo.description = i.description;
+                foundItemInfo.vulnerability = i.vulnerability;
             }
         }
     }
@@ -3232,7 +3243,7 @@ function itemStorage() {
             currentObject.image = foundItemInfo.image;
             currentObject.alt = foundItemInfo.alt;
         } else {
-            mainCharacterCurrent.luck = mainCharacter.luck
+            mainCharacterCurrent.luck = mainCharacter.luck;
             currentObject.category = foundItemInfo.category;
             currentObject.name = foundItemInfo.name;
             currentObject.effect = foundItemInfo.effect;
@@ -3258,11 +3269,11 @@ function storeItem() {
         document.getElementById('weapon-outline').style.display = "none";
         document.getElementById('weapon-item-image').innerHTML = `<img src="` + currentWeapon.image + `" alt = "` + currentWeapon.alt + `">`;
         document.getElementById('weapon-item-name').innerHTML = currentWeapon.name;
-        document.getElementById('weapon-list-item-one').innerHTML = "ATT:"
+        document.getElementById('weapon-list-item-one').innerHTML = "ATT:";
         document.getElementById('weapon-list-stat-one').innerHTML = currentWeapon.attack;
         document.getElementById('main-strength').innerHTML = mainCharacter.strength + currentWeapon.attack;
         document.getElementById('strength-modify').innerHTML = "(+" + currentWeapon.attack + ")";
-        document.getElementById('weapon-list-item-two').innerHTML = "SKL:"
+        document.getElementById('weapon-list-item-two').innerHTML = "SKL:";
         document.getElementById('weapon-list-stat-two').innerHTML = currentWeapon.skill;
         document.getElementById('main-skill').innerHTML = mainCharacter.skill + currentWeapon.skill;
         if (currentWeapon.name === "Oathbringer") {
@@ -3587,7 +3598,7 @@ function potionRound(enemy, weapon) {
         if (mainCharacterCurrent.health + 50 <= mainCharacter.health) {
             mainCharacterCurrent.health =+ 50;
         } else {
-            mainCharacterCurrent.health = mainCharacter.health
+            mainCharacterCurrent.health = mainCharacter.health;
         }
         document.getElementById('battle-text-player').innerHTML = `<span class="green">` + mainCharacter.name + `: </span>` + "You drink down the restorative balm, and feel instantly re-invigorated";
         document.getElementById('potion-outline').style.display = "block";
@@ -3691,7 +3702,7 @@ function enemyTurn(enemy, weapon) {
         document.getElementById('battle-text-enemy').innerHTML = `<span class="red">` + enemy.name + `: </span>` + enemy.missedText;
         continueFight(enemy);
     } else {
-        let roundDamage = Math.floor(roundResult * enemyTestResistances(enemy))
+        let roundDamage = Math.floor(roundResult * enemyTestResistances(enemy));
         if (roundDamage > 0) {mainCharacterCurrent.health -= roundDamage;}
         if (mainCharacterCurrent.health > 0) {
             if (roundDamage>0) {
@@ -3921,7 +3932,7 @@ const aboutAlertButton = function(e) {
     if(target){ 
         aboutGameAlert();
     }
-}
+};
 document.addEventListener("click", aboutAlertButton);
 //Playing game page alert
 const playAlertButton = function(e) {
@@ -3929,7 +3940,7 @@ const playAlertButton = function(e) {
     if(target){ 
         playGameAlert();
     }
-}
+};
 document.addEventListener("click", playAlertButton);
 //Close landing page alert
 document.addEventListener("click", function(e){
@@ -3950,7 +3961,7 @@ const startGameButton = function(e) {
     if(target){ 
         startGame();
     }
-}
+};
 document.addEventListener("click", startGameButton);
 //prevent enter key from submitting
 document.addEventListener('DOMContentLoaded', function () {  
@@ -3969,7 +3980,7 @@ const giveUpGameButton = function(e) {
     if(target){ 
         giveUpGame.giveUpGame();
     }
-}
+};
 document.addEventListener("click", giveUpGameButton);
 //in-game restart game button
 const restartGameButton = function(e) {
@@ -3977,7 +3988,7 @@ const restartGameButton = function(e) {
     if(target){ 
         startGame();
     }
-}
+};
 document.addEventListener("click", restartGameButton);
 //end game restart game button
 document.addEventListener('DOMContentLoaded', function () {  
@@ -3989,7 +4000,7 @@ const resetGameButton = function(e) {
     if(target){ 
         resetGame();
     }
-}
+};
 document.addEventListener("click", resetGameButton);
 //end game reset character button
 document.addEventListener('DOMContentLoaded', function () {  
@@ -4056,7 +4067,7 @@ const eight = function(e) {
     if(target){ 
         firstCavern.checkFirstItem();
     }
-}
+};
 document.addEventListener("click", eight);
 //ignore first item (move on)
 const nine = function(e) {
@@ -4064,7 +4075,7 @@ const nine = function(e) {
     if(target){ 
         firstCavern.ignoreFirstItem();
     }
-}
+};
 document.addEventListener("click", nine);
 //keep item (if slot full)
 document.addEventListener("click", function(e){
@@ -4203,7 +4214,7 @@ const twenty = function(e){
     if(target){ 
         firstCavern.caveReturn();
     }
-}
+};
 document.addEventListener("click", twenty );
 //continue alone corridor
 const twentyOne = function(e){
@@ -4211,7 +4222,7 @@ const twentyOne = function(e){
     if(target){
         catCavern.catCavern();
     }
-}
+};
 document.addEventListener("click", twentyOne);
 //pick up slime
 const twentyTwo = function(e){
@@ -4219,7 +4230,7 @@ const twentyTwo = function(e){
     if(target){
         slimeCorridor.checkSlime();
     }
-}
+};
 document.addEventListener("click",twentyTwo);
 // alert event handlers
 document.addEventListener("click", function(e){
@@ -4316,7 +4327,7 @@ const thirtyOne = function(e){
     if(target){ 
         catCavern.checkCatSword();
     }
-}
+};
 document.addEventListener("click", thirtyOne);
 //go to exit options page
 const thirtyTwo = function(e){
@@ -4324,7 +4335,7 @@ const thirtyTwo = function(e){
     if(target){
         catCavern.catExitOptions();
     }
-}
+};
 document.addEventListener("click", thirtyTwo);
 //sword alert options
 document.addEventListener("click", function(e){
@@ -4566,7 +4577,7 @@ const fiftyFive = function(e){
     if(target){
         catCourt.checkGiftItem();
     }
-}
+};
 document.addEventListener("click", fiftyFive);
 //opt to leave gifted item
 const fiftySix = function(e){
@@ -4574,7 +4585,7 @@ const fiftySix = function(e){
     if(target){
         catCourt.catCourtGodExit();
     }
-}
+};
 document.addEventListener("click", fiftySix);
 //leave cat court as a God
 document.addEventListener("click", function(e){
@@ -4595,7 +4606,7 @@ const fiftyEight = function(e){
     if(target){
         catPrison.catPrison();
     }
-}
+};
 document.addEventListener("click" ,fiftyEight);
 
 //ROOM 8 - CAT CORRIDOR
@@ -4645,7 +4656,7 @@ const sixtyNine = function(e){
     if(target){ 
         catPrison.checkGilet();
     }
-}
+};
 document.addEventListener("click", sixtyNine);
 //gilet alert options
 document.addEventListener("click", function(e){
@@ -4672,7 +4683,7 @@ const seventy = function(e){
     if(target){ 
         catPrison.checkCellItem();
     }
-}
+};
 document.addEventListener("click", seventy);
 //alert cell item options
 document.addEventListener("click", function(e){
