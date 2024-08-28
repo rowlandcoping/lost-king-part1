@@ -3596,7 +3596,7 @@ function potionRound(enemy, weapon) {
         }
     } else if (potionName === "Potion of Healing") {
         if (mainCharacterCurrent.health + 50 <= mainCharacter.health) {
-            mainCharacterCurrent.health =+ 50;
+            mainCharacterCurrent.health += 50;
         } else {
             mainCharacterCurrent.health = mainCharacter.health;
         }
