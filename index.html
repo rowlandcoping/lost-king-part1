@@ -17,9 +17,7 @@
                 <p>It is written using vanilla HTML, CSS and JavaScript.</p>
                 <p>The game concept borrows heavily from the Fighting Fantasy series of books, with the odd tip of the hat to games like Baldur's Gate and Disco Elysium.</p>
                 <p>All content © 2023 John Hall, all rights reserved.</p>
-                <ul>
-                    <li><button class="choice-button" id="about-alert-option">This is some great information.</button></li>
-                </ul>
+                <button class="choice-button" id="about-alert-option">This is some great information.</button>
             </div>
             <div class="landing-alert" id="playing-alert">
                 <h3>Character Choices:</h3>
@@ -52,9 +50,7 @@
                 <p>Some items you find in-game boost your character stats.  Some... don't.</p>
                 <h3>Game Objective:</h3>
                 <p>You must find a way to escape the dungeon!</p>
-                <ul>
-                    <li><button class="choice-button" id="play-alert-option">So intuitive.</button></li>
-                </ul>
+                <button class="choice-button" id="play-alert-option">So intuitive.</button>
             </div>
             <div class="alert-transparency" id = "landing-transparency">
                 <div id="landing-image-container">
@@ -63,10 +59,10 @@
                         <br>Part 1: Amnesia</h1>
                     </header>
                     <div id="middle-landing-section">
-                        <div id="middle-left-container">
+                        <div id="middle-left-container" class="clickable">
                             <h2>About the Game</h2>
                         </div>
-                        <div id="middle-right-container">
+                        <div id="middle-right-container" class="clickable">
                             <h2>Playing the Game</h2>
                         </div>
                     </div>
@@ -78,7 +74,7 @@
                             <form action="index.html" method="POST">
                                 <input type="text" id="character-name" name="character-name" placeholder="Enter Name">
                             </form>
-                            <button id="start-game-button">Start Game!</button>
+                            <button id="start-game-button" class="clickable">Start Game!</button>
                         </section>
                         <div id="landing-image-left">
                         </div>              
@@ -94,7 +90,7 @@
                 <div id="alert-item-pick">
                     <div id="keep-new">
                         <h3 id="alert-new-title">This is the new item.</h3>
-                        <div class="alert-image-container">              
+                        <div class="alert-image-container clickable">              
                             <div class="alert-new-image">
                             <div class="alert-result" id="new-alert-tick"><img src="assets/images/custom/green-tick.svg" alt="A large green tick, indicating you want to keep this item."></div>
                             <div class="alert-result" id="new-alert-cross"><img src="assets/images/custom/red-cross.svg" alt="A large red cross, indicating you wish to discard this item."></div>
@@ -103,7 +99,7 @@
                     </div>
                     <div id="keep-old">
                         <h3 id="alert-old-title">This is the old item.</h3>
-                        <div class="alert-image-container">
+                        <div class="alert-image-container clickable">
                             <div class="alert-old-image">
                             <div class="alert-result" id="old-alert-tick"><img src="assets/images/custom/green-tick.svg" alt="A large green tick, indicating you want to keep this item."></div>
                             <div class="alert-result" id="old-alert-cross"><img src="assets/images/custom/red-cross.svg" alt="A large red cross, indicating you wish to discard this item."></div>
@@ -118,9 +114,9 @@
                     <div id="title-right">
                         <nav>
                             <ul id="game-navigation">
-                                <li><button id="giveup-game-button">Give Up</button></li>
-                                <li><button id="restart-game-button">Restart</button></li>
-                                <li><button id="reset-game-button">Reset</button></li>
+                                <li><button class="clickable" id="giveup-game-button">Give Up</button></li>
+                                <li><button class="clickable" id="restart-game-button">Restart</button></li>
+                                <li><button class="clickable" id="reset-game-button">Reset</button></li>
                             </ul>
                         </nav>
                     </div>
@@ -355,8 +351,8 @@
             
                 <nav>
                     <ul id="end-game-navigation">
-                        <li><button id="restart-game-end-button">Restart</button></li>
-                        <li><button id="reset-game-end-button">Reset</button></li>
+                        <li><button id="restart-game-end-button" class="clickable">Restart</button></li>
+                        <li><button id="reset-game-end-button" class="clickable">Reset</button></li>
                     </ul>
                 </nav>
             </div>

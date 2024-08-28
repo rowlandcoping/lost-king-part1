@@ -1,5 +1,5 @@
 /********** UNIVERSAL **********/
-
+ 
 /*fonts*/
 @font-face {
     font-family: title;
@@ -59,6 +59,9 @@ ul {
 }
 .lightblue {
     color: lightblue;
+}
+.clickable {
+    cursor: pointer;
 }
 
 /********** LANDING PAGE STATE **********/
@@ -391,6 +394,9 @@ ul {
 /*navigation and battle choices*/
 #choices-section, #battles-section {
     margin:20px 0;
+}
+.choice-button {
+    cursor: pointer;
 }
 .choice-button, .choice-button:visited {
     background-color: #331704B3;
